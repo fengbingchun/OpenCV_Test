@@ -107,7 +107,7 @@
       <AssemblerListingLocation>.\../../../../obj/dbg/x86_vc12/OpenCV_Test\</AssemblerListingLocation>
       <ObjectFileName>.\../../../../obj/dbg/x86_vc12/OpenCV_Test\</ObjectFileName>
       <ProgramDataBaseFileName>.\../../../../obj/dbg/x86_vc12/OpenCV_Test\</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>D:\soft\OpenCV31\vs2013_dll\install\include;D:\soft\OpenCV31\vs2013_dll\install\include\opencv;D:\soft\OpenCV31\vs2013_dll\install\include\opencv2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\soft\OpenCV31\vs2013_dll\install\include;D:\soft\OpenCV31\vs2013_dll\install\include\opencv;D:\soft\OpenCV31\vs2013_dll\install\include\opencv2;E:\GitCode\OpenCV_Test\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -151,7 +151,7 @@
       <AssemblerListingLocation>.\../../../../obj/rel/x86_vc12/OpenCV_Test\</AssemblerListingLocation>
       <ObjectFileName>.\../../../../obj/rel/x86_vc12/OpenCV_Test\</ObjectFileName>
       <ProgramDataBaseFileName>.\../../../../obj/rel/x86_vc12/OpenCV_Test\</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>D:\soft\OpenCV31\vs2013_dll\install\include;D:\soft\OpenCV31\vs2013_dll\install\include\opencv;D:\soft\OpenCV31\vs2013_dll\install\include\opencv2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\soft\OpenCV31\vs2013_dll\install\include;D:\soft\OpenCV31\vs2013_dll\install\include\opencv;D:\soft\OpenCV31\vs2013_dll\install\include\opencv2;E:\GitCode\OpenCV_Test\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -168,6 +168,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\demo\OpenCV_Test.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\include\base.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
