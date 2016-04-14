@@ -10,10 +10,11 @@ int main()
 {
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png");
 
-	fbc::Point2i pt1, pt2, pt3;
-	pt1 = fbc::Point2i(1, 2);
-	pt2 = fbc::Point2i(3, 4);
-	pt3 = pt1 + pt2;
+	fbc::ImageBGR image;
+	image.data = matSrc.data;
+	image.width = matSrc.cols;
+	image.height = matSrc.rows;
+	image.stride = matSrc.step;
 
 	cv::namedWindow("show image");
 	cv::imshow("show image", matSrc);

@@ -16,14 +16,11 @@ template<typename _Tp> class Scalar_;
 // Image_
 template<typename _Tp, int cn>
 struct Image_ {
-	typedef _Tp value_type;
-	enum {
-		channels = cn;
-	};
-
-	_Tp* data;
+	int channels = cn;
+	const _Tp* data;
 	int width;
 	int height;
+	int stride;
 };
 
 typedef Image_<unsigned char, 1> ImageGray;
