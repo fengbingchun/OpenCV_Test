@@ -20,7 +20,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\include\base.hpp">
+    <ClInclude Include="..\..\..\..\include\core\base.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\core\saturate.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
