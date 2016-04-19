@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{A10E3DEF-E1EE-49CC-B025-DE741B0F81E8}</ProjectGuid>
+    <ProjectGuid>{B6E09E23-0528-4905-8D9E-390AB1B82391}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>OpenCV_Test</RootNamespace>
+    <RootNamespace>fbc_cv</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -31,7 +31,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -44,7 +44,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -71,16 +71,16 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>.\../../../../obj/dbg/x86_vc12/OpenCV_Test\</OutDir>
-    <IntDir>.\../../../../obj/dbg/x86_vc12/OpenCV_Test\</IntDir>
+    <OutDir>.\../../../../obj/dbg/x86_vc12/fbc_cv\</OutDir>
+    <IntDir>.\../../../../obj/dbg/x86_vc12/fbc_cv\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>.\../../../../obj/rel/x86_vc12/OpenCV_Test\</OutDir>
-    <IntDir>.\../../../../obj/rel/x86_vc12/OpenCV_Test\</IntDir>
+    <OutDir>.\../../../../obj/rel/x86_vc12/fbc_cv\</OutDir>
+    <IntDir>.\../../../../obj/rel/x86_vc12/fbc_cv\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -103,21 +103,19 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <PrecompiledHeaderOutputFile>.\../../../../obj/dbg/x86_vc12/OpenCV_Test\OpenCV_Test.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\../../../../obj/dbg/x86_vc12/OpenCV_Test\</AssemblerListingLocation>
-      <ObjectFileName>.\../../../../obj/dbg/x86_vc12/OpenCV_Test\</ObjectFileName>
-      <ProgramDataBaseFileName>.\../../../../obj/dbg/x86_vc12/OpenCV_Test\</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>D:\soft\OpenCV31\vs2013_dll\install\include;D:\soft\OpenCV31\vs2013_dll\install\include\opencv;D:\soft\OpenCV31\vs2013_dll\install\include\opencv2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\GitCode\OpenCV_Test\src\fbc_cv\include;E:\GitCode\OpenCV_Test\src\fbc_cv\include\core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderOutputFile>.\../../../../obj/dbg/x86_vc12/fbc_cv\fbc_cv.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../../../obj/dbg/x86_vc12/fbc_cv\</AssemblerListingLocation>
+      <ObjectFileName>.\../../../../obj/dbg/x86_vc12/fbc_cv\</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../../../obj/dbg/x86_vc12/fbc_cv\</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <OutputFile>.\../../../../lib/dbg/x86_vc12/OpenCV_Test.exe</OutputFile>
-      <AdditionalLibraryDirectories>D:\soft\OpenCV31\vs2013_dll\install\x64\vc12\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opencv_core310d.lib;opencv_highgui310d.lib;opencv_imgproc310d.lib;opencv_imgcodecs310d.lib;opencv_videoio310d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../../lib/dbg/x86_vc12/fbc_cv[dbg_x86_vc12].dll</OutputFile>
     </Link>
     <Bscmake>
-      <OutputFile>.\../../../../obj/dbg/x86_vc12/OpenCV_Test\OpenCV_Test.bsc</OutputFile>
+      <OutputFile>.\../../../../obj/dbg/x86_vc12/fbc_cv\fbc_cv.bsc</OutputFile>
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -147,27 +145,28 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <PrecompiledHeaderOutputFile>.\../../../../obj/rel/x86_vc12/OpenCV_Test\OpenCV_Test.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\../../../../obj/rel/x86_vc12/OpenCV_Test\</AssemblerListingLocation>
-      <ObjectFileName>.\../../../../obj/rel/x86_vc12/OpenCV_Test\</ObjectFileName>
-      <ProgramDataBaseFileName>.\../../../../obj/rel/x86_vc12/OpenCV_Test\</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>D:\soft\OpenCV31\vs2013_dll\install\include;D:\soft\OpenCV31\vs2013_dll\install\include\opencv;D:\soft\OpenCV31\vs2013_dll\install\include\opencv2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\GitCode\OpenCV_Test\src\fbc_cv\include;E:\GitCode\OpenCV_Test\src\fbc_cv\include\core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderOutputFile>.\../../../../obj/rel/x86_vc12/fbc_cv\fbc_cv.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../../../obj/rel/x86_vc12/fbc_cv\</AssemblerListingLocation>
+      <ObjectFileName>.\../../../../obj/rel/x86_vc12/fbc_cv\</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../../../obj/rel/x86_vc12/fbc_cv\</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <OutputFile>.\../../../../lib/rel/x86_vc12/OpenCV_Test.exe</OutputFile>
-      <AdditionalLibraryDirectories>D:\soft\OpenCV31\vs2013_dll\install\x64\vc12\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opencv_core310.lib;opencv_highgui310.lib;opencv_imgproc310.lib;opencv_imgcodecs310.lib;opencv_videoio310.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../../lib/rel/x86_vc12/fbc_cv[rel_x86_vc12].dll</OutputFile>
     </Link>
     <Bscmake>
-      <OutputFile>.\../../../../obj/rel/x86_vc12/OpenCV_Test\OpenCV_Test.bsc</OutputFile>
+      <OutputFile>.\../../../../obj/rel/x86_vc12/fbc_cv\fbc_cv.bsc</OutputFile>
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\demo\OpenCV_Test.cpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\core\fbcdef.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\fbc_cv\src\temp.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

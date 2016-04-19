@@ -15,7 +15,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\demo\OpenCV_Test.cpp">
+    <ClInclude Include="..\..\..\src\fbc_cv\include\core\fbcdef.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\fbc_cv\src\temp.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
