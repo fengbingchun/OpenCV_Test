@@ -18,6 +18,18 @@
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\fbcdef.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\fbc_cv\include\core\interface.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\fbc_cv\include\core\base.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\fbc_cv\include\core\matx.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\fbc_cv\include\core\saturate.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\fbc_cv\src\temp.cpp">

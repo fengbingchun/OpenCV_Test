@@ -21,7 +21,7 @@
 //template<typename _Tp> class Rect_;
 //template<typename _Tp> class Scalar_;
 //
-//////////////////////////////// Small Matrix ///////////////////////////
+////////////////////////////// Small Matrix ///////////////////////////
 //template<typename _Tp, int m, int n> class Matx
 //{
 //public:
@@ -34,7 +34,7 @@
 //	typedef _Tp                           value_type;
 //	typedef Matx<_Tp, m, n>               mat_type;
 //
-//	//! default constructor
+//	! default constructor
 //	Matx();
 //
 //	Matx(_Tp v0); //!< 1x1 matrix
@@ -52,35 +52,35 @@
 //	static Matx zeros();
 //	static Matx ones();
 //
-//	//! conversion to another data type
+//	! conversion to another data type
 //	template<typename T2> operator Matx<T2, m, n>() const;
 //
-//	//! change the matrix shape
+//	! change the matrix shape
 //	template<int m1, int n1> Matx<_Tp, m1, n1> reshape() const;
 //
-//	//! extract part of the matrix
+//	! extract part of the matrix
 //	template<int m1, int n1> Matx<_Tp, m1, n1> get_minor(int i, int j) const;
 //
-//	//! extract the matrix row
+//	! extract the matrix row
 //	Matx<_Tp, 1, n> row(int i) const;
 //
-//	//! extract the matrix column
+//	! extract the matrix column
 //	Matx<_Tp, m, 1> col(int i) const;
 //
-//	//! transpose the matrix
+//	! transpose the matrix
 //	Matx<_Tp, n, m> t() const;
 //
-//	//! multiply two matrices element-wise
+//	! multiply two matrices element-wise
 //	Matx<_Tp, m, n> mul(const Matx<_Tp, m, n>& a) const;
 //
-//	//! divide two matrices element-wise
+//	! divide two matrices element-wise
 //	Matx<_Tp, m, n> div(const Matx<_Tp, m, n>& a) const;
 //
-//	//! element access
+//	! element access
 //	const _Tp& operator ()(int i, int j) const;
 //	_Tp& operator ()(int i, int j);
 //
-//	//! 1D element access
+//	! 1D element access
 //	const _Tp& operator ()(int i) const;
 //	_Tp& operator ()(int i);
 //
@@ -415,7 +415,7 @@
 //	}
 //}
 //
-///////////////////////////////////////// Vec ///////////////////////////////////
+/////////////////////////////////////// Vec ///////////////////////////////////
 //template<typename _Tp, int cn> class Vec {
 //public:
 //	typedef _Tp value_type;
@@ -423,7 +423,7 @@
 //		channels = cn,
 //	};
 //
-//	//! default constructor
+//	! default constructor
 //	Vec();
 //
 //	Vec(_Tp v0); //!< 1-element vector constructor
@@ -436,10 +436,10 @@
 //
 //	static Vec all(_Tp alpha);
 //
-//	//! per-element multiplication
+//	! per-element multiplication
 //	Vec mul(const Vec<_Tp, cn>& v) const;
 //
-//	//! conjugation (makes sense for complex numbers and quaternions)
+//	! conjugation (makes sense for complex numbers and quaternions)
 //	Vec conj() const;
 //
 //	/*!
@@ -447,7 +447,7 @@
 //	For other dimensionalities the exception is raised
 //	*/
 //	Vec cross(const Vec& v) const;
-//	//! conversion to another data type
+//	! conversion to another data type
 //	template<typename T2> operator Vec<T2, cn>() const;
 //
 //	/*! element access */
@@ -658,22 +658,22 @@
 //	return v * (nv ? 1. / nv : 0.);
 //}
 //
-//// Size_
+// Size_
 //template<typename _Tp> class Size_ {
 //public:
 //	typedef _Tp value_type;
 //
-//	//! various constructors
+//	! various constructors
 //	Size_();
 //	Size_(_Tp _width, _Tp _height);
 //	Size_(const Size_& sz);
 //	Size_(const Point_<_Tp>& pt);
 //
 //	Size_& operator = (const Size_& sz);
-//	//! the area (width*height)
+//	! the area (width*height)
 //	_Tp area() const;
 //
-//	//! conversion of another data type.
+//	! conversion of another data type.
 //	template<typename _Tp2> operator Size_<_Tp2>() const;
 //
 //	_Tp width, height; // the width and the height
@@ -684,12 +684,12 @@
 //typedef Size_<double> Size2d;
 //typedef Size2i Size;
 //
-//// Point_
+// Point_
 //template<typename _Tp> class Point_ {
 //public:
 //	typedef _Tp value_type;
 //
-//	// various constructors
+//	 various constructors
 //	Point_();
 //	Point_(_Tp _x, _Tp _y);
 //	Point_(const Point_& pt);
@@ -697,19 +697,19 @@
 //	Point_(const Vec<_Tp, 2>& v);
 //
 //	Point_& operator = (const Point_& pt);
-//	//! conversion to another data type
+//	! conversion to another data type
 //	template<typename _Tp2> operator Point_<_Tp2>() const;
 //
-//	//! conversion to the old-style C structures
+//	! conversion to the old-style C structures
 //	operator Vec<_Tp, 2>() const;
 //
-//	//! dot product
+//	! dot product
 //	_Tp dot(const Point_& pt) const;
-//	//! dot product computed in double-precision arithmetics
+//	! dot product computed in double-precision arithmetics
 //	double ddot(const Point_& pt) const;
-//	//! cross-product
+//	! cross-product
 //	double cross(const Point_& pt) const;
-//	//! checks whether the point is inside the specified rectangle
+//	! checks whether the point is inside the specified rectangle
 //	bool inside(const Rect_<_Tp>& r) const;
 //
 //	_Tp x, y; //< the point coordinates
@@ -720,12 +720,12 @@
 //typedef Point_<double> Point2d;
 //typedef Point2i Point;
 //
-//// Point3_
+// Point3_
 //template<typename _Tp> class Point3_ {
 //public:
 //	typedef _Tp value_type;
 //
-//	// various constructors
+//	 various constructors
 //	Point3_();
 //	Point3_(_Tp _x, _Tp _y, _Tp _z);
 //	Point3_(const Point3_& pt);
@@ -733,16 +733,16 @@
 //	Point3_(const Vec<_Tp, 3>& v);
 //
 //	Point3_& operator = (const Point3_& pt);
-//	//! conversion to another data type
+//	! conversion to another data type
 //	template<typename _Tp2> operator Point3_<_Tp2>() const;
-//	//! conversion to cv::Vec<>
+//	! conversion to cv::Vec<>
 //	operator Vec<_Tp, 3>() const;
 //
-//	//! dot product
+//	! dot product
 //	_Tp dot(const Point3_& pt) const;
-//	//! dot product computed in double-precision arithmetics
+//	! dot product computed in double-precision arithmetics
 //	double ddot(const Point3_& pt) const;
-//	//! cross product of the 2 3D points
+//	! cross product of the 2 3D points
 //	Point3_ cross(const Point3_& pt) const;
 //
 //	_Tp x, y, z; //< the point coordinates
@@ -752,12 +752,12 @@
 //typedef Point3_<float> Point3f;
 //typedef Point3_<double> Point3d;
 //
-//// Rect_
+// Rect_
 //template<typename _Tp> class Rect_ {
 //public:
 //	typedef _Tp value_type;
 //
-//	//! various constructors
+//	! various constructors
 //	Rect_();
 //	Rect_(_Tp _x, _Tp _y, _Tp _width, _Tp _height);
 //	Rect_(const Rect_& r);
@@ -765,20 +765,20 @@
 //	Rect_(const Point_<_Tp>& pt1, const Point_<_Tp>& pt2);
 //
 //	Rect_& operator = (const Rect_& r);
-//	//! the top-left corner
+//	! the top-left corner
 //	Point_<_Tp> tl() const;
-//	//! the bottom-right corner
+//	! the bottom-right corner
 //	Point_<_Tp> br() const;
 //
-//	//! size (width, height) of the rectangle
+//	! size (width, height) of the rectangle
 //	Size_<_Tp> size() const;
-//	//! area (width*height) of the rectangle
+//	! area (width*height) of the rectangle
 //	_Tp area() const;
 //
-//	//! conversion to another data type
+//	! conversion to another data type
 //	template<typename _Tp2> operator Rect_<_Tp2>() const;
 //
-//	//! checks whether the rectangle contains the point
+//	! checks whether the rectangle contains the point
 //	bool contains(const Point_<_Tp>& pt) const;
 //
 //	_Tp x, y, width, height; //< the top-left corner, as well as width and height of the rectangle
@@ -789,7 +789,7 @@
 //typedef Rect_<double> Rect2d;
 //typedef Rect2i Rect;
 //
-//// Range
+// Range
 //class Range {
 //public:
 //	Range();
@@ -801,11 +801,11 @@
 //	int start, end;
 //};
 //
-//// Scalar
+// Scalar
 //template<typename _Tp> class Scalar_ : public Vec<_Tp, 4>
 //{
 //public:
-//	//! various constructors
+//	! various constructors
 //	Scalar_();
 //	Scalar_(_Tp v0, _Tp v1, _Tp v2 = 0, _Tp v3 = 0);
 //	Scalar_(_Tp v0);
@@ -813,26 +813,26 @@
 //	template<typename _Tp2, int cn>
 //	Scalar_(const Vec<_Tp2, cn>& v);
 //
-//	//! returns a scalar with all elements set to v0
+//	! returns a scalar with all elements set to v0
 //	static Scalar_<_Tp> all(_Tp v0);
 //
-//	//! conversion to another data type
+//	! conversion to another data type
 //	template<typename T2> operator Scalar_<T2>() const;
 //
-//	//! per-element product
+//	! per-element product
 //	Scalar_<_Tp> mul(const Scalar_<_Tp>& a, double scale = 1) const;
 //
-//	// returns (v0, -v1, -v2, -v3)
+//	 returns (v0, -v1, -v2, -v3)
 //	Scalar_<_Tp> conj() const;
 //
-//	// returns true iff v1 == v2 == v3 == 0
+//	 returns true iff v1 == v2 == v3 == 0
 //	bool isReal() const;
 //};
 //
 //typedef Scalar_<double> Scalar;
 //
-////////////////// Implementation //////////////////
-//// Point_
+//////////////// Implementation //////////////////
+// Point_
 //template<typename _Tp> inline
 //Point_<_Tp>::Point_()
 //: x(0), y(0) {}
@@ -1057,7 +1057,7 @@
 //	return tmp;
 //}
 //
-//// Point3_
+// Point3_
 //template<typename _Tp> inline
 //Point3_<_Tp>::Point3_()
 //: x(0), y(0), z(0) {}
@@ -1284,7 +1284,7 @@
 //	return tmp;
 //}
 //
-//// Size_
+// Size_
 //template<typename _Tp> inline
 //Size_<_Tp>::Size_()
 //: width(0), height(0) {}
@@ -1396,7 +1396,7 @@
 //	return !(a == b);
 //}
 //
-//// Rect_
+// Rect_
 //template<typename _Tp> inline
 //Rect_<_Tp>::Rect_()
 //: x(0), y(0), width(0), height(0) {}
@@ -1571,7 +1571,7 @@
 //	return c |= b;
 //}
 //
-//// Range
+// Range
 //inline
 //Range::Range()
 //: start(0), end(0) {}
@@ -1649,7 +1649,7 @@
 //	return r1 + (-delta);
 //}
 //
-//// Scalar_
+// Scalar_
 //template<typename _Tp> inline
 //Scalar_<_Tp>::Scalar_()
 //{
