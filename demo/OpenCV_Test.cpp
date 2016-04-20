@@ -3,7 +3,7 @@
 #include <fstream>
 
 #include <opencv2/opencv.hpp>
-
+#include <opencv2/core/base.hpp>
 
 int main()
 {
@@ -16,7 +16,7 @@ int main()
 	//image.stride = matSrc.step;
 	cv::Vec2i vec1(2, 3), vec2(4, 5), vec3;
 	vec3 = vec1.mul(vec2);
-
+	cv::Point3d pt;
 	cv::namedWindow("show image");
 	cv::imshow("show image", matSrc);
 	cv::waitKey(0);

@@ -5,6 +5,8 @@
 
 #include "core/fbcdef.hpp"
 
+namespace fbc {
+
 // Rounds floating-point number to the nearest integer
 int fbcRound(double value)
 {
@@ -60,5 +62,7 @@ int fbcCeil(int value)
 {
 	return value;
 }
+
+} // fbc
 
 #endif // FBC_CV_CORE_FAST_MATH_HPP_
