@@ -30,6 +30,9 @@
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\saturate.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\fbc_cv\include\core\fast_math.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\fbc_cv\src\temp.cpp">

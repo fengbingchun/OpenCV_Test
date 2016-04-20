@@ -1,7 +1,7 @@
 #ifndef FBC_CV_CORE_INTERFACE_HPP_
 #define FBC_CV_CORE_INTERFACE_HPP_
 
-// reference: opencv/include/opencv2/core/hal/interface.h
+// reference: include/opencv2/core/hal/interface.h
 
 typedef unsigned int uint;
 typedef signed char schar;

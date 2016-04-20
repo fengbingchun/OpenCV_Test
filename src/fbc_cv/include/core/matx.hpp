@@ -1,7 +1,7 @@
-//#ifndef FBC_OPENCV_TEST_CORE_MATX_HPP_
-//#define FBC_OPENCV_TEST_CORE_MATX_HPP_
+//#ifndef FBC_CV_CORE_MATX_HPP_
+//#define FBC_CV_CORE_MATX_HPP_
 //
-//// reference: opencv/include/opencv2/core/matx.hpp
+//// reference: include/opencv2/core/matx.hpp
 //
 //#include <algorithm>
 //
@@ -643,4 +643,4 @@
 //	return v * (nv ? 1. / nv : 0.);
 //}
 //} //fbc
-//#endif //FBC_OPENCV_TEST_CORE_MATX_HPP_
+//#endif //FBC_CV_CORE_MATX_HPP_
