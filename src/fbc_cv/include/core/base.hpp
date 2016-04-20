@@ -1,19 +1,14 @@
-//#ifndef FBC_OPENCV_TEST_BASE_HPP_
-//#define FBC_OPENCV_TEST_BASE_HPP_
-//
-//#include <algorithm>
-//
-//namespace fbc {
-//
-//typedef unsigned char uchar;
-//typedef unsigned short ushort;
-//
-//#define FBC_StaticAssert(condition, reason)	static_assert((condition), reason " " #condition)
-//
-///* reference:
-//	opencv/include/opencv2/core/types.hpp
-//	opencv/include/opencv2/core/matx.hpp
-//*/
+#ifndef FBC_CV_CORE_BASE_HPP_
+#define FBC_CV_CORE_BASE_HPP_
+
+// reference: include/opencv2/core/base.hpp
+
+#include <assert.h>
+
+namespace fbc {
+#define FBC_StaticAssert(condition, reason)	static_assert((condition), reason " " #condition)
+#define FBC_Assert(expr) assert(expr)
+
 //template<typename _Tp, int cn> class Vec;
 //template<typename _Tp> class Point_;
 //template<typename _Tp> class Size_;
@@ -1875,6 +1870,7 @@
 //	a = a / b;
 //	return a;
 //}
-//
-//} //fbc
-//#endif //FBC_OPENCV_TEST_BASE_HPP_
+
+} //fbc
+
+#endif //FBC_CV_CORE_BASE_HPP_
