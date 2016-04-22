@@ -17,11 +17,11 @@ namespace fbc {
 #define FBC_StaticAssert(condition, reason)	static_assert((condition), reason " " #condition)
 #define FBC_Assert(expr) assert(expr)
 
-template<typename _Tp> inline _Tp cv_abs(_Tp x) { return std::abs(x); }
-inline int cv_abs(uchar x) { return x; }
-inline int cv_abs(schar x) { return std::abs(x); }
-inline int cv_abs(ushort x) { return x; }
-inline int cv_abs(short x) { return std::abs(x); }
+template<typename _Tp> inline _Tp fbc_abs(_Tp x) { return std::abs(x); }
+inline int fbc_abs(uchar x) { return x; }
+inline int fbc_abs(schar x) { return std::abs(x); }
+inline int fbc_abs(ushort x) { return x; }
+inline int fbc_abs(short x) { return std::abs(x); }
 
 } //fbc
 

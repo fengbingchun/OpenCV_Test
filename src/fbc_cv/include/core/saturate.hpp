@@ -16,7 +16,7 @@ template<typename _Tp> static inline _Tp saturate_cast(uchar v)    { return _Tp(
 template<typename _Tp> static inline _Tp saturate_cast(schar v)    { return _Tp(v); }
 template<typename _Tp> static inline _Tp saturate_cast(ushort v)   { return _Tp(v); }
 template<typename _Tp> static inline _Tp saturate_cast(short v)    { return _Tp(v); }
-template<typename _Tp> static inline _Tp saturate_cast(unsigned v) { return _Tp(v); }
+template<typename _Tp> static inline _Tp saturate_cast(unsigned int v) { return _Tp(v); }
 template<typename _Tp> static inline _Tp saturate_cast(int v)      { return _Tp(v); }
 template<typename _Tp> static inline _Tp saturate_cast(float v)    { return _Tp(v); }
 template<typename _Tp> static inline _Tp saturate_cast(double v)   { return _Tp(v); }
@@ -25,7 +25,7 @@ template<> inline uchar saturate_cast<uchar>(schar v)        { return (uchar)std
 template<> inline uchar saturate_cast<uchar>(ushort v)       { return (uchar)std::min((unsigned)v, (unsigned)UCHAR_MAX); }
 template<> inline uchar saturate_cast<uchar>(int v)          { return (uchar)((unsigned)v <= UCHAR_MAX ? v : v > 0 ? UCHAR_MAX : 0); }
 template<> inline uchar saturate_cast<uchar>(short v)        { return saturate_cast<uchar>((int)v); }
-template<> inline uchar saturate_cast<uchar>(unsigned v)     { return (uchar)std::min(v, (unsigned)UCHAR_MAX); }
+template<> inline uchar saturate_cast<uchar>(unsigned int v) { return (uchar)std::min(v, (unsigned)UCHAR_MAX); }
 template<> inline uchar saturate_cast<uchar>(float v)        { int iv = fbcRound(v); return saturate_cast<uchar>(iv); }
 template<> inline uchar saturate_cast<uchar>(double v)       { int iv = fbcRound(v); return saturate_cast<uchar>(iv); }
 
