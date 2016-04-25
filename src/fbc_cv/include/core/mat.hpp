@@ -20,31 +20,31 @@ public:
 	Mat(int rows, int cols, const Scalar& s);
 	Mat(Size size, const Scalar& s);
 	Mat(int rows, int cols, _Tp* data, bool alloc = false);
-	Mat(const Mat& m);
-	//Mat(const Mat& m, const Range& rowRange, const Range& colRange = Range::all());
-	Mat(const Mat& m, const Rect& roi);
+	Mat(const Mat<_Tp, chs>& m);
+	Mat(const Mat<_Tp, chs>& m, const Range& rowRange, const Range& colRange = Range::all());
+	Mat(const Mat<_Tp, chs>& m, const Rect& roi);
 
 	Mat& operator = (const Mat& m);
 
-	Mat row(int y) const;
-	Mat col(int x) const;
-	Mat rowRange(int startrow, int endrow) const;
-	//Mat rowRange(const Range& r) const;
-	Mat colRange(int startcol, int endcol) const;
-	//Mat colRange(const Range& r) const;
+	Mat<_Tp, chs> row(int y) const;
+	Mat<_Tp, chs> col(int x) const;
+	Mat<_Tp, chs> rowRange(int startrow, int endrow) const;
+	Mat<_Tp, chs> rowRange(const Range& r) const;
+	Mat<_Tp, chs> colRange(int startcol, int endcol) const;
+	Mat<_Tp, chs> colRange(const Range& r) const;
 
-	Mat clone();
-	void copyTo(Mat& m) const;
+	Mat<_Tp, chs> clone();
+	void copyTo(Mat<_Tp, chs>& m) const;
 
-	Mat& setTo(const Scalar& value);
+	Mat<_Tp, chs>& setTo(const Scalar& value);
 
-	static Mat zeros(int rows, int cols);
-	static Mat ones(int rows, int cols);
-	static Mat eye(int rows, int cols);
+	static Mat<_Tp, chs> zeros(int rows, int cols);
+	static Mat<_Tp, chs> ones(int rows, int cols);
+	static Mat<_Tp, chs> eye(int rows, int cols);
 
-	//Mat operator()(Range rowRange, Range colRange) const;
-	Mat operator()(const Rect& roi) const;
-	//Mat operator()(const Range* ranges) const;
+	Mat<_Tp, chs> operator()(Range rowRange, Range colRange) const;
+	Mat<_Tp, chs> operator()(const Rect& roi) const;
+	Mat<_Tp, chs> operator()(const Range* ranges) const;
 
 	_Tp* ptr(int i0 = 0);
 

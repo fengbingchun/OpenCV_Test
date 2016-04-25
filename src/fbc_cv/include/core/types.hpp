@@ -319,6 +319,46 @@ bool Rect_<_Tp>::contains(const Point_<_Tp>& pt) const
 	return x <= pt.x && pt.x < x + width && y <= pt.y && pt.y < y + height;
 }
 
+//////////////////////////////// Range /////////////////////////////////
+class Range
+{
+public:
+	Range();
+	Range(int _start, int _end);
+	int size() const;
+	bool empty() const;
+	static Range all();
+
+	int start, end;
+};
+
+inline
+Range::Range()
+: start(0), end(0) {}
+
+inline
+Range::Range(int _start, int _end)
+: start(_start), end(_end) {}
+
+inline
+int Range::size() const
+{
+	return end - start;
+}
+
+inline
+bool Range::empty() const
+{
+	return start == end;
+}
+
+inline
+Range Range::all()
+{
+	return Range(INT_MIN, INT_MAX);
+}
+
+
 //////////////////////////////// Scalar_ ///////////////////////////////
 template<typename _Tp> class Scalar_ : public Vec<_Tp, 4>
 {
