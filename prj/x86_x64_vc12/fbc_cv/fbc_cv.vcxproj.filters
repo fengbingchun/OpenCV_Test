@@ -36,6 +36,9 @@
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\types.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\fbc_cv\include\core\mat.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\fbc_cv\src\temp.cpp">

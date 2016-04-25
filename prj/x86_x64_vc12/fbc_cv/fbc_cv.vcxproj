@@ -169,6 +169,7 @@
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\fast_math.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\fbcdef.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\interface.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\core\mat.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\matx.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\saturate.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\types.hpp" />

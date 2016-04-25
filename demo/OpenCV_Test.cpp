@@ -8,7 +8,7 @@
 int main()
 {
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png");
-
+	cvRound
 	//fbc::ImageBGR image;
 	//image.data = matSrc.data;
 	//image.width = matSrc.cols;
