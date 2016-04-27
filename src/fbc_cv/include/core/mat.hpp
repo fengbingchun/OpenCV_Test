@@ -14,62 +14,78 @@
 
 namespace fbc {
 
-template<typename _Tp, int chs> class Mat {
+template<typename _Tp, int chs> class Mat_ {
 public:
 	typedef _Tp value_type;
 
-	Mat() : rows(0), cols(0), channels(0), data(NULL), step(0), allocated(false) {}
-	Mat(int _rows, int _cols);
-	Mat(int _rows, int _cols, const Scalar& _s);
-	Mat(Size _size, const Scalar& _s);
-	Mat(int _rows, int _cols, _Tp* _data, bool _alloc = false);
-	Mat(const Mat<_Tp, chs>& _m);
-	//Mat(const Mat<_Tp, chs>& _m, const Range& _rowRange, const Range& _colRange = Range::all());
-	//Mat(const Mat<_Tp, chs>& _m, const Rect& _roi);
-	//Mat& operator = (const Mat& _m);
+	// default constructor
+	Mat_() : rows(0), cols(0), channels(0), data(NULL), step(0), allocated(false) {}
+	// constructs 2D matrix of the specified size
+	Mat_(int _rows, int _cols);
+	// constucts 2D matrix and fills it with the specified value _s
+	Mat_(int _rows, int _cols, const Scalar& _s);
+	Mat_(Size _size, const Scalar& _s);
+	// constructor for matrix headers pointing to user-allocated data
+	Mat_(int _rows, int _cols, _Tp* _data);
+	// copy constructor
+	Mat_(const Mat_<_Tp, chs>& _m);
+	//Mat_(const Mat_<_Tp, chs>& _m, const Range& _rowRange, const Range& _colRange = Range::all());
+	//Mat_(const Mat_<_Tp, chs>& _m, const Rect& _roi);
+	//Mat_& operator = (const Mat_& _m);
 
-	//Mat<_Tp, chs> row(int _y) const;
-	//Mat<_Tp, chs> col(int _x) const;
-	//Mat<_Tp, chs> rowRange(int _startrow, int _endrow) const;
-	//Mat<_Tp, chs> rowRange(const Range& _r) const;
-	//Mat<_Tp, chs> colRange(int _startcol, int _endcol) const;
-	//Mat<_Tp, chs> colRange(const Range& _r) const;
+	//Mat_<_Tp, chs> row(int _y) const;
+	//Mat_<_Tp, chs> col(int _x) const;
+	//Mat_<_Tp, chs> rowRange(int _startrow, int _endrow) const;
+	//Mat_<_Tp, chs> rowRange(const Range& _r) const;
+	//Mat_<_Tp, chs> colRange(int _startcol, int _endcol) const;
+	//Mat_<_Tp, chs> colRange(const Range& _r) const;
 
-	Mat<_Tp, chs> clone();
-	void copyTo(Mat<_Tp, chs>& _m) const;
+	// returns deep copy of the matrix, i.e. the data is copied
+	Mat_<_Tp, chs> clone();
+	// copies the matrix content to "_m"
+	void copyTo(Mat_<_Tp, chs>& _m) const;
 
-	Mat<_Tp, chs>& setTo(const Scalar& _value);
+	//Mat_<_Tp, chs>& setTo(const Scalar& _value);
 
-	static Mat<_Tp, chs> zeros(int _rows, int _cols);
-	static Mat<_Tp, chs> ones(int _rows, int _cols);
-	static Mat<_Tp, chs> eye(int _rows, int _cols);
+	//static Mat_<_Tp, chs> zeros(int _rows, int _cols);
+	//static Mat_<_Tp, chs> ones(int _rows, int _cols);
+	//static Mat_<_Tp, chs> eye(int _rows, int _cols);
 
-	Mat<_Tp, chs> operator()(Range _rowRange, Range _colRange) const;
-	Mat<_Tp, chs> operator()(const Rect& _roi) const;
-	Mat<_Tp, chs> operator()(const Range* _ranges) const;
+	//Mat_<_Tp, chs> operator()(Range _rowRange, Range _colRange) const;
+	//Mat_<_Tp, chs> operator()(const Rect& _roi) const;
+	//Mat_<_Tp, chs> operator()(const Range* _ranges) const;
+	// returns pointer to i0-th submatrix along the dimension #0
+	inline _Tp* ptr(int i0 = 0);
 
-	_Tp* ptr(int i0 = 0);
+	//void deallocate();
+	// release memory
+	inline void release();
+	// destructor - calls release()
+	~Mat_() { release(); };
 
-	void deallocate();
-	void release();
-
-	~Mat() { release(); };
-
-	int rows;
-	int cols;
+	// the number of rows and columns
+	int rows£¬cols;
+	// channel num
 	int channels;
+	// pointer to the data
 	_Tp* data;
+	// bytes per row
 	int step; // stride
+	// memory allocation flag
 	bool allocated;
 
 protected:
-	bool create(int rows, int cols);
-	bool allocate();
+	//bool create(int rows, int cols);
+	//bool allocate();
 
 }; // Mat
 
+typedef Mat_<uchar, 1> Mat1Gray;
+typedef Mat_<uchar, 3> Mat3BGR;
+typedef Mat_<uchar, 4> Mat4BGRA;
+
 template<typename _Tp, int chs> inline
-void Mat<_Tp, chs>::release()
+void Mat_<_Tp, chs>::release()
 {
 	if (this->data && this->allocated) {
 		delete[] this->data;
@@ -80,7 +96,7 @@ void Mat<_Tp, chs>::release()
 }
 
 template<typename _Tp, int chs>
-Mat<_Tp, chs>::Mat(int _rows, int _cols)
+Mat_<_Tp, chs>::Mat_(int _rows, int _cols)
 {
 	FBC_Assert(_rows > 0 && _cols > 0 && chs > 0);
 
@@ -99,7 +115,7 @@ Mat<_Tp, chs>::Mat(int _rows, int _cols)
 }
 
 template<typename _Tp, int chs>
-Mat<_Tp, chs>::Mat(int _rows, int _cols, const Scalar& _s)
+Mat_<_Tp, chs>::Mat_(int _rows, int _cols, const Scalar& _s)
 {
 	FBC_Assert(_rows > 0 && _cols > 0 && chs > 0);
 
@@ -131,13 +147,13 @@ Mat<_Tp, chs>::Mat(int _rows, int _cols, const Scalar& _s)
 }
 
 template<typename _Tp, int chs>
-Mat<_Tp, chs>::Mat(Size _size, const Scalar& _s)
+Mat_<_Tp, chs>::Mat_(Size _size, const Scalar& _s)
 {
-	Mat<_Tp, chs>(_size.height, _size.width, _s);
+	Mat_<_Tp, chs>(_size.height, _size.width, _s);
 }
 
 template<typename _Tp, int chs>
-Mat<_Tp, chs>::Mat(int _rows, int _cols, _Tp* _data, bool _alloc = false)
+Mat_<_Tp, chs>::Mat_(int _rows, int _cols, _Tp* _data)
 {
 	FBC_Assert(_rows > 0 && _cols > 0 && chs > 0);
 
@@ -145,12 +161,12 @@ Mat<_Tp, chs>::Mat(int _rows, int _cols, _Tp* _data, bool _alloc = false)
 	this->cols = _cols;
 	this->channels = chs;
 	this->step = sizeof(_Tp) * _cols * chs;
-	this->allocated = _alloc;
+	this->allocated = false;
 	this->data = _data;
 }
 
 template<typename _Tp, int chs>
-Mat<_Tp, chs>::Mat(const Mat<_Tp, chs>& _m)
+Mat_<_Tp, chs>::Mat_(const Mat_<_Tp, chs>& _m)
 {
 	FBC_Assert(_m.rows > 0 && _m.cols > 0 && _m.channels > 0);
 
@@ -167,43 +183,32 @@ Mat<_Tp, chs>::Mat(const Mat<_Tp, chs>& _m)
 }
 
 template<typename _Tp, int chs>
-Mat<_Tp, chs> Mat<_Tp, chs>::clone()
+Mat_<_Tp, chs> Mat_<_Tp, chs>::clone()
 {
+	FBC_Assert(this->rows > 0 && this->cols > 0 && this->channels > 0);
 
+	Mat_<_Tp, chs> mat_ = Mat_(this->rows, this->cols);
+	memcpy(mat_.data, this->data, this->rows * this->step);
+
+	return mat_;
 }
 
-//template<typename _Tp> inline
-//Mat<_Tp> Mat<_Tp>::clone()
-//{
-//	Mat<_Tp> mat_;
-//
-//	mat_.rows = this->rows;
-//	mat_.cols = this->cols;
-//	mat_.channels = this->channels;
-//	mat_.step = this->step;
-//
-//	int data_length = this->step * this->rows;
-//	_Tp* data_ = new _Tp[data_length];
-//	memcpy(data_, this->data, data_length);
-//
-//	mat_.data = data_;
-//
-//	return mat_;
-//}
-//
-//template<typename _Tp> inline
-//Mat<_Tp>::~Mat()
-//{
-//	destroy();
-//}
-//
-//template<typename _Tp> inline
-//void Mat<_Tp>::destroy()
-//{
-//	this->rows = this->cols = this->channels = this->step = 0;
-//	delete[] data;
-//	data = NULL;
-//}
+template<typename _Tp, int chs>
+void Mat_<_Tp, chs>::copyTo(Mat_<_Tp, chs>& _m) const
+{
+	FBC_Assert(this->rows > 0 && this->cols > 0 && this->channels > 0);
+
+	_m = Mat_(this->rows, this->cols);
+	memcpy(_m.data, this->data, this->rows * this->step);
+}
+
+template<typename _Tp, int chs>
+_Tp* Mat_<_Tp, chs>::ptr(int i0)
+{
+	FBC_Assert(i0 < this->rows);
+
+	return this->data + i0 * this->step;
+}
 
 } // fbc
 
