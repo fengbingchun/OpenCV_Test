@@ -63,6 +63,7 @@ public:
 	// destructor - calls release()
 	~Mat_() { release(); };
 
+public:
 	// the number of rows and columns
 	int rows£¬cols;
 	// channel num
