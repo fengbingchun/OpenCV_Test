@@ -10,7 +10,7 @@ int test_mat()
 		return -1;
 	}
 
-	//fbc::Mat_<fbc::uchar, 3> mat2_1;//(mat1_1.rows, mat1_1.cols);
+	fbc::Mat_<int, 3> mat2_1;//(mat1_1.rows, mat1_1.cols);
 
 	return 0;
 }

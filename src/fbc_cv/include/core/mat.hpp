@@ -65,7 +65,7 @@ public:
 
 public:
 	// the number of rows and columns
-	int rows£¬cols;
+	int rows, cols;
 	// channel num
 	int channels;
 	// pointer to the data
@@ -79,7 +79,7 @@ protected:
 	//bool create(int rows, int cols);
 	//bool allocate();
 
-}; // Mat
+}; // Mat_
 
 typedef Mat_<uchar, 1> Mat1Gray;
 typedef Mat_<uchar, 3> Mat3BGR;
