@@ -4,6 +4,7 @@
 #include <core/fast_math.hpp>
 #include <core/base.hpp>
 #include <core/saturate.hpp>
+#include <core/matx.hpp>
 #include <opencv2/opencv.hpp>
 
 int test_fast_math()
@@ -82,6 +83,72 @@ int test_saturate()
 	assert(fbc::saturate_cast<fbc::ushort>(d) == cv::saturate_cast<ushort>(d));
 	assert(fbc::saturate_cast<unsigned>(f) == cv::saturate_cast<unsigned>(f));
 	assert(fbc::saturate_cast<int>(d) == cv::saturate_cast<int>(d));
+
+	return 0;
+}
+
+int test_matx()
+{
+	fbc::Matx22f matx1(1.1, 2.2, 3.3, 4.4);
+	fbc::Matx22f matx3(matx1);
+	fbc::Matx22f matx4 = fbc::Matx22f::all(-1.1);
+	fbc::Matx22f matx5 = fbc::Matx22f::ones();
+	fbc::Matx22f matx6 = fbc::Matx22f::eye();
+	fbc::Matx22f::diag_type diag_(9, 9);
+	fbc::Matx22f matx7 = fbc::Matx22f::diag(diag_);
+	float ret1 = matx1.dot(matx3);
+	double ret2 = matx3.ddot(matx4);
+	fbc::Matx<int, 2, 2> matx8 = fbc::Matx<int, 2, 2>(matx1);
+	fbc::Matx12f matx9 = matx1.row(1);
+	fbc::Matx21f matx10 = matx1.col(1);
+	float ret3 = matx1(1, 1);
+	fbc::Matx22f matx11 = matx1 + matx4;
+	fbc::Matx22f matx12 = matx1 - matx6;
+	fbc::Matx22f matx13 = matx1 * ret1;
+	fbc::Matx22f matx14 = matx1 * matx4;
+
+	cv::Matx22f matx1_(1.1, 2.2, 3.3, 4.4);
+	cv::Matx22f matx3_(matx1_);
+	cv::Matx22f matx4_ = cv::Matx22f::all(-1.1);
+	cv::Matx22f matx5_ = cv::Matx22f::ones();
+	cv::Matx22f matx6_ = cv::Matx22f::eye();
+	cv::Matx22f::diag_type diag__(9, 9);
+	cv::Matx22f matx7_ = cv::Matx22f::diag(diag__);
+	float ret1_ = matx1_.dot(matx3_);
+	double ret2_ = matx3_.ddot(matx4_);
+	cv::Matx<int, 2, 2> matx8_ = cv::Matx<int, 2, 2>(matx1_);
+	cv::Matx12f matx9_ = matx1_.row(1);
+	cv::Matx21f matx10_ = matx1_.col(1);
+	float ret3_ = matx1_(1, 1);
+	cv::Matx22f matx11_ = matx1_ + matx4_;
+	cv::Matx22f matx12_ = matx1_ - matx6_;
+	cv::Matx22f matx13_ = matx1_ * ret1_;
+	cv::Matx22f matx14_ = matx1_ * matx4_;
+
+	const float eps = 0.000001;
+
+	for (int i = 0; i < 4; i++) {
+		assert(fabs(matx1.val[i] - matx1_.val[i]) < eps);
+		assert(fabs(matx3.val[i] - matx3_.val[i]) < eps);
+		assert(fabs(matx4.val[i] - matx4_.val[i]) < eps);
+		assert(fabs(matx5.val[i] - matx5_.val[i]) < eps);
+		assert(fabs(matx6.val[i] - matx6_.val[i]) < eps);
+		assert(fabs(matx7.val[i] - matx7_.val[i]) < eps);
+		assert(matx8.val[i] == matx8_.val[i]);
+		assert(fabs(matx11.val[i] - matx11_.val[i]) < eps);
+		assert(fabs(matx12.val[i] - matx12_.val[i]) < eps);
+		assert(fabs(matx13.val[i] - matx13_.val[i]) < eps);
+		assert(fabs(matx14.val[i] - matx14_.val[i]) < eps);
+	}
+
+	assert(fabs(ret1 - ret1_) < eps);
+	assert(fabs(ret2 - ret2_) < eps);
+	assert(fabs(ret3 - ret3_) < eps);
+
+	for (int i = 0; i < 2; i++) {
+		assert(fabs(matx9.val[i] - matx9_.val[i]) < eps);
+		assert(fabs(matx10.val[i] - matx10_.val[i]) < eps);
+	}
 
 	return 0;
 }

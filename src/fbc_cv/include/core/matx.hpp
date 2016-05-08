@@ -13,6 +13,7 @@
 
 namespace fbc {
 ////////////////////////////// Small Matrix ///////////////////////////
+// Template class for small matrices whose type and size are known at compilation time
 template<typename _Tp, int m, int n> class Matx {
 public:
 	enum {
@@ -332,6 +333,148 @@ _Tp& Matx<_Tp, m, n>::operator ()(int i)
 	FBC_StaticAssert(m == 1 || n == 1, "Single index indexation requires matrix to be a column or a row");
 	FBC_Assert((unsigned)i < (unsigned)(m + n - 1));
 	return val[i];
+}
+
+///////////////////////////// Matx out-of-class operators ////////////////////////////////
+template<typename _Tp1, typename _Tp2, int m, int n> static inline
+Matx<_Tp1, m, n>& operator += (Matx<_Tp1, m, n>& a, const Matx<_Tp2, m, n>& b)
+{
+	for (int i = 0; i < m*n; i++)
+		a.val[i] = saturate_cast<_Tp1>(a.val[i] + b.val[i]);
+	return a;
+}
+
+template<typename _Tp1, typename _Tp2, int m, int n> static inline
+Matx<_Tp1, m, n>& operator -= (Matx<_Tp1, m, n>& a, const Matx<_Tp2, m, n>& b)
+{
+	for (int i = 0; i < m*n; i++)
+		a.val[i] = saturate_cast<_Tp1>(a.val[i] - b.val[i]);
+	return a;
+}
+
+template<typename _Tp, int m, int n> static inline
+Matx<_Tp, m, n> operator + (const Matx<_Tp, m, n>& a, const Matx<_Tp, m, n>& b)
+{
+	Matx<_Tp, m, n> M;
+	for (int i = 0; i < m*n; i++)
+		M.val[i] = saturate_cast<_Tp>(a.val[i] + b.val[i]);
+	return M;
+}
+
+template<typename _Tp, int m, int n> static inline
+Matx<_Tp, m, n> operator - (const Matx<_Tp, m, n>& a, const Matx<_Tp, m, n>& b)
+{
+	Matx<_Tp, m, n> M;
+	for (int i = 0; i < m*n; i++)
+		M.val[i] = saturate_cast<_Tp>(a.val[i] - b.val[i]);
+	return M;
+}
+
+template<typename _Tp, int m, int n> static inline
+Matx<_Tp, m, n>& operator *= (Matx<_Tp, m, n>& a, int alpha)
+{
+	for (int i = 0; i < m*n; i++)
+		a.val[i] = saturate_cast<_Tp>(a.val[i] * alpha);
+	return a;
+}
+
+template<typename _Tp, int m, int n> static inline
+Matx<_Tp, m, n>& operator *= (Matx<_Tp, m, n>& a, float alpha)
+{
+	for (int i = 0; i < m*n; i++)
+		a.val[i] = saturate_cast<_Tp>(a.val[i] * alpha);
+	return a;
+}
+
+template<typename _Tp, int m, int n> static inline
+Matx<_Tp, m, n>& operator *= (Matx<_Tp, m, n>& a, double alpha)
+{
+	for (int i = 0; i < m*n; i++)
+		a.val[i] = saturate_cast<_Tp>(a.val[i] * alpha);
+	return a;
+}
+
+template<typename _Tp, int m, int n> static inline
+Matx<_Tp, m, n> operator * (const Matx<_Tp, m, n>& a, int alpha)
+{
+	Matx<_Tp, m, n> M;
+	for (int i = 0; i < m*n; i++)
+		M.val[i] = saturate_cast<_Tp>(a.val[i] * alpha);
+	return M;
+}
+
+template<typename _Tp, int m, int n> static inline
+Matx<_Tp, m, n> operator * (const Matx<_Tp, m, n>& a, float alpha)
+{
+	Matx<_Tp, m, n> M;
+	for (int i = 0; i < m*n; i++)
+		M.val[i] = saturate_cast<_Tp>(a.val[i] * alpha);
+	return M;
+}
+
+template<typename _Tp, int m, int n> static inline
+Matx<_Tp, m, n> operator * (const Matx<_Tp, m, n>& a, double alpha)
+{
+	Matx<_Tp, m, n> M;
+	for (int i = 0; i < m*n; i++)
+		M.val[i] = saturate_cast<_Tp>(a.val[i] * alpha);
+	return M;
+}
+
+template<typename _Tp, int m, int n> static inline
+Matx<_Tp, m, n> operator * (int alpha, const Matx<_Tp, m, n>& a)
+{
+	Matx<_Tp, m, n> M;
+	for (int i = 0; i < m*n; i++)
+		M.val[i] = saturate_cast<_Tp>(a.val[i] * alpha);
+	return M;
+}
+
+template<typename _Tp, int m, int n> static inline
+Matx<_Tp, m, n> operator * (float alpha, const Matx<_Tp, m, n>& a)
+{
+	Matx<_Tp, m, n> M;
+	for (int i = 0; i < m*n; i++)
+		M.val[i] = saturate_cast<_Tp>(a.val[i] * alpha);
+	return M;
+}
+
+template<typename _Tp, int m, int n> static inline
+Matx<_Tp, m, n> operator * (double alpha, const Matx<_Tp, m, n>& a)
+{
+	Matx<_Tp, m, n> M;
+	for (int i = 0; i < m*n; i++)
+		M.val[i] = saturate_cast<_Tp>(a.val[i] * alpha);
+	return M;
+}
+
+template<typename _Tp, int m, int n, int l> static inline
+Matx<_Tp, m, n> operator * (const Matx<_Tp, m, l>& a, const Matx<_Tp, l, n>& b)
+{
+	Matx<_Tp, m, n> M;
+	for (int i = 0; i < m; i++)
+		for (int j = 0; j < n; j++)
+		{
+			_Tp s = 0;
+			for (int k = 0; k < l; k++)
+				s += a(i, k) * b(k, j);
+			M.val[i*n + j] = s;
+		}
+	return M;
+}
+
+template<typename _Tp, int m, int n> static inline
+bool operator == (const Matx<_Tp, m, n>& a, const Matx<_Tp, m, n>& b)
+{
+	for (int i = 0; i < m*n; i++)
+		if (a.val[i] != b.val[i]) return false;
+	return true;
+}
+
+template<typename _Tp, int m, int n> static inline
+bool operator != (const Matx<_Tp, m, n>& a, const Matx<_Tp, m, n>& b)
+{
+	return !(a == b);
 }
 
 ///////////////////////////////////////// Vec ///////////////////////////////////
