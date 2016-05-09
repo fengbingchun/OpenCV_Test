@@ -4,7 +4,8 @@
 int test_fast_math();
 int test_base();
 int test_saturate();
-int test_matx();
+int test_Matx();
+int test_Vec();
 int test_types();
 int test_mat();
 

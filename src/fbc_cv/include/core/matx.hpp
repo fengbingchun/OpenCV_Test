@@ -478,6 +478,7 @@ bool operator != (const Matx<_Tp, m, n>& a, const Matx<_Tp, m, n>& b)
 }
 
 ///////////////////////////////////////// Vec ///////////////////////////////////
+// Template class for short numerical vectors, a partial case of Matx
 template<typename _Tp, int cn> class Vec : public Matx<_Tp, cn, 1> {
 public:
 	typedef _Tp value_type;
@@ -640,6 +641,184 @@ _Tp& Vec<_Tp, cn>::operator ()(int i)
 {
 	FBC_Assert((unsigned)i < (unsigned)cn);
 	return this->val[i];
+}
+
+////////////////////////////// Vec out-of-class operators ////////////////////////////////
+template<typename _Tp1, typename _Tp2, int cn> static inline
+Vec<_Tp1, cn>& operator += (Vec<_Tp1, cn>& a, const Vec<_Tp2, cn>& b)
+{
+	for (int i = 0; i < cn; i++)
+		a.val[i] = saturate_cast<_Tp1>(a.val[i] + b.val[i]);
+	return a;
+}
+
+template<typename _Tp1, typename _Tp2, int cn> static inline
+Vec<_Tp1, cn>& operator -= (Vec<_Tp1, cn>& a, const Vec<_Tp2, cn>& b)
+{
+	for (int i = 0; i < cn; i++)
+		a.val[i] = saturate_cast<_Tp1>(a.val[i] - b.val[i]);
+	return a;
+}
+
+template<typename _Tp, int cn> static inline
+Vec<_Tp, cn> operator + (const Vec<_Tp, cn>& a, const Vec<_Tp, cn>& b)
+{
+	Vec<_Tp, cn> v;
+	for (int i = 0; i < cn; i++)
+		v.val[i] = saturate_cast<_Tp>(a.val[i] + b.val[i]);
+	return v;
+}
+
+template<typename _Tp, int cn> static inline
+Vec<_Tp, cn> operator - (const Vec<_Tp, cn>& a, const Vec<_Tp, cn>& b)
+{
+	Vec<_Tp, cn> v;
+	for (int i = 0; i < cn; i++)
+		v.val[i] = saturate_cast<_Tp>(a.val[i] - b.val[i]);
+	return v;
+}
+
+template<typename _Tp, int cn> static inline
+Vec<_Tp, cn>& operator *= (Vec<_Tp, cn>& a, int alpha)
+{
+	for (int i = 0; i < cn; i++)
+		a[i] = saturate_cast<_Tp>(a[i] * alpha);
+	return a;
+}
+
+template<typename _Tp, int cn> static inline
+Vec<_Tp, cn>& operator *= (Vec<_Tp, cn>& a, float alpha)
+{
+	for (int i = 0; i < cn; i++)
+		a[i] = saturate_cast<_Tp>(a[i] * alpha);
+	return a;
+}
+
+template<typename _Tp, int cn> static inline
+Vec<_Tp, cn>& operator *= (Vec<_Tp, cn>& a, double alpha)
+{
+	for (int i = 0; i < cn; i++)
+		a[i] = saturate_cast<_Tp>(a[i] * alpha);
+	return a;
+}
+
+template<typename _Tp, int cn> static inline
+Vec<_Tp, cn>& operator /= (Vec<_Tp, cn>& a, int alpha)
+{
+	double ialpha = 1. / alpha;
+	for (int i = 0; i < cn; i++)
+		a[i] = saturate_cast<_Tp>(a[i] * ialpha);
+	return a;
+}
+
+template<typename _Tp, int cn> static inline
+Vec<_Tp, cn>& operator /= (Vec<_Tp, cn>& a, float alpha)
+{
+	float ialpha = 1.f / alpha;
+	for (int i = 0; i < cn; i++)
+		a[i] = saturate_cast<_Tp>(a[i] * ialpha);
+	return a;
+}
+
+template<typename _Tp, int cn> static inline
+Vec<_Tp, cn>& operator /= (Vec<_Tp, cn>& a, double alpha)
+{
+	double ialpha = 1. / alpha;
+	for (int i = 0; i < cn; i++)
+		a[i] = saturate_cast<_Tp>(a[i] * ialpha);
+	return a;
+}
+
+template<typename _Tp, int cn> static inline
+Vec<_Tp, cn> operator * (const Vec<_Tp, cn>& a, int alpha)
+{
+	Vec<_Tp, cn> v;
+	for (int i = 0; i < cn; i++)
+		v.val[i] = saturate_cast<_Tp>(a.val[i] * alpha);
+	return v;
+}
+
+template<typename _Tp, int cn> static inline
+Vec<_Tp, cn> operator * (int alpha, const Vec<_Tp, cn>& a)
+{
+	Vec<_Tp, cn> v;
+	for (int i = 0; i < cn; i++)
+		v.val[i] = saturate_cast<_Tp>(a.val[i] * alpha);
+	return v;
+}
+
+template<typename _Tp, int cn> static inline
+Vec<_Tp, cn> operator * (const Vec<_Tp, cn>& a, float alpha)
+{
+	Vec<_Tp, cn> v;
+	for (int i = 0; i < cn; i++)
+		v.val[i] = saturate_cast<_Tp>(a.val[i] * alpha);
+	return v;
+}
+
+template<typename _Tp, int cn> static inline
+Vec<_Tp, cn> operator * (float alpha, const Vec<_Tp, cn>& a)
+{
+	Vec<_Tp, cn> v;
+	for (int i = 0; i < cn; i++)
+		v.val[i] = saturate_cast<_Tp>(a.val[i] * alpha);
+	return v;
+}
+
+template<typename _Tp, int cn> static inline
+Vec<_Tp, cn> operator * (const Vec<_Tp, cn>& a, double alpha)
+{
+	Vec<_Tp, cn> v;
+	for (int i = 0; i < cn; i++)
+		v.val[i] = saturate_cast<_Tp>(a.val[i] * alpha);
+	return v;
+}
+
+template<typename _Tp, int cn> static inline
+Vec<_Tp, cn> operator * (double alpha, const Vec<_Tp, cn>& a)
+{
+	Vec<_Tp, cn> v;
+	for (int i = 0; i < cn; i++)
+		v.val[i] = saturate_cast<_Tp>(a.val[i] * alpha);
+	return v;
+}
+
+template<typename _Tp, int cn> static inline
+Vec<_Tp, cn> operator / (const Vec<_Tp, cn>& a, int alpha)
+{
+	Vec<_Tp, cn> v;
+	double ialpha = 1. / alpha;
+	for (int i = 0; i < cn; i++)
+		v.val[i] = saturate_cast<_Tp>(a.val[i] * ialpha);
+	return v;
+}
+
+template<typename _Tp, int cn> static inline
+Vec<_Tp, cn> operator / (const Vec<_Tp, cn>& a, float alpha)
+{
+	Vec<_Tp, cn> v;
+	float ialpha = 1.f / alpha;
+	for (int i = 0; i < cn; i++)
+		v.val[i] = saturate_cast<_Tp>(a.val[i] * ialpha);
+	return v;
+}
+
+template<typename _Tp, int cn> static inline
+Vec<_Tp, cn> operator / (const Vec<_Tp, cn>& a, double alpha)
+{
+	Vec<_Tp, cn> v;
+	double ialpha = 1. / alpha;
+	for (int i = 0; i < cn; i++)
+		v.val[i] = saturate_cast<_Tp>(a.val[i] * ialpha);
+	return v;
+}
+
+template<typename _Tp, int cn> static inline
+Vec<_Tp, cn> operator - (const Vec<_Tp, cn>& a)
+{
+	Vec<_Tp, cn> t;
+	for (int i = 0; i < cn; i++) t.val[i] = saturate_cast<_Tp>(-a.val[i]);
+	return t;
 }
 
 } //fbc

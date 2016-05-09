@@ -13,7 +13,7 @@ int main()
 	////image.width = matSrc.cols;
 	////image.height = matSrc.rows;
 	////image.stride = matSrc.step;
-	////cv::Vec2i vec1(2, 3), vec2(4, 5), vec3;
+	//cv::Vec2i vec1(2, 3), vec2(4, 5), vec3;
 	////vec3 = vec1.mul(vec2);
 	////cv::Point3d pt;
 	//cv::Mat mat = cv::Mat(10, 10, CV_8UC1);
@@ -21,7 +21,7 @@ int main()
 	//cv::imshow("show image", matSrc);
 	//cv::waitKey(0);
 	//cv::destroyWindow("show image");
-	test_matx();
+	test_Vec();
 
 	std::cout << "ok" << std::endl;
 	return 0;

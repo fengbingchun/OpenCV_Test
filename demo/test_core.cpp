@@ -87,7 +87,7 @@ int test_saturate()
 	return 0;
 }
 
-int test_matx()
+int test_Matx()
 {
 	fbc::Matx22f matx1(1.1, 2.2, 3.3, 4.4);
 	fbc::Matx22f matx3(matx1);
@@ -150,6 +150,14 @@ int test_matx()
 		assert(fabs(matx10.val[i] - matx10_.val[i]) < eps);
 	}
 
+	return 0;
+}
+
+int test_Vec()
+{
+	cv::Vec2i vec1(1, 2), vec2(2, 3), vec3;
+	vec3 = vec1 + vec2;
+	vec3 = vec1 / 3;
 	return 0;
 }
 
