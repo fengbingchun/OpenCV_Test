@@ -165,9 +165,77 @@ int test_Matx()
 
 int test_Vec()
 {
-	cv::Vec2i vec1(1, 2), vec2(2, 3), vec3;
-	vec3 = vec1 + vec2;
-	vec3 = vec1 / 3;
+	fbc::Vec6f vec1;
+	for (int i = 0; i < 6; i++) {
+		vec1.val[i] = i * 1.1;
+	}
+	fbc::Vec6f vec2(-7.7, -8.8);
+	float* tmp = new float[6];
+	for (int i = 0; i < 6; i++) {
+		tmp[i] = i + 9.9;
+	}
+	fbc::Vec6f vec3(tmp);
+	fbc::Vec6f vec4(vec3);
+	fbc::Vec6f vec5 = fbc::Vec6f::all(-3.3);
+	vec1 = vec1.mul(vec5);
+	fbc::Vec6i vec6;
+	vec6 = fbc::Vec<int, 6>(vec1);
+	int i1 = vec6.val[1];
+	
+	fbc::Vec6f vec7 = vec1 + vec2;
+	fbc::Vec6f vec8(-3.4, -0.5, 9.1);
+	vec8 += vec7;
+	fbc::Vec6f vec9(vec8);
+	vec9 *= 2;
+	fbc::Vec6f vec10(vec9);
+	vec10 /= 1.2;
+	fbc::Vec6f vec11(vec10);
+	fbc::Vec6f vec12 = vec11 * 5;
+
+	cv::Vec6f vec1_;
+	for (int i = 0; i < 6; i++) {
+		vec1_.val[i] = i * 1.1;
+	}
+	cv::Vec6f vec2_(-7.7, -8.8);
+	cv::Vec6f vec3_(tmp);
+	cv::Vec6f vec4_(vec3_);
+	cv::Vec6f vec5_ = cv::Vec6f::all(-3.3);
+	vec1_ = vec1_.mul(vec5_);
+	cv::Vec6i vec6_;
+	vec6_ = cv::Vec<int, 6>(vec1_);
+	int i1_ = vec6_.val[1];
+
+	cv::Vec6f vec7_ = vec1_ + vec2_;
+	cv::Vec6f vec8_(-3.4, -0.5, 9.1);
+	vec8_ += vec7_;
+	cv::Vec6f vec9_(vec8_);
+	vec9_ *= 2;
+	cv::Vec6f vec10_(vec9_);
+	vec10_ /= 1.2;
+	cv::Vec6f vec11_(vec10_);
+	cv::Vec6f vec12_ = vec11_ * 5;
+
+	const float eps = 0.000001;
+
+	for (int i = 0; i < 6; i++) {
+		assert(fabs(vec1.val[i] - vec1_.val[i]) < eps);
+		assert(fabs(vec2.val[i] - vec2_.val[i]) < eps);
+		assert(fabs(vec3.val[i] - vec3_.val[i]) < eps);
+		assert(fabs(vec3.val[i] - tmp[i]) < eps);
+		assert(fabs(vec4.val[i] - vec4_.val[i]) < eps);
+		assert(fabs(vec5.val[i] - vec5_.val[i]) < eps);
+		assert(vec6.val[i] == vec6_.val[i]);
+		assert(fabs(vec7.val[i] - vec7_.val[i]) < eps);
+		assert(fabs(vec8.val[i] - vec8_.val[i]) < eps);
+		assert(fabs(vec9.val[i] - vec9_.val[i]) < eps);
+		assert(fabs(vec10.val[i] - vec10_.val[i]) < eps);
+		assert(fabs(vec11.val[i] - vec11_.val[i]) < eps);
+		assert(fabs(vec12.val[i] - vec12_.val[i]) < eps);
+	}
+	assert(i1 == i1_);
+	assert(i1 == -4);
+
+	delete [] tmp;
 	return 0;
 }
 
