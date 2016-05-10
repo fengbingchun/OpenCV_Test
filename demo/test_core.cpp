@@ -106,6 +106,8 @@ int test_Matx()
 	fbc::Matx22f matx12 = matx1 - matx6;
 	fbc::Matx22f matx13 = matx1 * ret1;
 	fbc::Matx22f matx14 = matx1 * matx4;
+	fbc::Matx41f matx15 = matx1.reshape<4, 1>();
+	fbc::Matx21f matx16 = matx1.get_minor<2, 1>(0, 1);
 
 	cv::Matx22f matx1_(1.1, 2.2, 3.3, 4.4);
 	cv::Matx22f matx3_(matx1_);
@@ -124,6 +126,8 @@ int test_Matx()
 	cv::Matx22f matx12_ = matx1_ - matx6_;
 	cv::Matx22f matx13_ = matx1_ * ret1_;
 	cv::Matx22f matx14_ = matx1_ * matx4_;
+	cv::Matx41f matx15_ = matx1_.reshape<4, 1>();
+	cv::Matx21f matx16_ = matx1_.get_minor<2, 1>(0, 1);
 
 	const float eps = 0.000001;
 
@@ -149,6 +153,12 @@ int test_Matx()
 		assert(fabs(matx9.val[i] - matx9_.val[i]) < eps);
 		assert(fabs(matx10.val[i] - matx10_.val[i]) < eps);
 	}
+
+	assert(matx15.rows == 4 && matx15.cols == 1 && matx15_.rows == 4 && matx15_.cols == 1);
+	assert(fabs(matx16.val[0] - 2.2) < eps);
+	assert(fabs(matx16.val[1] - 4.4) < eps);
+	assert(fabs(matx16.val[0] - matx16_.val[0]) < eps);
+	assert(fabs(matx16.val[1] - matx16_.val[1]) < eps);
 
 	return 0;
 }
