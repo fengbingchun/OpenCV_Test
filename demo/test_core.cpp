@@ -315,7 +315,181 @@ int test_Point()
 	return 0;
 }
 
-int test_mat()
+int test_Point3()
+{
+	const float eps = 0.000001;
+
+	fbc::Point3i point1;
+	fbc::Point3i point2(2, 3, 4);
+	fbc::Point3i point3(point2);
+	fbc::Vec3f vec1(5.1, 2.2, 3.4);
+	fbc::Point3f point5(vec1);
+	fbc::Point3f point6 = point3;
+	fbc::Point3i point7 = fbc::Point3i(point5);
+	assert(point7.x == 5 && point7.y == 2 && point7.z == 3);
+	fbc::Vec3i vec2(point7);
+	int ret1 = point2.dot(point7);
+	assert(ret1 == 28);
+	fbc::Point3i point8 = point7.cross(point3);
+	assert(point8.x == -1 && point8.y == -14 && point8.z == 11);
+	point1 += point3;
+	point2 -= point1;
+	point3 *= ret1;
+	point5 /= ret1;
+	double ret4 = fbc::norm(point6);
+	assert(fabs(ret4 - 5.3851648) < eps);
+	point6 = point1 + point7;
+	point1 = point2 * ret1;
+	point7 = point3 / ret4;
+
+	cv::Point3i point1_;
+	cv::Point3i point2_(2, 3, 4);
+	cv::Point3i point3_(point2_);
+	cv::Vec3f vec1_(5.1, 2.2, 3.4);
+	cv::Point3f point5_(vec1_);
+	cv::Point3f point6_ = point3_;
+	cv::Point3i point7_ = cv::Point3i(point5_);
+	assert(point7_.x == 5 && point7_.y == 2 && point7_.z == 3);
+	cv::Vec3i vec2_(point7_);
+	int ret1_ = point2_.dot(point7_);
+	assert(ret1 == 28);
+	cv::Point3i point8_ = point7_.cross(point3_);
+	assert(point8_.x == -1 && point8_.y == -14 && point8_.z == 11);
+	point1_ += point3_;
+	point2_ -= point1_;
+	point3_ *= ret1_;
+	point5_ /= ret1_;
+	double ret4_ = cv::norm(point6_);
+	assert(fabs(ret4_ - 5.3851648) < eps);
+	point6_ = point1_ + point7_;
+	point1_ = point2_ * ret1_;
+	point7_ = point3_ / ret4_;
+
+	assert(point1.x == point1_.x && point1.y == point1_.y && point1.z == point1_.z);
+	assert(point2.x == point2_.x && point2.y == point2_.y && point2.z == point2_.z);
+	assert(point3.x == point3_.x && point3.y == point3_.y && point3.z == point3_.z);
+	assert(fabs(point5.x - point5_.x) < eps && fabs(point5.y - point5_.y) < eps && fabs(point5.z - point5_.z) < eps);
+	assert(fabs(point6.x - point6_.x) < eps && fabs(point6.y - point6_.y) < eps && fabs(point6.z - point6_.z) < eps);
+	assert(point7.x == point7_.x && point7.y == point7_.y && point7.z == point7_.z);
+	assert(ret1 == ret1_);
+	assert(fabs(ret4 - ret4_) < eps);
+
+	return 0;
+}
+
+int test_Size()
+{
+	const float eps = 0.000001;
+
+	fbc::Size size1;
+	fbc::Size size2(10, 15);
+	fbc::Size size3(size2);
+	fbc::Point2f point1(2, 3);
+	fbc::Size2f size4(point1);
+	fbc::Size size5 = size3;
+	int ret1 = size5.area();
+	assert(ret1 == 150);
+	fbc::Size size6 = fbc::Size(size4);
+	size1 *= ret1;
+	size2 = size1 * 4;
+	size4 /= 1.2f;
+	size5 += size1;
+	size3 = size2 - size5;
+
+	cv::Size size1_;
+	cv::Size size2_(10, 15);
+	cv::Size size3_(size2_);
+	cv::Point2f point1_(2, 3);
+	cv::Size2f size4_(point1_);
+	cv::Size size5_ = size3_;
+	int ret1_ = size5_.area();
+	assert(ret1_ == 150);
+	cv::Size size6_ = cv::Size(size4_);
+	size1_ *= ret1_;
+	size2_ = size1_ * 4;
+	size4_ /= 1.2f;
+	size5_ += size1_;
+	size3_ = size2_ - size5_;
+
+	assert(size1.width == size1_.width && size1.height == size1_.height);
+	assert(size2.width == size2_.width && size2.height == size2_.height);
+	assert(size3.width == size3_.width && size3.height == size3_.height);
+	assert(size5.width == size5_.width && size5.height == size5_.height);
+	assert(size4.width == size4_.width && size4.height == size4_.height);
+
+	return 0;
+}
+
+int test_Rect()
+{
+	fbc::Rect rect1;
+	fbc::Rect rect2(2, 3, 19, 25);
+	fbc::Rect rect3(rect2);
+	fbc::Point point1(2, 4);
+	fbc::Size size1(22, 56);
+	fbc::Rect rect4(point1, size1);
+	fbc::Rect rect5 = rect4;
+	fbc::Point point2 = rect5.tl();
+	fbc::Point point3 = rect5.br();
+	fbc::Size size2 = rect5.size();
+	int ret1 = rect5.area();
+	assert(ret1 == 1232);
+	fbc::Rect2f rect6(1.3, 4.5, 78.2, 44.6);
+	rect1 = fbc::Rect(rect6);
+	bool ret2 = rect5.contains(point1);
+	assert(ret2 == true);
+	rect1 += point1;
+	rect1 -= point3;
+	rect2 += size1;
+	rect3 &= rect2;
+	rect4 |= rect3;
+	rect1 = rect2 + point3;
+	rect5 = rect3 - point2;
+
+	cv::Rect rect1_;
+	cv::Rect rect2_(2, 3, 19, 25);
+	cv::Rect rect3_(rect2_);
+	cv::Point point1_(2, 4);
+	cv::Size size1_(22, 56);
+	cv::Rect rect4_(point1_, size1_);
+	cv::Rect rect5_ = rect4_;
+	cv::Point point2_ = rect5_.tl();
+	cv::Point point3_ = rect5_.br();
+	cv::Size size2_ = rect5_.size();
+	int ret1_ = rect5_.area();
+	assert(ret1_ == 1232);
+	cv::Rect2f rect6_(1.3, 4.5, 78.2, 44.6);
+	rect1_ = cv::Rect(rect6_);
+	bool ret2_ = rect5_.contains(point1_);
+	assert(ret2_ == true);
+	rect1_ += point1_;
+	rect1_ -= point3_;
+	rect2_ += size1_;
+	rect3_ &= rect2_;
+	rect4_ |= rect3_;
+	rect1_ = rect2_ + point3_;
+	rect5_ = rect3_ - point2_;
+
+	assert(rect1.x == rect1_.x && rect1.y == rect1_.y && rect1.width == rect1_.width && rect1.height == rect1_.height);
+	assert(rect2.x == rect2_.x && rect2.y == rect2_.y && rect2.width == rect2_.width && rect2.height == rect2_.height);
+	assert(rect3.x == rect3_.x && rect3.y == rect3_.y && rect3.width == rect3_.width && rect3.height == rect3_.height);
+	assert(rect4.x == rect4_.x && rect4.y == rect4_.y && rect4.width == rect4_.width && rect4.height == rect4_.height);
+	assert(rect5.x == rect5_.x && rect5.y == rect5_.y && rect5.width == rect5_.width && rect5.height == rect5_.height);
+
+	return 0;
+}
+
+int test_Range()
+{
+	return 0;
+}
+
+int test_Scalar()
+{
+	return 0;
+}
+
+int test_Mat()
 {
 	cv::Mat mat1_1 = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
 	if (!mat1_1.data) {
@@ -328,11 +502,4 @@ int test_mat()
 	return 0;
 }
 
-int test_point()
-{
-	fbc::Point2i point;
-	point.x = point.y = 10;
-
-	return 0;
-}
 
