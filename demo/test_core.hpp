@@ -6,7 +6,7 @@ int test_base();
 int test_saturate();
 int test_Matx();
 int test_Vec();
-int test_types();
+int test_Point();
 int test_mat();
 
 #endif // TEST_FBC_CV_CORE_HPP_

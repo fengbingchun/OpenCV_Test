@@ -1,10 +1,11 @@
 #include <assert.h>
 #include "test_core.hpp"
-#include <core/mat.hpp>
 #include <core/fast_math.hpp>
 #include <core/base.hpp>
 #include <core/saturate.hpp>
 #include <core/matx.hpp>
+#include <core/types.hpp>
+#include <core/mat.hpp>
 #include <opencv2/opencv.hpp>
 
 int test_fast_math()
@@ -236,6 +237,81 @@ int test_Vec()
 	assert(i1 == -4);
 
 	delete [] tmp;
+	return 0;
+}
+
+int test_Point()
+{
+	const float eps = 0.000001;
+
+	fbc::Point point1;
+	fbc::Point point2(2, 3);
+	fbc::Point point3(point2);
+	fbc::Size size(10, 20);
+	fbc::Point point4(size);
+	assert(point4.x == 10 && point4.y == 20);
+	fbc::Vec2f vec(5.1, 2.2);
+	fbc::Point2f point5(vec);
+	fbc::Point point6 = point3;
+	fbc::Point point7 = fbc::Point(point5);
+	assert(point7.x == 5 && point7.y == 2);
+	int ret1 = point2.dot(point4);
+	assert(ret1 == 80);
+	double ret2 = point5.cross(point4);
+	assert(fabs(ret2 - 79.9999976) < eps);
+	fbc::Rect rect(1, 0, 10, 20);
+	bool ret3 = point3.inside(rect);
+	assert(ret3 == true);
+	point1 += point3;
+	point2 -= point1;
+	point3 *= ret1;
+	point4 /= ret2;
+	double ret4 = fbc::norm(point3);
+	assert(fabs(ret4 - 288.444102037) < eps);
+	point6 = point1 + point7;
+	point1 = point2 * ret1;
+	point7 = point3 / ret4;
+
+	cv::Point point1_;
+	cv::Point point2_(2, 3);
+	cv::Point point3_(point2_);
+	cv::Size size_(10, 20);
+	cv::Point point4_(size_);
+	assert(point4_.x == 10 && point4_.y == 20);
+	cv::Vec2f vec_(5.1, 2.2);
+	cv::Point2f point5_(vec_);
+	cv::Point point6_ = point3_;
+	cv::Point point7_ = cv::Point(point5_);
+	assert(point7_.x == 5 && point7_.y == 2);
+	int ret1_ = point2_.dot(point4_);
+	assert(ret1_ == 80);
+	double ret2_ = point5_.cross(point4_);
+	assert(fabs(ret2_ - 79.9999976) < eps);
+	cv::Rect rect_(1, 0, 10, 20);
+	bool ret3_ = point3_.inside(rect_);
+	assert(ret3_ == true);
+	point1_ += point3_;
+	point2_ -= point1_;
+	point3_ *= ret1_;
+	point4_ /= ret2_;
+	double ret4_ = cv::norm(point3_);
+	assert(fabs(ret4_ - 288.444102037) < eps);
+	point6_ = point1_ + point7_;
+	point1_ = point2_ * ret1_;
+	point7_ = point3_ / ret4_;
+
+	assert(point1.x == point1_.x && point1.y == point1_.y);
+	assert(point2.x == point2_.x && point2.y == point2_.y);
+	assert(point3.x == point3_.x && point3.y == point3_.y);
+	assert(point4.x == point4_.x && point4.y == point4_.y);
+	assert(fabs(point5.x - point5_.x) < eps && fabs(point5.y - point5_.y) < eps);
+	assert(point6.x == point6_.x && point6.y == point6_.y);
+	assert(point7.x == point7_.x && point7.y == point7_.y);
+	assert(ret1 == ret1_);
+	assert(fabs(ret2 - ret2_) < eps);
+	assert(ret3 == ret3_);
+	assert(fabs(ret4 - ret4_) < eps);
+
 	return 0;
 }
 
