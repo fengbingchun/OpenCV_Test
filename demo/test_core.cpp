@@ -481,11 +481,95 @@ int test_Rect()
 
 int test_Range()
 {
+	fbc::Range range1;
+	fbc::Range range2(10, 20);
+	int ret1 = range2.size();
+	assert(ret1 == 10);
+	bool ret2 = range1.empty();
+	assert(ret2 == true);
+	bool ret3 = (range1 == range2);
+	assert(ret3 == false);
+	fbc::Range range3(15, 40);
+	fbc::Range range4 = range2 & range3;
+	assert(range4.start == 15 && range4.end == 20);
+	range3 = range3 + 5;
+	range1 = range1 - 6;
+
+	cv::Range range1_;
+	cv::Range range2_(10, 20);
+	int ret1_ = range2_.size();
+	assert(ret1_ == 10);
+	bool ret2_ = range1_.empty();
+	assert(ret2_ == true);
+	bool ret3_ = (range1_ == range2_);
+	assert(ret3_ == false);
+	cv::Range range3_(15, 40);
+	cv::Range range4_ = range2_ & range3_;
+	assert(range4_.start == 15 && range4_.end == 20);
+	range3_ = range3_ + 5;
+	range1_ = range1_ - 6;
+
+	assert(range1.start == range1_.start && range1.end == range1_.end);
+	assert(range2.start == range2_.start && range2.end == range2_.end);
+	assert(range3.start == range3_.start && range3.end == range3_.end);
+	assert(range4.start == range4_.start && range4.end == range4_.end);
+
 	return 0;
 }
 
 int test_Scalar()
 {
+	fbc::Scalar scalar1;
+	fbc::Scalar scalar2(1, 2, 3, 4);
+	fbc::Vec6f vec1(-1.4, -2.5, -3.6, -4.8, -5, -6);
+	fbc::Scalar scalar3(vec1);
+	fbc::Scalar scalar4(9);
+	fbc::Scalar scalar5 = fbc::Scalar::all(8);
+	fbc::Scalar_<int> scalar6 = fbc::Scalar_<int>(scalar3);
+	assert(scalar6.val[0] == -1 && scalar6.val[1] == -2 && scalar6.val[2] == -4 && scalar6[3] == -5);
+	fbc::Scalar scalar7 = scalar2 * 1.5;
+	scalar1 = scalar2 + scalar5;
+	scalar2 *= -6;
+	scalar3 = scalar1 * scalar7;
+	fbc::Scalar_<float> scalar8(2.2f, 3.3f, 4.4f, 5.5f);
+	fbc::Scalar_<float> scalar9;
+	float f1 = 1.1f;
+	scalar9 = fbc::Scalar_<float>(scalar8) / float(f1);
+	fbc::Scalar_<float> scalar10;
+	int i = 2;
+	scalar10 = scalar8 / i;
+
+	cv::Scalar scalar1_;
+	cv::Scalar scalar2_(1, 2, 3, 4);
+	cv::Vec6f vec1_(-1.4, -2.5, -3.6, -4.8, -5, -6);
+	cv::Scalar scalar3_(vec1_);
+	cv::Scalar scalar4_(9);
+	cv::Scalar scalar5_ = cv::Scalar::all(8);
+	cv::Scalar_<int> scalar6_ = cv::Scalar_<int>(scalar3_);
+	assert(scalar6_.val[0] == -1 && scalar6_.val[1] == -2 && scalar6_.val[2] == -4 && scalar6_[3] == -5);
+	cv::Scalar scalar7_ = scalar2_ * 1.5;
+	scalar1_ = scalar2_ + scalar5_;
+	scalar2_ *= -6;
+	scalar3_ = scalar1_ * scalar7_;
+	cv::Scalar_<float> scalar8_(2.2f, 3.3f, 4.4f, 5.5f);
+	cv::Scalar_<float> scalar9_;
+	float f1_ = 1.1f;
+	scalar9_ = cv::Scalar_<float>(scalar8_) / float(f1_);
+	cv::Scalar_<float> scalar10_;
+	int i_ = 2;
+	scalar10_ = scalar8_ / i_;
+
+	assert(scalar1.val[0] == scalar1_.val[0] && scalar1.val[1] == scalar1_.val[1] && scalar1.val[2] == scalar1_.val[2] && scalar1.val[3] == scalar1_.val[3]);
+	assert(scalar2.val[0] == scalar2_.val[0] && scalar2.val[1] == scalar2_.val[1] && scalar2.val[2] == scalar2_.val[2] && scalar2.val[3] == scalar2_.val[3]);
+	assert(scalar3.val[0] == scalar3_.val[0] && scalar3.val[1] == scalar3_.val[1] && scalar3.val[2] == scalar3_.val[2] && scalar3.val[3] == scalar3_.val[3]);
+	assert(scalar4.val[0] == scalar4_.val[0] && scalar4.val[1] == scalar4_.val[1] && scalar4.val[2] == scalar4_.val[2] && scalar4.val[3] == scalar4_.val[3]);
+	assert(scalar5.val[0] == scalar5_.val[0] && scalar5.val[1] == scalar5_.val[1] && scalar5.val[2] == scalar5_.val[2] && scalar5.val[3] == scalar5_.val[3]);
+	assert(scalar6.val[0] == scalar6_.val[0] && scalar6.val[1] == scalar6_.val[1] && scalar6.val[2] == scalar6_.val[2] && scalar6.val[3] == scalar6_.val[3]);
+	assert(scalar7.val[0] == scalar7_.val[0] && scalar7.val[1] == scalar7_.val[1] && scalar7.val[2] == scalar7_.val[2] && scalar7.val[3] == scalar7_.val[3]);
+	assert(scalar8.val[0] == scalar8_.val[0] && scalar8.val[1] == scalar8_.val[1] && scalar8.val[2] == scalar8_.val[2] && scalar8.val[3] == scalar8_.val[3]);
+	assert(scalar9.val[0] == scalar9_.val[0] && scalar9.val[1] == scalar9_.val[1] && scalar9.val[2] == scalar9_.val[2] && scalar9.val[3] == scalar9_.val[3]);
+	assert(scalar10.val[0] == scalar10_.val[0] && scalar10.val[1] == scalar10_.val[1] && scalar10.val[2] == scalar10_.val[2] && scalar10.val[3] == scalar10_.val[3]);
+
 	return 0;
 }
 

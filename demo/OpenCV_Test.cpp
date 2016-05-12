@@ -21,7 +21,7 @@ int main()
 	//cv::imshow("show image", matSrc);
 	//cv::waitKey(0);
 	//cv::destroyWindow("show image");
-	test_Rect();
+	test_Scalar();
 
 	std::cout << "ok" << std::endl;
 	return 0;
