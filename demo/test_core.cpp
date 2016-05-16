@@ -575,6 +575,8 @@ int test_Scalar()
 
 int test_Mat()
 {
+	cv::Mat mat = cv::Mat(1, 111, CV_8UC1);
+	int stride = mat.step;
 	cv::Mat mat1_1 = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
 	if (!mat1_1.data) {
 		std::cout << "read image fail" << std::endl;

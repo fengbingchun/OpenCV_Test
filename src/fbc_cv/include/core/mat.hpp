@@ -1,7 +1,11 @@
 #ifndef FBC_CV_CORE_MAT_HPP_
 #define FBC_CV_CORE_MAT_HPP_
 
-// reference: include/opencv2/core/mat.hpp
+/* reference: include/opencv2/core/mat.hpp
+	      core/src/alloc.cpp
+	      include/opencv2/core/utility.hpp
+	      include/opencv2/core/cvstd.hpp
+*/
 
 #ifndef __cplusplus
 	#error mat.hpp header must be compiled as C++
@@ -13,6 +17,38 @@
 #include "core/interface.hpp"
 
 namespace fbc {
+
+/* the alignment of all the allocated buffers */
+#define  FBC_MALLOC_ALIGN    16
+
+// The function returns the aligned pointer of the same type as the input pointer
+template<typename _Tp> static inline _Tp* alignPtr(_Tp* ptr, int n = (int)sizeof(_Tp))
+{
+	return (_Tp*)(((size_t)ptr + n - 1) & -n);
+}
+
+// Allocates an aligned memory buffer
+void* fastMalloc(size_t size)
+{
+	uchar* udata = (uchar*)malloc(size + sizeof(void*) + FBC_MALLOC_ALIGN);
+	if (!udata) {
+		std::cout << "failed to allocate memory" << std::endl;
+		return NULL;
+	}
+	uchar** adata = alignPtr((uchar**)udata + 1, FBC_MALLOC_ALIGN);
+	adata[-1] = udata;
+	return adata;
+}
+
+// Deallocates a memory buffer
+void fastFree(void* ptr)
+{
+	if (ptr) {
+		uchar* udata = ((uchar**)ptr)[-1];
+		FBC_Assert(udata < (uchar*)ptr && ((uchar*)ptr - udata) <= (ptrdiff_t)(sizeof(void*) + FBC_MALLOC_ALIGN));
+		free(udata);
+	}
+}
 
 template<typename _Tp, int chs> class Mat_ {
 public:
@@ -76,7 +112,7 @@ public:
 	bool allocated;
 
 protected:
-	//bool create(int rows, int cols);
+	bool create(int rows, int cols);
 	//bool allocate();
 
 }; // Mat_
