@@ -32,7 +32,7 @@ void* fastMalloc(size_t size)
 {
 	uchar* udata = (uchar*)malloc(size + sizeof(void*) + FBC_MALLOC_ALIGN);
 	if (!udata) {
-		std::cout << "failed to allocate memory" << std::endl;
+		fprintf(stderr, "failed to allocate %lu bytes\n", (unsigned long)size);
 		return NULL;
 	}
 	uchar** adata = alignPtr((uchar**)udata + 1, FBC_MALLOC_ALIGN);
@@ -112,7 +112,7 @@ public:
 	bool allocated;
 
 protected:
-	bool create(int rows, int cols);
+	//bool create(int rows, int cols);
 	//bool allocate();
 
 }; // Mat_
@@ -125,7 +125,7 @@ template<typename _Tp, int chs> inline
 void Mat_<_Tp, chs>::release()
 {
 	if (this->data && this->allocated) {
-		delete[] this->data;
+		fastFree(this->data);
 	}
 
 	this->data = NULL;
@@ -143,12 +143,11 @@ Mat_<_Tp, chs>::Mat_(int _rows, int _cols)
 	this->step = sizeof(_Tp) * _cols * chs;
 	this->allocated = true;
 
-	int length = _rows * _cols * chs;
-	_Tp* _data = new _Tp[length];
-	FBC_Assert(_data != NULL);
-	memset(_data, 0, length * sizeof(_Tp));
+	size_t size_ = _rows * _cols * chs * sizeof(value_type);
+	uchar* p = fastMalloc(size_);
+	FBC_Assert(p != NULL);
 
-	this->data = _data;
+	this->data = (_Tp)p;
 }
 
 template<typename _Tp, int chs>
