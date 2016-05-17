@@ -60,14 +60,14 @@ public:
 	Mat_(int _rows, int _cols);
 	// constucts 2D matrix and fills it with the specified value _s
 	Mat_(int _rows, int _cols, const Scalar& _s);
-	//Mat_(Size _size, const Scalar& _s);
 	// constructor for matrix headers pointing to user-allocated data
 	Mat_(int _rows, int _cols, _Tp* _data);
-	// copy constructor
+	// copy constructor, NOTE: deep copy
 	Mat_(const Mat_<_Tp, chs>& _m);
+	Mat_& operator = (const Mat_& _m);
+
 	//Mat_(const Mat_<_Tp, chs>& _m, const Range& _rowRange, const Range& _colRange = Range::all());
 	//Mat_(const Mat_<_Tp, chs>& _m, const Rect& _roi);
-	//Mat_& operator = (const Mat_& _m);
 
 	//Mat_<_Tp, chs> row(int _y) const;
 	//Mat_<_Tp, chs> col(int _x) const;
@@ -130,6 +130,7 @@ void Mat_<_Tp, chs>::release()
 
 	this->data = NULL;
 	this->allocated = false;
+	this->rows = this->cols = this->step = this->channels = 0;
 }
 
 template<typename _Tp, int chs>
@@ -179,12 +180,6 @@ Mat_<_Tp, chs>::Mat_(int _rows, int _cols, const Scalar& _s)
 	}
 }
 
-//template<typename _Tp, int chs>
-//Mat_<_Tp, chs>::Mat_(Size _size, const Scalar& _s)
-//{
-//	Mat_<_Tp, chs>(_size.height, _size.width, _s);
-//}
-
 template<typename _Tp, int chs>
 Mat_<_Tp, chs>::Mat_(int _rows, int _cols, _Tp* _data)
 {
@@ -195,24 +190,61 @@ Mat_<_Tp, chs>::Mat_(int _rows, int _cols, _Tp* _data)
 	this->channels = chs;
 	this->step = sizeof(_Tp) * _cols * chs;
 	this->allocated = false;
-	this->data = _data;
+	this->data = (_Tp*)_data;
 }
 
 template<typename _Tp, int chs>
 Mat_<_Tp, chs>::Mat_(const Mat_<_Tp, chs>& _m)
 {
-	FBC_Assert(_m.rows > 0 && _m.cols > 0 && _m.channels > 0);
+	this->rows = _m.rows;
+	this->cols = _m.cols;
+	this->channels = _m.channels;
+	this->step = sizeof(_Tp) * this->cols * this->channels;
+
+	size_t size_ = this->rows * this->step;
+	if (size_ > 0) {
+		this->allocated = true;
+		_Tp* p = (_Tp*)fastMalloc(size_);
+		FBC_Assert(p != NULL);
+
+		memcpy(p, _m.data, size_);
+		this->data = p;
+	} else {
+		this->allocated = false;
+		this->data = NULL;
+	}
+}
+
+template<typename _Tp, int chs>
+Mat_<_Tp, chs>& Mat_<_Tp, chs>::operator = (const Mat_& _m)
+{
+	size_t size1 = this->rows * this->step;
+	size_t size2 = _m.rows * _m.step;
 
 	this->rows = _m.rows;
 	this->cols = _m.cols;
 	this->channels = _m.channels;
-	this->step = _m.step;
-	this->allocated = true;
+	this->step = sizeof(_Tp) * this->cols * this->channels;
 
-	int length = _m.cols * _m.rows * _m.channels;
-	_Tp* _data = new _Tp[length];
-	memcpy(_data, _m.data, length * sizeof(_Tp));
-	this->data = _data;
+	if ((size1 == size2) && (this->allocated == true) && (this->data != _m.data)) {
+		memcpy(this->data, _m.data, size2);
+	} else if (size2 > 0){
+		if (this->allocated == true && this->data != NULL) {
+			fastFree(this->data);
+			this->data = NULL;
+		}
+
+		this->allocated = true;
+		_Tp* p = (_Tp*)fastMalloc(size2);
+		FBC_Assert(p != NULL);
+		memcpy(p, _m.data, size2);
+		this->data = p;
+	} else {
+		this->allocated = false;
+		this->data = NULL;
+	}
+
+	return *this;
 }
 
 template<typename _Tp, int chs>
