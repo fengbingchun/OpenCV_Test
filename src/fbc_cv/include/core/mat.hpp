@@ -60,7 +60,7 @@ public:
 	Mat_(int _rows, int _cols);
 	// constucts 2D matrix and fills it with the specified value _s
 	Mat_(int _rows, int _cols, const Scalar& _s);
-	Mat_(Size _size, const Scalar& _s);
+	//Mat_(Size _size, const Scalar& _s);
 	// constructor for matrix headers pointing to user-allocated data
 	Mat_(int _rows, int _cols, _Tp* _data);
 	// copy constructor
@@ -143,11 +143,11 @@ Mat_<_Tp, chs>::Mat_(int _rows, int _cols)
 	this->step = sizeof(_Tp) * _cols * chs;
 	this->allocated = true;
 
-	size_t size_ = _rows * _cols * chs * sizeof(value_type);
-	uchar* p = fastMalloc(size_);
+	size_t size_ = this->rows * this->step;
+	_Tp* p = (_Tp*)fastMalloc(size_);
 	FBC_Assert(p != NULL);
 
-	this->data = (_Tp)p;
+	this->data = p;
 }
 
 template<typename _Tp, int chs>
@@ -161,14 +161,13 @@ Mat_<_Tp, chs>::Mat_(int _rows, int _cols, const Scalar& _s)
 	this->step = sizeof(_Tp) * _cols * chs;
 	this->allocated = true;
 
-	int length = _rows * _cols * chs;
-	_Tp* _data = new _Tp[length];
-	FBC_Assert(_data != NULL);
-
-	memset(_data, 0, length * sizeof(_Tp));
+	size_t size_ = this->rows * this->step;
+	_Tp* p = (_Tp*)fastMalloc(size_);
+	FBC_Assert(p != NULL);
+	this->data = p;
 
 	for (int i = 0; i < _rows; i++) {
-		_Tp* pRow = _data + i * _cols * chs;
+		_Tp* pRow = this->data + i * _cols * chs;
 
 		for (int j = 0; j < _cols; j++) {
 			_Tp* pPixel = pRow + j * chs;
@@ -178,15 +177,13 @@ Mat_<_Tp, chs>::Mat_(int _rows, int _cols, const Scalar& _s)
 			}
 		}
 	}
-
-	this->data = _data;
 }
 
-template<typename _Tp, int chs>
-Mat_<_Tp, chs>::Mat_(Size _size, const Scalar& _s)
-{
-	Mat_<_Tp, chs>(_size.height, _size.width, _s);
-}
+//template<typename _Tp, int chs>
+//Mat_<_Tp, chs>::Mat_(Size _size, const Scalar& _s)
+//{
+//	Mat_<_Tp, chs>(_size.height, _size.width, _s);
+//}
 
 template<typename _Tp, int chs>
 Mat_<_Tp, chs>::Mat_(int _rows, int _cols, _Tp* _data)

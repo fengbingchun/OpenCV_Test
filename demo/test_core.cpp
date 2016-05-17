@@ -575,15 +575,23 @@ int test_Scalar()
 
 int test_Mat()
 {
-	cv::Mat mat = cv::Mat(1, 111, CV_32FC1);
-	int stride = mat.step;
-	cv::Mat mat1_1 = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
-	if (!mat1_1.data) {
-		std::cout << "read image fail" << std::endl;
-		return -1;
-	}
+	fbc::Mat4BGRA ma1;
+	fbc::Mat1Gray mat2(111, 111);
+	fbc::Mat3BGR mat3(5, 111, fbc::Scalar(128, 128, 255));
 
-	fbc::Mat_<int, 3> mat2_1;//(mat1_1.rows, mat1_1.cols);
+	cv::Mat ma1_;
+	cv::Mat mat2_(111, 111, CV_8UC1);
+	cv::Mat mat3_(5, 111, CV_8UC3, cv::Scalar(128, 128, 255));
+
+	//cv::Mat mat_ = cv::Mat(5, 111, CV_8UC3, cv::Scalar(128, 128, 255));
+	//int stride = mat_.step;
+	//cv::Mat mat1_1 = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	//if (!mat1_1.data) {
+	//	std::cout << "read image fail" << std::endl;
+	//	return -1;
+	//}
+
+	//fbc::Mat_<int, 3> mat2_1;//(mat1_1.rows, mat1_1.cols);
 
 	return 0;
 }
