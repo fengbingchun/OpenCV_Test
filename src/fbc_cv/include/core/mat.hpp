@@ -229,9 +229,8 @@ Mat_<_Tp, chs>& Mat_<_Tp, chs>::operator = (const Mat_& _m)
 	if ((size1 == size2) && (this->allocated == true) && (this->data != _m.data)) {
 		memcpy(this->data, _m.data, size2);
 	} else if (size2 > 0){
-		if (this->allocated == true && this->data != NULL) {
+		if (this->allocated == true) {
 			fastFree(this->data);
-			this->data = NULL;
 		}
 
 		this->allocated = true;

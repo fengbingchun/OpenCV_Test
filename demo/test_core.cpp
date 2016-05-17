@@ -573,6 +573,24 @@ int test_Scalar()
 	return 0;
 }
 
+static cv::Mat& mat_dump(const cv::Mat& mat)
+{
+	cv::Mat ret(mat.rows, mat.cols, CV_8UC3);
+
+	const unsigned char* p1 = mat.data;
+	unsigned char* p2 = ret.data;
+
+	for (int i = 0; i < mat.rows; i++) {
+		for (int j = 0; j < mat.cols * 3; j++) {
+			*p2 = 255 - *p1;
+			p2++;
+			p1++;
+		}
+	}
+
+	return ret;
+}
+
 int test_Mat()
 {
 	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
@@ -586,17 +604,19 @@ int test_Mat()
 	fbc::Mat1Gray mat2(111, 111);
 	fbc::Mat3BGR mat3(5, 111, fbc::Scalar(128, 128, 255));
 	fbc::Mat3BGR mat4(100, 100, mat.data);
-	fbc::Mat3BGR mat5(mat4);
+	fbc::Mat3BGR mat5(mat4); // mat5分配了新的空间,注意与mat5_的不同
 	fbc::Mat3BGR mat6;
-	mat6 = mat4;
+	mat6 = mat4; // mat6分配了新的空间,注意与mat6_的不同
 
 	cv::Mat ma1_;
 	cv::Mat mat2_(111, 111, CV_8UC1);
 	cv::Mat mat3_(5, 111, CV_8UC3, cv::Scalar(128, 128, 255));
 	cv::Mat mat4_(100, 100, CV_8UC3, mat.data);
-	cv::Mat mat5_(mat4_);
+	cv::Mat mat5_(mat4_); // mat5并未分配新的空间
 	cv::Mat mat6_;
-	mat6_ = mat4_;
+	mat6_ = mat4_; // mat6并未分配新的空间
+	cv::Mat mat7_;
+	mat7_ = mat_dump(mat4_);
 
 	//cv::Mat mat_ = cv::Mat(5, 111, CV_8UC3, cv::Scalar(128, 128, 255));
 	//int stride = mat_.step;
