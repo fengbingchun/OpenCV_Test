@@ -573,22 +573,36 @@ int test_Scalar()
 	return 0;
 }
 
-static cv::Mat& mat_dump(const cv::Mat& mat)
+static void mat_dump(const cv::Mat& matSrc, cv::Mat& matDst)
 {
-	cv::Mat ret(mat.rows, mat.cols, CV_8UC3);
+	assert((matSrc.rows == matDst.rows) && (matSrc.cols == matDst.cols));
 
-	const unsigned char* p1 = mat.data;
-	unsigned char* p2 = ret.data;
+	const unsigned char* p1 = matSrc.data;
+	unsigned char* p2 = matDst.data;
+	int count = 0;
 
-	for (int i = 0; i < mat.rows; i++) {
-		for (int j = 0; j < mat.cols * 3; j++) {
-			*p2 = 255 - *p1;
-			p2++;
-			p1++;
+	for (int i = 0; i < matSrc.rows; i++) {
+		for (int j = 0; j < matSrc.cols * 3; j++) {
+			p2[count] = 255 - p1[count];
+			count++;
 		}
 	}
+}
 
-	return ret;
+static void mat_dump(const fbc::Mat3BGR& matSrc, fbc::Mat3BGR& matDst)
+{
+	assert((matSrc.rows == matDst.rows) && (matSrc.cols == matDst.cols));
+
+	const unsigned char* p1 = matSrc.data;
+	unsigned char* p2 = matDst.data;
+	int count = 0;
+
+	for (int i = 0; i < matSrc.rows; i++) {
+		for (int j = 0; j < matSrc.cols * 3; j++) {
+			p2[count] = 255 - p1[count];
+			count++;
+		}
+	}
 }
 
 int test_Mat()
@@ -607,16 +621,20 @@ int test_Mat()
 	fbc::Mat3BGR mat5(mat4); // mat5分配了新的空间,注意与mat5_的不同
 	fbc::Mat3BGR mat6;
 	mat6 = mat4; // mat6分配了新的空间,注意与mat6_的不同
+	fbc::Mat3BGR mat7(100, 100);
+	mat_dump(mat4, mat7);
 
-	cv::Mat ma1_;
+	cv::Mat mat1_;
 	cv::Mat mat2_(111, 111, CV_8UC1);
 	cv::Mat mat3_(5, 111, CV_8UC3, cv::Scalar(128, 128, 255));
 	cv::Mat mat4_(100, 100, CV_8UC3, mat.data);
 	cv::Mat mat5_(mat4_); // mat5并未分配新的空间
 	cv::Mat mat6_;
 	mat6_ = mat4_; // mat6并未分配新的空间
-	cv::Mat mat7_;
-	mat7_ = mat_dump(mat4_);
+	cv::Mat mat7_(100, 100, CV_8UC3);
+	mat_dump(mat4_, mat7_);
+	cv::Mat mat8_;
+	mat4_.copyTo(mat7_);
 
 	//cv::Mat mat_ = cv::Mat(5, 111, CV_8UC3, cv::Scalar(128, 128, 255));
 	//int stride = mat_.step;

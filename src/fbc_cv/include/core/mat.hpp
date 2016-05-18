@@ -76,10 +76,8 @@ public:
 	//Mat_<_Tp, chs> colRange(int _startcol, int _endcol) const;
 	//Mat_<_Tp, chs> colRange(const Range& _r) const;
 
-	// returns deep copy of the matrix, i.e. the data is copied
-	Mat_<_Tp, chs> clone();
 	// copies the matrix content to "_m"
-	void copyTo(Mat_<_Tp, chs>& _m) const;
+	void copyTo(Mat_<_Tp, chs>& _m, const Rect& rect = Rect(0, 0, 0, 0)) const;
 
 	//Mat_<_Tp, chs>& setTo(const Scalar& _value);
 
@@ -247,23 +245,40 @@ Mat_<_Tp, chs>& Mat_<_Tp, chs>::operator = (const Mat_& _m)
 }
 
 template<typename _Tp, int chs>
-Mat_<_Tp, chs> Mat_<_Tp, chs>::clone()
+void Mat_<_Tp, chs>::copyTo(Mat_<_Tp, chs>& _m, const Rect& rect) const
 {
-	FBC_Assert(this->rows > 0 && this->cols > 0 && this->channels > 0);
+	if (this->data != NULL) {
+		if ((rect.width > 0) && (rect.height > 0)) {
 
-	Mat_<_Tp, chs> mat_ = Mat_(this->rows, this->cols);
-	memcpy(mat_.data, this->data, this->rows * this->step);
+		} else {
+			if (_m.data != NULL) {
+				if (_m.allocated == false) {
 
-	return mat_;
-}
+				} else {
 
-template<typename _Tp, int chs>
-void Mat_<_Tp, chs>::copyTo(Mat_<_Tp, chs>& _m) const
-{
-	FBC_Assert(this->rows > 0 && this->cols > 0 && this->channels > 0);
+				}
+			}
+		}
+	} else {
+		if ((_m.data != NULL) && (_m.allocated == true)) {
+			fastFree(_m.data);
+		}
 
-	_m = Mat_(this->rows, this->cols);
-	memcpy(_m.data, this->data, this->rows * this->step);
+		_m.data = NULL;
+		_m.allocated = false;
+	}
+
+	if ((rect.width > 0) && (rect.height > 0)) {
+		_m.rows = rect.height;
+		_m.cols = rect.width;
+		_m.step = sizeof(_Tp) * this->channels * rect.width;
+	} else {
+		_m.rows = this->rows;
+		_m.cols = this->cols;
+		_m.step = this->step;
+	}
+
+	_m.channels = this->channels;
 }
 
 template<typename _Tp, int chs>
