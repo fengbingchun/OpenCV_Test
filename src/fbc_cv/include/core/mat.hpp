@@ -247,17 +247,49 @@ Mat_<_Tp, chs>& Mat_<_Tp, chs>::operator = (const Mat_& _m)
 template<typename _Tp, int chs>
 void Mat_<_Tp, chs>::copyTo(Mat_<_Tp, chs>& _m, const Rect& rect) const
 {
+	FBC_Assert((this->rows >= rect.y + rect.height) && (this->cols >= rect.x + rect.width));
+
 	if (this->data != NULL) {
 		if ((rect.width > 0) && (rect.height > 0)) {
 
+
+			_m.allocated = true;
+			_m.rows = rect.height;
+			_m.cols = rect.width;
+			_m.step = sizeof(_Tp) * this->channels * rect.width;
 		} else {
+			size_t size1 = this->rows * this->step;
+
 			if (_m.data != NULL) {
 				if (_m.allocated == false) {
-
+					_Tp* p = (_Tp*)fastMalloc(size1);
+					FBC_Assert(p != NULL);
+					memcpy(p, this->data, size1);
+					_m.data = p;
 				} else {
+					size_t size2 = _m.step * _m.rows;
+					if (size1 == size2) {
+						memcpy(_m.data, this->data, size1)
+					} else {
+						fastFree(_m.data);
 
+						_Tp* p = (_Tp*)fastMalloc(size1);
+						FBC_Assert(p != NULL);
+						memcpy(p, this->data, size1);
+						_m.data = p;
+					}
 				}
+			} else {
+				_Tp* p = (_Tp*)fastMalloc(size1);
+				FBC_Assert(p != NULL);
+				memcpy(p, this->data, size1);
+				_m.data = p;
 			}
+
+			_m.allocated = true;
+			_m.rows = this->rows;
+			_m.cols = this->cols;
+			_m.step = this->step;
 		}
 	} else {
 		if ((_m.data != NULL) && (_m.allocated == true)) {
@@ -266,16 +298,6 @@ void Mat_<_Tp, chs>::copyTo(Mat_<_Tp, chs>& _m, const Rect& rect) const
 
 		_m.data = NULL;
 		_m.allocated = false;
-	}
-
-	if ((rect.width > 0) && (rect.height > 0)) {
-		_m.rows = rect.height;
-		_m.cols = rect.width;
-		_m.step = sizeof(_Tp) * this->channels * rect.width;
-	} else {
-		_m.rows = this->rows;
-		_m.cols = this->cols;
-		_m.step = this->step;
 	}
 
 	_m.channels = this->channels;
