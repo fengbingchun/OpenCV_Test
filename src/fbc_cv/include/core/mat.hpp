@@ -69,6 +69,9 @@ public:
 	// copies the matrix content to "_m"
 	void copyTo(Mat_<_Tp, chs>& _m, const Rect& rect = Rect(0, 0, 0, 0)) const;
 
+	// The methods return typed pointer to the specified matrix row
+	_Tp* ptr(int i0 = 0);
+
 	//Mat_(const Mat_<_Tp, chs>& _m, const Range& _rowRange, const Range& _colRange = Range::all());
 	//Mat_(const Mat_<_Tp, chs>& _m, const Rect& _roi);
 
@@ -88,8 +91,6 @@ public:
 	//Mat_<_Tp, chs> operator()(Range _rowRange, Range _colRange) const;
 	//Mat_<_Tp, chs> operator()(const Rect& _roi) const;
 	//Mat_<_Tp, chs> operator()(const Range* _ranges) const;
-	// returns pointer to i0-th submatrix along the dimension #0
-	inline _Tp* ptr(int i0 = 0);
 
 	//void deallocate();
 	// release memory
