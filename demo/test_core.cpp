@@ -623,6 +623,10 @@ int test_Mat()
 	mat6 = mat4; // mat6分配了新的空间,注意与mat6_的不同
 	fbc::Mat3BGR mat7(100, 100);
 	mat_dump(mat4, mat7);
+	fbc::Mat3BGR mat8;
+	mat4.copyTo(mat8);
+	fbc::Mat3BGR mat9;
+	mat4.copyTo(mat9, fbc::Rect(20, 10, 40, 45));
 
 	cv::Mat mat1_;
 	cv::Mat mat2_(111, 111, CV_8UC1);
@@ -634,7 +638,7 @@ int test_Mat()
 	cv::Mat mat7_(100, 100, CV_8UC3);
 	mat_dump(mat4_, mat7_);
 	cv::Mat mat8_;
-	mat4_.copyTo(mat7_);
+	mat4_.copyTo(mat8_);
 
 	//cv::Mat mat_ = cv::Mat(5, 111, CV_8UC3, cv::Scalar(128, 128, 255));
 	//int stride = mat_.step;
