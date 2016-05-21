@@ -625,9 +625,16 @@ int test_Mat()
 	mat_dump(mat4, mat7);
 	fbc::Mat3BGR mat8;
 	mat4.copyTo(mat8);
-	fbc::Mat3BGR mat9;
-	mat4.copyTo(mat9, fbc::Rect(20, 10, 40, 45));
+	fbc::Mat3BGR mat9; // mat9可能会分配空间，但mat10不会
+	mat8.copyTo(mat9, fbc::Rect(20, 10, 40, 45));
 	fbc::uchar* p1 = mat8.ptr(50);
+	fbc::Mat3BGR mat10;
+	mat8.getROI(mat10, fbc::Rect(20, 10, 40, 45));
+	mat10.setTo(fbc::Scalar::all(128));
+	fbc::Mat_<float, 3> mat11;
+	mat7.convertTo(mat11, 0.5, fbc::Scalar(10, 20, 30, 40));
+	fbc::Mat_<float, 3> mat12;
+	mat12.zeros(50, 100);
 
 	cv::Mat mat1_;
 	cv::Mat mat2_(111, 111, CV_8UC1);
@@ -641,18 +648,11 @@ int test_Mat()
 	cv::Mat mat8_;
 	mat4_.copyTo(mat8_);
 	uchar* p1_ = mat8_.ptr(50);
-
-
-
-	//cv::Mat mat_ = cv::Mat(5, 111, CV_8UC3, cv::Scalar(128, 128, 255));
-	//int stride = mat_.step;
-	//cv::Mat mat1_1 = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
-	//if (!mat1_1.data) {
-	//	std::cout << "read image fail" << std::endl;
-	//	return -1;
-	//}
-
-	//fbc::Mat_<int, 3> mat2_1;//(mat1_1.rows, mat1_1.cols);
+	cv::Mat mat10_;
+	mat10_ = mat8_.rowRange(cv::Range(10, 40));
+	cv::Mat mat11_;
+	mat7_.convertTo(mat11_, CV_32FC3);
+	cv::Mat mat12_ = cv::Mat::zeros(50, 100, CV_32FC3);
 
 	return 0;
 }
