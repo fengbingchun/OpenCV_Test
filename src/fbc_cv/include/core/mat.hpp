@@ -28,7 +28,7 @@ template<typename _Tp> static inline _Tp* alignPtr(_Tp* ptr, int n = (int)sizeof
 }
 
 // Allocates an aligned memory buffer
-void* fastMalloc(size_t size)
+static void* fastMalloc(size_t size)
 {
 	uchar* udata = (uchar*)malloc(size + sizeof(void*) + FBC_MALLOC_ALIGN);
 	if (!udata) {
@@ -41,7 +41,7 @@ void* fastMalloc(size_t size)
 }
 
 // Deallocates a memory buffer
-void fastFree(void* ptr)
+static void fastFree(void* ptr)
 {
 	if (ptr) {
 		uchar* udata = ((uchar**)ptr)[-1];
@@ -60,8 +60,8 @@ public:
 	Mat_(int _rows, int _cols);
 	// constucts 2D matrix and fills it with the specified value _s
 	Mat_(int _rows, int _cols, const Scalar& _s);
-	// constructor for matrix headers pointing to user-allocated data
-	Mat_(int _rows, int _cols, _Tp* _data);
+	// constructor for matrix headers pointing to user-allocated data, no data is copied
+	Mat_(int _rows, int _cols, void* _data);
 	// copy constructor, NOTE: deep copy
 	Mat_(const Mat_<_Tp, chs>& _m);
 	Mat_& operator = (const Mat_& _m);
@@ -70,7 +70,7 @@ public:
 	void copyTo(Mat_<_Tp, chs>& _m, const Rect& rect = Rect(0, 0, 0, 0)) const;
 
 	// return typed pointer to the specified matrix row
-	_Tp* ptr(int i0 = 0);
+	uchar* ptr(int i0 = 0);
 
 	// no data is copied, no memory is allocated
 	void getROI(Mat_<_Tp, chs>& _m, const Rect& rect = Rect(0, 0, 0, 0));
@@ -85,6 +85,11 @@ public:
 
 	Mat_<_Tp, chs>& zeros(int _rows, int _cols);
 
+	// returns the matrix cols and rows
+	Size& size() const;
+	// returns the matrix element size in bytes
+	size_t elemSize() const;
+
 	// release memory
 	inline void release();
 	// destructor - calls release()
@@ -96,7 +101,7 @@ public:
 	// channel num
 	int channels;
 	// pointer to the data
-	_Tp* data;
+	uchar* data;
 	// bytes per row
 	int step; // stride
 	// memory allocation flag
@@ -131,7 +136,7 @@ Mat_<_Tp, chs>::Mat_(int _rows, int _cols)
 	this->allocated = true;
 
 	size_t size_ = this->rows * this->step;
-	_Tp* p = (_Tp*)fastMalloc(size_);
+	uchar* p = (uchar*)fastMalloc(size_);
 	FBC_Assert(p != NULL);
 
 	this->data = p;
@@ -149,12 +154,12 @@ Mat_<_Tp, chs>::Mat_(int _rows, int _cols, const Scalar& _s)
 	this->allocated = true;
 
 	size_t size_ = this->rows * this->step;
-	_Tp* p = (_Tp*)fastMalloc(size_);
+	uchar* p = (uchar*)fastMalloc(size_);
 	FBC_Assert(p != NULL);
 	this->data = p;
 
 	for (int i = 0; i < _rows; i++) {
-		_Tp* pRow = this->data + i * _cols * chs;
+		_Tp* pRow = (_Tp*)this->data + i * _cols * chs;
 
 		for (int j = 0; j < _cols; j++) {
 			_Tp* pPixel = pRow + j * chs;
@@ -167,7 +172,7 @@ Mat_<_Tp, chs>::Mat_(int _rows, int _cols, const Scalar& _s)
 }
 
 template<typename _Tp, int chs>
-Mat_<_Tp, chs>::Mat_(int _rows, int _cols, _Tp* _data)
+Mat_<_Tp, chs>::Mat_(int _rows, int _cols, void* _data)
 {
 	FBC_Assert(_rows > 0 && _cols > 0 && chs > 0);
 
@@ -176,7 +181,7 @@ Mat_<_Tp, chs>::Mat_(int _rows, int _cols, _Tp* _data)
 	this->channels = chs;
 	this->step = sizeof(_Tp) * _cols * chs;
 	this->allocated = false;
-	this->data = (_Tp*)_data;
+	this->data = (uchar*)_data;
 }
 
 template<typename _Tp, int chs>
@@ -190,7 +195,7 @@ Mat_<_Tp, chs>::Mat_(const Mat_<_Tp, chs>& _m)
 	size_t size_ = this->rows * this->step;
 	if (size_ > 0) {
 		this->allocated = true;
-		_Tp* p = (_Tp*)fastMalloc(size_);
+		uchar* p = (uchar*)fastMalloc(size_);
 		FBC_Assert(p != NULL);
 
 		memcpy(p, _m.data, size_);
@@ -220,7 +225,7 @@ Mat_<_Tp, chs>& Mat_<_Tp, chs>::operator = (const Mat_& _m)
 		}
 
 		this->allocated = true;
-		_Tp* p = (_Tp*)fastMalloc(size2);
+		uchar* p = (uchar*)fastMalloc(size2);
 		FBC_Assert(p != NULL);
 		memcpy(p, _m.data, size2);
 		this->data = p;
@@ -243,13 +248,13 @@ void Mat_<_Tp, chs>::copyTo(Mat_<_Tp, chs>& _m, const Rect& rect) const
 			int step_ = sizeof(_Tp) * this->channels * rect.width;
 
 			if (_m.allocated == false) {
-				_Tp* p1 = (_Tp*)fastMalloc(size1);
+				uchar* p1 = (uchar*)fastMalloc(size1);
 				FBC_Assert(p1 != NULL);
-				_Tp* p2 = this->data;
+				uchar* p2 = this->data;
 
 				for (int i = 0; i < rect.height; i++) {
-					_Tp* p1_ = p1 + i * sizeof(_Tp) * this->channels * rect.width;
-					_Tp* p2_ = p2 + (rect.y + i) * this->step + rect.x * this->channels * sizeof(_Tp);
+					uchar* p1_ = p1 + i * sizeof(_Tp) * this->channels * rect.width;
+					uchar* p2_ = p2 + (rect.y + i) * this->step + rect.x * this->channels * sizeof(_Tp);
 
 					memcpy(p1_, p2_, step_);
 				}
@@ -258,25 +263,25 @@ void Mat_<_Tp, chs>::copyTo(Mat_<_Tp, chs>& _m, const Rect& rect) const
 				size_t size2 = _m.rows * _m.step;
 
 				if (size1 == size2) {
-					_Tp* p1 = _m.data;
-					_Tp* p2 = this->data;
+					uchar* p1 = _m.data;
+					uchar* p2 = this->data;
 
 					for (int i = 0; i < rect.height; i++) {
-						_Tp* p1_ = p1 + i * sizeof(_Tp) * this->channels * rect.width;
-						_Tp* p2_ = p2 + (rect.y + i) * this->step + rect.x * this->channels * sizeof(_Tp);
+						uchar* p1_ = p1 + i * sizeof(_Tp) * this->channels * rect.width;
+						uchar* p2_ = p2 + (rect.y + i) * this->step + rect.x * this->channels * sizeof(_Tp);
 
 						memcpy(p1_, p2_, step_);
 					}
 				} else {
 					fastFree(_m.data);
 
-					_Tp* p1 = (_Tp*)fastMalloc(size1);
+					uchar* p1 = (uchar*)fastMalloc(size1);
 					FBC_Assert(p1 != NULL);
-					_Tp* p2 = this->data;
+					uchar* p2 = this->data;
 
 					for (int i = 0; i < rect.height; i++) {
-						_Tp* p1_ = p1 + i * sizeof(_Tp) * this->channels * rect.width;
-						_Tp* p2_ = p2 + (rect.y + i) * this->step + rect.x * this->channels * sizeof(_Tp);
+						uchar* p1_ = p1 + i * sizeof(_Tp) * this->channels * rect.width;
+						uchar* p2_ = p2 + (rect.y + i) * this->step + rect.x * this->channels * sizeof(_Tp);
 
 						memcpy(p1_, p2_, step_);
 					}
@@ -292,7 +297,7 @@ void Mat_<_Tp, chs>::copyTo(Mat_<_Tp, chs>& _m, const Rect& rect) const
 			size_t size1 = this->rows * this->step;
 
 			if (_m.allocated == false) {
-				_Tp* p = (_Tp*)fastMalloc(size1);
+				uchar* p = (uchar*)fastMalloc(size1);
 				FBC_Assert(p != NULL);
 				memcpy(p, this->data, size1);
 				_m.data = p;
@@ -303,7 +308,7 @@ void Mat_<_Tp, chs>::copyTo(Mat_<_Tp, chs>& _m, const Rect& rect) const
 				} else {
 					fastFree(_m.data);
 
-					_Tp* p = (_Tp*)fastMalloc(size1);
+					uchar* p = (uchar*)fastMalloc(size1);
 					FBC_Assert(p != NULL);
 					memcpy(p, this->data, size1);
 					_m.data = p;
@@ -332,7 +337,7 @@ void Mat_<_Tp, chs>::copyTo(Mat_<_Tp, chs>& _m, const Rect& rect) const
 }
 
 template<typename _Tp, int chs>
-_Tp* Mat_<_Tp, chs>::ptr(int i0)
+uchar* Mat_<_Tp, chs>::ptr(int i0)
 {
 	FBC_Assert(i0 < this->rows);
 
@@ -361,10 +366,10 @@ template<typename _Tp, int chs>
 void Mat_<_Tp, chs>::setTo(const Scalar& _value)
 {
 	for (int i = 0; i < this->rows; i++) {
-		_Tp* pRow = this->data + i * (this->step / sizeof(_Tp));
+		uchar* pRow = this->data + i * this->step;
 
 		for (int j = 0; j < this->cols; j++) {
-			_Tp* pPixel = pRow + j * chs;
+			_Tp* pPixel = (_Tp*)pRow + j * chs;
 
 			for (int m = 0, n = 0; m < chs && n < 4; m++, n++) {
 				pPixel[n] = saturate_cast<_Tp>(_value.val[n]);
@@ -384,12 +389,12 @@ void Mat_<_Tp, chs>::convertTo(Mat_<_Tp2, chs>& _m, double alpha = 1, const Scal
 		if (this->rows * this->cols != _m.rows * _m.cols) {
 			fastFree(_m.data);
 
-			_Tp2* p = (_Tp2*)fastMalloc(size);
+			uchar* p = (uchar*)fastMalloc(size);
 			FBC_Assert(p != NULL);
 			_m.data = p;
 		}
 	} else {
-		_Tp2* p = (_Tp2*)fastMalloc(size);
+		uchar* p = (uchar*)fastMalloc(size);
 		FBC_Assert(p != NULL);
 		_m.data = p;
 	}
@@ -401,12 +406,12 @@ void Mat_<_Tp, chs>::convertTo(Mat_<_Tp2, chs>& _m, double alpha = 1, const Scal
 	_m.step = _m.cols * sizeof(_Tp2) * _m.channels;
 
 	for (int i = 0; i < this->rows; i++) {
-		_Tp* p1 = this->data + i * (this->step / sizeof(_Tp));
-		_Tp2* p2 = _m.data + i * (_m.step / sizeof(_Tp2));
+		uchar* p1 = this->data + i * this->step;
+		uchar* p2 = _m.data + i * _m.step;
 
 		for (int j = 0; j < this->cols; j++) {
-			_Tp* p1_ = p1 + j * chs;
-			_Tp2* p2_ = p2 + j * chs;
+			_Tp* p1_ = (_Tp*)p1 + j * chs;
+			_Tp2* p2_ = (_Tp2*)p2 + j * chs;
 
 			for (int ch = 0; ch < chs; ch++) {
 				p2_[ch] = saturate_cast<_Tp2>(p1_[ch] * alpha + scalar.val[ch]);
@@ -425,13 +430,25 @@ Mat_<_Tp, chs>& Mat_<_Tp, chs>::zeros(int _rows, int _cols)
 	this->allocated = true;
 
 	size_t size_ = this->rows * this->step;
-	_Tp* p = (_Tp*)fastMalloc(size_);
+	uchar* p = (uchar*)fastMalloc(size_);
 	FBC_Assert(p != NULL);
 	this->data = p;
 
 	memset(this->data, 0, size_);
 
 	return *this;
+}
+
+template<typename _Tp, int chs>
+Size& Mat_<_Tp, chs>::size() const
+{
+	return Size(this->cols, this->rows);
+}
+
+template<typename _Tp, int chs>
+size_t Mat_<_Tp, chs>::elemSize() const
+{
+	return (this->channels * sizeof(_Tp));
 }
 
 } // fbc

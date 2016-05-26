@@ -176,10 +176,10 @@
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\saturate.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\types.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\directory.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\resize.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\fbc_cv\src\directory.cpp" />
-    <ClCompile Include="..\..\..\src\fbc_cv\src\temp.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

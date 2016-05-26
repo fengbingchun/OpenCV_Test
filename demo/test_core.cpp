@@ -1,12 +1,15 @@
 #include <assert.h>
-#include "test_core.hpp"
+
 #include <core/fast_math.hpp>
 #include <core/base.hpp>
 #include <core/saturate.hpp>
 #include <core/matx.hpp>
 #include <core/types.hpp>
 #include <core/mat.hpp>
+
 #include <opencv2/opencv.hpp>
+
+#include "test_core.hpp"
 
 int test_fast_math()
 {
@@ -633,8 +636,13 @@ int test_Mat()
 	mat10.setTo(fbc::Scalar::all(128));
 	fbc::Mat_<float, 3> mat11;
 	mat7.convertTo(mat11, 0.5, fbc::Scalar(10, 20, 30, 40));
+	fbc::Mat3BGR mat14;
+	mat11.convertTo(mat14);
 	fbc::Mat_<float, 3> mat12;
 	mat12.zeros(50, 100);
+	fbc::Mat3BGR mat13(200, 200);
+	fbc::Size size1 = mat13.size();
+	size_t elemSize1 = mat11.elemSize();
 
 	cv::Mat mat1_;
 	cv::Mat mat2_(111, 111, CV_8UC1);

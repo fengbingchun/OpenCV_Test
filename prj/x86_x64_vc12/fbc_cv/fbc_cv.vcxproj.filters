@@ -42,11 +42,11 @@
     <ClInclude Include="..\..\..\src\fbc_cv\include\directory.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\fbc_cv\include\resize.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\fbc_cv\src\temp.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\fbc_cv\src\directory.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
