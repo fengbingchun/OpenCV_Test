@@ -1,3 +1,6 @@
+// fbc_cv is free software and uses the same licence as OpenCV
+// Email: fengbingchun@163.com
+
 #include <windows.h>
 #include "directory.hpp"
 

@@ -8,7 +8,7 @@
 
 int main()
 {
-	test_Mat();
+	test_resize();
 
 	std::cout << "ok" << std::endl;
 	return 0;

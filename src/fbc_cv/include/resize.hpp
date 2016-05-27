@@ -1,3 +1,6 @@
+// fbc_cv is free software and uses the same licence as OpenCV
+// Email: fengbingchun@163.com
+
 #ifndef FBC_CV_RESIZE_HPP_
 #define FBC_CV_RESIZE_HPP_
 
@@ -7,6 +10,7 @@
 
 #include "core/mat.hpp"
 #include "core/base.hpp"
+#include "core/saturate.hpp"
 
 namespace fbc {
 
@@ -59,6 +63,8 @@ int resize(const Mat_<_Tp, chs>& src, Mat_<_Tp, chs>& dst, int interpolation = N
 			resize_lanczos4(src, dst);
 			break;
 		}
+		default:
+			return -1;
 	}
 
 	return 0;
@@ -67,6 +73,21 @@ int resize(const Mat_<_Tp, chs>& src, Mat_<_Tp, chs>& dst, int interpolation = N
 template<typename _Tp, int chs>
 static int resize_nearest(const Mat_<_Tp, chs>& src, Mat_<_Tp, chs>& dst)
 {
+	Size ssize = src.size();
+	Size dsize = dst.size();
+
+	if (dsize == ssize) {
+		// Source and destination are of same size. Use simple copy.
+		src.copyTo(dst);
+		return 0;
+	}
+
+	double inv_scale_x = (double)dsize.width / ssize.width;
+	double inv_scale_y = (double)dsize.height / ssize.height;
+
+	
+
+
 
 	return 0;
 }
@@ -74,6 +95,18 @@ static int resize_nearest(const Mat_<_Tp, chs>& src, Mat_<_Tp, chs>& dst)
 template<typename _Tp, int chs>
 static int resize_linear(const Mat_<_Tp, chs>& src, Mat_<_Tp, chs>& dst)
 {
+	Size ssize = src.size();
+	Size dsize = dst.size();
+
+	double inv_scale_x = (double)dsize.width / ssize.width;
+	double inv_scale_y = (double)dsize.height / ssize.height;
+
+	double scale_x = 1. / inv_scale_x, scale_y = 1. / inv_scale_y;
+
+	int iscale_x = saturate_cast<int>(scale_x);
+	int iscale_y = saturate_cast<int>(scale_y);
+
+	bool is_area_fast = std::abs(scale_x - iscale_x) < DBL_EPSILON && std::abs(scale_y - iscale_y) < DBL_EPSILON;
 
 	return 0;
 }

@@ -175,6 +175,7 @@
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\matx.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\saturate.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\types.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\core\utility.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\directory.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\resize.hpp" />
   </ItemGroup>
