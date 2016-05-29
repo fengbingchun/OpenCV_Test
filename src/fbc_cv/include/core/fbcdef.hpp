@@ -8,4 +8,12 @@
 
 #define FBC_EXPORTS __declspec(dllexport)
 
+#ifndef MIN
+	#define MIN(a,b)  ((a) > (b) ? (b) : (a))
+#endif
+
+#ifndef MAX
+	#define MAX(a,b)  ((a) < (b) ? (b) : (a))
+#endif
+
 #endif // FBC_CV_CORE_FBCDEF_HPP_
