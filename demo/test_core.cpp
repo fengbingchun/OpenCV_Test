@@ -630,7 +630,7 @@ int test_Mat()
 	mat4.copyTo(mat8);
 	fbc::Mat3BGR mat9; // mat9可能会分配空间，但mat10不会
 	mat8.copyTo(mat9, fbc::Rect(20, 10, 40, 45));
-	fbc::uchar* p1 = mat8.ptr(50);
+	const fbc::uchar* p1 = mat8.ptr(50);
 	fbc::Mat3BGR mat10;
 	mat8.getROI(mat10, fbc::Rect(20, 10, 40, 45));
 	mat10.setTo(fbc::Scalar::all(128));

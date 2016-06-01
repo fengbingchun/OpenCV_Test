@@ -18,41 +18,12 @@
 #include "core/types.hpp"
 #include "core/base.hpp"
 #include "core/interface.hpp"
+#include "core/fbcstd.hpp"
+#include "core/utility.hpp"
 
 namespace fbc {
 
-/* the alignment of all the allocated buffers */
-#define  FBC_MALLOC_ALIGN    16
-
-// The function returns the aligned pointer of the same type as the input pointer
-template<typename _Tp> static inline _Tp* alignPtr(_Tp* ptr, int n = (int)sizeof(_Tp))
-{
-	return (_Tp*)(((size_t)ptr + n - 1) & -n);
-}
-
-// Allocates an aligned memory buffer
-static void* fastMalloc(size_t size)
-{
-	uchar* udata = (uchar*)malloc(size + sizeof(void*) + FBC_MALLOC_ALIGN);
-	if (!udata) {
-		fprintf(stderr, "failed to allocate %lu bytes\n", (unsigned long)size);
-		return NULL;
-	}
-	uchar** adata = alignPtr((uchar**)udata + 1, FBC_MALLOC_ALIGN);
-	adata[-1] = udata;
-	return adata;
-}
-
-// Deallocates a memory buffer
-static void fastFree(void* ptr)
-{
-	if (ptr) {
-		uchar* udata = ((uchar**)ptr)[-1];
-		FBC_Assert(udata < (uchar*)ptr && ((uchar*)ptr - udata) <= (ptrdiff_t)(sizeof(void*) + FBC_MALLOC_ALIGN));
-		free(udata);
-	}
-}
-
+// The class Mat_ represents an n-dimensional dense numerical single-channel or multi-channel array
 template<typename _Tp, int chs> class Mat_ {
 public:
 	typedef _Tp value_type;
@@ -73,7 +44,7 @@ public:
 	void copyTo(Mat_<_Tp, chs>& _m, const Rect& rect = Rect(0, 0, 0, 0)) const;
 
 	// return typed pointer to the specified matrix row
-	uchar* ptr(int i0 = 0);
+	const uchar* ptr(int i0 = 0) const;
 
 	// no data is copied, no memory is allocated
 	void getROI(Mat_<_Tp, chs>& _m, const Rect& rect = Rect(0, 0, 0, 0));
@@ -340,7 +311,7 @@ void Mat_<_Tp, chs>::copyTo(Mat_<_Tp, chs>& _m, const Rect& rect) const
 }
 
 template<typename _Tp, int chs>
-uchar* Mat_<_Tp, chs>::ptr(int i0)
+const uchar* Mat_<_Tp, chs>::ptr(int i0) const
 {
 	FBC_Assert(i0 < this->rows);
 

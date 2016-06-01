@@ -4,6 +4,8 @@
 #ifndef FBC_CV_CORE_UTILITY_HPP_
 #define FBC_CV_CORE_UTILITY_HPP_
 
+// reference: include/opencv2/core/utility.hpp
+
 #ifndef __cplusplus
 	#error utility.hpp header must be compiled as C++
 #endif
@@ -11,6 +13,12 @@
 #include "core/fbcdef.hpp"
 
 namespace fbc {
+
+// The function returns the aligned pointer of the same type as the input pointer
+template<typename _Tp> static inline _Tp* alignPtr(_Tp* ptr, int n = (int)sizeof(_Tp))
+{
+	return (_Tp*)(((size_t)ptr + n - 1) & -n);
+}
 
 // Automatically Allocated Buffer Class
 // The class is used for temporary buffers in functions and methods.
