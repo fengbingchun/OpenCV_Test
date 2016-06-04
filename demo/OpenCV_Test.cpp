@@ -8,7 +8,8 @@
 
 int main()
 {
-	test_resize();
+	test_resize_uchar();
+	test_resize_float();
 
 	std::cout << "ok" << std::endl;
 	return 0;

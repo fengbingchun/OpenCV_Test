@@ -11,6 +11,7 @@
 #endif
 
 #include "core/fbcdef.hpp"
+#include "core/base.hpp"
 
 namespace fbc {
 
@@ -18,6 +19,13 @@ namespace fbc {
 template<typename _Tp> static inline _Tp* alignPtr(_Tp* ptr, int n = (int)sizeof(_Tp))
 {
 	return (_Tp*)(((size_t)ptr + n - 1) & -n);
+}
+
+// The function returns the minimum number that is greater or equal to sz and is divisible by n
+static inline size_t alignSize(size_t sz, int n)
+{
+	FBC_Assert((n & (n - 1)) == 0); // n is a power of 2
+	return (sz + n - 1) & -n;
 }
 
 // Automatically Allocated Buffer Class

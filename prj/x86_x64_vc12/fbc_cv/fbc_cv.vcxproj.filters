@@ -59,9 +59,6 @@
     <ClCompile Include="..\..\..\src\fbc_cv\src\directory.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\fbc_cv\src\resize.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\fbc_cv\src\fbcstd.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
