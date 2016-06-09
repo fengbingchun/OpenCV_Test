@@ -10,6 +10,7 @@ int main()
 {
 	test_resize_uchar();
 	test_resize_float();
+	test_resize_area();
 
 	std::cout << "ok" << std::endl;
 	return 0;

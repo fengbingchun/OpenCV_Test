@@ -6,6 +6,8 @@
 
 // reference: include/opencv2/imgproc.hpp
 
+#include "core/fbcdef.hpp"
+
 namespace fbc {
 
 // interpolation algorithm
@@ -22,7 +24,6 @@ enum InterpolationFlags{
 	/** Lanczos interpolation over 8x8 neighborhood */
 	INTER_LANCZOS4 = 4,
 };
-
 
 } // namespace fbc
 

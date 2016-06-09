@@ -16,4 +16,7 @@
 	#define MAX(a,b)  ((a) < (b) ? (b) : (a))
 #endif
 
+// fundamental constants
+#define FBC_PI 3.1415926535897932384626433832795
+
 #endif // FBC_CV_CORE_FBCDEF_HPP_
