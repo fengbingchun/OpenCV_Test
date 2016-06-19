@@ -71,16 +71,16 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>.\../../../../obj/dbg/x86_vc12/OpenCV_Test\</OutDir>
-    <IntDir>.\../../../../obj/dbg/x86_vc12/OpenCV_Test\</IntDir>
+    <OutDir>.\../../../../obj/dbg/x64_vc12/OpenCV_Test\</OutDir>
+    <IntDir>.\../../../../obj/dbg/x64_vc12/OpenCV_Test\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>.\../../../../obj/rel/x86_vc12/OpenCV_Test\</OutDir>
-    <IntDir>.\../../../../obj/rel/x86_vc12/OpenCV_Test\</IntDir>
+    <OutDir>.\../../../../obj/rel/x64_vc12/OpenCV_Test\</OutDir>
+    <IntDir>.\../../../../obj/rel/x64_vc12/OpenCV_Test\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -103,21 +103,21 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <PrecompiledHeaderOutputFile>.\../../../../obj/dbg/x86_vc12/OpenCV_Test\OpenCV_Test.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\../../../../obj/dbg/x86_vc12/OpenCV_Test\</AssemblerListingLocation>
-      <ObjectFileName>.\../../../../obj/dbg/x86_vc12/OpenCV_Test\</ObjectFileName>
-      <ProgramDataBaseFileName>.\../../../../obj/dbg/x86_vc12/OpenCV_Test\</ProgramDataBaseFileName>
+      <PrecompiledHeaderOutputFile>.\../../../../obj/dbg/x64_vc12/OpenCV_Test\OpenCV_Test.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../../../obj/dbg/x64_vc12/OpenCV_Test\</AssemblerListingLocation>
+      <ObjectFileName>.\../../../../obj/dbg/x64_vc12/OpenCV_Test\</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../../../obj/dbg/x64_vc12/OpenCV_Test\</ProgramDataBaseFileName>
       <AdditionalIncludeDirectories>E:\GitCode\OpenCV_Test\src\fbc_cv\include;D:\soft\OpenCV31\vs2013_dll\install\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <OutputFile>.\../../../../lib/dbg/x86_vc12/OpenCV_Test.exe</OutputFile>
-      <AdditionalLibraryDirectories>E:\GitCode\OpenCV_Test\lib\dbg\x86_vc12;D:\soft\OpenCV31\vs2013_dll\install\x64\vc12\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opencv_core310d.lib;opencv_highgui310d.lib;opencv_imgproc310d.lib;opencv_imgcodecs310d.lib;opencv_videoio310d.lib;fbc_cv[dbg_x86_vc12].lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>.\../../../../lib/dbg/x64_vc12/OpenCV_Test.exe</OutputFile>
+      <AdditionalLibraryDirectories>E:\GitCode\OpenCV_Test\lib\dbg\x64_vc12;D:\soft\OpenCV31\vs2013_dll\install\x64\vc12\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opencv_core310d.lib;opencv_highgui310d.lib;opencv_imgproc310d.lib;opencv_imgcodecs310d.lib;opencv_videoio310d.lib;fbc_cv[dbg_x64_vc12].lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
-      <OutputFile>.\../../../../obj/dbg/x86_vc12/OpenCV_Test\OpenCV_Test.bsc</OutputFile>
+      <OutputFile>.\../../../../obj/dbg/x64_vc12/OpenCV_Test\OpenCV_Test.bsc</OutputFile>
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -147,10 +147,10 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <PrecompiledHeaderOutputFile>.\../../../../obj/rel/x86_vc12/OpenCV_Test\OpenCV_Test.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\../../../../obj/rel/x86_vc12/OpenCV_Test\</AssemblerListingLocation>
-      <ObjectFileName>.\../../../../obj/rel/x86_vc12/OpenCV_Test\</ObjectFileName>
-      <ProgramDataBaseFileName>.\../../../../obj/rel/x86_vc12/OpenCV_Test\</ProgramDataBaseFileName>
+      <PrecompiledHeaderOutputFile>.\../../../../obj/rel/x64_vc12/OpenCV_Test\OpenCV_Test.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../../../obj/rel/x64_vc12/OpenCV_Test\</AssemblerListingLocation>
+      <ObjectFileName>.\../../../../obj/rel/x64_vc12/OpenCV_Test\</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../../../obj/rel/x64_vc12/OpenCV_Test\</ProgramDataBaseFileName>
       <AdditionalIncludeDirectories>D:\soft\OpenCV31\vs2013_dll\install\include;E:\GitCode\OpenCV_Test\src\fbc_cv\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -158,12 +158,12 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <OutputFile>.\../../../../lib/rel/x86_vc12/OpenCV_Test.exe</OutputFile>
-      <AdditionalLibraryDirectories>D:\soft\OpenCV31\vs2013_dll\install\x64\vc12\lib;E:\GitCode\OpenCV_Test\lib\rel\x86_vc12;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opencv_core310.lib;opencv_highgui310.lib;opencv_imgproc310.lib;opencv_imgcodecs310.lib;opencv_videoio310.lib;fbc_cv[rel_x86_vc12].lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>.\../../../../lib/rel/x64_vc12/OpenCV_Test.exe</OutputFile>
+      <AdditionalLibraryDirectories>D:\soft\OpenCV31\vs2013_dll\install\x64\vc12\lib;E:\GitCode\OpenCV_Test\lib\rel\x64_vc12;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opencv_core310.lib;opencv_highgui310.lib;opencv_imgproc310.lib;opencv_imgcodecs310.lib;opencv_videoio310.lib;fbc_cv[rel_x64_vc12].lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
-      <OutputFile>.\../../../../obj/rel/x86_vc12/OpenCV_Test\OpenCV_Test.bsc</OutputFile>
+      <OutputFile>.\../../../../obj/rel/x64_vc12/OpenCV_Test\OpenCV_Test.bsc</OutputFile>
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
