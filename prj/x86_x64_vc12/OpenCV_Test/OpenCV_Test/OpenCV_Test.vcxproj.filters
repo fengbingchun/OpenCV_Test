@@ -27,6 +27,9 @@
     <ClCompile Include="..\..\..\..\demo\test_resize.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\demo\test_cvtColor.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\demo\test_core.hpp">
@@ -36,6 +39,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\demo\test_resize.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\demo\test_cvtColor.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

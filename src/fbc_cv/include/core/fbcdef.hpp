@@ -7,6 +7,9 @@
 // reference: include/opencv2/core/cvdef.h
 
 #define FBC_EXPORTS __declspec(dllexport)
+#define FBC_DECL_ALIGNED(x) __declspec(align(x))
+
+namespace fbc {
 
 #ifndef MIN
 	#define MIN(a,b)  ((a) > (b) ? (b) : (a))
@@ -18,5 +21,13 @@
 
 // fundamental constants
 #define FBC_PI 3.1415926535897932384626433832795
+
+typedef union Cv32suf {
+	int i;
+	unsigned u;
+	float f;
+} Cv32suf;
+
+} // namespace fbc
 
 #endif // FBC_CV_CORE_FBCDEF_HPP_

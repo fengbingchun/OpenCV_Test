@@ -17,8 +17,12 @@
 #include "core/interface.hpp"
 
 namespace fbc {
+
 #define FBC_StaticAssert(condition, reason)	static_assert((condition), reason " " #condition)
 #define FBC_Assert(expr) assert(expr)
+#define FBC_Error(msg) \
+	fprintf(stderr, "Error: "#msg", file: %s, func: %s, line: %d \n", __FILE__, __FUNCTION__, __LINE__); \
+	assert(0);
 
 template<typename _Tp> inline _Tp fbc_abs(_Tp x) { return std::abs(x); }
 inline int fbc_abs(uchar x) { return x; }

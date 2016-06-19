@@ -101,7 +101,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>E:\GitCode\OpenCV_Test\src\fbc_cv\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderOutputFile>.\../../../obj/dbg/x86_vc12/fbc_cv\fbc_cv.pch</PrecompiledHeaderOutputFile>
@@ -145,7 +145,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>E:\GitCode\OpenCV_Test\src\fbc_cv\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderOutputFile>.\../../../obj/rel/x86_vc12/fbc_cv\fbc_cv.pch</PrecompiledHeaderOutputFile>
@@ -168,6 +168,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\base.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\core\core.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\fast_math.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\fbcdef.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\fbcstd.hpp" />
@@ -177,11 +178,13 @@
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\saturate.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\types.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\utility.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\cvtColor.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\directory.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\imgproc.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\resize.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\fbc_cv\src\core.cpp" />
     <ClCompile Include="..\..\..\src\fbc_cv\src\directory.cpp" />
     <ClCompile Include="..\..\..\src\fbc_cv\src\fbcstd.cpp" />
   </ItemGroup>

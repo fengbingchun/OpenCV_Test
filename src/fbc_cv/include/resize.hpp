@@ -31,7 +31,7 @@ template<typename _Tp, int chs> static int resize_lanczos4(const Mat_<_Tp, chs>&
 // resize the image src down to or up to the specified size
 // support type: uchar/float
 template<typename _Tp, int chs>
-int resize(const Mat_<_Tp, chs>& src, Mat_<_Tp, chs>& dst, int interpolation = NTER_LINEAR)
+int resize(const Mat_<_Tp, chs>& src, Mat_<_Tp, chs>& dst, int interpolation = INTER_LINEAR)
 {
 	FBC_Assert((interpolation >= 0) && (interpolation < 5));
 	FBC_Assert((src.rows >= 4 && src.cols >= 4) && (dst.rows >= 4  && dst.cols >= 4));

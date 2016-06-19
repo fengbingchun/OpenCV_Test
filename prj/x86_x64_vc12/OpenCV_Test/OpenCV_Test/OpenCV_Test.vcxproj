@@ -169,11 +169,13 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\demo\OpenCV_Test.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_core.cpp" />
+    <ClCompile Include="..\..\..\..\demo\test_cvtColor.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_directory.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_resize.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\demo\test_core.hpp" />
+    <ClInclude Include="..\..\..\..\demo\test_cvtColor.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_directory.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_resize.hpp" />
   </ItemGroup>
