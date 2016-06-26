@@ -171,13 +171,17 @@
     <ClCompile Include="..\..\..\..\demo\test_core.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_cvtColor.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_directory.cpp" />
+    <ClCompile Include="..\..\..\..\demo\test_merge.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_resize.cpp" />
+    <ClCompile Include="..\..\..\..\demo\test_split.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\demo\test_core.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_cvtColor.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_directory.hpp" />
+    <ClInclude Include="..\..\..\..\demo\test_merge.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_resize.hpp" />
+    <ClInclude Include="..\..\..\..\demo\test_split.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

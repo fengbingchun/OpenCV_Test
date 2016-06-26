@@ -7,11 +7,13 @@
 #include "test_directory.hpp"
 #include "test_resize.hpp"
 #include "test_cvtColor.hpp"
-
+#include "test_split.hpp"
+#include "test_merge.hpp"
 
 int main()
 {
-	test_cvtColor_YUV2Gray();
+	test_merge_uchar();
+	test_merge_float();
 
 	std::cout << "ok" << std::endl;
 	return 0;

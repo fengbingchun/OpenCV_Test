@@ -19,6 +19,8 @@ namespace fbc {
 	#define MAX(a,b)  ((a) < (b) ? (b) : (a))
 #endif
 
+#define FBC_CN_MAX  512
+
 // fundamental constants
 #define FBC_PI 3.1415926535897932384626433832795
 

@@ -4,7 +4,9 @@
 #ifndef FBC_CV_CVTCOLOR_HPP_
 #define FBC_CV_CVTCOLOR_HPP_
 
-// reference: include/opencv2/imgproc.hpp
+/* reference: include/opencv2/imgproc.hpp
+              imgproc/src/color.cpp
+*/
 
 #include "core/mat.hpp"
 #include "core/saturate.hpp"

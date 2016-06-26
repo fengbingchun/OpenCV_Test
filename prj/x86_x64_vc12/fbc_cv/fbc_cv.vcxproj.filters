@@ -60,6 +60,12 @@
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\core.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\fbc_cv\include\split.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\fbc_cv\include\merge.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\fbc_cv\src\directory.cpp">

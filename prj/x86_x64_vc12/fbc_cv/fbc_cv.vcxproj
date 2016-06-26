@@ -181,7 +181,9 @@
     <ClInclude Include="..\..\..\src\fbc_cv\include\cvtColor.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\directory.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\imgproc.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\merge.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\resize.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\split.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\fbc_cv\src\core.cpp" />
