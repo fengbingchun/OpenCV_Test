@@ -172,6 +172,7 @@
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\fast_math.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\fbcdef.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\fbcstd.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\core\hal.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\interface.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\mat.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\matx.hpp" />
@@ -183,12 +184,15 @@
     <ClInclude Include="..\..\..\src\fbc_cv\include\imgproc.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\merge.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\resize.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\solve.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\split.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\warpAffine.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\fbc_cv\src\core.cpp" />
     <ClCompile Include="..\..\..\src\fbc_cv\src\directory.cpp" />
     <ClCompile Include="..\..\..\src\fbc_cv\src\fbcstd.cpp" />
+    <ClCompile Include="..\..\..\src\fbc_cv\src\hal.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

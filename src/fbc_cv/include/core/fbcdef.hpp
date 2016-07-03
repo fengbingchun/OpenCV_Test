@@ -6,6 +6,8 @@
 
 // reference: include/opencv2/core/cvdef.h
 
+#include "core/interface.hpp"
+
 #define FBC_EXPORTS __declspec(dllexport)
 #define FBC_DECL_ALIGNED(x) __declspec(align(x))
 
@@ -29,6 +31,12 @@ typedef union Cv32suf {
 	unsigned u;
 	float f;
 } Cv32suf;
+
+typedef union Cv64suf {
+	int64 i;
+	fbc::uint64 u;
+	double f;
+} Cv64suf;
 
 } // namespace fbc
 

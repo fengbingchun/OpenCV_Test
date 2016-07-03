@@ -30,6 +30,38 @@ inline int fbc_abs(schar x) { return std::abs(x); }
 inline int fbc_abs(ushort x) { return x; }
 inline int fbc_abs(short x) { return std::abs(x); }
 
+//! comparison types
+enum CmpTypes {
+	CMP_EQ = 0, //!< src1 is equal to src2.
+	CMP_GT = 1, //!< src1 is greater than src2.
+	CMP_GE = 2, //!< src1 is greater than or equal to src2.
+	CMP_LT = 3, //!< src1 is less than src2.
+	CMP_LE = 4, //!< src1 is less than or equal to src2.
+	CMP_NE = 5  //!< src1 is unequal to src2.
+};
+
+//! matrix decomposition types
+enum DecompTypes {
+	/** Gaussian elimination with the optimal pivot element chosen. */
+	DECOMP_LU = 0,
+	/** singular value decomposition (SVD) method; the system can be over-defined and/or the matrix
+	src1 can be singular */
+	DECOMP_SVD = 1,
+	/** eigenvalue decomposition; the matrix src1 must be symmetrical */
+	DECOMP_EIG = 2,
+	/** Cholesky \f$LL^T\f$ factorization; the matrix src1 must be symmetrical and positively
+	defined */
+	DECOMP_CHOLESKY = 3,
+	/** QR factorization; the system can be over-defined and/or the matrix src1 can be singular */
+	DECOMP_QR = 4,
+	/** while all the previous flags are mutually exclusive, this flag can be used together with
+	any of the previous; it means that the normal equations
+	\f$\texttt{src1}^T\cdot\texttt{src1}\cdot\texttt{dst}=\texttt{src1}^T\texttt{src2}\f$ are
+	solved instead of the original system
+	\f$\texttt{src1}\cdot\texttt{dst}=\texttt{src2}\f$ */
+	DECOMP_NORMAL = 16
+};
+
 } //fbc
 
 #endif //FBC_CV_CORE_BASE_HPP_

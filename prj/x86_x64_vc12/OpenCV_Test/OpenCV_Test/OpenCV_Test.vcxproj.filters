@@ -36,6 +36,9 @@
     <ClCompile Include="..\..\..\..\demo\test_merge.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\demo\test_warpAffine.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\demo\test_core.hpp">
@@ -54,6 +57,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\demo\test_merge.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\demo\test_warpAffine.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -9,11 +9,12 @@
 #include "test_cvtColor.hpp"
 #include "test_split.hpp"
 #include "test_merge.hpp"
+#include "test_warpAffine.hpp"
 
 int main()
 {
-	test_merge_uchar();
-	test_merge_float();
+	test_Mat();
+
 
 	std::cout << "ok" << std::endl;
 	return 0;
