@@ -220,8 +220,22 @@ void Mat_<_Tp, chs>::copyTo(Mat_<_Tp, chs>& _m, const Rect& rect) const
 		if ((rect.width > 0) && (rect.height > 0)) {
 			size_t size1 = sizeof(_Tp) * this->channels * rect.width * rect.height;
 			int step_ = sizeof(_Tp) * this->channels * rect.width;
+			size_t size2 = _m.rows * _m.step;
 
-			if (_m.allocated == false) {
+			if (size1 == size2) {
+				uchar* p1 = _m.data;
+				uchar* p2 = this->data;
+
+				for (int i = 0; i < rect.height; i++) {
+					uchar* p1_ = p1 + i * sizeof(_Tp) * this->channels * rect.width;
+					uchar* p2_ = p2 + (rect.y + i) * this->step + rect.x * this->channels * sizeof(_Tp);
+
+					memcpy(p1_, p2_, step_);
+				}
+			} else {
+				if (_m.allocated == true)
+					fastFree(_m.data);
+
 				uchar* p1 = (uchar*)fastMalloc(size1);
 				FBC_Assert(p1 != NULL);
 				uchar* p2 = this->data;
@@ -233,63 +247,29 @@ void Mat_<_Tp, chs>::copyTo(Mat_<_Tp, chs>& _m, const Rect& rect) const
 					memcpy(p1_, p2_, step_);
 				}
 				_m.data = p1;
-			} else {
-				size_t size2 = _m.rows * _m.step;
-
-				if (size1 == size2) {
-					uchar* p1 = _m.data;
-					uchar* p2 = this->data;
-
-					for (int i = 0; i < rect.height; i++) {
-						uchar* p1_ = p1 + i * sizeof(_Tp) * this->channels * rect.width;
-						uchar* p2_ = p2 + (rect.y + i) * this->step + rect.x * this->channels * sizeof(_Tp);
-
-						memcpy(p1_, p2_, step_);
-					}
-				} else {
-					fastFree(_m.data);
-
-					uchar* p1 = (uchar*)fastMalloc(size1);
-					FBC_Assert(p1 != NULL);
-					uchar* p2 = this->data;
-
-					for (int i = 0; i < rect.height; i++) {
-						uchar* p1_ = p1 + i * sizeof(_Tp) * this->channels * rect.width;
-						uchar* p2_ = p2 + (rect.y + i) * this->step + rect.x * this->channels * sizeof(_Tp);
-
-						memcpy(p1_, p2_, step_);
-					}
-					_m.data = p1;
-				}
+				_m.allocated = true;
 			}
 
-			_m.allocated = true;
 			_m.rows = rect.height;
 			_m.cols = rect.width;
-			_m.step = sizeof(_Tp) * this->channels * rect.width;
+			_m.step = step_;
 		} else {
 			size_t size1 = this->rows * this->step;
+			size_t size2 = _m.step * _m.rows;
 
-			if (_m.allocated == false) {
+			if (size1 == size2) {
+				memcpy(_m.data, this->data, size1);
+			} else {
+				if (_m.allocated == true)
+					fastFree(_m.data);
+
 				uchar* p = (uchar*)fastMalloc(size1);
 				FBC_Assert(p != NULL);
 				memcpy(p, this->data, size1);
 				_m.data = p;
-			} else {
-				size_t size2 = _m.step * _m.rows;
-				if (size1 == size2) {
-					memcpy(_m.data, this->data, size1);
-				} else {
-					fastFree(_m.data);
-
-					uchar* p = (uchar*)fastMalloc(size1);
-					FBC_Assert(p != NULL);
-					memcpy(p, this->data, size1);
-					_m.data = p;
-				}
+				_m.allocated = true;
 			}
 
-			_m.allocated = true;
 			_m.rows = this->rows;
 			_m.cols = this->cols;
 			_m.step = this->step;
