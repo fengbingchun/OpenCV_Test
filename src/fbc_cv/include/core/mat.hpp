@@ -20,6 +20,7 @@
 #include "core/interface.hpp"
 #include "core/fbcstd.hpp"
 #include "core/utility.hpp"
+#include "core/saturate.hpp"
 
 namespace fbc {
 
@@ -339,21 +340,17 @@ void Mat_<_Tp, chs>::convertTo(Mat_<_Tp2, chs>& _m, double alpha = 1, const Scal
 
 	size_t size = this->rows * this->cols * this->channels * sizeof(_Tp2);
 
-	if (_m.allocated == true) {
-		if (this->rows * this->cols != _m.rows * _m.cols) {
+	if (this->rows * this->cols != _m.rows * _m.cols) {
+		if (_m.allocated == true) {
 			fastFree(_m.data);
-
-			uchar* p = (uchar*)fastMalloc(size);
-			FBC_Assert(p != NULL);
-			_m.data = p;
 		}
-	} else {
+
 		uchar* p = (uchar*)fastMalloc(size);
 		FBC_Assert(p != NULL);
 		_m.data = p;
+		_m.allocated = true;
 	}
 
-	_m.allocated = true;
 	_m.channels = this->channels;
 	_m.rows = this->rows;
 	_m.cols = this->cols;
