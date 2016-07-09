@@ -8,52 +8,57 @@
 	      modules/imgproc/src/imgwarp.cpp
 */
 
+#include <typeinfo>
 #include "core/mat.hpp"
 #include "solve.hpp"
+#include "imgproc.hpp"
 
 namespace fbc {
 
 // Calculates an affine transform from three pairs of the corresponding points
-/* Calculates coefficients of affine transformation
-* which maps (xi,yi) to (ui,vi), (i=1,2,3):
-*
-* ui = c00*xi + c01*yi + c02
-*
-* vi = c10*xi + c11*yi + c12
-*
-* Coefficients are calculated by solving linear system:
-* / x0 y0  1  0  0  0 \ /c00\ /u0\
-* | x1 y1  1  0  0  0 | |c01| |u1|
-* | x2 y2  1  0  0  0 | |c02| |u2|
-* |  0  0  0 x0 y0  1 | |c10| |v0|
-* |  0  0  0 x1 y1  1 | |c11| |v1|
-* \  0  0  0 x2 y2  1 / |c12| |v2|
-*
-* where:
-*   cij - matrix coefficients
-*/
-int getAffineTransform(const Point2f src1[], const Point2f src2[], Mat_<double, 1>& dst)
+FBC_EXPORTS int getAffineTransform(const Point2f src1[], const Point2f src2[], Mat_<double, 1>& dst);
+
+// Applies an affine transformation to an image
+// The function cannot operate in - place
+template<typename _Tp1, typename _Tp2, int chs1, int chs2>
+int warpAffine(const Mat_<_Tp1, chs1>& src, Mat_<_Tp1, chs1>& dst, const Mat_<_Tp2, chs2>& M_,
+	int flags = INTER_LINEAR, int borderMode = BORDER_CONSTANT, const Scalar& borderValue = Scalar())
 {
-	FBC_Assert(dst.rows == 2 && dst.cols == 3);
+	FBC_Assert(src.data != NULL && dst.data != NULL && M_.data != NULL);
+	FBC_Assert(src.cols > 0 && src.rows > 0 && dst.cols > 0 && dst.rows > 0 && M_.cols > 0 && M_.rows > 0);
+	FBC_Assert(src.data != dst.data);
 
-	Mat_<double, 1> X(6, 1, dst.data);
-	double a[6 * 6], b[6];
-	Mat_<double, 1> A(6, 6, a), B(6, 1, b);
+	double M[6];
+	Mat_<double, 1> matM(2, 3, M);
+	int interpolation = flags & INTER_MAX;
+	if (interpolation == INTER_AREA)
+		interpolation = INTER_LINEAR;
 
-	for (int i = 0; i < 3; i++) {
-		int j = i * 12;
-		int k = i * 12 + 6;
-		a[j] = a[k + 3] = src1[i].x;
-		a[j + 1] = a[k + 4] = src1[i].y;
-		a[j + 2] = a[k + 5] = 1;
-		a[j + 3] = a[j + 4] = a[j + 5] = 0;
-		a[k] = a[k + 1] = a[k + 2] = 0;
-		b[i * 2] = src2[i].x;
-		b[i * 2 + 1] = src2[i].y;
+	FBC_Assert(typeid(double) == typeid(_Tp2));
+	FBC_Assert(sizeof(_Tp2) == sizeof(double) && M_.rows == 2 && M_.cols == 3);
+	M_.convertTo(matM);
+
+	if (!(flags & WARP_INVERSE_MAP)) {
+		double D = M[0] * M[4] - M[1] * M[3];
+		D = D != 0 ? 1. / D : 0;
+		double A11 = M[4] * D, A22 = M[0] * D;
+		M[0] = A11; M[1] *= -D;
+		M[3] *= -D; M[4] = A22;
+		double b1 = -M[0] * M[2] - M[1] * M[5];
+		double b2 = -M[3] * M[2] - M[4] * M[5];
+		M[2] = b1; M[5] = b2;
 	}
 
-	bool ret = solve(A, B, X);
-	FBC_Assert(ret == true);
+	int x;
+	AutoBuffer<int> _abdelta(dst.cols * 2);
+	int* adelta = &_abdelta[0], *bdelta = adelta + dst.cols;
+	const int AB_BITS = MAX(10, (int)INTER_BITS);
+	const int AB_SCALE = 1 << AB_BITS;
+
+	for (x = 0; x < dst.cols; x++) {
+		adelta[x] = saturate_cast<int>(M[0] * x*AB_SCALE);
+		bdelta[x] = saturate_cast<int>(M[3] * x*AB_SCALE);
+	}
 
 	return 0;
 }

@@ -631,6 +631,8 @@ int test_cvtColor_RGB2Lab()
 			}
 		}
 	}
+
+	return 0;
 }
 
 int test_cvtColor_Lab2RGB()

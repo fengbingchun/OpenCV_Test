@@ -8,6 +8,7 @@
               imgproc/src/imgwarp.cpp
 */
 
+#include <typeinfo>
 #include "core/mat.hpp"
 #include "core/base.hpp"
 #include "core/saturate.hpp"
@@ -35,6 +36,7 @@ int resize(const Mat_<_Tp, chs>& src, Mat_<_Tp, chs>& dst, int interpolation = I
 {
 	FBC_Assert((interpolation >= 0) && (interpolation < 5));
 	FBC_Assert((src.rows >= 4 && src.cols >= 4) && (dst.rows >= 4  && dst.cols >= 4));
+	FBC_Assert(typeid(uchar).name() == typeid(_Tp).name() || typeid(float).name() == typeid(_Tp).name());
 	FBC_Assert((sizeof(_Tp) == 1) || sizeof(_Tp) == 4); // uchar || float
 
 	Size ssize = src.size();

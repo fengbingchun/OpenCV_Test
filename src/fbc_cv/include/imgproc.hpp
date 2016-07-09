@@ -23,7 +23,26 @@ enum InterpolationFlags{
 	it gives moire'-free results. But when the image is zoomed, it is similar to the INTER_NEAREST method. */
 	INTER_AREA = 3,
 	/** Lanczos interpolation over 8x8 neighborhood */
-	INTER_LANCZOS4 = 4
+	INTER_LANCZOS4 = 4,
+	/** mask for interpolation codes */
+	INTER_MAX = 7,
+	/** flag, fills all of the destination image pixels. If some of them correspond to outliers in the
+	source image, they are set to zero */
+	WARP_FILL_OUTLIERS = 8,
+	/** flag, inverse transformation
+
+	For example, polar transforms:
+	- flag is __not__ set: \f$dst( \phi , \rho ) = src(x,y)\f$
+	- flag is set: \f$dst(x,y) = src( \phi , \rho )\f$
+	*/
+	WARP_INVERSE_MAP = 16
+};
+
+enum InterpolationMasks {
+	INTER_BITS = 5,
+	INTER_BITS2 = INTER_BITS * 2,
+	INTER_TAB_SIZE = 1 << INTER_BITS,
+	INTER_TAB_SIZE2 = INTER_TAB_SIZE * INTER_TAB_SIZE
 };
 
 // Constants for color conversion
@@ -231,6 +250,7 @@ const uchar icvSaturate8u_cv[] =
 #define FBC_FAST_CAST_8U(t)  (assert(-256 <= (t) && (t) <= 512), icvSaturate8u_cv[(t)+256])
 #define FBC_CALC_MIN_8U(a,b) (a) -= FBC_FAST_CAST_8U((a) - (b))
 #define FBC_CALC_MAX_8U(a,b) (a) += FBC_FAST_CAST_8U((b) - (a))
+
 
 } // namespace fbc
 

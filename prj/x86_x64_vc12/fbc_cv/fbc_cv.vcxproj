@@ -183,6 +183,7 @@
     <ClInclude Include="..\..\..\src\fbc_cv\include\directory.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\imgproc.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\merge.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\remap.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\resize.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\solve.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\split.hpp" />
@@ -193,6 +194,7 @@
     <ClCompile Include="..\..\..\src\fbc_cv\src\directory.cpp" />
     <ClCompile Include="..\..\..\src\fbc_cv\src\fbcstd.cpp" />
     <ClCompile Include="..\..\..\src\fbc_cv\src\hal.cpp" />
+    <ClCompile Include="..\..\..\src\fbc_cv\src\imgwarp.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

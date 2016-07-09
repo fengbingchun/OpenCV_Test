@@ -8,6 +8,7 @@
               imgproc/src/color.cpp
 */
 
+#include <typeinfo>
 #include "core/mat.hpp"
 #include "core/saturate.hpp"
 #include "imgproc.hpp"
@@ -41,6 +42,9 @@ int cvtColor(const Mat_<_Tp, chs1>& src, Mat_<_Tp, chs2>& dst, int code)
 	FBC_Assert(src.cols > 0 &&  src.rows > 0 && dst.cols > 0 && dst.rows > 0);
 	FBC_Assert(src.cols == dst.cols);
 	FBC_Assert(src.data != NULL && dst.data != NULL);
+	FBC_Assert(typeid(uchar).name() == typeid(_Tp).name() ||
+		typeid(ushort).name() == typeid(_Tp).name() ||
+		typeid(float).name() == typeid(_Tp).name());
 	FBC_Assert((sizeof(_Tp) == 1) || sizeof(_Tp) == 2 || sizeof(_Tp) == 4); // uchar || ushort || float
 
 	int scn = src.channels;
