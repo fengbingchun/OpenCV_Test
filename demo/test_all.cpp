@@ -72,6 +72,12 @@ int run_all_test()
 	ret = test_split_float();
 	assert(ret == 0);
 
+	// test remap
+	ret = test_remap_uchar();
+	assert(ret == 0);
+	ret = test_remap_float();
+	assert(ret == 0);
+
 
 	return 0;
 }

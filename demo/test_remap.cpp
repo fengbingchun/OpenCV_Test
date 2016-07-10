@@ -44,33 +44,38 @@ int test_remap_uchar()
 		return -1;
 	}
 
-	int ind = 0;
-	cv::Mat map_x, map_y;
-	map_x.create(matSrc.size(), CV_32FC1);
-	map_y.create(matSrc.size(), CV_32FC1);
+	for (int ind = 0; ind < 4; ind++) {
+		for (int interpolation = 0; interpolation < 5; interpolation++) {
+			for (int borderType = 0; borderType < 6; borderType++) {
+				cv::Mat map_x, map_y;
+				map_x.create(matSrc.size(), CV_32FC1);
+				map_y.create(matSrc.size(), CV_32FC1);
 
-	update_map(matSrc, map_x, map_y, ind);
+				update_map(matSrc, map_x, map_y, ind);
 
-	int width = matSrc.cols;
-	int height = matSrc.rows;
+				int width = matSrc.cols;
+				int height = matSrc.rows;
 
-	fbc::Mat_<fbc::uchar, 3> mat1(height, width, matSrc.data);
-	fbc::Mat_<float, 1> mapX(height, width, map_x.data);
-	fbc::Mat_<float, 1> mapY(height, width, map_y.data);
-	fbc::Mat_<fbc::uchar, 3> mat2(height, width);
+				fbc::Mat_<fbc::uchar, 3> mat1(height, width, matSrc.data);
+				fbc::Mat_<float, 1> mapX(height, width, map_x.data);
+				fbc::Mat_<float, 1> mapY(height, width, map_y.data);
+				fbc::Mat_<fbc::uchar, 3> mat2(height, width);
 
-	fbc::remap(mat1, mat2, mapX, mapY, 0, 0, fbc::Scalar::all(0));
+				fbc::remap(mat1, mat2, mapX, mapY, interpolation, borderType, fbc::Scalar::all(0));
 
-	cv::Mat mat2_ = cv::Mat(height, width, CV_8UC3);
-	cv::remap(matSrc, mat2_, map_x, map_y, 0, 0, cv::Scalar::all(0));
+				cv::Mat mat2_ = cv::Mat(height, width, CV_8UC3);
+				cv::remap(matSrc, mat2_, map_x, map_y, interpolation, borderType, cv::Scalar::all(0));
 
-	assert(mat2.step == mat2_.step);
-	for (int y = 0; y < mat2.rows; y++) {
-		const fbc::uchar* p = mat2.ptr(y);
-		const uchar* p_ = mat2_.ptr(y);
+				assert(mat2.step == mat2_.step);
+				for (int y = 0; y < mat2.rows; y++) {
+					const fbc::uchar* p = mat2.ptr(y);
+					const uchar* p_ = mat2_.ptr(y);
 
-		for (int x = 0; x < mat2.step; x++) {
-			assert(p[x] == p_[x]);
+					for (int x = 0; x < mat2.step; x++) {
+						assert(p[x] == p_[x]);
+					}
+				}
+			}
 		}
 	}
 
@@ -79,6 +84,47 @@ int test_remap_uchar()
 
 int test_remap_float()
 {
+	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	if (!matSrc.data) {
+		std::cout << "read image fail" << std::endl;
+		return -1;
+	}
+	matSrc.convertTo(matSrc, CV_32FC3);
+
+	for (int ind = 0; ind < 4; ind++) {
+		for (int interpolation = 0; interpolation < 5; interpolation++) {
+			for (int borderType = 0; borderType < 6; borderType++) {
+				cv::Mat map_x, map_y;
+				map_x.create(matSrc.size(), CV_32FC1);
+				map_y.create(matSrc.size(), CV_32FC1);
+
+				update_map(matSrc, map_x, map_y, ind);
+
+				int width = matSrc.cols;
+				int height = matSrc.rows;
+
+				fbc::Mat_<float, 3> mat1(height, width, matSrc.data);
+				fbc::Mat_<float, 1> mapX(height, width, map_x.data);
+				fbc::Mat_<float, 1> mapY(height, width, map_y.data);
+				fbc::Mat_<float, 3> mat2(height, width);
+
+				fbc::remap(mat1, mat2, mapX, mapY, interpolation, borderType, fbc::Scalar::all(0));
+
+				cv::Mat mat2_ = cv::Mat(height, width, CV_32FC3);
+				cv::remap(matSrc, mat2_, map_x, map_y, interpolation, borderType, cv::Scalar::all(0));
+
+				assert(mat2.step == mat2_.step);
+				for (int y = 0; y < mat2.rows; y++) {
+					const fbc::uchar* p = mat2.ptr(y);
+					const uchar* p_ = mat2_.ptr(y);
+
+					for (int x = 0; x < mat2.step; x++) {
+						assert(p[x] == p_[x]);
+					}
+				}
+			}
+		}
+	}
 
 	return 0;
 }
