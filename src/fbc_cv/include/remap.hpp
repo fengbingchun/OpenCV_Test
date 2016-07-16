@@ -31,29 +31,35 @@ static short BicubicTab_i[INTER_TAB_SIZE2][4][4];
 static float Lanczos4Tab_f[INTER_TAB_SIZE2][8][8];
 static short Lanczos4Tab_i[INTER_TAB_SIZE2][8][8];
 
-template<typename _Tp1, typename _Tp2, int chs1, int chs2> static int remap_nearest(const Mat_<_Tp1, chs1>& src, Mat_<_Tp1, chs1>& dst,
-	const Mat_<_Tp2, chs2>& map1, const Mat_<_Tp2, chs2>& map2, int borderMode, const Scalar& borderValue);
-template<typename _Tp1, typename _Tp2, int chs1, int chs2> static int remap_linear(const Mat_<_Tp1, chs1>& src, Mat_<_Tp1, chs1>& dst,
-	const Mat_<_Tp2, chs2>& map1, const Mat_<_Tp2, chs2>& map2, int borderMode, const Scalar& borderValue);
-template<typename _Tp1, typename _Tp2, int chs1, int chs2> static int remap_cubic(const Mat_<_Tp1, chs1>& src, Mat_<_Tp1, chs1>& dst,
-	const Mat_<_Tp2, chs2>& map1, const Mat_<_Tp2, chs2>& map2, int borderMode, const Scalar& borderValue);
-template<typename _Tp1, typename _Tp2, int chs1, int chs2> static int remap_lanczos4(const Mat_<_Tp1, chs1>& src, Mat_<_Tp1, chs1>& dst,
-	const Mat_<_Tp2, chs2>& map1, const Mat_<_Tp2, chs2>& map2, int borderMode, const Scalar& borderValue);
+template<typename _Tp1, typename _Tp2, typename _Tp3, int chs1, int chs2, int chs3> static int remap_nearest(const Mat_<_Tp1, chs1>& src, Mat_<_Tp1, chs1>& dst,
+	const Mat_<_Tp2, chs2>& map1, const Mat_<_Tp3, chs3>& map2, int borderMode, const Scalar& borderValue);
+template<typename _Tp1, typename _Tp2, typename _Tp3, int chs1, int chs2, int chs3> static int remap_linear(const Mat_<_Tp1, chs1>& src, Mat_<_Tp1, chs1>& dst,
+	const Mat_<_Tp2, chs2>& map1, const Mat_<_Tp3, chs3>& map2, int borderMode, const Scalar& borderValue);
+template<typename _Tp1, typename _Tp2, typename _Tp3, int chs1, int chs2, int chs3> static int remap_cubic(const Mat_<_Tp1, chs1>& src, Mat_<_Tp1, chs1>& dst,
+	const Mat_<_Tp2, chs2>& map1, const Mat_<_Tp3, chs3>& map2, int borderMode, const Scalar& borderValue);
+template<typename _Tp1, typename _Tp2, typename _Tp3, int chs1, int chs2, int chs3> static int remap_lanczos4(const Mat_<_Tp1, chs1>& src, Mat_<_Tp1, chs1>& dst,
+	const Mat_<_Tp2, chs2>& map1, const Mat_<_Tp3, chs3>& map2, int borderMode, const Scalar& borderValue);
 
 // Applies a generic geometrical transformation to an image
 // transforms the source image using the specified map, this function cannot operate in-place
 // support type: uchar/float
-template<typename _Tp1, typename _Tp2, int chs1, int chs2>
-int remap(const Mat_<_Tp1, chs1>& src, Mat_<_Tp1, chs1>& dst, const Mat_<_Tp2, chs2>& map1, const Mat_<_Tp2, chs2>& map2,
+template<typename _Tp1, typename _Tp2, typename _Tp3, int chs1, int chs2, int chs3>
+int remap(const Mat_<_Tp1, chs1>& src, Mat_<_Tp1, chs1>& dst, const Mat_<_Tp2, chs2>& map1, const Mat_<_Tp3, chs3>& map2,
 	int interpolation, int borderMode = BORDER_CONSTANT, const Scalar& borderValue = Scalar())
 {
-	FBC_Assert(map1.size().area() > 0 && map1.size() == map2.size());
-	FBC_Assert(map1.data != NULL && map2.data != NULL);
+	FBC_Assert(map1.size().area() > 0);
+	FBC_Assert(map2.empty() || map1.size() == map2.size());
+	FBC_Assert(typeid(float).name() == typeid(_Tp2).name() || typeid(short).name() == typeid(_Tp2).name());
+	FBC_Assert(typeid(float).name() == typeid(_Tp3).name() || typeid(short).name() == typeid(_Tp3).name() || typeid(ushort).name() == typeid(_Tp3).name());
+	if (typeid(short).name() == typeid(_Tp2).name() && chs2 == 2) {
+		FBC_Assert(((typeid(short).name() == typeid(_Tp3).name() || typeid(ushort).name() == typeid(_Tp3).name()) && chs3 == 1) || map2.empty());
+	} else {
+		FBC_Assert(((typeid(float).name() == typeid(_Tp2).name() || typeid(short).name() == typeid(_Tp2).name()) && chs2 == 2 && map2.empty()) ||
+			(typeid(float).name() == typeid(_Tp2).name() && typeid(float).name() == typeid(_Tp3).name() && chs2 == chs3 && chs2 == 1));
+	}
 	FBC_Assert(src.size() == map1.size() && src.size() == dst.size());
 	FBC_Assert(src.data != dst.data);
 	FBC_Assert(typeid(uchar).name() == typeid(_Tp1).name() || typeid(float).name() == typeid(_Tp1).name()); // uchar || float
-	FBC_Assert(typeid(float).name() == typeid(_Tp2).name());
-	FBC_Assert(chs2 == 1);
 
 	switch (interpolation) {
 		case 0: {
@@ -608,9 +614,9 @@ static int remapLanczos4(const Mat_<_Tp1, chs1>& _src, Mat_<_Tp1, chs1>& _dst,
 	return 0;
 }
 
-template<typename _Tp1, typename _Tp2, int chs1, int chs2>
+template<typename _Tp1, typename _Tp2, typename _Tp3, int chs1, int chs2, int chs3>
 static int remap_nearest(const Mat_<_Tp1, chs1>& src, Mat_<_Tp1, chs1>& dst,
-	const Mat_<_Tp2, chs2>& map1, const Mat_<_Tp2, chs2>& map2, int borderMode, const Scalar& borderValue)
+	const Mat_<_Tp2, chs2>& map1, const Mat_<_Tp3, chs3>& map2, int borderMode, const Scalar& borderValue)
 {
 	const void* ctab = 0;
 	bool fixpt = typeid(uchar).name() == typeid(_Tp1).name();
@@ -624,6 +630,8 @@ static int remap_nearest(const Mat_<_Tp1, chs1>& src, Mat_<_Tp1, chs1>& dst,
 	brows0 = std::min(buf_size / bcols0, dst.rows);
 
 	Mat_<short, 2> _bufxy(brows0, bcols0);
+	Mat_<short, 2> map1_tmp1(map1.rows, map1.cols, map1.data);
+	Mat_<float, 2> map1_tmp2(map1.rows, map1.cols, map1.data);
 
 	for (y = range.start; y < range.end; y += brows0) {
 		for (x = 0; x < dst.cols; x += bcols0) {
@@ -634,7 +642,9 @@ static int remap_nearest(const Mat_<_Tp1, chs1>& src, Mat_<_Tp1, chs1>& dst,
 			Mat_<short, 2> bufxy;
 			_bufxy.getROI(bufxy, Rect(0, 0, bcols, brows));
 
-			if (sizeof(_Tp2) == sizeof(short)) { // short
+			if (map1.channels == 2 && sizeof(_Tp2) == sizeof(short) && map2.empty()) { // the data is already in the right format
+				map1_tmp1.getROI(bufxy, Rect(x, y, bcols, brows));
+			} else if (sizeof(_Tp2) != sizeof(float)) {
 				for (y1 = 0; y1 < brows; y1++) {
 					short* XY = (short*)bufxy.ptr(y1);
 					const short* sXY = (const short*)map1.ptr(y + y1) + x * 2;
@@ -646,7 +656,9 @@ static int remap_nearest(const Mat_<_Tp1, chs1>& src, Mat_<_Tp1, chs1>& dst,
 						XY[x1 * 2 + 1] = sXY[x1 * 2 + 1] + NNDeltaTab_i[a][1];
 					}
 				}
-			} else { // float
+			} else if (!planar_input) {
+				map1_tmp2.convertTo(bufxy);
+			} else {
 				for (y1 = 0; y1 < brows; y1++) {
 					short* XY = (short*)bufxy.ptr(y1);
 					const float* sX = (const float*)map1.ptr(y + y1) + x;
@@ -667,9 +679,9 @@ static int remap_nearest(const Mat_<_Tp1, chs1>& src, Mat_<_Tp1, chs1>& dst,
 	return 0;
 }
 
-template<typename _Tp1, typename _Tp2, int chs1, int chs2>
+template<typename _Tp1, typename _Tp2, typename _Tp3, int chs1, int chs2, int chs3>
 static int remap_linear(const Mat_<_Tp1, chs1>& src, Mat_<_Tp1, chs1>& dst,
-	const Mat_<_Tp2, chs2>& map1, const Mat_<_Tp2, chs2>& map2, int borderMode, const Scalar& borderValue)
+	const Mat_<_Tp2, chs2>& map1, const Mat_<_Tp3, chs3>& map2, int borderMode, const Scalar& borderValue)
 {
 	const void* ctab = 0;
 	bool fixpt = typeid(uchar).name() == typeid(_Tp1).name();
@@ -685,6 +697,7 @@ static int remap_linear(const Mat_<_Tp1, chs1>& src, Mat_<_Tp1, chs1>& dst,
 
 	Mat_<short, 2> _bufxy(brows0, bcols0);
 	Mat_<ushort, 1> _bufa(brows0, bcols0);
+	Mat_<short, 2> map1_tmp1(map1.rows, map1.cols, map1.data);
 
 	for (y = range.start; y < range.end; y += brows0) {
 		for (x = 0; x < dst.cols; x += bcols0) {
@@ -701,7 +714,16 @@ static int remap_linear(const Mat_<_Tp1, chs1>& src, Mat_<_Tp1, chs1>& dst,
 				short* XY = (short*)bufxy.ptr(y1);
 				ushort* A = (ushort*)bufa.ptr(y1);
 
-				if (planar_input) {
+				if (map1.channels == 2 && typeid(short).name() == typeid(_Tp2).name() &&
+					(map2.channels == 1 && sizeof(_Tp3) == 2)) {
+					map1_tmp1.getROI(bufxy, Rect(x, y, bcols, brows));
+
+					const ushort* sA = (const ushort*)map2.ptr(y + y1) + x;
+					x1 = 0;
+
+					for (; x1 < bcols; x1++)
+						A[x1] = (ushort)(sA[x1] & (INTER_TAB_SIZE2 - 1));
+				} else if (planar_input) {
 					const float* sX = (const float*)map1.ptr(y + y1) + x;
 					const float* sY = (const float*)map2.ptr(y + y1) + x;
 
@@ -739,9 +761,9 @@ static int remap_linear(const Mat_<_Tp1, chs1>& src, Mat_<_Tp1, chs1>& dst,
 	return 0;
 }
 
-template<typename _Tp1, typename _Tp2, int chs1, int chs2>
+template<typename _Tp1, typename _Tp2, typename _Tp3, int chs1, int chs2, int chs3>
 static int remap_cubic(const Mat_<_Tp1, chs1>& src, Mat_<_Tp1, chs1>& dst,
-	const Mat_<_Tp2, chs2>& map1, const Mat_<_Tp2, chs2>& map2, int borderMode, const Scalar& borderValue)
+	const Mat_<_Tp2, chs2>& map1, const Mat_<_Tp3, chs3>& map2, int borderMode, const Scalar& borderValue)
 {
 	const void* ctab = 0;
 	bool fixpt = typeid(uchar).name() == typeid(_Tp1).name();
@@ -757,6 +779,7 @@ static int remap_cubic(const Mat_<_Tp1, chs1>& src, Mat_<_Tp1, chs1>& dst,
 
 	Mat_<short, 2> _bufxy(brows0, bcols0);
 	Mat_<ushort, 1> _bufa(brows0, bcols0);
+	Mat_<short, 2> map1_tmp1(map1.rows, map1.cols, map1.data);
 
 	for (y = range.start; y < range.end; y += brows0) {
 		for (x = 0; x < dst.cols; x += bcols0) {
@@ -773,7 +796,16 @@ static int remap_cubic(const Mat_<_Tp1, chs1>& src, Mat_<_Tp1, chs1>& dst,
 				short* XY = (short*)bufxy.ptr(y1);
 				ushort* A = (ushort*)bufa.ptr(y1);
 
-				if (planar_input) {
+				if (map1.channels == 2 && typeid(short).name() == typeid(_Tp2).name() &&
+					(map2.channels == 1 && sizeof(_Tp3) == 2)) {
+					map1_tmp1.getROI(bufxy, Rect(x, y, bcols, brows));
+
+					const ushort* sA = (const ushort*)map2.ptr(y + y1) + x;
+					x1 = 0;
+
+					for (; x1 < bcols; x1++)
+						A[x1] = (ushort)(sA[x1] & (INTER_TAB_SIZE2 - 1));
+				} else if (planar_input) {
 					const float* sX = (const float*)map1.ptr(y + y1) + x;
 					const float* sY = (const float*)map2.ptr(y + y1) + x;
 
@@ -811,9 +843,9 @@ static int remap_cubic(const Mat_<_Tp1, chs1>& src, Mat_<_Tp1, chs1>& dst,
 	return 0;
 }
 
-template<typename _Tp1, typename _Tp2, int chs1, int chs2>
+template<typename _Tp1, typename _Tp2, typename _Tp3, int chs1, int chs2, int chs3>
 static int remap_lanczos4(const Mat_<_Tp1, chs1>& src, Mat_<_Tp1, chs1>& dst,
-	const Mat_<_Tp2, chs2>& map1, const Mat_<_Tp2, chs2>& map2, int borderMode, const Scalar& borderValue)
+	const Mat_<_Tp2, chs2>& map1, const Mat_<_Tp3, chs3>& map2, int borderMode, const Scalar& borderValue)
 {
 	const void* ctab = 0;
 	bool fixpt = typeid(uchar).name() == typeid(_Tp1).name();
@@ -829,6 +861,7 @@ static int remap_lanczos4(const Mat_<_Tp1, chs1>& src, Mat_<_Tp1, chs1>& dst,
 
 	Mat_<short, 2> _bufxy(brows0, bcols0);
 	Mat_<ushort, 1> _bufa(brows0, bcols0);
+	Mat_<short, 2> map1_tmp1(map1.rows, map1.cols, map1.data);
 
 	for (y = range.start; y < range.end; y += brows0) {
 		for (x = 0; x < dst.cols; x += bcols0) {
@@ -845,7 +878,16 @@ static int remap_lanczos4(const Mat_<_Tp1, chs1>& src, Mat_<_Tp1, chs1>& dst,
 				short* XY = (short*)bufxy.ptr(y1);
 				ushort* A = (ushort*)bufa.ptr(y1);
 
-				if (planar_input) {
+				if (map1.channels == 2 && typeid(short).name() == typeid(_Tp2).name() &&
+					(map2.channels == 1 && sizeof(_Tp3) == 2)) {
+					map1_tmp1.getROI(bufxy, Rect(x, y, bcols, brows));
+
+					const ushort* sA = (const ushort*)map2.ptr(y + y1) + x;
+					x1 = 0;
+
+					for (; x1 < bcols; x1++)
+						A[x1] = (ushort)(sA[x1] & (INTER_TAB_SIZE2 - 1));
+				} else if (planar_input) {
 					const float* sX = (const float*)map1.ptr(y + y1) + x;
 					const float* sY = (const float*)map2.ptr(y + y1) + x;
 

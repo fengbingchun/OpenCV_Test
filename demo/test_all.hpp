@@ -9,6 +9,7 @@
 #include "test_resize.hpp"
 #include "test_split.hpp"
 #include "test_warpAffine.hpp"
+#include "test_rotate.hpp"
 
 int run_all_test();
 

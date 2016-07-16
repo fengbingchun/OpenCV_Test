@@ -338,6 +338,28 @@ _Tp& Matx<_Tp, m, n>::operator ()(int i)
 	return val[i];
 }
 
+template<typename _Tp, int m, int n> static inline
+double norm(const Matx<_Tp, m, n>& M)
+{
+	return std::sqrt(normL2Sqr<_Tp, double>(M.val, m*n));
+}
+
+template<typename _Tp, int m, int n> static inline
+double norm(const Matx<_Tp, m, n>& M, int normType)
+{
+	switch (normType) {
+	case NORM_INF:
+		return (double)normInf<_Tp, typename DataType<_Tp>::work_type>(M.val, m*n);
+	case NORM_L1:
+		return (double)normL1<_Tp, typename DataType<_Tp>::work_type>(M.val, m*n);
+	case NORM_L2SQR:
+		return (double)normL2Sqr<_Tp, typename DataType<_Tp>::work_type>(M.val, m*n);
+	default:
+	case NORM_L2:
+		return std::sqrt((double)normL2Sqr<_Tp, typename DataType<_Tp>::work_type>(M.val, m*n));
+	}
+}
+
 ///////////////////////////// Matx out-of-class operators ////////////////////////////////
 template<typename _Tp1, typename _Tp2, int m, int n> static inline
 Matx<_Tp1, m, n>& operator += (Matx<_Tp1, m, n>& a, const Matx<_Tp2, m, n>& b)

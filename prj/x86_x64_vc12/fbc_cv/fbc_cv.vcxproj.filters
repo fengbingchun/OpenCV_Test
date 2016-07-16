@@ -78,6 +78,9 @@
     <ClInclude Include="..\..\..\src\fbc_cv\include\remap.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\fbc_cv\include\rotate.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\fbc_cv\src\directory.cpp">
@@ -93,6 +96,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\fbc_cv\src\imgwarp.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\fbc_cv\src\types.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

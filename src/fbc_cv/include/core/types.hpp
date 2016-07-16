@@ -12,6 +12,7 @@
 
 #include "core/fbcdef.hpp"
 #include "core/matx.hpp"
+#include "core/saturate.hpp"
 
 namespace fbc {
 template<typename _Tp> class Size_;
@@ -910,46 +911,42 @@ Rect_<_Tp> operator | (const Rect_<_Tp>& a, const Rect_<_Tp>& b)
 	return c |= b;
 }
 
+///////////////////////////// RotatedRect /////////////////////////////
+// The class represents rotated rectangles on a plane.
+// Each rectangle is specified by the center point, length of each side and the rotation angle in degrees.
+class FBC_EXPORTS RotatedRect
+{
+public:
+	//! various constructors
+	RotatedRect();
+	// center: The rectangle mass center; size: Width and height of the rectangle; angle: The rotation angle in a clockwise direction
+	RotatedRect(const Point2f& center, const Size2f& size, float angle);
+	// Any 3 end points of the RotatedRect. They must be given in order (either clockwise or anticlockwise).
+	RotatedRect(const Point2f& point1, const Point2f& point2, const Point2f& point3);
+
+	// 4 vertices of the rectangle
+	void points(Point2f pts[]) const;
+	//! returns the minimal up-right rectangle containing the rotated rectangle
+	Rect boundingRect() const;
+
+	Point2f center; //< the rectangle mass center
+	Size2f size;    //< width and height of the rectangle
+	float angle;    //< the rotation angle. When the angle is 0, 90, 180, 270 etc., the rectangle becomes an up-right rectangle.
+};
+
 //////////////////////////////// Range /////////////////////////////////
 // Template class specifying a continuous subsequence (slice) of a sequence
 class Range
 {
 public:
-	Range();
-	Range(int _start, int _end);
-	int size() const;
-	bool empty() const;
-	static Range all();
+	Range() : start(0), end(0) {}
+	Range(int _start, int _end) : start(_start), end(_end) {}
+	int size() const { return end - start; }
+	bool empty() const { return start == end; }
+	static Range all() { return Range(INT_MIN, INT_MAX); }
 
 	int start, end;
 };
-
-//////////////////////////////// Range /////////////////////////////////
-inline
-Range::Range()
-: start(0), end(0) {}
-
-inline
-Range::Range(int _start, int _end)
-: start(_start), end(_end) {}
-
-inline
-int Range::size() const
-{
-	return end - start;
-}
-
-inline
-bool Range::empty() const
-{
-	return start == end;
-}
-
-inline
-Range Range::all()
-{
-	return Range(INT_MIN, INT_MAX);
-}
 
 ///////////////////////// Range out-of-class operators /////////////////////
 static inline

@@ -175,6 +175,7 @@
     <ClCompile Include="..\..\..\..\demo\test_merge.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_remap.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_resize.cpp" />
+    <ClCompile Include="..\..\..\..\demo\test_rotate.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_split.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_warpAffine.cpp" />
   </ItemGroup>
@@ -186,6 +187,7 @@
     <ClInclude Include="..\..\..\..\demo\test_merge.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_remap.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_resize.hpp" />
+    <ClInclude Include="..\..\..\..\demo\test_rotate.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_split.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_warpAffine.hpp" />
   </ItemGroup>

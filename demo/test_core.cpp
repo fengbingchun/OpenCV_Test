@@ -1,3 +1,4 @@
+#include "test_core.hpp"
 #include <assert.h>
 
 #include <core/fast_math.hpp>
@@ -8,8 +9,6 @@
 #include <core/mat.hpp>
 
 #include <opencv2/opencv.hpp>
-
-#include "test_core.hpp"
 
 int test_fast_math()
 {
@@ -618,7 +617,11 @@ int test_Mat()
 	cv::resize(mat, mat, cv::Size(100, 100));
 
 	fbc::Mat4BGRA mat1;
+	assert(mat1.total() == 0);
+	assert(mat1.empty() == true);
 	fbc::Mat1Gray mat2(111, 111);
+	assert(mat2.total() == 111*111);
+	assert(mat2.empty() == false);
 	fbc::Mat3BGR mat3(5, 111, fbc::Scalar(128, 128, 255));
 	fbc::Mat3BGR mat4(100, 100, mat.data);
 	fbc::Mat3BGR mat5(mat4); // mat5分配了新的空间,注意与mat5_的不同
@@ -665,4 +668,33 @@ int test_Mat()
 	return 0;
 }
 
+int test_RotateRect()
+{
+	float angle = 99.9;
+
+	fbc::Point2f point2f(111.5, 222.7);
+	fbc::Size2f size2f(333.3, 555.5);
+	fbc::Point2f vertices[4];
+	fbc::Rect rect;
+
+	fbc::RotatedRect rotate_rect(point2f, size2f, angle);
+	rotate_rect.points(vertices);
+	rect = rotate_rect.boundingRect();
+
+	cv::Point2f point2f_(111.5, 222.7);
+	cv::Size2f size2f_(333.3, 555.5);
+	cv::Point2f vertices_[4];
+	cv::Rect rect_;
+
+	cv::RotatedRect rotate_rect_(point2f_, size2f_, angle);
+	rotate_rect_.points(vertices_);
+	rect_ = rotate_rect_.boundingRect();
+
+	for (int i = 0; i < 4; i++) {
+		assert(vertices[i].x == vertices_[i].x && vertices[i].y == vertices_[i].y);
+	}
+	assert(rect.x == rect_.x && rect.y == rect_.y && rect.width == rect_.width && rect.height == rect_.height);
+
+	return 0;
+}
 

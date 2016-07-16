@@ -2,6 +2,7 @@
 // Email: fengbingchun@163.com
 
 #include "warpAffine.hpp"
+#include "rotate.hpp"
 
 /* reference: include/opencv2/imgproc.hpp
               modules/imgproc/src/imgwarp.cpp
@@ -49,6 +50,26 @@ int getAffineTransform(const Point2f src1[], const Point2f src2[], Mat_<double, 
 
 	bool ret = solve(A, B, X);
 	FBC_Assert(ret == true);
+
+	return 0;
+}
+
+int getRotationMatrix2D(Point2f center, double angle, double scale, Mat_<double, 1>& dst)
+{
+	FBC_Assert(dst.rows == 2 && dst.cols == 3);
+
+	angle *= FBC_PI / 180;
+	double alpha = cos(angle)*scale;
+	double beta = sin(angle)*scale;
+
+	double* m = (double*)dst.data;
+
+	m[0] = alpha;
+	m[1] = beta;
+	m[2] = (1 - alpha)*center.x - beta*center.y;
+	m[3] = -beta;
+	m[4] = alpha;
+	m[5] = beta*center.x + (1 - alpha)*center.y;
 
 	return 0;
 }

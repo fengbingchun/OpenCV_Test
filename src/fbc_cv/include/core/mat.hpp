@@ -62,8 +62,12 @@ public:
 
 	// returns the matrix cols and rows
 	Size& size() const;
+	// returns true if Mat_::total() is 0 or if Mat_::data is NULL
+	bool empty() const;
 	// returns the matrix element size in bytes
 	size_t elemSize() const;
+	// Returns the total number of array elements
+	size_t total() const;
 
 	// release memory
 	inline void release();
@@ -400,6 +404,18 @@ template<typename _Tp, int chs>
 size_t Mat_<_Tp, chs>::elemSize() const
 {
 	return (this->channels * sizeof(_Tp));
+}
+
+template<typename _Tp, int chs>
+size_t Mat_<_Tp, chs>::total() const
+{
+	return (size_t)rows * cols;
+}
+
+template<typename _Tp, int chs>
+bool Mat_<_Tp, chs>::empty() const
+{
+	return total() == 0 || this->data == NULL;
 }
 
 } // fbc

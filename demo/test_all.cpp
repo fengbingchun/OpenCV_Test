@@ -16,6 +16,7 @@ int run_all_test()
 	test_Range();
 	test_Scalar();
 	test_Mat();
+	test_RotateRect();
 
 	// test directory
 	test_directory_GetListFiles();
@@ -76,6 +77,24 @@ int run_all_test()
 	ret = test_remap_uchar();
 	assert(ret == 0);
 	ret = test_remap_float();
+	assert(ret == 0);
+
+	// test warpAffine
+	ret = test_getAffineTransform();
+	assert(ret == 0);
+	ret = test_warpAffine_uchar();
+	assert(ret == 0);
+	ret = test_warpAffine_float();
+	assert(ret == 0);
+
+	// test rotate
+	ret = test_getRotationMatrix2D();
+	assert(ret == 0);
+	ret = test_rotate_uchar();
+	assert(ret == 0);
+	ret = test_rotate_float();
+	assert(ret == 0);
+	ret = test_rotate_without_crop();
 	assert(ret == 0);
 
 

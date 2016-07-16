@@ -13,6 +13,8 @@ int test_Rect();
 int test_Range();
 int test_Scalar();
 int test_Mat();
+int test_RotateRect();
+
 
 #endif // TEST_FBC_CV_CORE_HPP_
 
