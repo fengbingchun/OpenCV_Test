@@ -3,6 +3,8 @@
 
 #include "warpAffine.hpp"
 #include "rotate.hpp"
+#include "warpPerspective.hpp"
+#include "core/solve.hpp"
 
 /* reference: include/opencv2/imgproc.hpp
               modules/imgproc/src/imgwarp.cpp
@@ -70,6 +72,58 @@ int getRotationMatrix2D(Point2f center, double angle, double scale, Mat_<double,
 	m[3] = -beta;
 	m[4] = alpha;
 	m[5] = beta*center.x + (1 - alpha)*center.y;
+
+	return 0;
+}
+
+/* Calculates coefficients of perspective transformation
+* which maps (xi,yi) to (ui,vi), (i=1,2,3,4):
+*
+*      c00*xi + c01*yi + c02
+* ui = ---------------------
+*      c20*xi + c21*yi + c22
+*
+*      c10*xi + c11*yi + c12
+* vi = ---------------------
+*      c20*xi + c21*yi + c22
+*
+* Coefficients are calculated by solving linear system:
+* / x0 y0  1  0  0  0 -x0*u0 -y0*u0 \ /c00\ /u0\
+* | x1 y1  1  0  0  0 -x1*u1 -y1*u1 | |c01| |u1|
+* | x2 y2  1  0  0  0 -x2*u2 -y2*u2 | |c02| |u2|
+* | x3 y3  1  0  0  0 -x3*u3 -y3*u3 |.|c10|=|u3|,
+* |  0  0  0 x0 y0  1 -x0*v0 -y0*v0 | |c11| |v0|
+* |  0  0  0 x1 y1  1 -x1*v1 -y1*v1 | |c12| |v1|
+* |  0  0  0 x2 y2  1 -x2*v2 -y2*v2 | |c20| |v2|
+* \  0  0  0 x3 y3  1 -x3*v3 -y3*v3 / \c21/ \v3/
+*
+* where:
+*   cij - matrix coefficients, c22 = 1
+*/
+int getPerspectiveTransform(const Point2f src1[], const Point2f src2[], Mat_<double, 1>& dst)
+{
+	FBC_Assert(dst.rows == 3 && dst.cols == 3);
+
+	Mat_<double, 1> X(8, 1, dst.data);
+	double a[8][8], b[8];
+	Mat_<double, 1> A(8, 8, a), B(8, 1, b);
+
+	for (int i = 0; i < 4; ++i) {
+		a[i][0] = a[i + 4][3] = src1[i].x;
+		a[i][1] = a[i + 4][4] = src1[i].y;
+		a[i][2] = a[i + 4][5] = 1;
+		a[i][3] = a[i][4] = a[i][5] = a[i + 4][0] = a[i + 4][1] = a[i + 4][2] = 0;
+		a[i][6] = -src1[i].x*src2[i].x;
+		a[i][7] = -src1[i].y*src2[i].x;
+		a[i + 4][6] = -src1[i].x*src2[i].y;
+		a[i + 4][7] = -src1[i].y*src2[i].y;
+		b[i] = src2[i].x;
+		b[i + 4] = src2[i].y;
+	}
+
+	solve(A, B, X, DECOMP_SVD);
+	double* p = (double*)dst.ptr();
+	p[8] = 1.;
 
 	return 0;
 }

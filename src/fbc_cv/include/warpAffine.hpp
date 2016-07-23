@@ -10,18 +10,25 @@
 
 #include <typeinfo>
 #include "core/mat.hpp"
-#include "solve.hpp"
 #include "imgproc.hpp"
 #include "remap.hpp"
 
 namespace fbc {
 
 // Calculates an affine transform from three pairs of the corresponding points
+/*
+\f[\begin{bmatrix} x'_i \\ y'_i \end{bmatrix} = \texttt{map\_matrix} \cdot \begin{bmatrix} x_i \\ y_i \\ 1 \end{bmatrix}\f]
+where
+\f[dst(i)=(x'_i,y'_i), src(i)=(x_i, y_i), i=0,1,2\f]
+*/
 FBC_EXPORTS int getAffineTransform(const Point2f src1[], const Point2f src2[], Mat_<double, 1>& dst);
 
 // Applies an affine transformation to an image
 // The function cannot operate in - place
 // support type: uchar/float
+/*
+\f[\texttt{dst} (x,y) =  \texttt{src} ( \texttt{M} _{11} x +  \texttt{M} _{12} y +  \texttt{M} _{13}, \texttt{M} _{21} x +  \texttt{M} _{22} y +  \texttt{M} _{23})\f]
+*/
 template<typename _Tp1, typename _Tp2, int chs1, int chs2>
 int warpAffine(const Mat_<_Tp1, chs1>& src, Mat_<_Tp1, chs1>& dst, const Mat_<_Tp2, chs2>& M_,
 	int flags = INTER_LINEAR, int borderMode = BORDER_CONSTANT, const Scalar& borderValue = Scalar())

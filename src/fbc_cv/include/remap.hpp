@@ -42,6 +42,9 @@ template<typename _Tp1, typename _Tp2, typename _Tp3, int chs1, int chs2, int ch
 
 // Applies a generic geometrical transformation to an image
 // transforms the source image using the specified map, this function cannot operate in-place
+/*
+\f[\texttt{dst} (x,y) =  \texttt{src} (map_x(x,y),map_y(x,y))\f]
+*/
 // support type: uchar/float
 template<typename _Tp1, typename _Tp2, typename _Tp3, int chs1, int chs2, int chs3>
 int remap(const Mat_<_Tp1, chs1>& src, Mat_<_Tp1, chs1>& dst, const Mat_<_Tp2, chs2>& map1, const Mat_<_Tp3, chs3>& map2,

@@ -7,7 +7,8 @@
 
 int main()
 {
-	// test_rotate_without_crop();
+	//test_warpPerspective_uchar();
+	//test_warpPerspective_float();
 
 	run_all_test();
 	std::cout << "ok" << std::endl;

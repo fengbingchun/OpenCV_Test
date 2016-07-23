@@ -131,10 +131,10 @@ int test_rotate_without_crop()
 	fbc::Point2f center = fbc::Point2f(matSrc.cols / 2.0, matSrc.rows / 2.0);
 	fbc::Mat_<uchar, 3> mat(matSrc.rows, matSrc.cols, matSrc.data);
 	fbc::Mat_<uchar, 3> rotate_dst;
-	fbc::rotate(mat, rotate_dst, center, angle, /*true*/false, 2, 0, fbc::Scalar(0, 128, 255));
+	fbc::rotate(mat, rotate_dst, center, angle, true/*false*/, 2, 0, fbc::Scalar(128, 255, 0));
 
 	cv::Mat mat_save(rotate_dst.rows, rotate_dst.cols, CV_8UC3, rotate_dst.data);
-	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/1_rotate1.jpg", mat_save);
+	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/1_rotate2.jpg", mat_save);
 
 	return 0;
 }

@@ -178,6 +178,7 @@
     <ClCompile Include="..\..\..\..\demo\test_rotate.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_split.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_warpAffine.cpp" />
+    <ClCompile Include="..\..\..\..\demo\test_warpPerspective.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\demo\test_all.hpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="..\..\..\..\demo\test_rotate.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_split.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_warpAffine.hpp" />
+    <ClInclude Include="..\..\..\..\demo\test_warpPerspective.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

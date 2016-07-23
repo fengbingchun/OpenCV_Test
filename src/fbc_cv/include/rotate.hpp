@@ -15,6 +15,11 @@ namespace fbc {
 
 // Calculates an affine matrix of 2D rotation
 // Positive values mean counter-clockwise rotation (the coordinate origin is assumed to be the top - left corner)
+/*
+\f[\begin{bmatrix} \alpha &  \beta & (1- \alpha )  \cdot \texttt{center.x} -  \beta \cdot \texttt{center.y} \\ - \beta &  \alpha &  \beta \cdot \texttt{center.x} + (1- \alpha )  \cdot \texttt{center.y} \end{bmatrix}\f]
+where
+\f[\begin{array}{l} \alpha =  \texttt{scale} \cdot \cos \texttt{angle} , \\ \beta =  \texttt{scale} \cdot \sin \texttt{angle} \end{array}\f]
+*/
 FBC_EXPORTS int getRotationMatrix2D(Point2f center, double angle, double scale, Mat_<double, 1>& dst);
 
 // Applies an rotate to an image

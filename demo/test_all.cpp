@@ -97,6 +97,14 @@ int run_all_test()
 	ret = test_rotate_without_crop();
 	assert(ret == 0);
 
+	// test warpPerspective
+	ret = test_getPerspectiveTransform();
+	assert(ret == 0);
+	ret = test_warpPerspective_uchar();
+	assert(ret == 0);
+	ret = test_warpPerspective_float();
+	assert(ret == 0);
+
 
 	return 0;
 }

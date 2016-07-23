@@ -72,13 +72,22 @@
     <ClInclude Include="..\..\..\src\fbc_cv\include\warpAffine.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\fbc_cv\include\solve.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\fbc_cv\include\remap.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\fbc_cv\include\rotate.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\fbc_cv\include\warpPerspective.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\fbc_cv\include\core\rng.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\fbc_cv\include\core\invert.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\fbc_cv\include\core\solve.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
