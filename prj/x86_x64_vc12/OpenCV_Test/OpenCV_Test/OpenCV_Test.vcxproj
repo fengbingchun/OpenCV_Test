@@ -171,8 +171,11 @@
     <ClCompile Include="..\..\..\..\demo\test_all.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_core.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_cvtColor.cpp" />
+    <ClCompile Include="..\..\..\..\demo\test_dilate.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_directory.cpp" />
+    <ClCompile Include="..\..\..\..\demo\test_erode.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_merge.cpp" />
+    <ClCompile Include="..\..\..\..\demo\test_morphologyEx.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_remap.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_resize.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_rotate.cpp" />
@@ -184,8 +187,11 @@
     <ClInclude Include="..\..\..\..\demo\test_all.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_core.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_cvtColor.hpp" />
+    <ClInclude Include="..\..\..\..\demo\test_dilate.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_directory.hpp" />
+    <ClInclude Include="..\..\..\..\demo\test_erode.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_merge.hpp" />
+    <ClInclude Include="..\..\..\..\demo\test_morphologyEx.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_remap.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_resize.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_rotate.hpp" />

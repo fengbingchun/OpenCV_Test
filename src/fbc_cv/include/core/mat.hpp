@@ -30,7 +30,7 @@ public:
 	typedef _Tp value_type;
 
 	// default constructor
-	Mat_() : rows(0), cols(0), channels(0), data(NULL), step(0), allocated(false) {}
+	Mat_() : rows(0), cols(0), channels(0), data(NULL), step(0), allocated(false), datastart(NULL), dataend(NULL) {}
 	// constructs 2D matrix of the specified size
 	Mat_(int _rows, int _cols);
 	// constucts 2D matrix and fills it with the specified value _s
@@ -44,11 +44,14 @@ public:
 	// copies the matrix content to "_m"
 	void copyTo(Mat_<_Tp, chs>& _m, const Rect& rect = Rect(0, 0, 0, 0)) const;
 
-	// return typed pointer to the specified matrix row
+	// return typed pointer to the specified matrix row,i0, A 0-based row index
 	const uchar* ptr(int i0 = 0) const;
+	uchar* ptr(int i0 = 0);
 
 	// no data is copied, no memory is allocated
 	void getROI(Mat_<_Tp, chs>& _m, const Rect& rect = Rect(0, 0, 0, 0));
+	// Locates the matrix header within a parent matrix
+	void locateROI(Size& wholeSize, Point& ofs) const;
 
 	// value converted to the actual array type
 	void setTo(const Scalar& _value);
@@ -85,6 +88,9 @@ public:
 	int step; // stride
 	// memory allocation flag
 	bool allocated;
+	// helper fields used in locateROI and adjustROI
+	const uchar* datastart;
+	const uchar* dataend;
 }; // Mat_
 
 typedef Mat_<uchar, 1> Mat1Gray;
@@ -99,6 +105,8 @@ void Mat_<_Tp, chs>::release()
 	}
 
 	this->data = NULL;
+	this->datastart = NULL;
+	this->dataend = NULL;
 	this->allocated = false;
 	this->rows = this->cols = this->step = this->channels = 0;
 }
@@ -119,6 +127,8 @@ Mat_<_Tp, chs>::Mat_(int _rows, int _cols)
 	FBC_Assert(p != NULL);
 
 	this->data = p;
+	this->datastart = this->data;
+	this->dataend = this->data + size_;
 }
 
 template<typename _Tp, int chs>
@@ -136,6 +146,8 @@ Mat_<_Tp, chs>::Mat_(int _rows, int _cols, const Scalar& _s)
 	uchar* p = (uchar*)fastMalloc(size_);
 	FBC_Assert(p != NULL);
 	this->data = p;
+	this->datastart = this->data;
+	this->dataend = this->data + size_;
 
 	for (int i = 0; i < _rows; i++) {
 		_Tp* pRow = (_Tp*)this->data + i * _cols * chs;
@@ -161,6 +173,8 @@ Mat_<_Tp, chs>::Mat_(int _rows, int _cols, void* _data)
 	this->step = sizeof(_Tp) * _cols * chs;
 	this->allocated = false;
 	this->data = (uchar*)_data;
+	this->datastart = this->data;
+	this->dataend = this->data + this->step * this->rows;
 }
 
 template<typename _Tp, int chs>
@@ -183,6 +197,9 @@ Mat_<_Tp, chs>::Mat_(const Mat_<_Tp, chs>& _m)
 		this->allocated = false;
 		this->data = NULL;
 	}
+
+	this->datastart = this->data;
+	this->dataend = this->data + size_;
 }
 
 template<typename _Tp, int chs>
@@ -212,6 +229,9 @@ Mat_<_Tp, chs>& Mat_<_Tp, chs>::operator = (const Mat_& _m)
 		this->allocated = false;
 		this->data = NULL;
 	}
+
+	this->datastart = this->data;
+	this->dataend = this->data + size2;
 
 	return *this;
 }
@@ -293,10 +313,21 @@ void Mat_<_Tp, chs>::copyTo(Mat_<_Tp, chs>& _m, const Rect& rect) const
 		_m.step = 0;
 		_m.channels = 0;
 	}
+
+	_m.datastart = _m.data;
+	_m.dataend = _m.data + _m.step * _m.rows;
 }
 
 template<typename _Tp, int chs>
 const uchar* Mat_<_Tp, chs>::ptr(int i0) const
+{
+	FBC_Assert(i0 < this->rows);
+
+	return this->data + i0 * this->step;
+}
+
+template<typename _Tp, int chs>
+uchar* Mat_<_Tp, chs>::ptr(int i0 = 0)
 {
 	FBC_Assert(i0 < this->rows);
 
@@ -319,6 +350,19 @@ void Mat_<_Tp, chs>::getROI(Mat_<_Tp, chs>& _m, const Rect& rect)
 	_m.allocated = false;
 	_m.step = this->step;
 	_m.data = this->data + rect.y * this->step + rect.x * sizeof(_Tp) * this->channels;
+	_m.datastart = this->datastart;
+	_m.dataend = this->dataend;
+}
+
+template<typename _Tp, int chs>
+void Mat_<_Tp, chs>::locateROI(Size& wholeSize, Point& ofs) const
+{
+	wholeSize.width = this->step / (sizeof(_Tp) * chs);
+	wholeSize.height = (this->dataend - this->datastart) / this->step;
+
+	ofs.y = (this->data - this->datastart) / this->step;
+	ofs.x = ((this->data - this->datastart) - ((this->data - this->datastart) / this->step * this->step)) / (sizeof(_Tp) * chs);
+	FBC_Assert(wholeSize.width >= 0 && wholeSize.height >= 0 && ofs.x >= 0 && ofs.y >= 0);
 }
 
 template<typename _Tp, int chs>
@@ -359,6 +403,8 @@ void Mat_<_Tp, chs>::convertTo(Mat_<_Tp2, chs>& _m, double alpha = 1, const Scal
 	_m.rows = this->rows;
 	_m.cols = this->cols;
 	_m.step = _m.cols * sizeof(_Tp2) * _m.channels;
+	_m.datastart = _m.data;
+	_m.dataend = _m.data + _m.step * _m.rows;
 
 	for (int i = 0; i < this->rows; i++) {
 		uchar* p1 = this->data + i * this->step;
@@ -416,6 +462,43 @@ template<typename _Tp, int chs>
 bool Mat_<_Tp, chs>::empty() const
 {
 	return total() == 0 || this->data == NULL;
+}
+
+/////////////////////////// Mat_ out-of-class operators ///////////////////////////
+template<typename _Tp, int chs> static inline
+Mat_<_Tp, chs>& operator -= (Mat_<_Tp, chs>& a, const Mat_<_Tp, chs>& b)
+{
+	FBC_Assert(a.rows == b.rows && a.cols == b.cols);
+
+	for (int y = 0; y < a.rows; y++) {
+		_Tp* pa = (_Tp*)a.ptr(y);
+		_Tp* pb = (_Tp*)b.ptr(y);
+
+		for (int x = 0; x < a.cols * chs; x++) {
+			pa[x] = saturate_cast<_Tp>(pa[x] - pb[x]);
+		}
+	}
+
+	return a;
+}
+
+template<typename _Tp, int chs> static inline
+Mat_<_Tp, chs> operator - (const Mat_<_Tp, chs>& a, const Mat_<_Tp, chs>& b)
+{
+	FBC_Assert(a.rows == b.rows && a.cols == b.cols);
+	Mat_<_Tp, chs> c(a.rows, a.cols);
+
+	for (int y = 0; y < a.rows; y++) {
+		_Tp* pa = (_Tp*)a.ptr(y);
+		_Tp* pb = (_Tp*)b.ptr(y);
+		_Tp* pc = (_Tp*)c.ptr(y);
+
+		for (int x = 0; x < a.cols * chs; x++) {
+			pc[x] = saturate_cast<_Tp>(pa[x] - pb[x]);
+		}
+	}
+
+	return c;
 }
 
 } // fbc

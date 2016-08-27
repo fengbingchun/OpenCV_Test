@@ -13,6 +13,13 @@
 
 namespace fbc {
 
+#define FBC_CN_MAX		512
+#define FBC_CN_SHIFT		3
+#define FBC_DEPTH_MAX		(1 << FBC_CN_SHIFT)
+
+#define FBC_MAT_TYPE_MASK	(FBC_DEPTH_MAX*FBC_CN_MAX - 1)
+#define FBC_MAT_TYPE(flags)	((flags) & FBC_MAT_TYPE_MASK)
+
 #ifndef MIN
 	#define MIN(a,b)  ((a) > (b) ? (b) : (a))
 #endif

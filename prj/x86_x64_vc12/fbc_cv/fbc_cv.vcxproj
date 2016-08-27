@@ -177,15 +177,21 @@
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\invert.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\mat.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\matx.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\core\Ptr.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\rng.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\saturate.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\solve.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\types.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\utility.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\cvtColor.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\dilate.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\directory.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\erode.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\filterengine.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\imgproc.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\merge.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\morph.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\morphologyEx.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\remap.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\resize.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\rotate.hpp" />
@@ -198,6 +204,7 @@
     <ClCompile Include="..\..\..\src\fbc_cv\src\directory.cpp" />
     <ClCompile Include="..\..\..\src\fbc_cv\src\fbcstd.cpp" />
     <ClCompile Include="..\..\..\src\fbc_cv\src\hal.cpp" />
+    <ClCompile Include="..\..\..\src\fbc_cv\src\imgproc.cpp" />
     <ClCompile Include="..\..\..\src\fbc_cv\src\imgwarp.cpp" />
     <ClCompile Include="..\..\..\src\fbc_cv\src\types.cpp" />
   </ItemGroup>

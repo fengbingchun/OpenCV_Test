@@ -6,6 +6,9 @@
 
 /* reference: include/opencv2/core/core_c.h
               include/opencv2/core.hpp
+	      modules/core/src/stat.cpp
+	      modules/core/include/opencv2/core/private.hpp
+	      modules/core/src/matrix.cpp
 */
 
 #ifndef __cplusplus
@@ -96,6 +99,52 @@ int transpose(const Mat_<_Tp, chs>& src, Mat_<_Tp, chs>& dst)
 	}
 
 	return 0;
+}
+
+// Counts non-zero array elements
+// \f[\sum _{ I: \; \texttt{ src } (I) \ne0 } 1\f]
+template<typename _Tp, int chs>
+int countNonZero(const Mat_<_Tp, chs>& src)
+{
+	FBC_Assert(chs == 1);
+
+	int len = src.rows * src.cols;
+	const _Tp* p = (_Tp*)src.data;
+
+	int nz = 0;
+	for (int i = 0; i < len; i++) {
+		nz += (p[i] != 0);
+	}
+
+	return nz;
+}
+
+template<typename _Tp, int chs>
+void scalarToRawData(const fbc::Scalar& s, void* _buf, int unroll_to = 0)
+{
+	int i, cn = chs;
+	FBC_Assert(chs <= 4);
+	int depth = sizeof(_Tp);
+	switch (depth) {
+		case 1: {
+			uchar* buf = (uchar*)_buf;
+			for (i = 0; i < cn; i++)
+				buf[i] = saturate_cast<uchar>(s.val[i]);
+			for (; i < unroll_to; i++)
+				buf[i] = buf[i - cn];
+		}
+			break;
+		case 4: {
+			float* buf = (float*)_buf;
+			for (i = 0; i < cn; i++)
+				buf[i] = saturate_cast<float>(s.val[i]);
+			for (; i < unroll_to; i++)
+				buf[i] = buf[i - cn];
+		}
+			break;
+		default:
+			FBC_Error("UnsupportedFormat");
+	}
 }
 
 } // namespace fbc

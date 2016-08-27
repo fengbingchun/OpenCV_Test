@@ -11,6 +11,9 @@
 #include "test_warpAffine.hpp"
 #include "test_rotate.hpp"
 #include "test_warpPerspective.hpp"
+#include "test_dilate.hpp"
+#include "test_erode.hpp"
+#include "test_morphologyEx.hpp"
 
 int run_all_test();
 

@@ -7,10 +7,10 @@
 
 int main()
 {
-	//test_warpPerspective_uchar();
-	//test_warpPerspective_float();
+	//test_morphologyEx_uchar();
+	//test_morphologyEx_float();
 
-	run_all_test();
+	//run_all_test();
 	std::cout << "ok" << std::endl;
 	return 0;
 }

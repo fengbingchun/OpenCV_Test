@@ -7,6 +7,7 @@
 #include <core/matx.hpp>
 #include <core/types.hpp>
 #include <core/mat.hpp>
+#include <core/Ptr.hpp>
 
 #include <opencv2/opencv.hpp>
 
@@ -637,6 +638,9 @@ int test_Mat()
 	fbc::Mat3BGR mat10;
 	mat8.getROI(mat10, fbc::Rect(20, 10, 40, 45));
 	mat10.setTo(fbc::Scalar::all(128));
+	fbc::Size size_mat10;
+	fbc::Point point_mat10;
+	mat10.locateROI(size_mat10, point_mat10);
 	fbc::Mat_<float, 3> mat11;
 	mat7.convertTo(mat11, 0.5, fbc::Scalar(10, 20, 30, 40));
 	fbc::Mat3BGR mat14;
@@ -660,7 +664,13 @@ int test_Mat()
 	mat4_.copyTo(mat8_);
 	uchar* p1_ = mat8_.ptr(50);
 	cv::Mat mat10_;
-	mat10_ = mat8_.rowRange(cv::Range(10, 40));
+	mat10_ = mat8_.rowRange(cv::Range(10, 55));
+	cv::Mat mat10__ = mat10_.colRange(cv::Range(20, 60));
+	cv::Size size_mat10__;
+	cv::Point point_mat10__;
+	mat10__.locateROI(size_mat10__, point_mat10__);
+	assert(size_mat10.width == size_mat10__.width && size_mat10.height == size_mat10__.height);
+	assert(point_mat10.x == point_mat10__.x && point_mat10.y == point_mat10__.y);
 	cv::Mat mat11_;
 	mat7_.convertTo(mat11_, CV_32FC3);
 	cv::Mat mat12_ = cv::Mat::zeros(50, 100, CV_32FC3);

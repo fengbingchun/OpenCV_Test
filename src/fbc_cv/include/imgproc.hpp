@@ -8,6 +8,7 @@
 
 #include "core/fbcdef.hpp"
 #include "core/interface.hpp"
+#include "core/mat.hpp"
 
 namespace fbc {
 
@@ -193,6 +194,33 @@ enum ColorConversionFlags {
 	// Edge-Aware Demosaicing // 135 - 139
 };
 
+// type of morphological operation
+enum MorphTypes{
+	MORPH_ERODE = 0, // see cv::erode
+	MORPH_DILATE = 1, // see cv::dilate
+	MORPH_OPEN = 2, // an opening operation
+	// \f[\texttt{dst} = \mathrm{open} ( \texttt{src} , \texttt{element} )= \mathrm{dilate} ( \mathrm{erode} ( \texttt{src} , \texttt{element} ))\f]
+	MORPH_CLOSE = 3, // a closing operation
+	// \f[\texttt{dst} = \mathrm{close} ( \texttt{src} , \texttt{element} )= \mathrm{erode} ( \mathrm{dilate} ( \texttt{src} , \texttt{element} ))\f]
+	MORPH_GRADIENT = 4, // a morphological gradient
+	// \f[\texttt{dst} = \mathrm{morph\_grad} ( \texttt{src} , \texttt{element} )= \mathrm{dilate} ( \texttt{src} , \texttt{element} )- \mathrm{erode} ( \texttt{src} , \texttt{element} )\f]
+	MORPH_TOPHAT = 5, // "top hat"
+	// \f[\texttt{dst} = \mathrm{tophat} ( \texttt{src} , \texttt{element} )= \texttt{src} - \mathrm{open} ( \texttt{src} , \texttt{element} )\f]
+	MORPH_BLACKHAT = 6, // "black hat"
+	// \f[\texttt{dst} = \mathrm{blackhat} ( \texttt{src} , \texttt{element} )= \mathrm{close} ( \texttt{src} , \texttt{element} )- \texttt{src}\f]
+	MORPH_HITMISS = 7  // "hit and miss"
+	// Only supported for CV_8UC1 binary images. Tutorial can be found in [this page](http://opencv-code.com/tutorials/hit-or-miss-transform-in-opencv/)
+};
+
+// shape of the structuring element
+enum MorphShapes {
+	MORPH_RECT = 0, // a rectangular structuring element:  \f[E_{ij}=1\f]
+	MORPH_CROSS = 1, // a cross-shaped structuring element:
+	//!< \f[E_{ij} =  \fork{1}{if i=\texttt{anchor.y} or j=\texttt{anchor.x}}{0}{otherwise}\f]
+	MORPH_ELLIPSE = 2 // an elliptic structuring element, that is, a filled ellipse inscribed
+	// into the rectangle Rect(0, 0, esize.width, 0.esize.height)
+};
+
 // helper tables
 const uchar icvSaturate8u_cv[] =
 {
@@ -251,6 +279,8 @@ const uchar icvSaturate8u_cv[] =
 #define FBC_CALC_MIN_8U(a,b) (a) -= FBC_FAST_CAST_8U((a) - (b))
 #define FBC_CALC_MAX_8U(a,b) (a) += FBC_FAST_CAST_8U((b) - (a))
 
+//cal a structuring element of the specified size and shape for morphological operations
+FBC_EXPORTS int getStructuringElement(Mat_<uchar, 1>& dst, int shape, Size ksize, Point anchor = Point(-1, -1));
 
 } // namespace fbc
 

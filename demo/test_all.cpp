@@ -1,9 +1,11 @@
 #include "test_all.hpp"
 #include <assert.h>
+#include <iostream>
 
 int run_all_test()
 {
 	// test core
+	std::cout << "test core: " << std::endl;
 	test_fast_math();
 	test_base();
 	test_saturate();
@@ -19,11 +21,13 @@ int run_all_test()
 	test_RotateRect();
 
 	// test directory
+	std::cout << "test directory: " << std::endl;
 	test_directory_GetListFiles();
 	test_directory_GetListFilesR();
 	test_directory_GetListFolders();
 
 	// test cvtColor
+	std::cout << "test cvtColor: " << std::endl;
 	int ret = test_cvtColor_RGB2RGB();
 	assert(ret == 0);
 	ret = test_cvtColor_RGB2Gray();
@@ -54,12 +58,21 @@ int run_all_test()
 	assert(ret == 0);
 
 	// test merge
+	std::cout << "test merge: " << std::endl;
 	ret = test_merge_uchar();
 	assert(ret == 0);
 	ret = test_merge_float();
 	assert(ret == 0);
 
+	// test split
+	std::cout << "test split: " << std::endl;
+	ret = test_split_uchar();
+	assert(ret == 0);
+	ret = test_split_float();
+	assert(ret == 0);
+
 	// test resize
+	std::cout << "test resize: " << std::endl;
 	ret = test_resize_uchar();
 	assert(ret == 0);
 	ret = test_resize_float();
@@ -67,19 +80,15 @@ int run_all_test()
 	ret = test_resize_area();
 	assert(ret == 0);
 
-	// test split
-	ret = test_split_uchar();
-	assert(ret == 0);
-	ret = test_split_float();
-	assert(ret == 0);
-
 	// test remap
+	std::cout << "test remap: " << std::endl;
 	ret = test_remap_uchar();
 	assert(ret == 0);
 	ret = test_remap_float();
 	assert(ret == 0);
 
 	// test warpAffine
+	std::cout << "test warpAffine: " << std::endl;
 	ret = test_getAffineTransform();
 	assert(ret == 0);
 	ret = test_warpAffine_uchar();
@@ -88,6 +97,7 @@ int run_all_test()
 	assert(ret == 0);
 
 	// test rotate
+	std::cout << "test rotate: " << std::endl;
 	ret = test_getRotationMatrix2D();
 	assert(ret == 0);
 	ret = test_rotate_uchar();
@@ -98,6 +108,7 @@ int run_all_test()
 	assert(ret == 0);
 
 	// test warpPerspective
+	std::cout << "test warpPerspective: " << std::endl;
 	ret = test_getPerspectiveTransform();
 	assert(ret == 0);
 	ret = test_warpPerspective_uchar();
@@ -105,6 +116,28 @@ int run_all_test()
 	ret = test_warpPerspective_float();
 	assert(ret == 0);
 
+	// test dilate
+	std::cout << "test dilate: " << std::endl;
+	ret = test_getStructuringElement();
+	assert(ret == 0);
+	ret = test_dilate_uchar();
+	assert(ret == 0);
+	ret = test_dilate_float();
+	assert(ret == 0);
+
+	// test erode
+	std::cout << "test erode: " << std::endl;
+	ret = test_erode_uchar();
+	assert(ret == 0);
+	ret = test_erode_float();
+	assert(ret == 0);
+
+	// test morphologyEx
+	std::cout << "test morphologyEx: " << std::endl;
+	ret = test_morphologyEx_uchar();
+	assert(ret == 0);
+	ret = test_morphologyEx_float();
+	assert(ret == 0);
 
 	return 0;
 }
