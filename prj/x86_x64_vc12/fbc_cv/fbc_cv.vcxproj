@@ -196,6 +196,7 @@
     <ClInclude Include="..\..\..\src\fbc_cv\include\resize.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\rotate.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\split.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\threshold.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\warpAffine.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\warpPerspective.hpp" />
   </ItemGroup>

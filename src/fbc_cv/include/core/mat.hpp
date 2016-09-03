@@ -465,25 +465,63 @@ bool Mat_<_Tp, chs>::empty() const
 }
 
 /////////////////////////// Mat_ out-of-class operators ///////////////////////////
-template<typename _Tp, int chs> static inline
-Mat_<_Tp, chs>& operator -= (Mat_<_Tp, chs>& a, const Mat_<_Tp, chs>& b)
+template<typename _Tp1, typename _Tp2, int chs> static inline
+Mat_<_Tp1, chs>& operator -= (Mat_<_Tp1, chs>& a, const Mat_<_Tp2, chs>& b)
 {
 	FBC_Assert(a.rows == b.rows && a.cols == b.cols);
 
 	for (int y = 0; y < a.rows; y++) {
-		_Tp* pa = (_Tp*)a.ptr(y);
-		_Tp* pb = (_Tp*)b.ptr(y);
+		_Tp1* pa = (_Tp1*)a.ptr(y);
+		_Tp2* pb = (_Tp2*)b.ptr(y);
 
 		for (int x = 0; x < a.cols * chs; x++) {
-			pa[x] = saturate_cast<_Tp>(pa[x] - pb[x]);
+			pa[x] = saturate_cast<_Tp1>(pa[x] - pb[x]);
 		}
 	}
 
 	return a;
 }
 
+template<typename _Tp1, typename _Tp2, int chs> static inline
+Mat_<_Tp1, chs> operator - (const Mat_<_Tp1, chs>& a, const Mat_<_Tp2, chs>& b)
+{
+	FBC_Assert(a.rows == b.rows && a.cols == b.cols);
+	Mat_<_Tp1, chs> c(a.rows, a.cols);
+
+	for (int y = 0; y < a.rows; y++) {
+		_Tp1* pa = (_Tp1*)a.ptr(y);
+		_Tp2* pb = (_Tp2*)b.ptr(y);
+		_Tp1* pc = (_Tp1*)c.ptr(y);
+
+		for (int x = 0; x < a.cols * chs; x++) {
+			pc[x] = saturate_cast<_Tp1>(pa[x] - pb[x]);
+		}
+	}
+
+	return c;
+}
+
+template<typename _Tp1, typename _Tp2, int chs> static inline
+Mat_<_Tp1, chs> operator == (const Mat_<_Tp1, chs>& a, const Mat_<_Tp2, chs>& b)
+{
+	FBC_Assert(a.rows == b.rows && a.cols == b.cols);
+	Mat_<_Tp1, chs> c(a.rows, a.cols);
+
+	for (int y = 0; y < a.rows; y++) {
+		_Tp1* pa = (_Tp1*)a.ptr(y);
+		_Tp2* pb = (_Tp2*)b.ptr(y);
+		_Tp1* pc = (_Tp1*)c.ptr(y);
+
+		for (int x = 0; x < a.cols * chs; x++) {
+			pc[x] = pa[x] != pb[x] ? 0 : 1;
+		}
+	}
+
+	return c;
+}
+
 template<typename _Tp, int chs> static inline
-Mat_<_Tp, chs> operator - (const Mat_<_Tp, chs>& a, const Mat_<_Tp, chs>& b)
+Mat_<_Tp, chs> operator & (const Mat_<_Tp, chs>& a, const Mat_<_Tp, chs>& b)
 {
 	FBC_Assert(a.rows == b.rows && a.cols == b.cols);
 	Mat_<_Tp, chs> c(a.rows, a.cols);
@@ -494,7 +532,7 @@ Mat_<_Tp, chs> operator - (const Mat_<_Tp, chs>& a, const Mat_<_Tp, chs>& b)
 		_Tp* pc = (_Tp*)c.ptr(y);
 
 		for (int x = 0; x < a.cols * chs; x++) {
-			pc[x] = saturate_cast<_Tp>(pa[x] - pb[x]);
+			pc[x] = pa[x] & pb[x];
 		}
 	}
 

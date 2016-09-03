@@ -22,7 +22,7 @@ namespace fbc {
 // In case of multi - channel images, each channel is processed independently.
 // support type: uchar/float, multi-channels
 template<typename _Tp, int chs>
-int dilate(const Mat_<_Tp, chs>& src, Mat_<_Tp, chs>& dst, Mat_<uchar, 1>& kernel,
+int dilate(const Mat_<_Tp, chs>& src, Mat_<_Tp, chs>& dst, const Mat_<uchar, 1>& kernel,
 	Point anchor = Point(-1, -1), int iterations = 1, int borderType = BORDER_CONSTANT, const Scalar& borderValue = Scalar::all(DBL_MAX))
 {
 	FBC_Assert(typeid(uchar).name() == typeid(_Tp).name() || typeid(float).name() == typeid(_Tp).name()); // uchar || float
@@ -40,31 +40,32 @@ int dilate(const Mat_<_Tp, chs>& src, Mat_<_Tp, chs>& dst, Mat_<uchar, 1>& kerne
 		return 0;
 	}
 
-	if (kernel.empty()) {
-		kernel = Mat_<uchar, 1>(1 + iterations * 2, 1 + iterations * 2);
-		getStructuringElement(kernel, MORPH_RECT, Size(1 + iterations * 2, 1 + iterations * 2));
+	Mat_<uchar, 1> kernel_ = kernel;
+	if (kernel_.empty()) {
+		kernel_ = Mat_<uchar, 1>(1 + iterations * 2, 1 + iterations * 2);
+		getStructuringElement(kernel_, MORPH_RECT, Size(1 + iterations * 2, 1 + iterations * 2));
 		anchor = Point(iterations, iterations);
 		iterations = 1;
-	} else if (iterations > 1 && countNonZero(kernel) == kernel.rows * kernel.cols) {
+	} else if (iterations > 1 && countNonZero(kernel_) == kernel_.rows * kernel_.cols) {
 		anchor = Point(anchor.x*iterations, anchor.y*iterations);
-		kernel = Mat_<uchar, 1>(ksize.height + (iterations - 1)*(ksize.height - 1), ksize.width + (iterations - 1)*(ksize.width - 1));
-		getStructuringElement(kernel, MORPH_RECT,
+		kernel_ = Mat_<uchar, 1>(ksize.height + (iterations - 1)*(ksize.height - 1), ksize.width + (iterations - 1)*(ksize.width - 1));
+		getStructuringElement(kernel_, MORPH_RECT,
 			Size(ksize.width + (iterations - 1)*(ksize.width - 1), ksize.height + (iterations - 1)*(ksize.height - 1)), anchor);
 		iterations = 1;
 	}
 
-	anchor = normalizeAnchor(anchor, kernel.size());
+	anchor = normalizeAnchor(anchor, kernel_.size());
 
 	Ptr<BaseRowFilter> rowFilter;
 	Ptr<BaseColumnFilter> columnFilter;
 	Ptr<BaseFilter> filter2D;
 
-	if (countNonZero(kernel) == kernel.rows*kernel.cols) {
+	if (countNonZero(kernel_) == kernel_.rows*kernel_.cols) {
 		// rectangular structuring element
-		rowFilter = getMorphologyRowFilter<_Tp, chs>(1, kernel.cols, anchor.x);
-		columnFilter = getMorphologyColumnFilter<_Tp, chs>(1, kernel.rows, anchor.y);
+		rowFilter = getMorphologyRowFilter<_Tp, chs>(1, kernel_.cols, anchor.x);
+		columnFilter = getMorphologyColumnFilter<_Tp, chs>(1, kernel_.rows, anchor.y);
 	} else {
-		filter2D = getMorphologyFilter<_Tp, chs>(1, kernel, anchor);
+		filter2D = getMorphologyFilter<_Tp, chs>(1, kernel_, anchor);
 	}
 
 	Scalar borderValue_ = borderValue;

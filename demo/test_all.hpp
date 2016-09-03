@@ -14,6 +14,7 @@
 #include "test_dilate.hpp"
 #include "test_erode.hpp"
 #include "test_morphologyEx.hpp"
+#include "test_threshold.hpp"
 
 int run_all_test();
 

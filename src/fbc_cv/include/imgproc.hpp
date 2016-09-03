@@ -221,6 +221,29 @@ enum MorphShapes {
 	// into the rectangle Rect(0, 0, esize.width, 0.esize.height)
 };
 
+// type of the threshold operation
+enum ThresholdTypes {
+	THRESH_BINARY = 0, // \f[\texttt{dst} (x,y) =  \fork{\texttt{maxval}}{if \(\texttt{src}(x,y) > \texttt{thresh}\)}{0}{otherwise}\f]
+	THRESH_BINARY_INV = 1, // \f[\texttt{dst} (x,y) =  \fork{0}{if \(\texttt{src}(x,y) > \texttt{thresh}\)}{\texttt{maxval}}{otherwise}\f]
+	THRESH_TRUNC = 2, // \f[\texttt{dst} (x,y) =  \fork{\texttt{threshold}}{if \(\texttt{src}(x,y) > \texttt{thresh}\)}{\texttt{src}(x,y)}{otherwise}\f]
+	THRESH_TOZERO = 3, // \f[\texttt{dst} (x,y) =  \fork{\texttt{src}(x,y)}{if \(\texttt{src}(x,y) > \texttt{thresh}\)}{0}{otherwise}\f]
+	THRESH_TOZERO_INV = 4, // \f[\texttt{dst} (x,y) =  \fork{0}{if \(\texttt{src}(x,y) > \texttt{thresh}\)}{\texttt{src}(x,y)}{otherwise}\f]
+	THRESH_MASK = 7,
+	THRESH_OTSU = 8, // flag, use Otsu algorithm to choose the optimal threshold value
+	THRESH_TRIANGLE = 16 // flag, use Triangle algorithm to choose the optimal threshold value
+};
+
+// adaptive threshold algorithm
+enum AdaptiveThresholdTypes {
+	/** the threshold value \f$T(x,y)\f$ is a mean of the \f$\texttt{blockSize} \times
+	\texttt{blockSize}\f$ neighborhood of \f$(x, y)\f$ minus C */
+	ADAPTIVE_THRESH_MEAN_C = 0,
+	/** the threshold value \f$T(x, y)\f$ is a weighted sum (cross-correlation with a Gaussian
+	window) of the \f$\texttt{blockSize} \times \texttt{blockSize}\f$ neighborhood of \f$(x, y)\f$
+	minus C . The default sigma (standard deviation) is used for the specified blockSize . See cv::getGaussianKernel*/
+	ADAPTIVE_THRESH_GAUSSIAN_C = 1
+};
+
 // helper tables
 const uchar icvSaturate8u_cv[] =
 {

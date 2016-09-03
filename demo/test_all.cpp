@@ -138,6 +138,15 @@ int run_all_test()
 	assert(ret == 0);
 	ret = test_morphologyEx_float();
 	assert(ret == 0);
+	ret = test_morphologyEx_hitmiss();
+	assert(ret == 0);
+
+	// test threshold
+	std::cout << "test threshold: " << std::endl;
+	ret = test_threshold_uchar();
+	assert(ret == 0);
+	ret = test_threshold_float();
+	assert(ret == 0);
 
 	return 0;
 }

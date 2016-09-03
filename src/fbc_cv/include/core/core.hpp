@@ -9,6 +9,7 @@
 	      modules/core/src/stat.cpp
 	      modules/core/include/opencv2/core/private.hpp
 	      modules/core/src/matrix.cpp
+	      modules/core/src/arithm.cpp
 */
 
 #ifndef __cplusplus
@@ -145,6 +146,94 @@ void scalarToRawData(const fbc::Scalar& s, void* _buf, int unroll_to = 0)
 		default:
 			FBC_Error("UnsupportedFormat");
 	}
+}
+
+// calculates the per - element bit - wise logical conjunction
+// \f[\texttt{dst} (I) =  \texttt{src1} (I)  \wedge \texttt{src2} (I) \quad \texttt{if mask} (I) \ne0\f]
+// mask optional operation mask, 8-bit single channel array, that specifies elements of the output array to be changed
+template<typename _Tp, int chs>
+int bitwise_and(const Mat_<_Tp, chs>& src1, const Mat_<_Tp, chs>& src2, Mat_<_Tp, chs>& dst, const Mat_<uchar, 1>& mask = Mat_<uchar, 1>())
+{
+	FBC_Assert(src1.rows == src2.rows && src1.cols == src2.cols);
+	if (dst.empty()) {
+		dst = Mat_<_Tp, chs>(src1.rows, src1.cols);
+	} else {
+		FBC_Assert(src1.rows == dst.rows && src1.cols == dst.cols);
+	}
+
+	if (!mask.empty()) {
+		FBC_Assert(src1.rows == mask.rows && src1.cols == mask.cols);
+	}
+
+	int bytePerRow = src1.cols * chs * sizeof(_Tp);
+	int bypePerPixel = chs * sizeof(_Tp);
+	for (int y = 0; y < src1.rows; y++) {
+		const uchar* pSrc1 = src1.ptr(y);
+		const uchar* pSrc2 = src2.ptr(y);
+		uchar* pDst = dst.ptr(y);
+		const uchar* pMask = NULL;
+		if (!mask.empty()) {
+			pMask = mask.ptr(y);
+
+			for (int x = 0; x < src1.cols; x++) {
+				if (pMask[x] == 1) {
+					int addr = x * bypePerPixel;
+					for (int t = 0; t < bypePerPixel; t++) {
+						pDst[addr + t] = pSrc1[addr + t] & pSrc2[addr + t];
+					}
+				}
+			}
+		} else {
+			for (int x = 0; x < bytePerRow; x++) {
+				pDst[x] = pSrc1[x] & pSrc2[x];
+			}
+		}
+	}
+
+	return 0;
+}
+
+// Inverts every bit of an array
+// \f[\texttt{dst} (I) =  \neg \texttt{src} (I)\f]
+// mask optional operation mask, 8-bit single channel array, that specifies elements of the output array to be changed
+template<typename _Tp, int chs>
+int bitwise_not(const Mat_<_Tp, chs>& src, Mat_<_Tp, chs>& dst, const Mat_<uchar, 1>& mask = Mat_<uchar, 1>())
+{
+	if (dst.empty()) {
+		dst = Mat_<_Tp, chs>(src.rows, src.cols);
+	} else {
+		FBC_Assert(src.rows == dst.rows && src.cols == dst.cols);
+	}
+
+	if (!mask.empty()) {
+		FBC_Assert(src.rows == mask.rows && src.cols == mask.cols);
+	}
+
+	int bytePerRow = src.cols * chs * sizeof(_Tp);
+	int bypePerPixel = chs * sizeof(_Tp);
+	for (int y = 0; y < src.rows; y++) {
+		const uchar* pSrc = src.ptr(y);
+		uchar* pDst = dst.ptr(y);
+		const uchar* pMask = NULL;
+		if (!mask.empty()) {
+			pMask = mask.ptr(y);
+
+			for (int x = 0; x < src.cols; x++) {
+				if (pMask[x] == 1) {
+					int addr = x * bypePerPixel;
+					for (int t = 0; t < bypePerPixel; t++) {
+						pDst[addr + t] = ~pSrc[addr + t];
+					}
+				}
+			}
+		} else {
+			for (int x = 0; x < bytePerRow; x++) {
+				pDst[x] = ~pSrc[x];
+			}
+		}
+	}
+
+	return 0;
 }
 
 } // namespace fbc
