@@ -30,6 +30,6 @@
 - erode
 - morphologyEx
 
-**Blog: [fengbingchun](http://blog.csdn.net/fengbingchun/article/category/721609) **
+**Blog:** [fengbingchun](http://blog.csdn.net/fengbingchun/article/category/721609)
 
 **Licence: uses the same licence as OpenCV3.1**
