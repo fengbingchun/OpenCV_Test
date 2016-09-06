@@ -1,11 +1,11 @@
 # OpenCV_Test
-*The project has two main effect:*
+**The project has two main effect:**
 - OpenCV's usage
 - fbc_cv library
 
-*The project support platform: windows7 64 bits. It can be directly build with VS2013 in windows7 64bits.*
+**The project support platform: windows7 64 bits. It can be directly build with VS2013 in windows7 64bits.**
 
-*OpenCV's version: 3.1*
+**OpenCV's version: 3.1**
 - close support for OpenCL/CUDA/SIMD/TBB/OpenMP when build with CMake
 - modify sources/modules/core/include/opencv2/core/cvdef.h, for example: #define CV_SSE2 0
 - insure that all algorithms are implemented with c++
@@ -17,7 +17,7 @@
 - interface names are consistent with OpenCV3.1
 - each algorithm's result is same with OpenCV3.1
 
-*The algorithms have been implemented include:*
+**The algorithms have been implemented include:**
 - resize
 - cvtColor
 - merge
@@ -29,4 +29,7 @@
 - dilate
 - erode
 - morphologyEx
-*Licence: uses the same licence as OpenCV3.1*
+
+**Blog: [fengbingchun](http://blog.csdn.net/fengbingchun/article/category/721609) **
+
+**Licence: uses the same licence as OpenCV3.1**
