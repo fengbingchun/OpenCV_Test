@@ -148,5 +148,12 @@ int run_all_test()
 	ret = test_threshold_float();
 	assert(ret == 0);
 
+	// test transpose
+	std::cout << "test transpose: " << std::endl;
+	ret = test_transpose_uchar();
+	assert(ret == 0);
+	ret = test_transpose_float();
+	assert(ret == 0);
+
 	return 0;
 }

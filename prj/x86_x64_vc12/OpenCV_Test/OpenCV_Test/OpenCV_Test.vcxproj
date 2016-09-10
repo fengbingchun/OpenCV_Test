@@ -181,6 +181,7 @@
     <ClCompile Include="..\..\..\..\demo\test_rotate.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_split.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_threshold.cpp" />
+    <ClCompile Include="..\..\..\..\demo\test_transpose.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_warpAffine.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_warpPerspective.cpp" />
   </ItemGroup>
@@ -198,6 +199,7 @@
     <ClInclude Include="..\..\..\..\demo\test_rotate.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_split.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_threshold.hpp" />
+    <ClInclude Include="..\..\..\..\demo\test_transpose.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_warpAffine.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_warpPerspective.hpp" />
   </ItemGroup>

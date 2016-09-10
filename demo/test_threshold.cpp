@@ -18,6 +18,7 @@ int test_threshold_uchar()
 	int types[8] = {0, 1, 2, 3, 4, 7, 8, 16};
 
 	for (int i = 0; i < 8; i++) {
+		if (types[i] == 7) continue;
 		double thresh = 135.0;
 		double maxval = 255.0;
 
@@ -58,6 +59,7 @@ int test_threshold_float()
 	int types[6] = { 0, 1, 2, 3, 4, 7 };
 
 	for (int i = 0; i < 6; i++) {
+		if (types[i] == 7) continue;
 		double thresh = 135.0;
 		double maxval = 255.0;
 
