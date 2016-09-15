@@ -16,6 +16,7 @@
 - it has a template class Mat_ replace of OpenCV's Mat class: src/fbc_cv/include/core/mat.hpp
 - interface names are consistent with OpenCV3.1
 - each algorithm's result is same with OpenCV3.1
+- the codes are written in C++ without dependence on any 3rd-party libraries
 
 **The algorithms have been implemented include:**
 - resize
@@ -29,6 +30,8 @@
 - dilate
 - erode
 - morphologyEx
+- threshold
+- transpose
 
 **Blog:** [fengbingchun](http://blog.csdn.net/fengbingchun/article/category/721609)
 

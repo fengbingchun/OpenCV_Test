@@ -188,6 +188,7 @@
     <ClInclude Include="..\..\..\src\fbc_cv\include\directory.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\erode.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\filterengine.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\flip.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\imgproc.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\merge.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\morph.hpp" />

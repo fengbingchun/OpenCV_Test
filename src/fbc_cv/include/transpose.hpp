@@ -10,7 +10,6 @@
 
 #include <typeinfo>
 #include "core/mat.hpp"
-#include "imgproc.hpp"
 
 namespace fbc {
 
@@ -22,9 +21,9 @@ int transpose(const Mat_<_Tp, chs>& src, Mat_<_Tp, chs>& dst)
 {
 	FBC_Assert(typeid(uchar).name() == typeid(_Tp).name() || typeid(float).name() == typeid(_Tp).name()); // uchar || float
 	if (dst.empty()) {
-		dst = Mat_<_Tp, chs>(src.rows, src.cols);
+		dst = Mat_<_Tp, chs>(src.cols, src.rows);
 	} else {
-		FBC_Assert(src.rows == dst.rows && src.cols == dst.cols);
+		FBC_Assert(src.rows == dst.cols && src.cols == dst.rows);
 	}
 
 	if (src.empty()) {
@@ -39,71 +38,46 @@ int transpose(const Mat_<_Tp, chs>& src, Mat_<_Tp, chs>& dst)
 		return 0;
 	}
 
-	//if (dst.data == src.data) {
-	//	FBC_Assert(dst.cols == dst.rows);
-	//	int n = dst.rows;
-	//	int  step = dst.step;
-	//	uchar* data = dst.ptr();
+	if (dst.data == src.data) {
+		FBC_Assert(dst.cols == dst.rows);
+		int n = dst.rows;
+		int  step = dst.step;
+		uchar* data = dst.ptr();
 
-	//	int i, j;
-	//	for (i = 0; i < n; i++) {
-	//		_Tp* row = (_Tp*)(data + step*i);
-	//		uchar* data1 = data + i*sizeof(_Tp);
-	//		for (j = i + 1; j < n; j++)
-	//			std::swap(row[j], *(_Tp*)(data1 + step*j));
-	//	}
-	//} else {
-	//	const uchar* src_ = src.ptr();
-	//	size_t sstep = src.step;
-	//	uchar* dst_ = dst.ptr();
-	//	size_t dstep = dst.step;
-	//	Size sz = src.size();
+		for (int i = 0; i < n; i++) {
+			_Tp* row = (_Tp*)(data + step*i);
+			int i_ = i * chs;
 
-	//	int i = 0, j, m = sz.width, n = sz.height;
+			for (int j = i + 1; j < n; j++) {
+				_Tp* data1 = (_Tp*)(data + step * j);
+				int j_ = j * chs;
 
-	//	for (; i <= m - 4; i += 4) {
-	//		_Tp* d0 = (_Tp*)(dst_ + dstep*i);
-	//		_Tp* d1 = (_Tp*)(dst_ + dstep*(i + 1));
-	//		_Tp* d2 = (_Tp*)(dst_ + dstep*(i + 2));
-	//		_Tp* d3 = (_Tp*)(dst_ + dstep*(i + 3));
+				for (int ch = 0; ch < chs; ch++) {
+					std::swap(row[j_ + ch], data1[i_ + ch]);
+				}
+			}
+		}
+	} else {
+		const uchar* src_ = src.ptr();
+		size_t sstep = src.step;
+		uchar* dst_ = dst.ptr();
+		size_t dstep = dst.step;
+		int m = src.cols, n = src.rows;
 
-	//		for (j = 0; j <= n - 4; j += 4) {
-	//			const _Tp* s0 = (const _Tp*)(src_ + i*sizeof(_Tp) + sstep*j);
-	//			const _Tp* s1 = (const _Tp*)(src_ + i*sizeof(_Tp) + sstep*(j + 1));
-	//			const _Tp* s2 = (const _Tp*)(src_ + i*sizeof(_Tp) + sstep*(j + 2));
-	//			const _Tp* s3 = (const _Tp*)(src_ + i*sizeof(_Tp) + sstep*(j + 3));
+		for (int i = 0; i < n; i++) {
+			const _Tp* s = (const _Tp*)(src_ + sstep*i);
+			int i_ = i * chs;
 
-	//			d0[j] = s0[0]; d0[j + 1] = s1[0]; d0[j + 2] = s2[0]; d0[j + 3] = s3[0];
-	//			d1[j] = s0[1]; d1[j + 1] = s1[1]; d1[j + 2] = s2[1]; d1[j + 3] = s3[1];
-	//			d2[j] = s0[2]; d2[j + 1] = s1[2]; d2[j + 2] = s2[2]; d2[j + 3] = s3[2];
-	//			d3[j] = s0[3]; d3[j + 1] = s1[3]; d3[j + 2] = s2[3]; d3[j + 3] = s3[3];
-	//		}
+			for (int j = 0; j < m; j++) {
+				_Tp* d = (_Tp*)(dst_ + dstep*j);
+				int j_ = j * chs;
 
-	//		for (; j < n; j++) {
-	//			const _Tp* s0 = (const _Tp*)(src_ + i*sizeof(_Tp) + j*sstep);
-	//			d0[j] = s0[0]; d1[j] = s0[1]; d2[j] = s0[2]; d3[j] = s0[3];
-	//		}
-	//	}
-
-	//	for (; i < m; i++) {
-	//		_Tp* d0 = (_Tp*)(dst_ + dstep*i);
-	//		j = 0;
-
-	//		for (; j <= n - 4; j += 4) {
-	//			const _Tp* s0 = (const _Tp*)(src_ + i*sizeof(_Tp) + sstep*j);
-	//			const _Tp* s1 = (const _Tp*)(src_ + i*sizeof(_Tp) + sstep*(j + 1));
-	//			const _Tp* s2 = (const _Tp*)(src_ + i*sizeof(_Tp) + sstep*(j + 2));
-	//			const _Tp* s3 = (const _Tp*)(src_ + i*sizeof(_Tp) + sstep*(j + 3));
-
-	//			d0[j] = s0[0]; d0[j + 1] = s1[0]; d0[j + 2] = s2[0]; d0[j + 3] = s3[0];
-	//		}
-
-	//		for (; j < n; j++) {
-	//			const _Tp* s0 = (const _Tp*)(src_ + i*sizeof(_Tp) + j*sstep);
-	//			d0[j] = s0[0];
-	//		}
-	//	}
-	//}
+				for (int ch = 0; ch < chs; ch++) {
+					d[i_ + ch] = s[j_ + ch];
+				}
+			}
+		}
+	}
 
 	return 0;
 }

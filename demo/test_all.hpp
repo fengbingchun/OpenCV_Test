@@ -16,6 +16,7 @@
 #include "test_morphologyEx.hpp"
 #include "test_threshold.hpp"
 #include "test_transpose.hpp"
+#include "test_flip.hpp"
 
 int run_all_test();
 

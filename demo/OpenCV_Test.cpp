@@ -7,8 +7,8 @@
 
 int main()
 {
-	test_threshold_uchar();
-	test_threshold_float();
+	test_flip_uchar();
+	test_flip_float();
 
 	//run_all_test();
 	std::cout << "ok" << std::endl;

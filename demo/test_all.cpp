@@ -155,5 +155,12 @@ int run_all_test()
 	ret = test_transpose_float();
 	assert(ret == 0);
 
+	// test flip
+	std::cout << "test flip: " << std::endl;
+	ret = test_flip_uchar();
+	assert(ret == 0);
+	ret = test_flip_float();
+	assert(ret == 0);
+
 	return 0;
 }
