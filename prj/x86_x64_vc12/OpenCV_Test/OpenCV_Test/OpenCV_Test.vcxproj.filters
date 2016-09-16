@@ -69,6 +69,9 @@
     <ClCompile Include="..\..\..\..\demo\test_flip.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\demo\test_rotate90.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\demo\test_core.hpp">
@@ -120,6 +123,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\demo\test_flip.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\demo\test_rotate90.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

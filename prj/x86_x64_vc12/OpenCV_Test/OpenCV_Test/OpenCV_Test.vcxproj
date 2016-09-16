@@ -180,6 +180,7 @@
     <ClCompile Include="..\..\..\..\demo\test_remap.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_resize.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_rotate.cpp" />
+    <ClCompile Include="..\..\..\..\demo\test_rotate90.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_split.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_threshold.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_transpose.cpp" />
@@ -199,6 +200,7 @@
     <ClInclude Include="..\..\..\..\demo\test_remap.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_resize.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_rotate.hpp" />
+    <ClInclude Include="..\..\..\..\demo\test_rotate90.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_split.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_threshold.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_transpose.hpp" />
