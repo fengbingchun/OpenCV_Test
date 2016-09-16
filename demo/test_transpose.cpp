@@ -138,4 +138,3 @@ int test_transpose_float()
 
 	return 0;
 }
-

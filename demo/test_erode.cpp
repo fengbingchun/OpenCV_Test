@@ -16,8 +16,8 @@ int test_erode_uchar()
 	int height = matSrc.rows;
 
 	for (int elem = 0; elem < 3; elem++) {
-		for (int size = 0; size < 10; size++) {
-			for (int iterations = 1; iterations < 5; iterations++) {
+		for (int size = 0; size < 5; size++) {
+			for (int iterations = 1; iterations < 3; iterations++) {
 				int type;
 				if (elem == 0){ type = fbc::MORPH_RECT; }
 				else if (elem == 1){ type = fbc::MORPH_CROSS; }
@@ -81,8 +81,8 @@ int test_erode_float()
 	int height = matSrc.rows;
 
 	for (int elem = 0; elem < 3; elem++) {
-		for (int size = 0; size < 10; size++) {
-			for (int iterations = 1; iterations < 5; iterations++) {
+		for (int size = 0; size < 5; size++) {
+			for (int iterations = 1; iterations < 3; iterations++) {
 				int type;
 				if (elem == 0){ type = fbc::MORPH_RECT; }
 				else if (elem == 1){ type = fbc::MORPH_CROSS; }

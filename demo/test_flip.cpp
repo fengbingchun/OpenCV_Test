@@ -21,7 +21,7 @@ int test_flip_uchar()
 
 	for (int i = 0; i < 3; i++) {
 		fbc::Mat_<uchar, 3> mat1(height, width, matSrc.data);
-		fbc::Mat_<uchar, 3> mat2(width, height);
+		fbc::Mat_<uchar, 3> mat2(height, width);
 		fbc::flip(mat1, mat2, flipCode[i]);
 
 		cv::Mat mat1_(height, width, CV_8UC3, matSrc.data);
@@ -42,7 +42,7 @@ int test_flip_uchar()
 		std::string file_path = "E:/GitCode/OpenCV_Test/test_images/";
 		std::string name_fbc = file_path + "flip_fbc_" + name + ".jpg";
 		std::string name_cv = file_path + "flip_cv_" + name + ".jpg";
-		cv::Mat matSave(width, height, CV_8UC3, mat2.data);
+		cv::Mat matSave(height, width, CV_8UC3, mat2.data);
 		cv::imwrite(name_fbc, matSave);
 		cv::imwrite(name_cv, mat2_);
 	}
@@ -67,7 +67,7 @@ int test_flip_float()
 
 	for (int i = 0; i < 3; i++) {
 		fbc::Mat_<float, 1> mat1(height, width, matSrc.data);
-		fbc::Mat_<float, 1> mat2(width, height);
+		fbc::Mat_<float, 1> mat2(height, width);
 		fbc::flip(mat1, mat2, flipCode[i]);
 
 		cv::Mat mat1_(height, width, CV_32FC1, matSrc.data);

@@ -32,6 +32,7 @@
 - morphologyEx
 - threshold
 - transpose
+- flip
 
 **Blog:** [fengbingchun](http://blog.csdn.net/fengbingchun/article/category/721609)
 
