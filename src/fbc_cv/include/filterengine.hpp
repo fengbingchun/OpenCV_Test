@@ -311,13 +311,13 @@ int FilterEngine<_Tp1, _Tp2, _Tp3, chs1, chs2, chs3>::start(Size _wholeSize, Rec
 			int* btab = (int*)&borderTab[0];
 
 			for (i = 0; i < dx1; i++) {
-				int p0 = (borderInterpolate(i - dx1, wholeWidth, rowBorderType) + xofs1)*btab_esz;
+				int p0 = (borderInterpolate<int>(i - dx1, wholeWidth, rowBorderType) + xofs1)*btab_esz;
 				for (j = 0; j < btab_esz; j++)
 					btab[i*btab_esz + j] = p0 + j;
 			}
 
 			for (i = 0; i < dx2; i++) {
-				int p0 = (borderInterpolate(wholeWidth + i, wholeWidth, rowBorderType) + xofs1)*btab_esz;
+				int p0 = (borderInterpolate<int>(wholeWidth + i, wholeWidth, rowBorderType) + xofs1)*btab_esz;
 				for (j = 0; j < btab_esz; j++)
 					btab[(i + dx1)*btab_esz + j] = p0 + j;
 			}
@@ -433,7 +433,7 @@ int FilterEngine<_Tp1, _Tp2, _Tp3, chs1, chs2, chs3>::proceed(const uchar* src, 
 
 		int max_i = std::min(bufRows, roi.height - (dstY + dy) + (kheight - 1));
 		for (i = 0; i < max_i; i++) {
-			int srcY = borderInterpolate(dstY + dy + i + roi.y - ay,
+			int srcY = borderInterpolate<int>(dstY + dy + i + roi.y - ay,
 				wholeSize.height, columnBorderType);
 			if (srcY < 0) { // can happen only with constant border type
 				brows[i] = alignPtr(&constBorderRow[0], VEC_ALIGN);

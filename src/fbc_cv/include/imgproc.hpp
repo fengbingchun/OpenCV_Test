@@ -9,6 +9,7 @@
 #include "core/fbcdef.hpp"
 #include "core/interface.hpp"
 #include "core/mat.hpp"
+#include "core/core.hpp"
 
 namespace fbc {
 
@@ -302,8 +303,167 @@ const uchar icvSaturate8u_cv[] =
 #define FBC_CALC_MIN_8U(a,b) (a) -= FBC_FAST_CAST_8U((a) - (b))
 #define FBC_CALC_MAX_8U(a,b) (a) += FBC_FAST_CAST_8U((b) - (a))
 
-//cal a structuring element of the specified size and shape for morphological operations
+// cal a structuring element of the specified size and shape for morphological operations
 FBC_EXPORTS int getStructuringElement(Mat_<uchar, 1>& dst, int shape, Size ksize, Point anchor = Point(-1, -1));
+
+// Returns the optimal DFT size for a given vector size
+// Arrays whose size is a power-of-two (2, 4, 8, 16, 32, ...) are the fastest to process.
+// Though, the arrays whose size is a product of 2's, 3's, and 5's are also processed quite efficiently
+FBC_EXPORTS int getOptimalDFTSize(int vecsize);
+
+static void copyMakeBorder_8u(const uchar* src, size_t srcstep, Size srcroi, uchar* dst, size_t dststep, Size dstroi, int top, int left, int cn, int borderType)
+{
+	const int isz = (int)sizeof(int);
+	int i, j, k, elemSize = 1;
+	bool intMode = false;
+
+	if ((cn | srcstep | dststep | (size_t)src | (size_t)dst) % isz == 0) {
+		cn /= isz;
+		elemSize = isz;
+		intMode = true;
+	}
+
+	AutoBuffer<int> _tab((dstroi.width - srcroi.width)*cn);
+	int* tab = _tab;
+	int right = dstroi.width - srcroi.width - left;
+	int bottom = dstroi.height - srcroi.height - top;
+
+	for (i = 0; i < left; i++) {
+		j = borderInterpolate<int>(i - left, srcroi.width, borderType)*cn;
+		for (k = 0; k < cn; k++)
+			tab[i*cn + k] = j + k;
+	}
+
+	for (i = 0; i < right; i++)
+	{
+		j = borderInterpolate<int>(srcroi.width + i, srcroi.width, borderType)*cn;
+		for (k = 0; k < cn; k++)
+			tab[(i + left)*cn + k] = j + k;
+	}
+
+	srcroi.width *= cn;
+	dstroi.width *= cn;
+	left *= cn;
+	right *= cn;
+
+	uchar* dstInner = dst + dststep*top + left*elemSize;
+
+	for (i = 0; i < srcroi.height; i++, dstInner += dststep, src += srcstep) {
+		if (dstInner != src)
+			memcpy(dstInner, src, srcroi.width*elemSize);
+
+		if (intMode) {
+			const int* isrc = (int*)src;
+			int* idstInner = (int*)dstInner;
+			for (j = 0; j < left; j++)
+				idstInner[j - left] = isrc[tab[j]];
+			for (j = 0; j < right; j++)
+				idstInner[j + srcroi.width] = isrc[tab[j + left]];
+		} else {
+			for (j = 0; j < left; j++)
+				dstInner[j - left] = src[tab[j]];
+			for (j = 0; j < right; j++)
+				dstInner[j + srcroi.width] = src[tab[j + left]];
+		}
+	}
+
+	dstroi.width *= elemSize;
+	dst += dststep*top;
+
+	for (i = 0; i < top; i++) {
+		j = borderInterpolate<int>(i - top, srcroi.height, borderType);
+		memcpy(dst + (i - top)*dststep, dst + j*dststep, dstroi.width);
+	}
+
+	for (i = 0; i < bottom; i++) {
+		j = borderInterpolate<int>(i + srcroi.height, srcroi.height, borderType);
+		memcpy(dst + (i + srcroi.height)*dststep, dst + j*dststep, dstroi.width);
+	}
+}
+
+static void copyMakeConstBorder_8u(const uchar* src, size_t srcstep, Size srcroi, uchar* dst, size_t dststep, Size dstroi, int top, int left, int cn, const uchar* value)
+{
+	int i, j;
+	AutoBuffer<uchar> _constBuf(dstroi.width*cn);
+	uchar* constBuf = _constBuf;
+	int right = dstroi.width - srcroi.width - left;
+	int bottom = dstroi.height - srcroi.height - top;
+
+	for (i = 0; i < dstroi.width; i++) {
+		for (j = 0; j < cn; j++)
+			constBuf[i*cn + j] = value[j];
+	}
+
+	srcroi.width *= cn;
+	dstroi.width *= cn;
+	left *= cn;
+	right *= cn;
+
+	uchar* dstInner = dst + dststep*top + left;
+
+	for (i = 0; i < srcroi.height; i++, dstInner += dststep, src += srcstep) {
+		if (dstInner != src)
+			memcpy(dstInner, src, srcroi.width);
+		memcpy(dstInner - left, constBuf, left);
+		memcpy(dstInner + srcroi.width, constBuf, right);
+	}
+
+	dst += dststep*top;
+
+	for (i = 0; i < top; i++)
+		memcpy(dst + (i - top)*dststep, constBuf, dstroi.width);
+
+	for (i = 0; i < bottom; i++)
+		memcpy(dst + (i + srcroi.height)*dststep, constBuf, dstroi.width);
+}
+
+// Forms a border around an image
+// Note: if src is a part(ROI) of a bigger image, src'size will be change
+template<typename _Tp, int chs>
+int copyMakeBorder(/*const*/ Mat_<_Tp, chs>& src, Mat_<_Tp, chs>& dst, int top, int bottom, int left, int right, int borderType, const Scalar& value = Scalar())
+{
+	FBC_Assert(top >= 0 && bottom >= 0 && left >= 0 && right >= 0);
+
+	if (src.isSubmatrix() && (borderType & BORDER_ISOLATED) == 0) {
+		Size wholeSize;
+		Point ofs;
+		src.locateROI(wholeSize, ofs);
+		int dtop = std::min(ofs.y, top);
+		int dbottom = std::min(wholeSize.height - src.rows - ofs.y, bottom);
+		int dleft = std::min(ofs.x, left);
+		int dright = std::min(wholeSize.width - src.cols - ofs.x, right);
+		src.adjustROI(dtop, dbottom, dleft, dright);
+		top -= dtop;
+		left -= dleft;
+		bottom -= dbottom;
+		right -= dright;
+	}
+
+	if (dst.empty() || dst.rows != (src.rows + top + bottom) || dst.cols != (src.cols + left + right)) {
+		dst.release();
+		dst = Mat_<_Tp, chs>(src.rows + top + bottom, src.cols + left + right);
+	}
+
+	if (top == 0 && left == 0 && bottom == 0 && right == 0) {
+		if (src.data != dst.data || src.step != dst.step)
+			src.copyTo(dst);
+		return 0;
+	}
+
+	borderType &= ~BORDER_ISOLATED;
+
+	if (borderType != BORDER_CONSTANT) {
+		copyMakeBorder_8u(src.ptr(), src.step, src.size(), dst.ptr(), dst.step, dst.size(), top, left, src.elemSize(), borderType);
+	} else {
+		int cn = src.channels, cn1 = cn;
+		AutoBuffer<double> buf(cn);
+
+		scalarToRawData<_Tp, chs>(value, buf, cn);
+		copyMakeConstBorder_8u(src.ptr(), src.step, src.size(), dst.ptr(), dst.step, dst.size(), top, left, (int)src.elemSize(), (uchar*)(double*)buf);
+	}
+
+	return 0;
+}
 
 } // namespace fbc
 

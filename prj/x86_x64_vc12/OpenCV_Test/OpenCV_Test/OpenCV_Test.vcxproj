@@ -171,6 +171,7 @@
     <ClCompile Include="..\..\..\..\demo\test_all.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_core.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_cvtColor.cpp" />
+    <ClCompile Include="..\..\..\..\demo\test_dft.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_dilate.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_directory.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_erode.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="..\..\..\..\demo\test_all.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_core.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_cvtColor.hpp" />
+    <ClInclude Include="..\..\..\..\demo\test_dft.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_dilate.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_directory.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_erode.hpp" />

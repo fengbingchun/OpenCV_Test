@@ -22,12 +22,82 @@
 #include "core/mat.hpp"
 
 namespace fbc {
+// NormFlags
+#define FBC_C            1
+#define FBC_L1           2
+#define FBC_L2           4
+#define FBC_NORM_MASK    7
+#define FBC_RELATIVE     8
+#define FBC_DIFF         16
+#define FBC_MINMAX       32
+
+#define FBC_DIFF_C       (FBC_DIFF | FBC_C)
+#define FBC_DIFF_L1      (FBC_DIFF | FBC_L1)
+#define FBC_DIFF_L2      (FBC_DIFF | FBC_L2)
+#define FBC_RELATIVE_C   (FBC_RELATIVE | FBC_C)
+#define FBC_RELATIVE_L1  (FBC_RELATIVE | FBC_L1)
+#define FBC_RELATIVE_L2  (FBC_RELATIVE | FBC_L2)
+
+// Discrete Linear Transforms and Related Functions
+#define FBC_DXT_SCALE    2 // divide result by size of array
 
 // Fast cubic root calculation
 FBC_EXPORTS float fbcCbrt(float value);
 
+template<typename dump>
+static inline void* fbcAlignPtr(const void* ptr, int align = 32)
+{
+	FBC_Assert((align & (align - 1)) == 0);
+	return (void*)(((size_t)ptr + align - 1) & ~(size_t)(align - 1));
+}
+
+template<typename dump>
+static inline int fbcAlign(int size, int align)
+{
+	FBC_Assert((align & (align - 1)) == 0 && size < INT_MAX);
+	return (size + align - 1) & -align;
+}
+
 // Computes the source location of an extrapolated pixel
-FBC_EXPORTS int borderInterpolate(int p, int len, int borderType);
+/* Various border types, image boundaries are denoted with '|'
+
+* BORDER_REPLICATE:     aaaaaa|abcdefgh|hhhhhhh
+* BORDER_REFLECT:       fedcba|abcdefgh|hgfedcb
+* BORDER_REFLECT_101:   gfedcb|abcdefgh|gfedcba
+* BORDER_WRAP:          cdefgh|abcdefgh|abcdefg
+* BORDER_CONSTANT:      iiiiii|abcdefgh|iiiiiii  with some specified 'i'
+*/
+template<typename _Tp>
+int borderInterpolate(int p, int len, int borderType)
+{
+	if ((unsigned)p < (unsigned)len) {
+		;
+	} else if (borderType == BORDER_REPLICATE) {
+		p = p < 0 ? 0 : len - 1;
+	} else if (borderType == BORDER_REFLECT || borderType == BORDER_REFLECT_101) {
+		int delta = borderType == BORDER_REFLECT_101;
+		if (len == 1)
+			return 0;
+		do {
+			if (p < 0)
+				p = -p - 1 + delta;
+			else
+				p = len - 1 - (p - len) - delta;
+		} while ((unsigned)p >= (unsigned)len);
+	} else if (borderType == BORDER_WRAP) {
+		FBC_Assert(len > 0);
+		if (p < 0)
+			p -= ((p - len + 1) / len)*len;
+		if (p >= len)
+			p %= len;
+	} else if (borderType == BORDER_CONSTANT) {
+		p = -1;
+	} else {
+		FBC_Error("Unknown/unsupported border type");
+	}
+
+	return p;
+}
 
 // Transposes a matrix
 // \f[\texttt{dst} (i,j) =  \texttt{src} (j,i)\f]
@@ -123,6 +193,8 @@ int countNonZero(const Mat_<_Tp, chs>& src)
 template<typename _Tp, int chs>
 void scalarToRawData(const fbc::Scalar& s, void* _buf, int unroll_to = 0)
 {
+	FBC_Assert(typeid(uchar).name() == typeid(_Tp).name() || typeid(float).name() == typeid(_Tp).name()); // uchar || float
+
 	int i, cn = chs;
 	FBC_Assert(chs <= 4);
 	int depth = sizeof(_Tp);

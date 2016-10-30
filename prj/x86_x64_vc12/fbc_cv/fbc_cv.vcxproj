@@ -176,7 +176,9 @@
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\interface.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\invert.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\mat.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\core\mathfuncs.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\matx.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\core\NAryMatIterator.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\Ptr.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\rng.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\saturate.hpp" />
@@ -184,6 +186,7 @@
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\types.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\utility.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\cvtColor.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\dft.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\dilate.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\directory.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\erode.hpp" />

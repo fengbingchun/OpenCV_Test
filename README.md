@@ -21,8 +21,7 @@
 **The algorithms have been implemented include:**
 - resize
 - cvtColor
-- merge
-- split
+- merge/split
 - remap
 - warpAffine
 - rotate
@@ -33,6 +32,7 @@
 - threshold
 - transpose
 - flip
+- dft/idft
 
 **Blog:** [fengbingchun](http://blog.csdn.net/fengbingchun/article/category/721609)
 

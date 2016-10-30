@@ -625,6 +625,10 @@ int test_Mat()
 	assert(mat2.empty() == false);
 	fbc::Mat3BGR mat3(5, 111, fbc::Scalar(128, 128, 255));
 	fbc::Mat3BGR mat4(100, 100, mat.data);
+	bool flag1 = mat4.isSubmatrix();
+	assert(flag1 == false);
+	bool flag_isContinuous1 = mat4.isContinuous();
+	assert(flag_isContinuous1 == true);
 	fbc::Mat3BGR mat5(mat4); // mat5分配了新的空间,注意与mat5_的不同
 	fbc::Mat3BGR mat6;
 	mat6 = mat4; // mat6分配了新的空间,注意与mat6_的不同
@@ -637,6 +641,10 @@ int test_Mat()
 	const fbc::uchar* p1 = mat8.ptr(50);
 	fbc::Mat3BGR mat10;
 	mat8.getROI(mat10, fbc::Rect(20, 10, 40, 45));
+	bool flag2 = mat10.isSubmatrix();
+	assert(flag2 == true);
+	bool flag_isContinuous2 = mat10.isContinuous();
+	assert(flag_isContinuous2 == false);
 	mat10.setTo(fbc::Scalar::all(128));
 	fbc::Size size_mat10;
 	fbc::Point point_mat10;
@@ -650,11 +658,20 @@ int test_Mat()
 	fbc::Mat3BGR mat13(200, 200);
 	fbc::Size size1 = mat13.size();
 	size_t elemSize1 = mat11.elemSize();
+	int dtop = 9, dbottom = 7, dleft = 5, dright = 11;
+	size_t addr_before = size_t(mat10.data);
+	mat10.adjustROI(dtop, dbottom, dleft,dright);
+	size_t addr_after = size_t(mat10.data);
+	size_t length = addr_before - addr_after;
 
 	cv::Mat mat1_;
 	cv::Mat mat2_(111, 111, CV_8UC1);
 	cv::Mat mat3_(5, 111, CV_8UC3, cv::Scalar(128, 128, 255));
 	cv::Mat mat4_(100, 100, CV_8UC3, mat.data);
+	bool flag1_ = mat4_.isSubmatrix();
+	assert(flag1 == flag1_);
+	bool flag_isContinuous1_ = mat4_.isContinuous();
+	assert(flag_isContinuous1 == flag_isContinuous1_);
 	cv::Mat mat5_(mat4_); // mat5并未分配新的空间
 	cv::Mat mat6_;
 	mat6_ = mat4_; // mat6并未分配新的空间
@@ -666,6 +683,10 @@ int test_Mat()
 	cv::Mat mat10_;
 	mat10_ = mat8_.rowRange(cv::Range(10, 55));
 	cv::Mat mat10__ = mat10_.colRange(cv::Range(20, 60));
+	bool flag2_ = mat10__.isSubmatrix();
+	assert(flag2 == flag2_);
+	bool flag_isContinuous2_ = mat10__.isContinuous();
+	assert(flag_isContinuous2 == flag_isContinuous2_);
 	cv::Size size_mat10__;
 	cv::Point point_mat10__;
 	mat10__.locateROI(size_mat10__, point_mat10__);
@@ -674,6 +695,12 @@ int test_Mat()
 	cv::Mat mat11_;
 	mat7_.convertTo(mat11_, CV_32FC3);
 	cv::Mat mat12_ = cv::Mat::zeros(50, 100, CV_32FC3);
+	size_t addr_before_ = size_t(mat10__.data);
+	mat10__.adjustROI(dtop, dbottom, dleft, dright);
+	size_t addr_after_ = size_t(mat10__.data);
+	size_t length_ = addr_before_ - addr_after_;
+	assert(length == length_);
+	assert(mat10.rows == mat10__.rows && mat10.cols == mat10__.cols && mat10.step == mat10_.step);
 
 	return 0;
 }

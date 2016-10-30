@@ -218,8 +218,8 @@ static void remapNearest(const Mat_<_Tp1, chs1>& _src, Mat_<_Tp1, chs1>& _dst, c
 					} else if (borderType == BORDER_CONSTANT) {
 						D[dx] = cval[0];
 					} else if (borderType != BORDER_TRANSPARENT) {
-						sx = borderInterpolate(sx, ssize.width, borderType);
-						sy = borderInterpolate(sy, ssize.height, borderType);
+						sx = borderInterpolate<int>(sx, ssize.width, borderType);
+						sy = borderInterpolate<int>(sy, ssize.height, borderType);
 						D[dx] = S0[sy*sstep + sx];
 					}
 				}
@@ -248,8 +248,8 @@ static void remapNearest(const Mat_<_Tp1, chs1>& _src, Mat_<_Tp1, chs1>& _dst, c
 					} else if (borderType == BORDER_CONSTANT) {
 						S = &cval[0];
 					} else {
-						sx = borderInterpolate(sx, ssize.width, borderType);
-						sy = borderInterpolate(sy, ssize.height, borderType);
+						sx = borderInterpolate<int>(sx, ssize.width, borderType);
+						sy = borderInterpolate<int>(sy, ssize.height, borderType);
 						S = S0 + sy*sstep + sx*cn;
 					}
 					for (k = 0; k < cn; k++)
@@ -378,10 +378,10 @@ static int remapBilinear(const Mat_<_Tp1, chs1>& _src, Mat_<_Tp1, chs1>& _dst,
 								v2 = S0[sy1*sstep + sx0];
 								v3 = S0[sy1*sstep + sx1];
 							} else {
-								sx0 = borderInterpolate(sx, ssize.width, borderType);
-								sx1 = borderInterpolate(sx + 1, ssize.width, borderType);
-								sy0 = borderInterpolate(sy, ssize.height, borderType);
-								sy1 = borderInterpolate(sy + 1, ssize.height, borderType);
+								sx0 = borderInterpolate<int>(sx, ssize.width, borderType);
+								sx1 = borderInterpolate<int>(sx + 1, ssize.width, borderType);
+								sy0 = borderInterpolate<int>(sy, ssize.height, borderType);
+								sy1 = borderInterpolate<int>(sy + 1, ssize.height, borderType);
 								v0 = sx0 >= 0 && sy0 >= 0 ? S0[sy0*sstep + sx0] : cval[0];
 								v1 = sx1 >= 0 && sy0 >= 0 ? S0[sy0*sstep + sx1] : cval[0];
 								v2 = sx0 >= 0 && sy1 >= 0 ? S0[sy1*sstep + sx0] : cval[0];
@@ -412,10 +412,10 @@ static int remapBilinear(const Mat_<_Tp1, chs1>& _src, Mat_<_Tp1, chs1>& _dst,
 							} else if (borderType == BORDER_TRANSPARENT && ((unsigned)sx >= (unsigned)(ssize.width - 1) || (unsigned)sy >= (unsigned)(ssize.height - 1))) {
 								continue;
 							} else {
-								sx0 = borderInterpolate(sx, ssize.width, borderType);
-								sx1 = borderInterpolate(sx + 1, ssize.width, borderType);
-								sy0 = borderInterpolate(sy, ssize.height, borderType);
-								sy1 = borderInterpolate(sy + 1, ssize.height, borderType);
+								sx0 = borderInterpolate<int>(sx, ssize.width, borderType);
+								sx1 = borderInterpolate<int>(sx + 1, ssize.width, borderType);
+								sy0 = borderInterpolate<int>(sy, ssize.height, borderType);
+								sy1 = borderInterpolate<int>(sy + 1, ssize.height, borderType);
 								v0 = sx0 >= 0 && sy0 >= 0 ? S0 + sy0*sstep + sx0*cn : &cval[0];
 								v1 = sx1 >= 0 && sy0 >= 0 ? S0 + sy0*sstep + sx1*cn : &cval[0];
 								v2 = sx0 >= 0 && sy1 >= 0 ? S0 + sy1*sstep + sx0*cn : &cval[0];
@@ -492,8 +492,8 @@ static int remapBicubic(const Mat_<_Tp1, chs1>& _src, Mat_<_Tp1, chs1>& _dst,
 				}
 
 				for (i = 0; i < 4; i++) {
-					x[i] = borderInterpolate(sx + i, ssize.width, borderType1)*cn;
-					y[i] = borderInterpolate(sy + i, ssize.height, borderType1);
+					x[i] = borderInterpolate<int>(sx + i, ssize.width, borderType1)*cn;
+					y[i] = borderInterpolate<int>(sy + i, ssize.height, borderType1);
 				}
 
 				for (k = 0; k < cn; k++, S0++, w -= 16) {
@@ -579,8 +579,8 @@ static int remapLanczos4(const Mat_<_Tp1, chs1>& _src, Mat_<_Tp1, chs1>& _dst,
 				}
 
 				for (i = 0; i < 8; i++) {
-					x[i] = borderInterpolate(sx + i, ssize.width, borderType1)*cn;
-					y[i] = borderInterpolate(sy + i, ssize.height, borderType1);
+					x[i] = borderInterpolate<int>(sx + i, ssize.width, borderType1)*cn;
+					y[i] = borderInterpolate<int>(sy + i, ssize.height, borderType1);
 				}
 
 				for (k = 0; k < cn; k++, S0++, w -= 64) {

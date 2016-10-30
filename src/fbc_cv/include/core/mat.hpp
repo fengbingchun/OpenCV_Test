@@ -8,6 +8,7 @@
 	      core/src/alloc.cpp
 	      include/opencv2/core/utility.hpp
 	      include/opencv2/core/cvstd.hpp
+	      include/opencv2/core/mat.inl.hpp
 */
 
 #ifndef __cplusplus
@@ -41,6 +42,11 @@ public:
 	Mat_(const Mat_<_Tp, chs>& _m);
 	Mat_& operator = (const Mat_& _m);
 
+	// reports whether the matrix is continuous or not
+	bool isContinuous() const;
+	// returns true if the matrix is a submatrix of another matrix
+	bool isSubmatrix() const;
+
 	// copies the matrix content to "_m"
 	void copyTo(Mat_<_Tp, chs>& _m, const Rect& rect = Rect(0, 0, 0, 0)) const;
 
@@ -52,6 +58,8 @@ public:
 	void getROI(Mat_<_Tp, chs>& _m, const Rect& rect = Rect(0, 0, 0, 0));
 	// Locates the matrix header within a parent matrix
 	void locateROI(Size& wholeSize, Point& ofs) const;
+	// Adjusts a submatrix size and position within the parent matrix
+	void adjustROI(int dtop, int dbottom, int dleft, int dright);
 
 	// value converted to the actual array type
 	void setTo(const Scalar& _value);
@@ -67,9 +75,11 @@ public:
 	Size& size() const;
 	// returns true if Mat_::total() is 0 or if Mat_::data is NULL
 	bool empty() const;
-	// returns the matrix element size in bytes
+	// returns the matrix element size in bytes: sizeof(_Tp) * channels
 	size_t elemSize() const;
-	// Returns the total number of array elements
+	// returns the size of each matrix element channel in bytes: sizeof(_Tp)
+	size_t elemSize1() const;
+	// returns the total number of array elements
 	size_t total() const;
 
 	// release memory
@@ -237,6 +247,21 @@ Mat_<_Tp, chs>& Mat_<_Tp, chs>::operator = (const Mat_& _m)
 }
 
 template<typename _Tp, int chs>
+bool Mat_<_Tp, chs>::isContinuous() const
+{
+	return this->rows == 1 || this->step == this->cols * this->elemSize();
+}
+
+template<typename _Tp, int chs>
+bool Mat_<_Tp, chs>::isSubmatrix() const
+{
+	if ((this->datastart < this->data) || ((this->data + this->step * this->rows) < this->dataend))
+		return true;
+
+	return false;
+}
+
+template<typename _Tp, int chs>
 void Mat_<_Tp, chs>::copyTo(Mat_<_Tp, chs>& _m, const Rect& rect) const
 {
 	FBC_Assert((this->rows >= rect.y + rect.height) && (this->cols >= rect.x + rect.width));
@@ -366,6 +391,22 @@ void Mat_<_Tp, chs>::locateROI(Size& wholeSize, Point& ofs) const
 }
 
 template<typename _Tp, int chs>
+void Mat_<_Tp, chs>::adjustROI(int dtop, int dbottom, int dleft, int dright)
+{
+	Size wholeSize; Point ofs;
+	size_t esz = elemSize();
+	locateROI(wholeSize, ofs);
+
+	int row1 = std::max(ofs.y - dtop, 0);
+	int row2 = std::min(ofs.y + rows + dbottom, wholeSize.height);
+	int col1 = std::max(ofs.x - dleft, 0);
+	int col2 = std::min(ofs.x + cols + dright, wholeSize.width);
+	this->data += (row1 - ofs.y)*step + (col1 - ofs.x)*esz;
+	this->rows = row2 - row1;
+	this->cols = col2 - col1;
+}
+
+template<typename _Tp, int chs>
 void Mat_<_Tp, chs>::setTo(const Scalar& _value)
 {
 	for (int i = 0; i < this->rows; i++) {
@@ -453,6 +494,12 @@ size_t Mat_<_Tp, chs>::elemSize() const
 }
 
 template<typename _Tp, int chs>
+size_t Mat_<_Tp, chs>::elemSize1() const
+{
+	return sizeof(_Tp);
+}
+
+template<typename _Tp, int chs>
 size_t Mat_<_Tp, chs>::total() const
 {
 	return (size_t)rows * cols;
@@ -476,6 +523,23 @@ Mat_<_Tp1, chs>& operator -= (Mat_<_Tp1, chs>& a, const Mat_<_Tp2, chs>& b)
 
 		for (int x = 0; x < a.cols * chs; x++) {
 			pa[x] = saturate_cast<_Tp1>(pa[x] - pb[x]);
+		}
+	}
+
+	return a;
+}
+
+template<typename _Tp1, typename _Tp2, int chs> static inline
+Mat_<_Tp1, chs>& operator += (Mat_<_Tp1, chs>& a, const Mat_<_Tp2, chs>& b)
+{
+	FBC_Assert(a.rows == b.rows && a.cols == b.cols);
+
+	for (int y = 0; y < a.rows; y++) {
+		_Tp1* pa = (_Tp1*)a.ptr(y);
+		_Tp2* pb = (_Tp2*)b.ptr(y);
+
+		for (int x = 0; x < a.cols * chs; x++) {
+			pa[x] = saturate_cast<_Tp1>(pa[x] + pb[x]);
 		}
 	}
 

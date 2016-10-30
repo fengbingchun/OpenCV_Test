@@ -4,7 +4,9 @@
 #ifndef FBC_CV_CORE_FBCDEF_HPP_
 #define FBC_CV_CORE_FBCDEF_HPP_
 
-// reference: include/opencv2/core/cvdef.h
+/* reference: include/opencv2/core/cvdef.h
+              include/opencv2/core/typedef_c.h
+*/
 
 #include "core/interface.hpp"
 
@@ -30,8 +32,18 @@ namespace fbc {
 
 #define FBC_CN_MAX  512
 
+// Common macros and inline functions
+#define FBC_SWAP(a,b,t) ((t) = (a), (a) = (b), (b) = (t))
+
+/** min & max without jumps */
+#define  FBC_IMIN(a, b)  ((a) ^ (((a)^(b)) & (((a) < (b)) - 1)))
+#define  FBC_IMAX(a, b)  ((a) ^ (((a)^(b)) & (((a) > (b)) - 1)))
+
 // fundamental constants
 #define FBC_PI 3.1415926535897932384626433832795
+
+// Note: No practical significance
+class dump {};
 
 typedef union Cv32suf {
 	int i;

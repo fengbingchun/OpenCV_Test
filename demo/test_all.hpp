@@ -18,6 +18,7 @@
 #include "test_transpose.hpp"
 #include "test_flip.hpp"
 #include "test_rotate90.hpp"
+#include "test_dft.hpp"
 
 int run_all_test();
 

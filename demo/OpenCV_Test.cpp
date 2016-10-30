@@ -7,7 +7,7 @@
 
 int main()
 {
-	test_rotate90();
+	test_dft_uchar();
 
 	//run_all_test();
 	std::cout << "ok" << std::endl;
