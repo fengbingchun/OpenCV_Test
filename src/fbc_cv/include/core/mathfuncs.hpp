@@ -641,9 +641,22 @@ int normalize(const Mat_<_Tp1, chs>& _src, Mat_<_Tp2, chs>& _dst, double a = 1, 
 
 	Scalar scalar = Scalar::all(shift);
 	if (_mask.empty()) {
-		_src.convertTo(_dst, a, scalar);
+		_src.convertTo(_dst, scale, scalar);
 	} else {
-		
+		Mat_<_Tp2, chs> tmp;
+		_src.convertTo(tmp, scale, scalar);
+
+		for (int y = 0; y < _dst.rows; y++) {
+			_Tp2* p1 = (_Tp2*)_dst.ptr(y);
+			const _Tp2* p2 = (_Tp2*)tmp.ptr(y);
+			const uchar* p3 = _mask.ptr(y);
+
+			for (int x = 0; x < _dst.cols; x++) {
+				if (p3[x] != 0) {
+					p1[x] = p2[x];
+				}
+			}
+		}
 	}
 
 	return 0;

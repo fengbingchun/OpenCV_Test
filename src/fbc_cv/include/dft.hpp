@@ -1342,7 +1342,6 @@ static void DFTInit(int n0, int nf, int* factors, int* itab, int elem_size, void
 	}
 }
 
-
 // Calculates the inverse Discrete Fourier Transform of a 1D or 2D array
 template<typename _Tp, int chs1, int chs2>
 int idft(const Mat_<_Tp, chs1>& src, Mat_<_Tp, chs2>& dst, int flags = 0, int nonzero_rows = 0)

@@ -7,9 +7,9 @@
 
 int main()
 {
-	test_dft_uchar();
+	//test_dft_float();
 
-	//run_all_test();
+	run_all_test();
 	std::cout << "ok" << std::endl;
 	return 0;
 }

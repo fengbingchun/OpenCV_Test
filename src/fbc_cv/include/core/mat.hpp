@@ -15,6 +15,7 @@
 	#error mat.hpp header must be compiled as C++
 #endif
 
+#include <typeinfo>
 #include "core/fbcdef.hpp"
 #include "core/types.hpp"
 #include "core/base.hpp"
@@ -64,8 +65,10 @@ public:
 	// value converted to the actual array type
 	void setTo(const Scalar& _value);
 
+	// Converts an array to another data type with optional scaling
 	// the method converts source pixel values to the target data type
 	// if it does not have a proper size before the operation, it is reallocated
+	// \f[m(x,y) = saturate \_ cast<rType>( \alpha (*this)(x,y) +  \beta )\f]
 	template<typename _Tp2>
 	void convertTo(Mat_<_Tp2, chs>& _m, double alpha = 1, const Scalar& scalar = Scalar(0, 0, 0, 0)) const;
 
@@ -427,6 +430,13 @@ void Mat_<_Tp, chs>::convertTo(Mat_<_Tp2, chs>& _m, double alpha = 1, const Scal
 {
 	FBC_Assert(this->channels <= 4);
 
+	bool noScale = fabs(alpha - 1) < DBL_EPSILON && fabs(scalar[0]) < DBL_EPSILON && fabs(scalar[1]) < DBL_EPSILON &&
+		fabs(scalar[2]) < DBL_EPSILON && fabs(scalar[3]) < DBL_EPSILON;
+	/*if ((typeid(_Tp).name() == typeid(_Tp2).name()) && noScale) {
+		this->copyTo(_m);
+		return;
+	}*/
+
 	size_t size = this->rows * this->cols * this->channels * sizeof(_Tp2);
 
 	if (this->rows * this->cols != _m.rows * _m.cols) {
@@ -447,6 +457,12 @@ void Mat_<_Tp, chs>::convertTo(Mat_<_Tp2, chs>& _m, double alpha = 1, const Scal
 	_m.datastart = _m.data;
 	_m.dataend = _m.data + _m.step * _m.rows;
 
+	_Tp2 alpha_ = (_Tp2)alpha;
+	Scalar_<_Tp2> scalar_;
+	for (int i = 0; i < 4; i++) {
+		scalar_.val[i]= (_Tp2)scalar.val[i];
+	}
+
 	for (int i = 0; i < this->rows; i++) {
 		uchar* p1 = this->data + i * this->step;
 		uchar* p2 = _m.data + i * _m.step;
@@ -456,7 +472,7 @@ void Mat_<_Tp, chs>::convertTo(Mat_<_Tp2, chs>& _m, double alpha = 1, const Scal
 			_Tp2* p2_ = (_Tp2*)p2 + j * chs;
 
 			for (int ch = 0; ch < chs; ch++) {
-				p2_[ch] = saturate_cast<_Tp2>(p1_[ch] * alpha + scalar.val[ch]);
+				p2_[ch] = saturate_cast<_Tp2>(p1_[ch] * alpha_ + scalar_.val[ch]);
 			}
 		}
 	}

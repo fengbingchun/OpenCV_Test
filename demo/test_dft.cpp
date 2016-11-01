@@ -8,7 +8,7 @@
 #include <core/mathfuncs.hpp>
 #include <opencv2/opencv.hpp>
 
-int test_dft_uchar()
+int test_dft_float()
 {
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/1.jpg", 1);
 	if (matSrc.empty()) {
@@ -45,7 +45,7 @@ int test_dft_uchar()
 
 	// crop the spectrum, if it has an odd number of rows or columns
 	fbc::Mat_<float, 1> crop;
-	mag.getROI(crop, fbc::Rect(0, 0, mag.cols & -2, mag.rows & -1));
+	mag.copyTo(crop, fbc::Rect(0, 0, mag.cols & -2, mag.rows & -2));
 
 	// rearrange the quadrants of Fourier image  so that the origin is at the image center
 	int cx = crop.cols / 2;
@@ -90,7 +90,7 @@ int test_dft_uchar()
 		}
 	}
 
-	fbc::normalize(mag, mag, 0, 1, FBC_MINMAX); // Transform the matrix with float values into a
+	fbc::normalize(crop, crop, 0, 1, FBC_MINMAX); // Transform the matrix with float values into a
 	// viewable image form (float between values 0 and 1).
 
 	cv::Mat mat1_(height, width, CV_8UC1, matSrc.data);
@@ -111,7 +111,7 @@ int test_dft_uchar()
 	mag_ += ones_;
 	cv::log(mag_, mag_);
 
-	cv::Mat crop_ = mag_(cv::Rect(0, 0, mag.cols & -2, mag.rows & -1));
+	cv::Mat crop_ = mag_(cv::Rect(0, 0, mag.cols & -2, mag.rows & -2));
 
 	int cx_ = crop_.cols / 2;
 	int cy_ = crop_.rows / 2;
@@ -130,7 +130,7 @@ int test_dft_uchar()
 	q2_.copyTo(q1_);
 	tmp1_.copyTo(q2_);
 
-	cv::normalize(mag_, mag_, 0, 1, CV_MINMAX);
+	cv::normalize(crop_, crop_, 0, 1, CV_MINMAX);
 
 	assert(m == m_ && n == n_ && padded.step == padded_.step);
 	for (int y = 0; y < m; y++) {
@@ -162,17 +162,19 @@ int test_dft_uchar()
 		}
 	}
 
-	assert(mag.rows == mag_.rows && mag.cols == mag_.cols && mag.channels == mag_.channels() && mag.step == mag_.step);
-	for (int y = 0; y < mag.rows; y++) {
-		const fbc::uchar* p = mag.ptr(y);
-		const uchar* p_ = mag_.ptr(y);
+	assert(crop.rows == crop_.rows && crop.cols == crop_.cols && crop.channels == crop_.channels() && crop.step == crop_.step);
+	for (int y = 0; y < crop.rows; y++) {
+		const fbc::uchar* p = crop.ptr(y);
+		const uchar* p_ = crop_.ptr(y);
 
-		for (int x = 0; x < mag.step; x++) {
-			//assert(p[x] == p_[x]);
-			if (p[x] != p_[x])
-				fprintf(stderr, "%d, %d, %d, %d \n", y, x, p[x], p_[x]);
+		for (int x = 0; x < crop.step; x++) {
+			assert(p[x] == p_[x]);
 		}
 	}
+
+	cv::Mat dst(crop.rows, crop.cols, CV_32FC1, crop_.data);
+	dst = dst * 255;
+	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/dft.jpg", dst);
 
 	return 0;
 }

@@ -167,5 +167,10 @@ int run_all_test()
 	ret = test_rotate90();
 	assert(ret == 0);
 
+	// test dft
+	std::cout << "test dft: " << std::endl;
+	ret = test_dft_float();
+	assert(ret == 0);
+
 	return 0;
 }
