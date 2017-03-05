@@ -7,10 +7,11 @@
 
 int main()
 {
-	//test_dft_float();
+	int ret = test_dft_float();
 
-	run_all_test();
-	std::cout << "ok" << std::endl;
+	if (ret == 0) fprintf(stderr, "test success\n");
+	else fprintf(stderr, "testn fail\n");
+
 	return 0;
 }
 
