@@ -167,6 +167,7 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\demo\funset.cpp" />
     <ClCompile Include="..\..\..\..\demo\OpenCV_Test.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_all.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_core.cpp" />
@@ -189,6 +190,7 @@
     <ClCompile Include="..\..\..\..\demo\test_warpPerspective.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\demo\funset.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_all.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_core.hpp" />
     <ClInclude Include="..\..\..\..\demo\test_cvtColor.hpp" />
