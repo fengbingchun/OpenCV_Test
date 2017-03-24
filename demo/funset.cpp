@@ -6,6 +6,80 @@
 
 #include <opencv2/opencv.hpp>
 
+int test_read_write_video()
+{
+	// reference: http://docs.opencv.org/trunk/dd/d9e/classcv_1_1VideoWriter.html
+	if (1) { // read image and write video
+		cv::Mat mat = cv::imread("D:/DownLoad/fgh5.png");
+		if (mat.empty()) {
+			fprintf(stderr, "read image fail\n");
+			return -1;
+		}
+
+		int width{ 640 }, height{ 480 };
+		int codec = CV_FOURCC('M', 'J', 'P', 'G');
+		double fps = 25.0;
+		bool isColor = (mat.type() == CV_8UC3);
+		cv::VideoWriter write_video;
+		write_video.open("D:/DownLoad/black.avi", codec, fps, cv::Size(width, height), isColor);
+		if (!write_video.isOpened()) {
+			fprintf(stderr, "open video file fail\n");
+			return -1;
+		}
+
+		int count{ 0 };
+		cv::Mat tmp;
+		while (mat.data) {
+			cv::resize(mat, tmp, cv::Size(width, height));
+			write_video.write(tmp);
+
+			if (++count > 50)
+				break;
+		}
+	}
+
+	if (0) { // read video and write video
+		cv::VideoCapture read_video("D:/DownLoad/ice.avi");
+		if (!read_video.isOpened()) {
+			fprintf(stderr, "open video file fail\n");
+			return -1;
+		}
+
+		cv::Mat frame, tmp;
+		if (!read_video.read(frame)) {
+			fprintf(stderr, "read video frame fail\n");
+			return -1;
+		}
+
+		fprintf(stderr, "src frame size: (%d, %d)\n", frame.cols, frame.rows);
+
+		int width{ 640 }, height{ 480 };
+		int codec = CV_FOURCC('M', 'J', 'P', 'G');
+		double fps = 25.0;
+		bool isColor = (frame.type() == CV_8UC3);
+		cv::VideoWriter write_video;
+		write_video.open("D:/DownLoad/b.avi", codec, fps, cv::Size(width, height), isColor);
+		if (!write_video.isOpened()) {
+			fprintf(stderr, "open video file fail\n");
+			return -1;
+		}
+
+		int count{ 0 };
+		while (read_video.read(frame)) {
+			// fprintf(stderr, "frame width: %d, frame height: %d\n", frame.cols, frame.rows);
+			cv::resize(frame, tmp, cv::Size(width, height));
+			write_video.write(tmp);
+
+			if (++count > 50)
+				break;
+		}
+
+		fprintf(stderr, "dst frame size: (%d, %d)\n", tmp.cols, tmp.rows);
+	}
+
+	return 0;
+}
+
 int test_encode_decode()
 {
 	// cv::imread/cv::imwrite

@@ -8,7 +8,7 @@
 
 int main()
 {
-	int ret = test_encode_decode();
+	int ret = test_read_write_video();
 
 	if (ret == 0) fprintf(stderr, "test success\n");
 	else fprintf(stderr, "testn fail\n");
