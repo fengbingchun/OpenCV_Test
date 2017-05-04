@@ -2,7 +2,7 @@
 #include <vector>
 #include <iostream>
 #include "directory.hpp"
-#include "test_directory.hpp"
+#include "fbc_cv_funset.hpp"
 
 int test_directory_GetListFiles()
 {

@@ -1,4 +1,3 @@
-#include "test_dft.hpp"
 #include <assert.h>
 #include <vector>
 #include <dft.hpp>
@@ -7,6 +6,7 @@
 #include <split.hpp>
 #include <core/mathfuncs.hpp>
 #include <opencv2/opencv.hpp>
+#include "fbc_cv_funset.hpp"
 
 int test_dft_float()
 {

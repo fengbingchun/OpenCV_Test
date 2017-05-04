@@ -4,7 +4,7 @@
 
 #include <opencv2/opencv.hpp>
 
-#include "test_resize.hpp"
+#include "fbc_cv_funset.hpp"
 
 int test_resize_uchar()
 {

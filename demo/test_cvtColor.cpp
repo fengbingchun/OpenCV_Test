@@ -4,8 +4,7 @@
 
 #include <opencv2/opencv.hpp>
 
-#include "test_cvtColor.hpp"
-
+#include "fbc_cv_funset.hpp"
 
 int test_cvtColor_RGB2RGB()
 {

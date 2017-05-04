@@ -1,4 +1,3 @@
-#include "test_core.hpp"
 #include <assert.h>
 
 #include <core/fast_math.hpp>
@@ -10,6 +9,7 @@
 #include <core/Ptr.hpp>
 
 #include <opencv2/opencv.hpp>
+#include "fbc_cv_funset.hpp"
 
 int test_fast_math()
 {

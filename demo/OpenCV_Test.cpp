@@ -3,15 +3,15 @@
 #include <string>
 #include <fstream>
 
-#include "test_all.hpp"
-#include "funset.hpp"
+#include "fbc_cv_funset.hpp"
+#include "opencv_funset.hpp"
 
 int main()
 {
-	int ret = test_read_write_video();
+	int ret = test_opencv_filter2D();
 
-	if (ret == 0) fprintf(stderr, "test success\n");
-	else fprintf(stderr, "testn fail\n");
+	if (ret == 0) fprintf(stderr, "===== test success =====\n");
+	else fprintf(stderr, "***** testn fail *****\n");
 
 	return 0;
 }

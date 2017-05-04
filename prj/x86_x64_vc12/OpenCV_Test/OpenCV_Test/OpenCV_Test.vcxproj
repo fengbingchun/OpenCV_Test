@@ -151,7 +151,7 @@
       <AssemblerListingLocation>.\../../../../obj/rel/x64_vc12/OpenCV_Test\</AssemblerListingLocation>
       <ObjectFileName>.\../../../../obj/rel/x64_vc12/OpenCV_Test\</ObjectFileName>
       <ProgramDataBaseFileName>.\../../../../obj/rel/x64_vc12/OpenCV_Test\</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>D:\soft\OpenCV31\vs2013_dll\install\include;E:\GitCode\OpenCV_Test\src\fbc_cv\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\soft\OpenCV3.1\vs2013_dll\install\include;E:\GitCode\OpenCV_Test\src\fbc_cv\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -159,7 +159,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <OutputFile>.\../../../../lib/rel/x64_vc12/OpenCV_Test.exe</OutputFile>
-      <AdditionalLibraryDirectories>D:\soft\OpenCV31\vs2013_dll\install\x64\vc12\lib;E:\GitCode\OpenCV_Test\lib\rel\x64_vc12;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\soft\OpenCV3.1\vs2013_dll\install\x64\vc12\lib;E:\GitCode\OpenCV_Test\lib\rel\x64_vc12;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opencv_core310.lib;opencv_highgui310.lib;opencv_imgproc310.lib;opencv_imgcodecs310.lib;opencv_videoio310.lib;fbc_cv[rel_x64_vc12].lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
@@ -167,18 +167,18 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\demo\funset.cpp" />
     <ClCompile Include="..\..\..\..\demo\OpenCV_Test.cpp" />
-    <ClCompile Include="..\..\..\..\demo\test_all.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_core.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_cvtColor.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_dft.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_dilate.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_directory.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_erode.cpp" />
+    <ClCompile Include="..\..\..\..\demo\test_fbc_cv_all.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_flip.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_merge.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_morphologyEx.cpp" />
+    <ClCompile Include="..\..\..\..\demo\test_opencv_funset.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_remap.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_resize.cpp" />
     <ClCompile Include="..\..\..\..\demo\test_rotate.cpp" />
@@ -190,26 +190,8 @@
     <ClCompile Include="..\..\..\..\demo\test_warpPerspective.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\demo\funset.hpp" />
-    <ClInclude Include="..\..\..\..\demo\test_all.hpp" />
-    <ClInclude Include="..\..\..\..\demo\test_core.hpp" />
-    <ClInclude Include="..\..\..\..\demo\test_cvtColor.hpp" />
-    <ClInclude Include="..\..\..\..\demo\test_dft.hpp" />
-    <ClInclude Include="..\..\..\..\demo\test_dilate.hpp" />
-    <ClInclude Include="..\..\..\..\demo\test_directory.hpp" />
-    <ClInclude Include="..\..\..\..\demo\test_erode.hpp" />
-    <ClInclude Include="..\..\..\..\demo\test_flip.hpp" />
-    <ClInclude Include="..\..\..\..\demo\test_merge.hpp" />
-    <ClInclude Include="..\..\..\..\demo\test_morphologyEx.hpp" />
-    <ClInclude Include="..\..\..\..\demo\test_remap.hpp" />
-    <ClInclude Include="..\..\..\..\demo\test_resize.hpp" />
-    <ClInclude Include="..\..\..\..\demo\test_rotate.hpp" />
-    <ClInclude Include="..\..\..\..\demo\test_rotate90.hpp" />
-    <ClInclude Include="..\..\..\..\demo\test_split.hpp" />
-    <ClInclude Include="..\..\..\..\demo\test_threshold.hpp" />
-    <ClInclude Include="..\..\..\..\demo\test_transpose.hpp" />
-    <ClInclude Include="..\..\..\..\demo\test_warpAffine.hpp" />
-    <ClInclude Include="..\..\..\..\demo\test_warpPerspective.hpp" />
+    <ClInclude Include="..\..\..\..\demo\fbc_cv_funset.hpp" />
+    <ClInclude Include="..\..\..\..\demo\opencv_funset.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

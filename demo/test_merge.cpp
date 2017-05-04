@@ -5,7 +5,7 @@
 
 #include <opencv2/opencv.hpp>
 
-#include "test_merge.hpp"
+#include "fbc_cv_funset.hpp"
 
 int test_merge_uchar()
 {
