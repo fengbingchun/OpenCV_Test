@@ -34,6 +34,9 @@
 - flip
 - dft/idft
 
+**Screenshot:**  
+![](https://github.com/fengbingchun/OpenCV_Test/blob/master/prj/x86_x64_vc12/Screenshot.png)
+
 **Blog:** [fengbingchun](http://blog.csdn.net/fengbingchun/article/category/721609)
 
 **Licence: uses the same licence as OpenCV3.1**
