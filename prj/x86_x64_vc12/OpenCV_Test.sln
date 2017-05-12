@@ -1,14 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenCV_Test", "OpenCV_Test\OpenCV_Test.vcxproj", "{A10E3DEF-E1EE-49CC-B025-DE741B0F81E8}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B6E09E23-0528-4905-8D9E-390AB1B82391} = {B6E09E23-0528-4905-8D9E-390AB1B82391}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fbc_cv", "..\fbc_cv\fbc_cv.vcxproj", "{B6E09E23-0528-4905-8D9E-390AB1B82391}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fbc_cv", "fbc_cv\fbc_cv.vcxproj", "{B6E09E23-0528-4905-8D9E-390AB1B82391}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,7 +21,9 @@ Global
 		{A10E3DEF-E1EE-49CC-B025-DE741B0F81E8}.Release|x64.ActiveCfg = Release|x64
 		{A10E3DEF-E1EE-49CC-B025-DE741B0F81E8}.Release|x64.Build.0 = Release|x64
 		{B6E09E23-0528-4905-8D9E-390AB1B82391}.Debug|x64.ActiveCfg = Debug|x64
+		{B6E09E23-0528-4905-8D9E-390AB1B82391}.Debug|x64.Build.0 = Debug|x64
 		{B6E09E23-0528-4905-8D9E-390AB1B82391}.Release|x64.ActiveCfg = Release|x64
+		{B6E09E23-0528-4905-8D9E-390AB1B82391}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

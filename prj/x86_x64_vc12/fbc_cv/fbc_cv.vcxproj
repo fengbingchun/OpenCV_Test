@@ -112,9 +112,9 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <OutputFile>../../../lib/dbg/x64_vc12/fbc_cv[dbg_x64_vc12].dll</OutputFile>
-      <ImportLibrary>../../../lib/dbg/x64_vc12/fbc_cv[dbg_x64_vc12].lib</ImportLibrary>
-      <ProgramDatabaseFile>../../../lib/dbg/x64_vc12/fbc_cv[dbg_x64_vc12].pdb</ProgramDatabaseFile>
+      <OutputFile>../../../lib/dbg/x64_vc12/fbc_cv.dll</OutputFile>
+      <ImportLibrary>../../../lib/dbg/x64_vc12/fbc_cv.lib</ImportLibrary>
+      <ProgramDatabaseFile>../../../lib/dbg/x64_vc12/fbc_cv.pdb</ProgramDatabaseFile>
     </Link>
     <Bscmake>
       <OutputFile>.\../../../obj/dbg/x64_vc12/fbc_cv\fbc_cv.bsc</OutputFile>
@@ -158,9 +158,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <OutputFile>../../../lib/rel/x64_vc12/fbc_cv[rel_x64_vc12].dll</OutputFile>
-      <ProgramDatabaseFile>../../../lib/rel/x64_vc12/fbc_cv[rel_x64_vc12].pdb</ProgramDatabaseFile>
-      <ImportLibrary>../../../lib/rel/x64_vc12/fbc_cv[rel_x64_vc12].lib</ImportLibrary>
+      <OutputFile>../../../lib/rel/x64_vc12/fbc_cv.dll</OutputFile>
+      <ProgramDatabaseFile>../../../lib/rel/x64_vc12/fbc_cv.pdb</ProgramDatabaseFile>
+      <ImportLibrary>../../../lib/rel/x64_vc12/fbc_cv.lib</ImportLibrary>
     </Link>
     <Bscmake>
       <OutputFile>.\../../../obj/rel/x64_vc12/fbc_cv\fbc_cv.bsc</OutputFile>
