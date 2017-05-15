@@ -1,6 +1,7 @@
 #ifndef FBC_OPENCV_FUNSET_HPP_
 #define FBC_OPENCV_FUNSET_HPP_
 
+int test_opencv_determinant();
 int test_opencv_encode_decode();
 int test_opencv_read_write_video();
 int test_opencv_resize();

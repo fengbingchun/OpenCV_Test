@@ -6,6 +6,27 @@
 
 #include <opencv2/opencv.hpp>
 
+int test_opencv_determinant()
+{
+	const int size{ 16 };
+	std::vector<float> vec;
+	vec.resize(size);
+	float tmp{ 1.f }, factor{ 3.f };
+
+	for (auto& value : vec) {
+		value = factor * tmp;
+		factor += 5.f;
+	}
+
+	int length = std::sqrt(size);
+	cv::Mat mat(length, length, CV_32FC1, vec.data());
+
+	double det = cv::determinant(mat);
+	fprintf(stderr, "matrix's determinant: %f\n", det);
+
+	return 0;
+}
+
 int test_read_write_video()
 {
 	// reference: http://docs.opencv.org/trunk/dd/d9e/classcv_1_1VideoWriter.html
