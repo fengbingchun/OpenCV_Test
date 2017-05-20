@@ -1,10 +1,26 @@
 #include "opencv_funset.hpp"
 
+#include <math.h>
 #include <string>
 #include <fstream>
 #include <vector>
 
 #include <opencv2/opencv.hpp>
+
+int test_opencv_inverse()
+{
+	std::vector<float> vec{ 5, -2, 2, 7, 1, 0, 0, 3, -3, 1, 5, 0, 3, -1, -9, 4 };
+	const int N{ 4 };
+	if (vec.size() != (int)pow(N, 2)) {
+		fprintf(stderr, "vec must be N^2\n");
+		return -1;
+	}
+
+	cv::Mat mat(N, N, CV_32FC1, vec.data());
+	cv::Mat inverse = mat.inv();
+
+	return 0;
+}
 
 int test_opencv_determinant()
 {
