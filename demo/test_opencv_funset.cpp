@@ -7,6 +7,31 @@
 
 #include <opencv2/opencv.hpp>
 
+int test_opencv_norm()
+{
+	std::vector<int> norm_types{ 1, 2, 4 }; // ÕýÎÞÇî¡¢L1¡¢L2
+	std::vector<std::string> str {"Inf", "L1", "L2"};
+	// 1. vector:
+	std::vector<float> vec1{ -2, 3, 1 };
+	cv::Mat mat1(1, vec1.size(), CV_32FC1, vec1.data());
+
+	for (int i = 0; i < norm_types.size(); ++i) {
+		double value = cv::norm(mat1, norm_types[i]);
+		fprintf(stderr, "vector: %s: %f\n", str[i].c_str(), value);
+	}
+
+	// 2. matrix:
+	std::vector<float> vec2{ -3, 2, 0, 5, 6, 2, 7, 4, 8 };
+	cv::Mat mat2((int)(sqrt(vec2.size())), (int)(sqrt(vec2.size())), CV_32FC1, vec2.data());
+
+	for (int i = 0; i < norm_types.size(); ++i) {
+		double value = cv::norm(mat2, norm_types[i]);
+		fprintf(stderr, "matrix: %s: %f\n", str[i].c_str(), value);
+	}
+
+	return 0;
+}
+
 int test_opencv_inverse()
 {
 	std::vector<float> vec{ 5, -2, 2, 7, 1, 0, 0, 3, -3, 1, 5, 0, 3, -1, -9, 4 };
