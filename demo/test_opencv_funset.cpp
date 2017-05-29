@@ -7,6 +7,24 @@
 
 #include <opencv2/opencv.hpp>
 
+int test_opencv_eigen()
+{
+	std::vector<float> vec{1.23f, 2.12f, -4.2f,
+			       2.12f, -5.6f, 1.79f,
+			       -4.2f, 1.79f, -7.3f };
+	const int N{ 3 };
+	cv::Mat mat(N, N, CV_32FC1, vec.data());
+
+	cv::Mat eigen_values, eigen_vectors;
+	bool ret = cv::eigen(mat, eigen_values, eigen_vectors);
+	if (!ret) {
+		fprintf(stderr, "fail to run cv::eigen\n");
+		return -1;
+	}
+
+	return 0;
+}
+
 int test_opencv_norm()
 {
 	std::vector<int> norm_types{ 1, 2, 4 }; // ÕýÎÞÇî¡¢L1¡¢L2

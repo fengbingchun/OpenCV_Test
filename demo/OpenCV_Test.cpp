@@ -8,10 +8,10 @@
 
 int main()
 {
-	int ret = test_opencv_norm();
+	int ret = test_opencv_eigen();
 
-	if (ret == 0) fprintf(stderr, "===== test success =====\n");
-	else fprintf(stderr, "***** testn fail *****\n");
+	if (ret == 0) fprintf(stderr, "========== test success ==========\n");
+	else fprintf(stderr, "********** testn fail **********\n");
 
 	return 0;
 }
