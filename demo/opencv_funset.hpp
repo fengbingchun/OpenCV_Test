@@ -1,6 +1,7 @@
 #ifndef FBC_OPENCV_FUNSET_HPP_
 #define FBC_OPENCV_FUNSET_HPP_
 
+int test_opencv_SVD();
 int test_opencv_eigen();
 int test_opencv_norm();
 int test_opencv_inverse();

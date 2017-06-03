@@ -7,6 +7,37 @@
 
 #include <opencv2/opencv.hpp>
 
+int test_opencv_SVD()
+{
+	//std::vector<std::vector<float>> vec{ { 1.2f, 2.5f, 5.6f, -2.5f },
+	//				{ -3.6f, 9.2f, 0.5f, 7.2f },
+	//				{ 4.3f, 1.3f, 9.4f, -3.4f },
+	//				{ 6.4f, 0.1f, -3.7f, 0.9f } };
+	//const int rows{ 4 }, cols{ 4 };
+
+	//std::vector<std::vector<float>> vec{ { 1.2f, 2.5f, 5.6f, -2.5f },
+	//				{ -3.6f, 9.2f, 0.5f, 7.2f },
+	//				{ 4.3f, 1.3f, 9.4f, -3.4f } };
+	//const int rows{ 3 }, cols{ 4 };
+
+	std::vector<std::vector<float>> vec{ { 0.68f, 0.597f },
+					{ -0.211f, 0.823f },
+					{ 0.566f, -0.605f } };
+	const int rows{ 3 }, cols{ 2 };
+
+	cv::Mat mat(rows, cols, CV_32FC1);
+	for (int y = 0; y < rows; ++y) {
+		for (int x = 0; x < cols; ++x) {
+			mat.at<float>(y, x) = vec.at(y).at(x);
+		}
+	}
+
+	cv::Mat w, u, vt;
+	cv::SVD::compute(mat, w, u, vt, 4);
+
+	return 0;
+}
+
 int test_opencv_eigen()
 {
 	std::vector<float> vec{1.23f, 2.12f, -4.2f,

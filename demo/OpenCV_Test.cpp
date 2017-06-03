@@ -8,7 +8,7 @@
 
 int main()
 {
-	int ret = test_opencv_eigen();
+	int ret = test_opencv_SVD();
 
 	if (ret == 0) fprintf(stderr, "========== test success ==========\n");
 	else fprintf(stderr, "********** testn fail **********\n");
