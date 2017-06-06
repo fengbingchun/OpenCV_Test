@@ -7,6 +7,26 @@
 
 #include <opencv2/opencv.hpp>
 
+int test_opencv_pseudoinverse()
+{
+	std::vector<std::vector<float>> vec{ { 0.68f, 0.597f },
+					{ -0.211f, 0.823f },
+					{ 0.566f, -0.605f } };
+	const int rows{ 3 }, cols{ 2 };
+
+	cv::Mat mat(rows, cols, CV_32FC1);
+	for (int y = 0; y < rows; ++y) {
+		for (int x = 0; x < cols; ++x) {
+			mat.at<float>(y, x) = vec.at(y).at(x);
+		}
+	}
+
+	cv::Mat pinv;
+	cv::invert(mat, pinv, cv::DECOMP_SVD);
+
+	return 0;
+}
+
 int test_opencv_SVD()
 {
 	//std::vector<std::vector<float>> vec{ { 1.2f, 2.5f, 5.6f, -2.5f },
