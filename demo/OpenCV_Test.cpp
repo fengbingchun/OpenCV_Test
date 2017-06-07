@@ -8,7 +8,7 @@
 
 int main()
 {
-	int ret = test_opencv_pseudoinverse();
+	int ret = test_opencv_trace();
 
 	if (ret == 0) fprintf(stderr, "========== test success ==========\n");
 	else fprintf(stderr, "********** testn fail **********\n");

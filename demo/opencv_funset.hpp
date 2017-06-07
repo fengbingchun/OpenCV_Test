@@ -1,9 +1,10 @@
 #ifndef FBC_OPENCV_FUNSET_HPP_
 #define FBC_OPENCV_FUNSET_HPP_
 
+int test_opencv_trace(); // 矩阵的迹运算
 int test_opencv_pseudoinverse(); // 求伪逆矩阵
 int test_opencv_SVD();
-int test_opencv_eigen();
+int test_opencv_eigen(); // 矩阵的特征值和特征向量
 int test_opencv_norm();
 int test_opencv_inverse();
 int test_opencv_determinant();
