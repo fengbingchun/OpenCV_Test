@@ -7,6 +7,26 @@
 
 #include <opencv2/opencv.hpp>
 
+int test_opencv_meanStdDev()
+{
+	std::vector<std::vector<float>> vec{ { 1.2f, 2.5f, 5.6f, -2.5f },
+	{ -3.6f, 9.2f, 0.5f, 7.2f },
+	{ 4.3f, 1.3f, 9.4f, -3.4f } };
+	const int rows{ 3 }, cols{ 4 };
+
+	cv::Mat mat(rows, cols, CV_32FC1);
+	for (int y = 0; y < rows; ++y) {
+		for (int x = 0; x < cols; ++x) {
+			mat.at<float>(y, x) = vec.at(y).at(x);
+		}
+	}
+
+	cv::Scalar mean, stddev;
+	cv::meanStdDev(mat, mean, stddev);
+
+	return 0;
+}
+
 int test_opencv_trace()
 {
 	std::vector<std::vector<float>> vec{ { 1.2f, 2.5f, 5.6f, -2.5f },
