@@ -7,11 +7,34 @@
 
 #include <opencv2/opencv.hpp>
 
+int test_opencv_calcCovarMatrix()
+{
+	std::vector<std::vector<float>> vec{ { 1.2f, 2.5f, 5.6f, -2.5f },
+					{ -3.6f, 9.2f, 0.5f, 7.2f },
+					{ 4.3f, 1.3f, 9.4f, -3.4f } };
+	const int rows{ 3 }, cols{ 4 };
+
+	cv::Mat mat(rows, cols, CV_32FC1);
+	for (int y = 0; y < rows; ++y) {
+		for (int x = 0; x < cols; ++x) {
+			mat.at<float>(y, x) = vec.at(y).at(x);
+		}
+	}
+	std::cout << mat << std::endl;
+
+	cv::Mat covar, mean;
+	cv::calcCovarMatrix(mat, covar, mean, CV_COVAR_NORMAL | CV_COVAR_ROWS /*| CV_COVAR_SCALE*/, CV_32FC1);
+	std::cout << "covariance matrix:" << std::endl << covar << std::endl;
+	std::cout << "mean values: " << std::endl << mean << std::endl;
+
+	return 0;
+}
+
 int test_opencv_meanStdDev()
 {
 	std::vector<std::vector<float>> vec{ { 1.2f, 2.5f, 5.6f, -2.5f },
-	{ -3.6f, 9.2f, 0.5f, 7.2f },
-	{ 4.3f, 1.3f, 9.4f, -3.4f } };
+					{ -3.6f, 9.2f, 0.5f, 7.2f },
+					{ 4.3f, 1.3f, 9.4f, -3.4f } };
 	const int rows{ 3 }, cols{ 4 };
 
 	cv::Mat mat(rows, cols, CV_32FC1);
