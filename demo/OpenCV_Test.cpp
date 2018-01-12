@@ -8,10 +8,10 @@
 
 int main()
 {
-	int ret = test_opencv_calcCovarMatrix();
+	int ret = test_opencv_PCA();
 
-	if (ret == 0) fprintf(stderr, "========== test success ==========\n");
-	else fprintf(stderr, "********** testn fail **********\n");
+	if (ret == 0) fprintf(stdout, "========== test success ==========\n");
+	else fprintf(stderr, "########## test fail ##########\n");
 
 	return 0;
 }

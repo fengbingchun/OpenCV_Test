@@ -1,6 +1,7 @@
 #ifndef FBC_OPENCV_FUNSET_HPP_
 #define FBC_OPENCV_FUNSET_HPP_
 
+int test_opencv_PCA(); // 主成分分析(Principal Components Analysis, PCA)
 int test_opencv_calcCovarMatrix(); // 计算协方差矩阵
 int test_opencv_meanStdDev(); // 计算均值和标准差
 int test_opencv_trace(); // 矩阵的迹运算
