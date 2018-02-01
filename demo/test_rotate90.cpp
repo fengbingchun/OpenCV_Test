@@ -3,6 +3,8 @@
 #include <transpose.hpp>
 #include <flip.hpp>
 
+// Blog: http://blog.csdn.net/fengbingchun/article/details/52554711
+
 int test_rotate90()
 {
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/1.jpg", 1);

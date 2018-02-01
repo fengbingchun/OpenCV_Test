@@ -4,6 +4,8 @@
 #include <threshold.hpp>
 #include <opencv2/opencv.hpp>
 
+// Blog: http://blog.csdn.net/fengbingchun/article/details/52494129
+
 int test_threshold_uchar()
 {
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);

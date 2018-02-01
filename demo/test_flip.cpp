@@ -6,6 +6,8 @@
 #include <flip.hpp>
 #include <opencv2/opencv.hpp>
 
+// Blog: http://blog.csdn.net/fengbingchun/article/details/52554409
+
 int test_flip_uchar()
 {
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/1.jpg", 1);

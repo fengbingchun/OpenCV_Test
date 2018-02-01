@@ -3,6 +3,8 @@
 #include <opencv2/opencv.hpp>
 #include <warpPerspective.hpp>
 
+// Blog: http://blog.csdn.net/fengbingchun/article/details/52004083
+
 int test_getPerspectiveTransform()
 {
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);

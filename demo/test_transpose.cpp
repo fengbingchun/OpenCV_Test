@@ -5,6 +5,8 @@
 #include <opencv2/opencv.hpp>
 #include <transpose.hpp>
 
+// Blog: http://blog.csdn.net/fengbingchun/article/details/52550460
+
 int test_transpose_uchar()
 {
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);

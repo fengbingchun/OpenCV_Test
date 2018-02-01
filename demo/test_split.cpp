@@ -7,6 +7,8 @@
 
 #include "fbc_cv_funset.hpp"
 
+// Blog: http://blog.csdn.net/fengbingchun/article/details/51762027
+
 int test_split_uchar()
 {
 	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);

@@ -4,6 +4,8 @@
 #include <dilate.hpp>
 #include <opencv2/opencv.hpp>
 
+// Blog: http://blog.csdn.net/fengbingchun/article/details/52333643
+
 int test_getStructuringElement()
 {
 	for (int elem = 0; elem < 3; elem++) {

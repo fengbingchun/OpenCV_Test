@@ -4,6 +4,8 @@
 #include <core/mat.hpp>
 #include <warpAffine.hpp>
 
+// Blog: http://blog.csdn.net/fengbingchun/article/details/51923392
+
 int test_getAffineTransform()
 {
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);

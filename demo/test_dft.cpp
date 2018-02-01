@@ -8,6 +8,8 @@
 #include <opencv2/opencv.hpp>
 #include "fbc_cv_funset.hpp"
 
+// Blog: http://blog.csdn.net/fengbingchun/article/details/53000396
+
 int test_dft_float()
 {
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/1.jpg", 1);

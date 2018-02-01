@@ -6,6 +6,8 @@
 
 #include "fbc_cv_funset.hpp"
 
+// Blog: http://blog.csdn.net/fengbingchun/article/details/51712532
+
 int test_cvtColor_RGB2RGB()
 {
 	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);

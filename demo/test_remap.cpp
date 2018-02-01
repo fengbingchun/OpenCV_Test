@@ -3,6 +3,8 @@
 #include <opencv2/opencv.hpp>
 #include <remap.hpp>
 
+// Blog: http://blog.csdn.net/fengbingchun/article/details/51872436
+
 static void update_map(const cv::Mat& src, cv::Mat& map_x, cv::Mat& map_y, int ind_)
 {
 	int ind = ind_ % 4;

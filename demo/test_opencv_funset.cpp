@@ -372,6 +372,7 @@ int test_read_write_video()
 
 int test_encode_decode()
 {
+	// Blog: http://blog.csdn.net/fengbingchun/article/details/60780232
 	// cv::imread/cv::imwrite
 	std::string image_name = "E:/GitCode/OpenCV_Test/test_images/1.jpg";
 	cv::Mat mat1 = cv::imread(image_name, 1);

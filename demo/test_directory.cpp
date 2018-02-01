@@ -4,6 +4,8 @@
 #include "directory.hpp"
 #include "fbc_cv_funset.hpp"
 
+// Blog: http://blog.csdn.net/fengbingchun/article/details/51474728
+
 int test_directory_GetListFiles()
 {
 	fbc::Directory dir;

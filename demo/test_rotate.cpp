@@ -3,6 +3,8 @@
 #include <opencv2/opencv.hpp>
 #include <rotate.hpp>
 
+// Blog: http://blog.csdn.net/fengbingchun/article/details/51923769
+
 int test_getRotationMatrix2D()
 {
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
