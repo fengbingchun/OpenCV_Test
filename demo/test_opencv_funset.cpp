@@ -7,6 +7,64 @@
 
 #include <opencv2/opencv.hpp>
 
+int test_opencv_kmeans()
+{
+	// reference: https://docs.opencv.org/3.1.0/de/d63/kmeans_8cpp-example.html
+	const int MAX_CLUSTERS = 5;
+	cv::Scalar colorTab[] = {cv::Scalar(0, 0, 255), cv::Scalar(0, 255, 0), cv::Scalar(255, 100, 100), cv::Scalar(255, 0, 255), cv::Scalar(0, 255, 255)};
+	cv::Mat img(500, 500, CV_8UC3);
+	cv::RNG rng(12345);
+
+	for (;;) {
+		int k, clusterCount = rng.uniform(2, MAX_CLUSTERS + 1);
+		int i, sampleCount = rng.uniform(1, 1001);
+		cv::Mat points(sampleCount, 1, CV_32FC2), labels;
+		clusterCount = MIN(clusterCount, sampleCount);
+		cv::Mat centers;
+		/* generate random sample from multigaussian distribution */
+		for (k = 0; k < clusterCount; k++) {
+			cv::Point center;
+			center.x = rng.uniform(0, img.cols);
+			center.y = rng.uniform(0, img.rows);
+			cv::Mat pointChunk = points.rowRange(k*sampleCount / clusterCount,
+				k == clusterCount - 1 ? sampleCount : (k + 1)*sampleCount / clusterCount);
+			rng.fill(pointChunk, cv::RNG::NORMAL, cv::Scalar(center.x, center.y), cv::Scalar(img.cols*0.05, img.rows*0.05));
+		}
+		cv::randShuffle(points, 1, &rng);
+		cv::kmeans(points, clusterCount, labels,
+			cv::TermCriteria(cv::TermCriteria::EPS + cv::TermCriteria::COUNT, 10, 1.0), 3, cv::KMEANS_PP_CENTERS, centers);
+		img = cv::Scalar::all(0);
+		for (i = 0; i < sampleCount; i++) {
+			int clusterIdx = labels.at<int>(i);
+			cv::Point ipt = points.at<cv::Point2f>(i);
+			cv::circle(img, ipt, 2, colorTab[clusterIdx], cv::FILLED, cv::LINE_AA);
+		}
+		cv::imshow("clusters", img);
+		char key = (char)cv::waitKey();
+		if (key == 27 || key == 'q' || key == 'Q') // 'ESC'
+			break;
+	}
+
+	return 0;
+}
+
+int test_opencv_Laplacian()
+{
+	// reference: https://docs.opencv.org/3.1.0/d5/db5/tutorial_laplace_operator.html
+	cv::Mat src = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 0);
+	if (!src.data || src.channels() != 1) {
+		fprintf(stderr, "read image fail\n");
+		return -1;
+	}
+	cv::resize(src, src, cv::Size(100, 100));
+
+	cv::Mat dst;
+	cv::Laplacian(src, dst, src.depth(), 1);
+	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/laplacian_lena.png", dst);
+
+	return 0;
+}
+
 namespace {
 
 void drawAxis(cv::Mat& img, cv::Point p, cv::Point q, cv::Scalar colour, const float scale = 0.2)
@@ -65,23 +123,6 @@ double getOrientation(const std::vector<cv::Point> &pts, cv::Mat &img)
 }
 
 } // namespace
-
-int test_opencv_Laplacian()
-{
-	// reference: https://docs.opencv.org/3.1.0/d5/db5/tutorial_laplace_operator.html
-	cv::Mat src = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 0);
-	if (!src.data || src.channels() != 1) {
-		fprintf(stderr, "read image fail\n");
-		return -1;
-	}
-	cv::resize(src, src, cv::Size(100, 100));
-
-	cv::Mat dst;
-	cv::Laplacian(src, dst, src.depth(), 1);
-	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/laplacian_lena.png", dst);
-
-	return 0;
-}
 
 int test_opencv_PCA()
 {

@@ -8,7 +8,7 @@
 
 int main()
 {
-	int ret = test_opencv_Laplacian();
+	int ret = test_opencv_kmeans();
 
 	if (ret == 0) fprintf(stdout, "========== test success ==========\n");
 	else fprintf(stderr, "########## test fail ##########\n");

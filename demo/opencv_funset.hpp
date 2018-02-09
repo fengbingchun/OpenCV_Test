@@ -1,6 +1,7 @@
 #ifndef FBC_OPENCV_FUNSET_HPP_
 #define FBC_OPENCV_FUNSET_HPP_
 
+int test_opencv_kmeans(); // k-均值聚类
 int test_opencv_Laplacian(); // 边缘检测：拉普拉斯
 int test_opencv_PCA(); // 主成分分析(Principal Components Analysis, PCA)
 int test_opencv_calcCovarMatrix(); // 计算协方差矩阵
