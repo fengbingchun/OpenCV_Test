@@ -66,6 +66,23 @@ double getOrientation(const std::vector<cv::Point> &pts, cv::Mat &img)
 
 } // namespace
 
+int test_opencv_Laplacian()
+{
+	// reference: https://docs.opencv.org/3.1.0/d5/db5/tutorial_laplace_operator.html
+	cv::Mat src = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 0);
+	if (!src.data || src.channels() != 1) {
+		fprintf(stderr, "read image fail\n");
+		return -1;
+	}
+	cv::resize(src, src, cv::Size(100, 100));
+
+	cv::Mat dst;
+	cv::Laplacian(src, dst, src.depth(), 1);
+	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/laplacian_lena.png", dst);
+
+	return 0;
+}
+
 int test_opencv_PCA()
 {
 	// reference: https://docs.opencv.org/3.1.0/d1/dee/tutorial_introduction_to_pca.html
