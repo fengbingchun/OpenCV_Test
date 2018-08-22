@@ -5,6 +5,7 @@
 #define FBC_CV_CORE_INTERFACE_HPP_
 
 // reference: include/opencv2/core/hal/interface.h
+#include <stdint.h>
 
 namespace fbc {
 
@@ -24,8 +25,13 @@ typedef unsigned int uint;
 typedef signed char schar;
 typedef unsigned char uchar;
 typedef unsigned short ushort;
-typedef __int64 int64;
-typedef unsigned __int64 uint64;
+#ifdef _MSC_VER
+	typedef __int64 int64;
+	typedef unsigned __int64 uint64;
+#else
+	typedef int64_t int64;
+	typedef uint64_t uint64;
+#endif
 
 } // fbc
 

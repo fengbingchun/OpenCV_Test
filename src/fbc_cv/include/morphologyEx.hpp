@@ -50,19 +50,19 @@ int morphologyEx(const Mat_<_Tp, chs>& src, Mat_<_Tp, chs>& dst, int op, const M
 			dilate(dst, dst, kernel_, anchor, iterations, borderType, borderValue);
 			break;
 		}
-		case CV_MOP_CLOSE: {
+		case MORPH_CLOSE: {
 			dilate(src, dst, kernel_, anchor, iterations, borderType, borderValue);
 			erode(dst, dst, kernel_, anchor, iterations, borderType, borderValue);
 			break;
 		}
-		case CV_MOP_GRADIENT: {
+		case MORPH_GRADIENT: {
 			Mat_<_Tp, chs> temp(src.rows, src.cols);
 			erode(src, temp, kernel_, anchor, iterations, borderType, borderValue);
 			dilate(src, dst, kernel_, anchor, iterations, borderType, borderValue);
 			dst -= temp;
 			break;
 		}
-		case CV_MOP_TOPHAT: {
+		case MORPH_TOPHAT: {
 			Mat_<_Tp, chs> temp(src.rows, src.cols);
 			if (src.data != dst.data)
 				temp = dst;
@@ -71,7 +71,7 @@ int morphologyEx(const Mat_<_Tp, chs>& src, Mat_<_Tp, chs>& dst, int op, const M
 			dst = src - temp;
 			break;
 		}
-		case CV_MOP_BLACKHAT: {
+		case MORPH_BLACKHAT: {
 			Mat_<_Tp, chs> temp(src.rows, src.cols);
 			if (src.data != dst.data)
 				temp = dst;

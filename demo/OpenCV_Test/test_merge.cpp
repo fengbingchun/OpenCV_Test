@@ -11,9 +11,15 @@
 
 int test_merge_uchar()
 {
+#ifdef _MSC_VER
 	cv::Mat matSrc1 = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
 	cv::Mat matSrc2 = cv::imread("E:/GitCode/OpenCV_Test/test_images/1.jpg", 1);
 	cv::Mat matSrc3 = cv::imread("E:/GitCode/OpenCV_Test/test_images/2.jpg", 1);
+#else
+	cv::Mat matSrc1 = cv::imread("test_images/lena.png", 1);
+	cv::Mat matSrc2 = cv::imread("test_images/1.jpg", 1);
+	cv::Mat matSrc3 = cv::imread("test_images/2.jpg", 1);
+#endif
 	if (!matSrc1.data || !matSrc2.data || !matSrc3.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -63,9 +69,15 @@ int test_merge_uchar()
 
 int test_merge_float()
 {
+#ifdef _MSC_VER
 	cv::Mat matSrc1 = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
 	cv::Mat matSrc2 = cv::imread("E:/GitCode/OpenCV_Test/test_images/1.jpg", 1);
 	cv::Mat matSrc3 = cv::imread("E:/GitCode/OpenCV_Test/test_images/2.jpg", 1);
+#else
+	cv::Mat matSrc1 = cv::imread("test_images/lena.png", 1);
+	cv::Mat matSrc2 = cv::imread("test_images/1.jpg", 1);
+	cv::Mat matSrc3 = cv::imread("test_images/2.jpg", 1);
+#endif
 	if (!matSrc1.data || !matSrc2.data || !matSrc3.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;

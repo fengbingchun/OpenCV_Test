@@ -10,7 +10,11 @@
 
 int test_cvtColor_RGB2RGB()
 {
+#ifdef _MSC_VER
 	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat mat = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!mat.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -71,7 +75,11 @@ int test_cvtColor_RGB2RGB()
 
 int test_cvtColor_RGB2Gray()
 {
+#ifdef _MSC_VER
 	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat mat = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!mat.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -132,7 +140,11 @@ int test_cvtColor_RGB2Gray()
 
 int test_cvtColor_Gray2RGB()
 {
+#ifdef _MSC_VER
 	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat mat = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!mat.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -194,7 +206,11 @@ int test_cvtColor_Gray2RGB()
 
 int test_cvtColor_RGB2YCrCb()
 {
+#ifdef _MSC_VER
 	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat mat = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!mat.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -255,7 +271,11 @@ int test_cvtColor_RGB2YCrCb()
 
 int test_cvtColor_YCrCb2RGB()
 {
+#ifdef _MSC_VER
 	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat mat = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!mat.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -317,7 +337,11 @@ int test_cvtColor_YCrCb2RGB()
 
 int test_cvtColor_RGB2XYZ()
 {
+#ifdef _MSC_VER
 	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat mat = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!mat.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -378,7 +402,11 @@ int test_cvtColor_RGB2XYZ()
 
 int test_cvtColor_XYZ2RGB()
 {
+#ifdef _MSC_VER
 	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat mat = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!mat.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -440,7 +468,11 @@ int test_cvtColor_XYZ2RGB()
 
 int test_cvtColor_RGB2HSV()
 {
+#ifdef _MSC_VER
 	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat mat = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!mat.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -505,7 +537,11 @@ int test_cvtColor_RGB2HSV()
 
 int test_cvtColor_HSV2RGB()
 {
+#ifdef _MSC_VER
 	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat mat = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!mat.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -573,7 +609,11 @@ int test_cvtColor_HSV2RGB()
 
 int test_cvtColor_RGB2Lab()
 {
+#ifdef _MSC_VER
 	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat mat = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!mat.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -638,7 +678,11 @@ int test_cvtColor_RGB2Lab()
 
 int test_cvtColor_Lab2RGB()
 {
+#ifdef _MSC_VER
 	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat mat = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!mat.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -706,7 +750,11 @@ int test_cvtColor_Lab2RGB()
 
 int test_cvtColor_YUV2BGR()
 {
+#ifdef _MSC_VER
 	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat mat = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!mat.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -745,7 +793,11 @@ int test_cvtColor_YUV2BGR()
 
 int test_cvtColor_BGR2YUV()
 {
+#ifdef _MSC_VER
 	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat mat = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!mat.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -782,7 +834,11 @@ int test_cvtColor_BGR2YUV()
 
 int test_cvtColor_YUV2Gray()
 {
+#ifdef _MSC_VER
 	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat mat = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!mat.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;

@@ -7,7 +7,11 @@
 
 int test_getRotationMatrix2D()
 {
+#ifdef _MSC_VER
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!matSrc.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -41,7 +45,11 @@ int test_getRotationMatrix2D()
 
 int test_rotate_uchar()
 {
+#ifdef _MSC_VER
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!matSrc.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -80,7 +88,11 @@ int test_rotate_uchar()
 
 int test_rotate_float()
 {
+#ifdef _MSC_VER
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!matSrc.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -121,7 +133,11 @@ int test_rotate_float()
 
 int test_rotate_without_crop()
 {
+#ifdef _MSC_VER
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/1.jpg", 1);
+#else	
+	cv::Mat matSrc = cv::imread("test_images/1.jpg", 1);
+#endif
 	if (!matSrc.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -136,7 +152,11 @@ int test_rotate_without_crop()
 	fbc::rotate(mat, rotate_dst, center, angle, true/*false*/, 2, 0, fbc::Scalar(128, 255, 0));
 
 	cv::Mat mat_save(rotate_dst.rows, rotate_dst.cols, CV_8UC3, rotate_dst.data);
+#ifdef _MSC_VER
 	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/1_rotate2.jpg", mat_save);
+#else
+	cv::imwrite("test_images/1_rotate2.jpg", mat_save);
+#endif
 
 	return 0;
 }

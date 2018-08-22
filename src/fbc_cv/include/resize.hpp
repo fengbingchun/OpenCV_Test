@@ -1121,7 +1121,7 @@ static int resize_cubic(const Mat_<_Tp, chs>& src, Mat_<_Tp, chs>& dst)
 
 	for (dy = 0; dy < dsize.height; dy++) {
 		fy = (float)((dy + 0.5)*scale_y - 0.5);
-		sy = cvFloor(fy);
+		sy = fbcFloor(fy);
 		fy -= sy;
 
 		yofs[dy] = sy;

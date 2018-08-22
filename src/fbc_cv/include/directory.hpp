@@ -11,15 +11,16 @@
 #endif
 
 #include <vector>
+#include <string>
 #include "core/fbcdef.hpp"
 
 namespace fbc {
 
 class FBC_EXPORTS Directory {
 public:
-	std::vector<std::string> GetListFiles(const std::string& path, const std::string & exten = "*", bool addPath = true);
-	std::vector<std::string> GetListFilesR(const std::string& path, const std::string & exten = "*", bool addPath = true);
-	std::vector<std::string> GetListFolders(const std::string& path, const std::string & exten = "*", bool addPath = true);
+	std::vector<std::string> GetListFiles(const std::string& path, const std::string& exten = "*", bool addPath = true);
+	std::vector<std::string> GetListFilesR(const std::string& path, const std::string& exten = "*", bool addPath = true);
+	std::vector<std::string> GetListFolders(const std::string& path, const std::string& exten = "*", bool addPath = true);
 };
 
 }

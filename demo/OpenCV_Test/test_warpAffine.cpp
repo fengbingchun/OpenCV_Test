@@ -8,7 +8,11 @@
 
 int test_getAffineTransform()
 {
+#ifdef _MSC_VER
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!matSrc.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -63,7 +67,11 @@ int test_getAffineTransform()
 
 int test_warpAffine_uchar()
 {
+#ifdef _MSC_VER
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!matSrc.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -90,7 +98,6 @@ int test_warpAffine_uchar()
 		fbc::Mat_<uchar, 3> mat(matSrc.rows, matSrc.cols, matSrc.data);
 		fbc::Mat_<uchar, 3> warp_dst;
 		warp_dst.zeros(mat.rows, mat.cols);
-
 		fbc::warpAffine(mat, warp_dst, warp_mat, interpolation);
 
 		cv::Point2f srcTri_[3];
@@ -134,7 +141,11 @@ int test_warpAffine_uchar()
 
 int test_warpAffine_float()
 {
+#ifdef _MSC_VER
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!matSrc.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;

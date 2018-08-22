@@ -10,8 +10,13 @@
 
 #include "core/interface.hpp"
 
-#define FBC_EXPORTS __declspec(dllexport)
-#define FBC_DECL_ALIGNED(x) __declspec(align(x))
+#ifdef _MSC_VER
+	#define FBC_EXPORTS __declspec(dllexport)
+	#define FBC_DECL_ALIGNED(x) __declspec(align(x))
+#else
+	#define FBC_EXPORTS __attribute__((visibility("default")))
+	#define FBC_DECL_ALIGNED(x) __attribute__((aligned(x)))
+#endif
 
 namespace fbc {
 

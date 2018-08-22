@@ -8,7 +8,7 @@
 
 int main()
 {
-	int ret = test_opencv_kmeans();
+	int ret = run_all_test();
 
 	if (ret == 0) fprintf(stdout, "========== test success ==========\n");
 	else fprintf(stderr, "########## test fail ##########\n");

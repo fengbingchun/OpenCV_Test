@@ -12,7 +12,11 @@
 
 int test_dft_float()
 {
+#ifdef _MSC_VER
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/1.jpg", 1);
+#else	
+	cv::Mat matSrc = cv::imread("test_images/1.jpg", 1);
+#endif
 	if (matSrc.empty()) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -176,7 +180,11 @@ int test_dft_float()
 
 	cv::Mat dst(crop.rows, crop.cols, CV_32FC1, crop_.data);
 	dst = dst * 255;
+#ifdef _MSC_VER
 	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/dft.jpg", dst);
+#else
+	cv::imwrite("test_images/dft.jpg", dst);
+#endif
 
 	return 0;
 }

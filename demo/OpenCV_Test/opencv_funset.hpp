@@ -1,15 +1,15 @@
 #ifndef FBC_OPENCV_FUNSET_HPP_
 #define FBC_OPENCV_FUNSET_HPP_
 
-int test_opencv_kmeans(); // k-¾ùÖµ¾ÛÀà
-int test_opencv_Laplacian(); // ±ßÔµ¼ì²â£ºÀ­ÆÕÀ­Ë¹
-int test_opencv_PCA(); // Ö÷³É·Ö·ÖÎö(Principal Components Analysis, PCA)
-int test_opencv_calcCovarMatrix(); // ¼ÆËãĞ­·½²î¾ØÕó
-int test_opencv_meanStdDev(); // ¼ÆËã¾ùÖµºÍ±ê×¼²î
-int test_opencv_trace(); // ¾ØÕóµÄ¼£ÔËËã
-int test_opencv_pseudoinverse(); // ÇóÎ±Äæ¾ØÕó
+int test_opencv_kmeans(); // k-å‡å€¼èšç±»
+int test_opencv_Laplacian(); // è¾¹ç¼˜æ£€æµ‹ï¼šæ‹‰æ™®æ‹‰æ–¯
+int test_opencv_PCA(); // ä¸»æˆåˆ†åˆ†æ(Principal Components Analysis, PCA)
+int test_opencv_calcCovarMatrix(); // è®¡ç®—åæ–¹å·®çŸ©é˜µ
+int test_opencv_meanStdDev(); // è®¡ç®—å‡å€¼å’Œæ ‡å‡†å·®
+int test_opencv_trace(); // çŸ©é˜µçš„è¿¹è¿ç®—
+int test_opencv_pseudoinverse(); // æ±‚ä¼ªé€†çŸ©é˜µ
 int test_opencv_SVD();
-int test_opencv_eigen(); // ¾ØÕóµÄÌØÕ÷ÖµºÍÌØÕ÷ÏòÁ¿
+int test_opencv_eigen(); // çŸ©é˜µçš„ç‰¹å¾å€¼å’Œç‰¹å¾å‘é‡
 int test_opencv_norm();
 int test_opencv_inverse();
 int test_opencv_determinant();

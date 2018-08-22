@@ -6,6 +6,7 @@
 
 // reference: include/opencv2/core/hal/hal.hpp
 
+#include <stddef.h>
 #include "core/fbcdef.hpp"
 #include "core/interface.hpp"
 

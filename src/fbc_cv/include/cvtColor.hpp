@@ -32,7 +32,25 @@ template<typename _Tp, int chs1, int chs2> static int CvtColorLoop_RGB2Lab(const
 template<typename _Tp, int chs1, int chs2> static int CvtColorLoop_RGB2Luv(const Mat_<_Tp, chs1>& src, Mat_<_Tp, chs2>& dst, int bidx, const float* coeffs, const float* whitept, bool srgb);
 template<typename _Tp, int chs1, int chs2> static int CvtColorLoop_Lab2RGB(const Mat_<_Tp, chs1>& src, Mat_<_Tp, chs2>& dst, int bidx, const float* coeffs, const float* whitept, bool srgb);
 template<typename _Tp, int chs1, int chs2> static int CvtColorLoop_Luv2RGB(const Mat_<_Tp, chs1>& src, Mat_<_Tp, chs2>& dst, int bidx, const float* coeffs, const float* whitept, bool srgb);
+template<typename _Tp, int chs, int bIdx, int uIdx> inline void cvtYUV420sp2RGB(Mat_<_Tp, chs>& _dst, int _stride, const uchar* _y1, const uchar* _uv);
+template<typename _Tp, int chs, int bIdx, int uIdx> inline void cvtYUV420sp2RGBA(Mat_<_Tp, chs>& _dst, int _stride, const uchar* _y1, const uchar* _uv);
+template<typename _Tp, int chs, int bIdx> inline void cvtYUV420p2RGB(Mat_<_Tp, chs>& _dst, int _stride, const uchar* _y1, const uchar* _u, const uchar* _v, int ustepIdx, int vstepIdx);
+template<typename _Tp, int chs, int bIdx> inline void cvtYUV420p2RGBA(Mat_<_Tp, chs>& _dst, int _stride, const uchar* _y1, const uchar* _u, const uchar* _v, int ustepIdx, int vstepIdx);
+template<typename _Tp, int chs1, int chs2, int bIdx, int uIdx> static void cvtRGBtoYUV420p(const Mat_<_Tp, chs1>& src, Mat_<_Tp, chs2>& dst);
 
+
+#undef R2Y
+#undef G2Y
+#undef B2Y
+
+enum {
+	yuv_shift = 14,
+	xyz_shift = 12,
+	R2Y = 4899,
+	G2Y = 9617,
+	B2Y = 1868,
+	BLOCK_SIZE = 256
+};
 
 // Converts an image from one color space to another
 // support type: uchar/ushort/float
@@ -335,20 +353,6 @@ template<> struct ColorChannel<float>
 	static float half() { return 0.5f; }
 };
 
-#undef R2Y
-#undef G2Y
-#undef B2Y
-
-enum
-{
-	yuv_shift = 14,
-	xyz_shift = 12,
-	R2Y = 4899,
-	G2Y = 9617,
-	B2Y = 1868,
-	BLOCK_SIZE = 256
-};
-
 template<typename _Tp> struct RGB2Gray
 {
 	typedef _Tp channel_type;
@@ -633,7 +637,7 @@ template<typename _Tp> struct RGB2XYZ_i
 			79, 488, 3892
 		};
 		for (int i = 0; i < 9; i++)
-			coeffs[i] = _coeffs ? cvRound(_coeffs[i] * (1 << xyz_shift)) : coeffs0[i];
+			coeffs[i] = _coeffs ? fbcRound(_coeffs[i] * (1 << xyz_shift)) : coeffs0[i];
 		if (blueIdx == 0) {
 			std::swap(coeffs[0], coeffs[2]);
 			std::swap(coeffs[3], coeffs[5]);
@@ -708,7 +712,7 @@ template<typename _Tp> struct XYZ2RGB_i
 			228, -836, 4331
 		};
 		for (int i = 0; i < 9; i++)
-			coeffs[i] = _coeffs ? cvRound(_coeffs[i] * (1 << xyz_shift)) : coeffs0[i];
+			coeffs[i] = _coeffs ? fbcRound(_coeffs[i] * (1 << xyz_shift)) : coeffs0[i];
 
 		if (blueIdx == 0) {
 			std::swap(coeffs[0], coeffs[6]);

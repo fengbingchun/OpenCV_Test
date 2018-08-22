@@ -8,7 +8,11 @@
 
 int test_threshold_uchar()
 {
+#ifdef _MSC_VER
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!matSrc.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -48,7 +52,11 @@ int test_threshold_uchar()
 
 int test_threshold_float()
 {
+#ifdef _MSC_VER
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!matSrc.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;

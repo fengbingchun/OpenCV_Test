@@ -529,7 +529,7 @@ int test_Scalar()
 	fbc::Scalar scalar4(9);
 	fbc::Scalar scalar5 = fbc::Scalar::all(8);
 	fbc::Scalar_<int> scalar6 = fbc::Scalar_<int>(scalar3);
-	assert(scalar6.val[0] == -1 && scalar6.val[1] == -2 && scalar6.val[2] == -4 && scalar6[3] == -5);
+	assert(scalar6.val[0] == -1 && scalar6.val[1] == -3 && scalar6.val[2] == -4 && scalar6[3] == -5);
 	fbc::Scalar scalar7 = scalar2 * 1.5;
 	scalar1 = scalar2 + scalar5;
 	scalar2 *= -6;
@@ -549,7 +549,7 @@ int test_Scalar()
 	cv::Scalar scalar4_(9);
 	cv::Scalar scalar5_ = cv::Scalar::all(8);
 	cv::Scalar_<int> scalar6_ = cv::Scalar_<int>(scalar3_);
-	assert(scalar6_.val[0] == -1 && scalar6_.val[1] == -2 && scalar6_.val[2] == -4 && scalar6_[3] == -5);
+	assert(scalar6_.val[0] == -1 && scalar6_.val[1] == -3 && scalar6_.val[2] == -4 && scalar6_[3] == -5);
 	cv::Scalar scalar7_ = scalar2_ * 1.5;
 	scalar1_ = scalar2_ + scalar5_;
 	scalar2_ *= -6;
@@ -610,7 +610,11 @@ static void mat_dump(const fbc::Mat3BGR& matSrc, fbc::Mat3BGR& matDst)
 
 int test_Mat()
 {
+#ifdef _MSC_VER
 	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat mat = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!mat.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -629,14 +633,14 @@ int test_Mat()
 	assert(flag1 == false);
 	bool flag_isContinuous1 = mat4.isContinuous();
 	assert(flag_isContinuous1 == true);
-	fbc::Mat3BGR mat5(mat4); // mat5·ÖÅäÁËÐÂµÄ¿Õ¼ä,×¢ÒâÓëmat5_µÄ²»Í¬
+	fbc::Mat3BGR mat5(mat4); // mat5åˆ†é…äº†æ–°çš„ç©ºé—´,æ³¨æ„ä¸Žmat5_çš„ä¸åŒ
 	fbc::Mat3BGR mat6;
-	mat6 = mat4; // mat6·ÖÅäÁËÐÂµÄ¿Õ¼ä,×¢ÒâÓëmat6_µÄ²»Í¬
+	mat6 = mat4; // mat6åˆ†é…äº†æ–°çš„ç©ºé—´,æ³¨æ„ä¸Žmat6_çš„ä¸åŒ
 	fbc::Mat3BGR mat7(100, 100);
 	mat_dump(mat4, mat7);
 	fbc::Mat3BGR mat8;
 	mat4.copyTo(mat8);
-	fbc::Mat3BGR mat9; // mat9¿ÉÄÜ»á·ÖÅä¿Õ¼ä£¬µ«mat10²»»á
+	fbc::Mat3BGR mat9; // mat9å¯èƒ½ä¼šåˆ†é…ç©ºé—´ï¼Œä½†mat10ä¸ä¼š
 	mat8.copyTo(mat9, fbc::Rect(20, 10, 40, 45));
 	const fbc::uchar* p1 = mat8.ptr(50);
 	fbc::Mat3BGR mat10;
@@ -672,9 +676,9 @@ int test_Mat()
 	assert(flag1 == flag1_);
 	bool flag_isContinuous1_ = mat4_.isContinuous();
 	assert(flag_isContinuous1 == flag_isContinuous1_);
-	cv::Mat mat5_(mat4_); // mat5²¢Î´·ÖÅäÐÂµÄ¿Õ¼ä
+	cv::Mat mat5_(mat4_); // mat5å¹¶æœªåˆ†é…æ–°çš„ç©ºé—´
 	cv::Mat mat6_;
-	mat6_ = mat4_; // mat6²¢Î´·ÖÅäÐÂµÄ¿Õ¼ä
+	mat6_ = mat4_; // mat6å¹¶æœªåˆ†é…æ–°çš„ç©ºé—´
 	cv::Mat mat7_(100, 100, CV_8UC3);
 	mat_dump(mat4_, mat7_);
 	cv::Mat mat8_;

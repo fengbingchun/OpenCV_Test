@@ -16,6 +16,8 @@
 #endif
 
 #include <typeinfo>
+#include <string.h>
+#include <float.h>
 #include "core/fbcdef.hpp"
 #include "core/types.hpp"
 #include "core/base.hpp"
@@ -75,7 +77,7 @@ public:
 	Mat_<_Tp, chs>& zeros(int _rows, int _cols);
 
 	// returns the matrix cols and rows
-	Size& size() const;
+	Size size() const;
 	// returns true if Mat_::total() is 0 or if Mat_::data is NULL
 	bool empty() const;
 	// returns the matrix element size in bytes: sizeof(_Tp) * channels
@@ -355,7 +357,7 @@ const uchar* Mat_<_Tp, chs>::ptr(int i0) const
 }
 
 template<typename _Tp, int chs>
-uchar* Mat_<_Tp, chs>::ptr(int i0 = 0)
+uchar* Mat_<_Tp, chs>::ptr(int i0)
 {
 	FBC_Assert(i0 < this->rows);
 
@@ -426,7 +428,7 @@ void Mat_<_Tp, chs>::setTo(const Scalar& _value)
 }
 
 template<typename _Tp, int chs> template<typename _Tp2>
-void Mat_<_Tp, chs>::convertTo(Mat_<_Tp2, chs>& _m, double alpha = 1, const Scalar& scalar = Scalar(0, 0, 0, 0)) const
+void Mat_<_Tp, chs>::convertTo(Mat_<_Tp2, chs>& _m, double alpha, const Scalar& scalar) const
 {
 	FBC_Assert(this->channels <= 4);
 
@@ -498,7 +500,7 @@ Mat_<_Tp, chs>& Mat_<_Tp, chs>::zeros(int _rows, int _cols)
 }
 
 template<typename _Tp, int chs>
-Size& Mat_<_Tp, chs>::size() const
+Size Mat_<_Tp, chs>::size() const
 {
 	return Size(this->cols, this->rows);
 }

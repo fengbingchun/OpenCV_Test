@@ -9,6 +9,7 @@
 
 #include "core/hal.hpp"
 
+#include <string.h>
 #include <float.h>
 #include <algorithm>
 

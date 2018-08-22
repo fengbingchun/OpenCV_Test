@@ -10,7 +10,11 @@
 
 int test_resize_uchar()
 {
+#ifdef _MSC_VER
 	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat mat = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!mat.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -46,7 +50,11 @@ int test_resize_uchar()
 
 int test_resize_float()
 {
+#ifdef _MSC_VER
 	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat mat = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!mat.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -83,7 +91,11 @@ int test_resize_float()
 
 int test_resize_area()
 {
+#ifdef _MSC_VER
 	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat mat = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!mat.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;

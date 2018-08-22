@@ -1,17 +1,23 @@
 // fbc_cv is free software and uses the same licence as OpenCV
 // Email: fengbingchun@163.com
 
-#include <windows.h>
+#ifdef _MSC_VER
+	#include <windows.h>
+#else
+	#include <dirent.h>
+#endif
+#include <string.h>
 #include "directory.hpp"
 
 // reference: contrib/src/inputoutput.cpp (2.4.9)
 
 namespace fbc{
 
-	std::vector<std::string> Directory::GetListFiles(const std::string& path, const std::string & exten, bool addPath)
+	std::vector<std::string> Directory::GetListFiles(const std::string& path, const std::string& exten, bool addPath)
 	{
 		std::vector<std::string> list;
 		list.clear();
+#ifdef _MSC_VER
 		std::string path_f = path + "/" + exten;
 		WIN32_FIND_DATAA FindFileData;
 		HANDLE hFind;
@@ -39,6 +45,25 @@ namespace fbc{
 
 			FindClose(hFind);
 		}
+#else		
+    		DIR* dp = nullptr;
+    		struct dirent* dirp = nullptr;
+    		if ((dp = opendir(path.c_str())) == nullptr) {
+        		return list;
+    		}
+
+    		while ((dirp = readdir(dp)) != nullptr) {
+        		if (dirp->d_type == DT_REG) {
+            			if (exten.compare("*") == 0)
+                			list.emplace_back(static_cast<std::string>(dirp->d_name));
+            			else
+                			if (std::string(dirp->d_name).find(exten) != std::string::npos)
+                    				list.emplace_back(static_cast<std::string>(dirp->d_name));
+        		}
+    		}
+
+    		closedir(dp);
+#endif
 
 		return list;
 	}
@@ -62,7 +87,7 @@ namespace fbc{
 		std::vector<std::string> list;
 		std::string path_f = path + "/" + exten;
 		list.clear();
-
+#ifdef _MSC_VER
 		WIN32_FIND_DATAA FindFileData;
 		HANDLE hFind;
 
@@ -87,7 +112,25 @@ namespace fbc{
 
 			FindClose(hFind);
 		}
+#else
+    		DIR* dp = nullptr;
+    		struct dirent* dirp = nullptr;
+    		if ((dp = opendir(path.c_str())) == nullptr) {
+        		return list;
+    		}
 
+    		while ((dirp = readdir(dp)) != nullptr) {
+        		if (dirp->d_type == DT_DIR && strcmp(dirp->d_name, ".") != 0 && strcmp(dirp->d_name, "..") != 0) {
+            			if (exten.compare("*") == 0)
+                			list.emplace_back(static_cast<std::string>(dirp->d_name));
+            			else
+                			if (std::string(dirp->d_name).find(exten) != std::string::npos)
+                    				list.emplace_back(static_cast<std::string>(dirp->d_name));
+        		}
+    		}
+
+    		closedir(dp);
+#endif
 		return list;
 	}
 }

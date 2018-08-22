@@ -10,11 +10,15 @@ int test_directory_GetListFiles()
 {
 	fbc::Directory dir;
 
+#ifdef _MSC_VER
 	std::string path = "E:/GitCode/OpenCV_Test/test_images";
+#else
+	std::string path = "test_images";
+#endif
 	std::string exten = "*.jpg"; //"*";
 	bool addPath = false; //true;
 
-	// ±éÀúÖ¸¶¨ÎÄ¼ş¼ĞÏÂµÄËùÓĞÎÄ¼ş£¬²»°üÀ¨Ö¸¶¨ÎÄ¼ş¼ĞÄÚµÄÎÄ¼ş¼Ğ
+	// éå†æŒ‡å®šæ–‡ä»¶å¤¹ä¸‹çš„æ‰€æœ‰æ–‡ä»¶ï¼Œä¸åŒ…æ‹¬æŒ‡å®šæ–‡ä»¶å¤¹å†…çš„æ–‡ä»¶å¤¹
 	std::vector<std::string> filenames = dir.GetListFiles(path, exten, addPath);
 
 	std::cout << "file names: " << std::endl;
@@ -27,12 +31,15 @@ int test_directory_GetListFiles()
 int test_directory_GetListFilesR()
 {
 	fbc::Directory dir;
-
+#ifdef _MSC_VER
 	std::string path = "E:/GitCode/OpenCV_Test/test_images";
+#else
+	std::string path = "test_images";
+#endif
 	std::string exten = "*";
 	bool addPath = true; //false
 
-	// ±éÀúÖ¸¶¨ÎÄ¼ş¼ĞÏÂµÄËùÓĞÎÄ¼ş£¬°üÀ¨Ö¸¶¨ÎÄ¼ş¼ĞÄÚµÄÎÄ¼ş¼Ğ
+	// éå†æŒ‡å®šæ–‡ä»¶å¤¹ä¸‹çš„æ‰€æœ‰æ–‡ä»¶ï¼ŒåŒ…æ‹¬æŒ‡å®šæ–‡ä»¶å¤¹å†…çš„æ–‡ä»¶å¤¹
 	std::vector<std::string> allfilenames = dir.GetListFilesR(path, exten, addPath);
 
 	std::cout << "all file names: " << std::endl;
@@ -45,12 +52,15 @@ int test_directory_GetListFilesR()
 int test_directory_GetListFolders()
 {
 	fbc::Directory dir;
-
+#ifdef _MSC_VER
 	std::string path = "E:/GitCode/OpenCV_Test/test_images";
+#else
+	std::string path = "test_images";
+#endif
 	std::string exten = "*d*"; //"*"
 	bool addPath = false; //true
 
-	// ±éÀúÖ¸¶¨ÎÄ¼ş¼ĞÏÂµÄËùÓĞÎÄ¼ş¼Ğ£¬²»°üÀ¨Ö¸¶¨ÎÄ¼ş¼ĞÏÂµÄÎÄ¼ş
+	// éå†æŒ‡å®šæ–‡ä»¶å¤¹ä¸‹çš„æ‰€æœ‰æ–‡ä»¶å¤¹ï¼Œä¸åŒ…æ‹¬æŒ‡å®šæ–‡ä»¶å¤¹ä¸‹çš„æ–‡ä»¶
 	std::vector<std::string> foldernames = dir.GetListFolders(path, exten, addPath);
 
 	std::cout << "folder names: " << std::endl;

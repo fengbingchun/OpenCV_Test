@@ -51,7 +51,11 @@ int test_opencv_kmeans()
 int test_opencv_Laplacian()
 {
 	// reference: https://docs.opencv.org/3.1.0/d5/db5/tutorial_laplace_operator.html
+#ifdef _MSC_VER
 	cv::Mat src = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 0);
+#else	
+	cv::Mat src = cv::imread("test_images/lena.png", 0);
+#endif
 	if (!src.data || src.channels() != 1) {
 		fprintf(stderr, "read image fail\n");
 		return -1;
@@ -60,8 +64,11 @@ int test_opencv_Laplacian()
 
 	cv::Mat dst;
 	cv::Laplacian(src, dst, src.depth(), 1);
+#ifdef _MSC_VER
 	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/laplacian_lena.png", dst);
-
+#else
+	cv::imwrite("test_images/laplacian_lena.png", dst);
+#endif
 	return 0;
 }
 
@@ -128,7 +135,11 @@ int test_opencv_PCA()
 {
 	// reference: https://docs.opencv.org/3.1.0/d1/dee/tutorial_introduction_to_pca.html
 	// Load image
-	cv::Mat src = cv::imread("E:/GitCode/OpenCV_Test/test_images/pca_test1.jpg");
+#ifdef _MSC_VER
+	cv::Mat src = cv::imread("E:/GitCode/OpenCV_Test/test_images/pac_test1.jpg");
+#else	
+	cv::Mat src = cv::imread("test_images/pca_test1.jpg");
+#endif
 	// Check if image is loaded successfully
 	if (!src.data || src.empty()) {
 		std::cout << "Problem loading image!!!" << std::endl;
@@ -295,7 +306,7 @@ int test_opencv_eigen()
 
 int test_opencv_norm()
 {
-	std::vector<int> norm_types{ 1, 2, 4 }; // ’˝Œﬁ«Ó°¢L1°¢L2
+	std::vector<int> norm_types{ 1, 2, 4 }; // Ê≠£Êó†Á©∑„ÄÅL1„ÄÅL2
 	std::vector<std::string> str {"Inf", "L1", "L2"};
 	// 1. vector:
 	std::vector<float> vec1{ -2, 3, 1 };
@@ -358,7 +369,11 @@ int test_read_write_video()
 {
 	// reference: http://docs.opencv.org/trunk/dd/d9e/classcv_1_1VideoWriter.html
 	if (1) { // read image and write video
+#ifdef _MSC_VER
 		cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/1.jpg");
+#else	
+		cv::Mat mat = cv::imread("test_images/1.jpg");
+#endif
 		if (mat.empty()) {
 			fprintf(stderr, "read image fail\n");
 			return -1;
@@ -369,7 +384,11 @@ int test_read_write_video()
 		double fps = 25.0;
 		bool isColor = (mat.type() == CV_8UC3);
 		cv::VideoWriter write_video;
+#ifdef _MSC_VER
 		write_video.open("E:/GitCode/OpenCV_Test/test_images/video_1.avi", codec, fps, cv::Size(width, height), isColor);
+#else
+		write_video.open("test_images/video_1.avi", codec, fps, cv::Size(width, height), isColor);
+#endif
 		if (!write_video.isOpened()) {
 			fprintf(stderr, "open video file fail\n");
 			return -1;
@@ -387,7 +406,11 @@ int test_read_write_video()
 	}
 
 	if (1) { // read video and write video
+#ifdef _MSC_VER
 		cv::VideoCapture read_video("E:/GitCode/OpenCV_Test/test_images/video_1.avi");
+#else	
+		cv::VideoCapture read_video("test_images/video_1.avi");
+#endif
 		if (!read_video.isOpened()) {
 			fprintf(stderr, "open video file fail\n");
 			return -1;
@@ -406,7 +429,11 @@ int test_read_write_video()
 		double fps = 25.0;
 		bool isColor = (frame.type() == CV_8UC3);
 		cv::VideoWriter write_video;
+#ifdef _MSC_VER
 		write_video.open("E:/GitCode/OpenCV_Test/test_images/video_2.avi", codec, fps, cv::Size(width, height), isColor);
+#else
+		write_video.open("test_images/video_2.avi", codec, fps, cv::Size(width, height), isColor);
+#endif
 		if (!write_video.isOpened()) {
 			fprintf(stderr, "open video file fail\n");
 			return -1;
@@ -432,14 +459,21 @@ int test_encode_decode()
 {
 	// Blog: http://blog.csdn.net/fengbingchun/article/details/60780232
 	// cv::imread/cv::imwrite
+#ifdef _MSC_VER
 	std::string image_name = "E:/GitCode/OpenCV_Test/test_images/1.jpg";
+#else
+	std::string image_name = "test_images/1.jpg";
+#endif
 	cv::Mat mat1 = cv::imread(image_name, 1);
 	if (mat1.empty()) {
 		fprintf(stderr, "read image fail: %s\n", image_name.c_str());
 		return -1;
 	}
-
+#ifdef _MSC_VER
 	std::string save_image = "E:/GitCode/OpenCV_Test/test_images/1_1.jpg";
+#else
+	std::string save_image = "test_images/1_1.jpg";
+#endif
 	cv::imwrite(save_image, mat1);
 
 	// cv::imdecode/cv::imencode
@@ -457,12 +491,20 @@ int test_encode_decode()
 
 	std::vector<char> vec_data(&buffer[0], &buffer[0] + size);
 	cv::Mat mat2 = cv::imdecode(vec_data, 1);
+#ifdef _MSC_VER
 	std::string save_image2 = "E:/GitCode/OpenCV_Test/test_images/2_1.jpg";
+#else
+	std::string save_image2 = "test_images/2_1.jpg";
+#endif
 	cv::imwrite(save_image2, mat2);
 
 	std::vector<uchar> buf;
 	cv::imencode(".jpg", mat1, buf);
+#ifdef _MSC_VER
 	std::string save_image3 = "E:/GitCode/OpenCV_Test/test_images/2_2.jpg";
+#else
+	std::string save_image3 = "test_images/2_2.jpg";
+#endif
 	std::ofstream file2(save_image3.c_str(), std::ios::out | std::ios::binary);
 	if (!file2) {
 		fprintf(stderr, "open file fail: %s\n", save_image3.c_str());
@@ -506,7 +548,11 @@ int test_encode_decode()
 
 int test_opencv_resize()
 {
+#ifdef _MSC_VER
 	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat mat = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!mat.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -524,7 +570,11 @@ int test_opencv_resize()
 
 int test_opencv_cvtColor()
 {
+#ifdef _MSC_VER
 	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat mat = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!mat.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -541,7 +591,11 @@ int test_opencv_cvtColor()
 
 int test_opencv_split()
 {
+#ifdef _MSC_VER
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!matSrc.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -557,9 +611,15 @@ int test_opencv_split()
 
 int test_opencv_merge()
 {
+#ifdef _MSC_VER
 	cv::Mat matSrc1 = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
 	cv::Mat matSrc2 = cv::imread("E:/GitCode/OpenCV_Test/test_images/1.jpg", 1);
 	cv::Mat matSrc3 = cv::imread("E:/GitCode/OpenCV_Test/test_images/2.jpg", 1);
+#else
+	cv::Mat matSrc1 = cv::imread("test_images/lena.png", 1);
+	cv::Mat matSrc2 = cv::imread("test_images/1.jpg", 1);
+	cv::Mat matSrc3 = cv::imread("test_images/2.jpg", 1);
+#endif
 	if (!matSrc1.data || !matSrc2.data || !matSrc3.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -587,7 +647,11 @@ int test_opencv_merge()
 
 int test_opencv_warpAffine()
 {
+#ifdef _MSC_VER
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!matSrc.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -671,7 +735,11 @@ static void update_map(const cv::Mat& src, cv::Mat& map_x, cv::Mat& map_y, int i
 
 int test_opencv_remap()
 {
+#ifdef _MSC_VER
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!matSrc.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -714,7 +782,11 @@ int test_opencv_remap()
 
 int test_opencv_rotate()
 {
+#ifdef _MSC_VER
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!matSrc.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -741,7 +813,11 @@ int test_opencv_rotate()
 
 int test_opencv_warpPerspective()
 {
+#ifdef _MSC_VER
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!matSrc.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -768,7 +844,11 @@ int test_opencv_warpPerspective()
 
 int test_opencv_dilate()
 {
+#ifdef _MSC_VER
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!matSrc.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -794,7 +874,11 @@ int test_opencv_dilate()
 
 int test_opencv_erode()
 {
+#ifdef _MSC_VER
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!matSrc.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -822,7 +906,11 @@ int test_opencv_erode()
 
 int test_opencv_morphologyEx()
 {
+#ifdef _MSC_VER
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!matSrc.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -850,7 +938,11 @@ int test_opencv_morphologyEx()
 
 int test_opencv_threshold()
 {
+#ifdef _MSC_VER
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!matSrc.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -868,7 +960,11 @@ int test_opencv_threshold()
 
 int test_opencv_transpose()
 {
+#ifdef _MSC_VER
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!matSrc.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -882,7 +978,11 @@ int test_opencv_transpose()
 
 int test_opencv_flip()
 {
-	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/1.jpg", 1);
+#ifdef _MSC_VER
+	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!matSrc.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -897,7 +997,11 @@ int test_opencv_flip()
 
 int test_opencv_dft()
 {
+#ifdef _MSC_VER
 	cv::Mat I = cv::imread("E:/GitCode/OpenCV_Test/test_images/1.jpg", 1);
+#else	
+	cv::Mat I = cv::imread("test_images/1.jpg", 1);
+#endif
 	if (I.empty()) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -957,7 +1061,11 @@ int test_opencv_dft()
 
 int test_opencv_filter2D()
 {
+#ifdef _MSC_VER
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/1.jpg", 1);
+#else	
+	cv::Mat matSrc = cv::imread("test_images/1.jpg", 1);
+#endif
 	if (!matSrc.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;

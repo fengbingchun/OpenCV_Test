@@ -8,7 +8,11 @@
 
 int test_morphologyEx_uchar()
 {
+#ifdef _MSC_VER
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!matSrc.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -73,7 +77,11 @@ int test_morphologyEx_uchar()
 
 int test_morphologyEx_float()
 {
+#ifdef _MSC_VER
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!matSrc.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -140,7 +148,11 @@ int test_morphologyEx_float()
 
 int test_morphologyEx_hitmiss()
 {
+#ifdef _MSC_VER
 	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!matSrc.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;

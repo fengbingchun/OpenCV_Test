@@ -3,11 +3,14 @@
 - OpenCV's usage
 - fbc_cv library
 
-**The project support platform: windows7/10 64 bits. It can be directly build with VS2013 in windows7/10 64bits.**
+**The project support platform:**
+- windows7/10 64 bits: It can be directly build with VS2013 in windows7/10 64bits.
+- Linux: It can be directly build with cmake(file position: prj/linux_cmake_OpenCV_Test).
 
 **OpenCV's version: 3.1**
 - close support for OpenCL/CUDA/SIMD/TBB/OpenMP when build with CMake
-- modify sources/modules/core/include/opencv2/core/cvdef.h, for example: #define CV_SSE2 0
+- modify modules/core/include/opencv2/core/cvdef.h,close SIMD support: adjust line 167 to: #if 0
+- in order to keep the linux and windows results consistent, modify modules/core/include/opencv2/core/fast_math.hpp: make cvFound/cvFloor/cvCeil/cvRound to execute the last branch
 - insure that all algorithms are implemented with c++
 
 # fbc_cv

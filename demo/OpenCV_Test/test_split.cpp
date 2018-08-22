@@ -11,7 +11,11 @@
 
 int test_split_uchar()
 {
+#ifdef _MSC_VER
 	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat mat = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!mat.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;
@@ -59,7 +63,11 @@ int test_split_uchar()
 
 int test_split_float()
 {
+#ifdef _MSC_VER
 	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+#else	
+	cv::Mat mat = cv::imread("test_images/lena.png", 1);
+#endif
 	if (!mat.data) {
 		std::cout << "read image fail" << std::endl;
 		return -1;

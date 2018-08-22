@@ -60,7 +60,7 @@ int remap(const Mat_<_Tp1, chs1>& src, Mat_<_Tp1, chs1>& dst, const Mat_<_Tp2, c
 		FBC_Assert(((typeid(float).name() == typeid(_Tp2).name() || typeid(short).name() == typeid(_Tp2).name()) && chs2 == 2 && map2.empty()) ||
 			(typeid(float).name() == typeid(_Tp2).name() && typeid(float).name() == typeid(_Tp3).name() && chs2 == chs3 && chs2 == 1));
 	}
-	FBC_Assert(src.size() == map1.size() && src.size() == dst.size());
+	FBC_Assert(map2.empty() || map2.size() == map1.size());
 	FBC_Assert(src.data != dst.data);
 	FBC_Assert(typeid(uchar).name() == typeid(_Tp1).name() || typeid(float).name() == typeid(_Tp1).name()); // uchar || float
 
@@ -271,7 +271,7 @@ static int remapBilinear(const Mat_<_Tp1, chs1>& _src, Mat_<_Tp1, chs1>& _dst,
 	const AT* wtab = (const AT*)_wtab;
 	const T* S0 = (const T*)_src.ptr();
 	size_t sstep = _src.step / sizeof(S0[0]);
-	T cval[CV_CN_MAX];
+	T cval[FBC_CN_MAX];
 	int dx, dy;
 	CastOp castOp;
 

@@ -5,6 +5,7 @@
               modules/core/src/matrix.cpp
 */
 
+#include <float.h>
 #include "core/types.hpp"
 #include "core/base.hpp"
 #include "core/fast_math.hpp"

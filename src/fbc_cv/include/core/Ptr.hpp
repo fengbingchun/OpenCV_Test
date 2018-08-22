@@ -12,13 +12,17 @@
 	#error Ptr.hpp header must be compiled as C++
 #endif
 
-#include <intrin.h>
+#ifdef _MSC_VER
+	#include <intrin.h>
+#endif
 #include <algorithm>
 
 namespace fbc {
-
-#define CV_XADD(addr, delta) (int)_InterlockedExchangeAdd((long volatile*)addr, delta)
-// static inline CV_XADD(int* addr, int delta) { int tmp = *addr; *addr += delta; return tmp; }
+#ifdef _MSC_VER
+	#define CV_XADD(addr, delta) (int)_InterlockedExchangeAdd((long volatile*)addr, delta)
+#else
+	#define CV_XADD(addr, delte) (int)__sync_fetch_and_add((unsigned*)(addr), (unsigned)(delte))
+#endif
 
 template<typename Y>
 struct DefaultDeleter {

@@ -13,6 +13,7 @@
 #include "core/fbcdef.hpp"
 #include "core/base.hpp"
 #include "core/interface.hpp"
+#include "core/saturate.hpp"
 
 namespace fbc {
 ////////////////////////////// Small Matrix ///////////////////////////
@@ -349,14 +350,14 @@ double norm(const Matx<_Tp, m, n>& M, int normType)
 {
 	switch (normType) {
 	case NORM_INF:
-		return (double)normInf<_Tp, typename DataType<_Tp>::work_type>(M.val, m*n);
+		return (double)normInf<_Tp, _Tp>(M.val, m*n);
 	case NORM_L1:
-		return (double)normL1<_Tp, typename DataType<_Tp>::work_type>(M.val, m*n);
+		return (double)normL1<_Tp, _Tp>(M.val, m*n);
 	case NORM_L2SQR:
-		return (double)normL2Sqr<_Tp, typename DataType<_Tp>::work_type>(M.val, m*n);
+		return (double)normL2Sqr<_Tp, _Tp>(M.val, m*n);
 	default:
 	case NORM_L2:
-		return std::sqrt((double)normL2Sqr<_Tp, typename DataType<_Tp>::work_type>(M.val, m*n));
+		return std::sqrt((double)normL2Sqr<_Tp, _Tp>(M.val, m*n));
 	}
 }
 
