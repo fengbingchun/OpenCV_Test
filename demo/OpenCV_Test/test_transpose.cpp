@@ -83,7 +83,7 @@ int test_transpose_uchar()
 	cv::Mat matSave1(width, height, CV_8UC3, mat3.data);
 #ifdef _MSC_VER
 	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/transpose1_fbc.jpg", matSave1);
-	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/transpose1_cv.jpg", mat3_);i
+	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/transpose1_cv.jpg", mat3_);
 #else
 	cv::imwrite("test_images/transpose1_fbc.jpg", matSave1);
 	cv::imwrite("test_images/transpose1_cv.jpg", mat3_);
