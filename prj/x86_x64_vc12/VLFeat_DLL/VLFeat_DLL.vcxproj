@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{E59F04B3-A42F-4AF9-9B02-A1B69A6F1752}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>VLFeat_DLL</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>.\../../../obj/dbg/x64_vc12/VLFeat_DLL</OutDir>
+    <IntDir>.\../../../obj/dbg/x64_vc12/VLFeat_DLL</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>.\../../../obj/rel/x64_vc12/VLFeat_DLL</OutDir>
+    <IntDir>.\../../../obj/rel/x64_vc12/VLFeat_DLL</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;VL_BUILD_DLL;_CRT_SECURE_NO_WARNINGS;_SSE2_;__SSE2__;__AVX__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>false</SDLCheck>
+      <AdditionalIncludeDirectories>E:\GitCode\OpenCV_Test\src\VLFeat\vl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderOutputFile>.\../../../obj/dbg/x64_vc12/VLFeat_DLL\VLFeat_DLL.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../../obj/dbg/x64_vc12/VLFeat_DLL\</AssemblerListingLocation>
+      <ObjectFileName>.\../../../obj/dbg/x64_vc12/VLFeat_DLL\</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../../obj/dbg/x64_vc12/VLFeat_DLL\</ProgramDataBaseFileName>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <OutputFile>../../../lib/dbg/x64_vc12/VLFeat.dll</OutputFile>
+      <ImportLibrary>../../../lib/dbg/x64_vc12/VLFeat.lib</ImportLibrary>
+    </Link>
+    <Bscmake>
+      <OutputFile>.\../../../obj/dbg/x64_vc12/VLFeat_DLL\VLFeat_DLL.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;VL_BUILD_DLL;_CRT_SECURE_NO_WARNINGS;_SSE2_;__SSE2__;__AVX__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>false</SDLCheck>
+      <AdditionalIncludeDirectories>E:\GitCode\OpenCV_Test\src\VLFeat\vl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderOutputFile>.\../../../obj/rel/x64_vc12/VLFeat_DLL\VLFeat_DLL.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../../obj/rel/x64_vc12/VLFeat_DLL\</AssemblerListingLocation>
+      <ObjectFileName>.\../../../obj/rel/x64_vc12/VLFeat_DLL\</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../../obj/rel/x64_vc12/VLFeat_DLL\</ProgramDataBaseFileName>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <OutputFile>../../../lib/rel/x64_vc12/VLFeat.dll</OutputFile>
+      <ImportLibrary>../../../lib/rel/x64_vc12/VLFeat.lib</ImportLibrary>
+    </Link>
+    <Bscmake>
+      <OutputFile>.\../../../obj/rel/x64_vc12/VLFeat_DLL\VLFeat_DLL.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\VLFeat\vl\aib.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\array.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\covdet.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\dsift.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\fisher.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\generic.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\getopt_long.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\gmm.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\hikmeans.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\hog.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\homkermap.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\host.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\ikmeans.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\imopv.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\imopv_sse2.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\kdtree.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\kmeans.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\lbp.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\liop.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\mathop.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\mathop_avx.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\mathop_sse2.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\mser.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\pgm.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\quickshift.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\random.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\rodrigues.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\scalespace.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\sift.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\slic.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\stringop.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\svm.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\svmdataset.c" />
+    <ClCompile Include="..\..\..\src\VLFeat\vl\vlad.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\VLFeat\vl\aib.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\array.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\covdet.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\dsift.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\fisher.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\generic.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\getopt_long.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\gmm.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\heap-def.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\hikmeans.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\hog.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\homkermap.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\host.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\ikmeans.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\imopv.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\imopv_sse2.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\kdtree.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\kmeans.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\lbp.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\liop.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\mathop.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\mathop_avx.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\mathop_sse2.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\mser.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\pgm.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\qsort-def.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\quickshift.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\random.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\rodrigues.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\scalespace.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\shuffle-def.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\sift.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\slic.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\stringop.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\svm.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\svmdataset.h" />
+    <ClInclude Include="..\..\..\src\VLFeat\vl\vlad.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

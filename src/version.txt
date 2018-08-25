@@ -7,4 +7,8 @@
 	commit: 7e93604
 	date: 2015.10.18
 	url: https://github.com/lemenkov/libyuv
+3. VLFeat:
+	version: 0.9.20
+	date: 2015.01.14
+	url: http://www.vlfeat.org/
 
