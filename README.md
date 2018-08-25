@@ -1,11 +1,13 @@
 # OpenCV_Test
-**The project has two main effect:**
-- OpenCV's usage
-- fbc_cv library
+**The main role of the project:**
+- OpenCV's usage [OpenCV GitHub](https://github.com/opencv/opencv)
+- fbc_cv library: an open source image process library
+- libyuv's usage [libyuv GitHub](https://github.com/lemenkov/libyuv)
 
 **The project support platform:**
 - windows7/10 64 bits: It can be directly build with VS2013 in windows7/10 64bits.
-- Linux: It can be directly build with cmake(file position: prj/linux_cmake_OpenCV_Test).
+- Linux:
+	- OpenCV_Test support cmake build(file position: prj/linux_cmake_OpenCV_Test)
 
 **OpenCV's version: 3.1**
 - close support for OpenCL/CUDA/SIMD/TBB/OpenMP when build with CMake
@@ -21,7 +23,7 @@
 - each algorithm's result is same with OpenCV3.1
 - the codes are written in C++ without dependence on any 3rd-party libraries
 
-**The algorithms have been implemented include:**
+**fbc_cv have been implemented include:**
 - resize
 - cvtColor
 - merge/split
@@ -42,4 +44,4 @@
 
 **Blog:** [fengbingchun](http://blog.csdn.net/fengbingchun/article/category/721609)
 
-**Licence: uses the same licence as OpenCV3.1**
+**fbc_cv library licence: uses the same licence as OpenCV3.1**

@@ -1,0 +1,8 @@
+#ifndef FBC_LIBYUV_TEST_FUNSET_HPP_
+#define FBC_LIBYUV_TEST_FUNSET_HPP_
+
+int test_BGRAToI420();
+int test_BGRAToNV21();
+int test_BGRAToNV12();
+
+#endif // FBC_LIBYUV_TEST_FUNSET_HPP_

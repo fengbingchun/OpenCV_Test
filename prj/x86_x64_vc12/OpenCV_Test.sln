@@ -10,6 +10,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenCV_Test", "OpenCV_Test\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fbc_cv", "fbc_cv\fbc_cv.vcxproj", "{B6E09E23-0528-4905-8D9E-390AB1B82391}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libyuv", "libyuv\libyuv.vcxproj", "{A9ECF797-13F7-457C-9528-6D3661BDB6DA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Libyuv_Test", "Libyuv_Test\Libyuv_Test.vcxproj", "{BFABA516-44F3-46BD-85E1-C583BB313F97}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -24,6 +28,12 @@ Global
 		{B6E09E23-0528-4905-8D9E-390AB1B82391}.Debug|x64.Build.0 = Debug|x64
 		{B6E09E23-0528-4905-8D9E-390AB1B82391}.Release|x64.ActiveCfg = Release|x64
 		{B6E09E23-0528-4905-8D9E-390AB1B82391}.Release|x64.Build.0 = Release|x64
+		{A9ECF797-13F7-457C-9528-6D3661BDB6DA}.Debug|x64.ActiveCfg = Debug|x64
+		{A9ECF797-13F7-457C-9528-6D3661BDB6DA}.Release|x64.ActiveCfg = Release|x64
+		{BFABA516-44F3-46BD-85E1-C583BB313F97}.Debug|x64.ActiveCfg = Debug|x64
+		{BFABA516-44F3-46BD-85E1-C583BB313F97}.Debug|x64.Build.0 = Debug|x64
+		{BFABA516-44F3-46BD-85E1-C583BB313F97}.Release|x64.ActiveCfg = Release|x64
+		{BFABA516-44F3-46BD-85E1-C583BB313F97}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
