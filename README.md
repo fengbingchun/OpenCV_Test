@@ -5,7 +5,7 @@
 - libyuv's usage [libyuv GitHub](https://github.com/lemenkov/libyuv)
 - VLFeat's usage [vlfeat.org](http://www.vlfeat.org/)
 - Vigra's usage [vigra GitHub](https://github.com/ukoethe/vigra)
-- CImg's usage [cimg.eu] (http://www.cimg.eu/)
+- CImg's usage [cimg.eu](http://www.cimg.eu/)
 
 **The project support platform:**
 - windows7/10 64 bits: It can be directly build with VS2013 in windows7/10 64bits.
