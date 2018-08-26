@@ -22,6 +22,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Vigra", "vigra\vigra.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Vigra_Test", "Vigra_Test\Vigra_Test.vcxproj", "{B3AC9BE2-DA6B-4D7D-87BA-A06F081F1960}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CImg_Test", "CImg_Test\CImg_Test.vcxproj", "{E8E23222-1C58-4AF1-A6A0-E2826AC94BCA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -54,6 +56,8 @@ Global
 		{3AC93660-1E52-4EAF-981D-A074D5BDAA7E}.Release|x64.ActiveCfg = Release|x64
 		{B3AC9BE2-DA6B-4D7D-87BA-A06F081F1960}.Debug|x64.ActiveCfg = Debug|x64
 		{B3AC9BE2-DA6B-4D7D-87BA-A06F081F1960}.Release|x64.ActiveCfg = Release|x64
+		{E8E23222-1C58-4AF1-A6A0-E2826AC94BCA}.Debug|x64.ActiveCfg = Debug|x64
+		{E8E23222-1C58-4AF1-A6A0-E2826AC94BCA}.Release|x64.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

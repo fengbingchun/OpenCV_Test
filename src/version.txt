@@ -15,4 +15,7 @@
 	version: 1.10.0
 	date: 2013.11.26
 	url: https://github.com/ukoethe/vigra/releases
+5. CImg:
+	version: 1.6.4
+	url: http://www.cimg.eu/
 
