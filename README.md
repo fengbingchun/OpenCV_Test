@@ -4,6 +4,7 @@
 - fbc_cv library: an open source image process library
 - libyuv's usage [libyuv GitHub](https://github.com/lemenkov/libyuv)
 - VLFeat's usage [vlfeat.org](http://www.vlfeat.org/)
+- Vigra's usage [vigra GitHub](https://github.com/ukoethe/vigra)
 
 **The project support platform:**
 - windows7/10 64 bits: It can be directly build with VS2013 in windows7/10 64bits.

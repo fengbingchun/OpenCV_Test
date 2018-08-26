@@ -11,4 +11,8 @@
 	version: 0.9.20
 	date: 2015.01.14
 	url: http://www.vlfeat.org/
+4. vigra:
+	version: 1.10.0
+	date: 2013.11.26
+	url: https://github.com/ukoethe/vigra/releases
 

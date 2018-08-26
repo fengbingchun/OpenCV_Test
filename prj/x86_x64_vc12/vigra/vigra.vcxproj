@@ -1,0 +1,383 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{3AC93660-1E52-4EAF-981D-A074D5BDAA7E}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>vigra</RootNamespace>
+    <ProjectName>Vigra</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>.\../../../obj/dbg/x64_vc12/vigra/</OutDir>
+    <IntDir>.\../../../obj/dbg/x64_vc12/vigra/</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>.\../../../obj/rel/x64_vc12/vigra</OutDir>
+    <IntDir>.\../../../obj/rel/x64_vc12/vigra</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_CRT_SECURE_NO_WARNINGS;VIGRA_DLL;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>E:\GitCode\OpenCV_Test\src\vigra\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderOutputFile>.\../../../obj/dbg/x64_vc12/vigra\vigra.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../../obj/dbg/x64_vc12/vigra/</AssemblerListingLocation>
+      <ObjectFileName>.\../../../obj/dbg/x64_vc12/vigra/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../../obj/dbg/x64_vc12/vigra/</ProgramDataBaseFileName>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <OutputFile>../../../lib/dbg/x64_vc12/vigra.dll</OutputFile>
+      <ProgramDatabaseFile>../../../lib/dbg/x64_vc12/vigra.pdb</ProgramDatabaseFile>
+      <ImportLibrary>../../../lib/dbg/x64_vc12/vigra.lib</ImportLibrary>
+    </Link>
+    <Bscmake>
+      <OutputFile>.\../../../obj/dbg/x64_vc12/vigra\vigra.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;_CRT_SECURE_NO_WARNINGS;VIGRA_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>E:\GitCode\OpenCV_Test\src\vigra\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderOutputFile>.\../../../obj/rel/x64_vc12/vigra\vigra.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../../obj/rel/x64_vc12/vigra/</AssemblerListingLocation>
+      <ObjectFileName>.\../../../obj/rel/x64_vc12/vigra/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../../obj/rel/x64_vc12/vigra/</ProgramDataBaseFileName>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <OutputFile>../../../lib/rel/x64_vc12/vigra.dll</OutputFile>
+      <ProgramDatabaseFile>../../../lib/rel/x64_vc12/vigra.pdb</ProgramDatabaseFile>
+      <ImportLibrary>../../../lib/rel/x64_vc12/vigra.lib</ImportLibrary>
+    </Link>
+    <Bscmake>
+      <OutputFile>.\../../../obj/rel/x64_vc12/vigra\vigra.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\accessor.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\accumulator-grammar.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\accumulator.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\affinegeometry.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\affine_registration.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\algorithm.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\array_vector.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\autodiff.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\axistags.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\basicgeometry.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\basicimage.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\basicimageview.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\bessel.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\bit_array.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\bordertreatment.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\boundarytensor.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\box.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\bucket_queue.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\cellconfigurations.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\cellimage.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\clebsch-gordan.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\codec.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\colorconversions.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\combineimages.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\config.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\configVersion.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\contourcirculator.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\convolution.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\coordinate_iterator.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\copyimage.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\cornerdetection.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\diff2d.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\distancetransform.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\edgedetection.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\eigensystem.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\error.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\fftw.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\fftw3.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\fixedpoint.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\flatmorphology.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\functorexpression.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\functortraits.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\gaborfilter.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\gaussians.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\gradient_energy_tensor.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\graphs.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\hdf5impex.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\histogram.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\imagecontainer.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\imageinfo.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\imageiterator.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\imageiteratoradapter.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\impex.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\impexalpha.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\impexbase.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\initimage.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\inspectimage.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\inspector_passes.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\interpolating_accessor.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\invariant_features3D.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\iteratoradapter.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\iteratortags.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\iteratortraits.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\labelimage.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\labelvolume.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\linear_algebra.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\linear_solve.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\localminmax.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\mathutil.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\matlab.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\matlab_FLEXTYPE.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\matrix.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\memory.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\meshgrid.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\metaprogramming.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\multi_array.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\multi_convolution.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\multi_distance.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\multi_fft.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\multi_gridgraph.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\multi_impex.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\multi_iterator.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\multi_iterator_coupled.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\multi_labeling.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\multi_localminmax.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\multi_math.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\multi_morphology.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\multi_opencl.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\multi_pointoperators.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\multi_resize.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\multi_shape.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\multi_tensorutilities.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\multi_watersheds.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\navigator.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\noise_normalization.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\nonlineardiffusion.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\numerictraits.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\numpy_array.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\numpy_array_converters.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\numpy_array_taggedshape.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\numpy_array_traits.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\orientedtensorfilters.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\pixelneighborhood.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\polygon.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\polynomial.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\project2ellipse.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\promote_traits.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\python_utility.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\quadprog.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\quaternion.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\random.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\random_forest.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\random_forest\features.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\random_forest\rf_algorithm.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\random_forest\rf_common.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\random_forest\rf_decisionTree.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\random_forest\rf_earlystopping.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\random_forest\rf_nodeproxy.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\random_forest\rf_online_prediction_set.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\random_forest\rf_preprocessing.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\random_forest\rf_region.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\random_forest\rf_ridge_split.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\random_forest\rf_split.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\random_forest\rf_visitors.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\random_forest\splices.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\random_forest_deprec.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\random_forest_hdf5_impex.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\rational.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\recursiveconvolution.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\regression.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\resampling_convolution.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\resizeimage.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\rfftw.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\rgbvalue.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\sampling.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\seededregiongrowing.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\seededregiongrowing3d.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\separableconvolution.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\sifImport.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\singular_value_decomposition.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\sized_int.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\slanted_edge_mtf.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\slic.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\splineimageview.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\splines.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\static_assert.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\stdconvolution.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\stdimage.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\stdimagefunctions.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\symmetry.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\tensorutilities.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\tiff.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\timing.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\tinyvector.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\transformimage.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\tuple.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\tv_filter.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\type_lists.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\union_find.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\unittest.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\unsupervised_decomposition.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\utilities.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\voxelneighborhood.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\watersheds.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\watersheds3d.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\wigner-matrix.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\include\vigra\windows.h" />
+    <ClInclude Include="..\..\..\src\vigra\src\impex\auto_file.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\src\impex\bmp.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\src\impex\byteorder.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\src\impex\codecmanager.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\src\impex\error.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\src\impex\exr.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\src\impex\gif.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\src\impex\hdr.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\src\impex\iccjpeg.h" />
+    <ClInclude Include="..\..\..\src\vigra\src\impex\jpeg.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\src\impex\png.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\src\impex\pnm.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\src\impex\rgbe.h" />
+    <ClInclude Include="..\..\..\src\vigra\src\impex\sun.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\src\impex\tiff.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\src\impex\viff.hxx" />
+    <ClInclude Include="..\..\..\src\vigra\src\impex\void_vector.hxx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\src\vigra\include\vigra\promote_traits.hxx.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\vigra\src\impex\bmp.cxx" />
+    <ClCompile Include="..\..\..\src\vigra\src\impex\byteorder.cxx" />
+    <ClCompile Include="..\..\..\src\vigra\src\impex\codecmanager.cxx" />
+    <ClCompile Include="..\..\..\src\vigra\src\impex\exr.cxx" />
+    <ClCompile Include="..\..\..\src\vigra\src\impex\gif.cxx" />
+    <ClCompile Include="..\..\..\src\vigra\src\impex\hdf5impex.cxx" />
+    <ClCompile Include="..\..\..\src\vigra\src\impex\hdf5_rf_impex.cxx" />
+    <ClCompile Include="..\..\..\src\vigra\src\impex\hdr.cxx" />
+    <ClCompile Include="..\..\..\src\vigra\src\impex\iccjpeg.c" />
+    <ClCompile Include="..\..\..\src\vigra\src\impex\imageinfo.cxx" />
+    <ClCompile Include="..\..\..\src\vigra\src\impex\jpeg.cxx" />
+    <ClCompile Include="..\..\..\src\vigra\src\impex\png.cxx" />
+    <ClCompile Include="..\..\..\src\vigra\src\impex\pnm.cxx" />
+    <ClCompile Include="..\..\..\src\vigra\src\impex\rgbe.c" />
+    <ClCompile Include="..\..\..\src\vigra\src\impex\sifImport.cxx" />
+    <ClCompile Include="..\..\..\src\vigra\src\impex\sun.cxx" />
+    <ClCompile Include="..\..\..\src\vigra\src\impex\tiff.cxx" />
+    <ClCompile Include="..\..\..\src\vigra\src\impex\viff.cxx" />
+    <ClCompile Include="..\..\..\src\vigra\src\impex\void_vector.cxx" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

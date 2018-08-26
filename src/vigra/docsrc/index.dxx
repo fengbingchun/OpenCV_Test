@@ -1,0 +1,601 @@
+/** \mainpage VIGRA Reference Manual
+
+    <UL style="list-style-image:url(documents/bullet.gif)">
+    <LI> \ref Installation
+        <BR>&nbsp;&nbsp;&nbsp;<em>how to get started</em>
+	<LI> \ref Tutorial
+		<BR>&nbsp;&nbsp;&nbsp;<em>first steps with VIGRA</em>
+    <LI> \ref Concepts
+        <BR>&nbsp;&nbsp;&nbsp;<em>generic interface definitions</em>
+    <LI> \ref Utilities
+        <BR>&nbsp;&nbsp;&nbsp;<em>Basic helper functionality needed throughout</em>
+    <LI> \ref ErrorReporting
+        <BR>&nbsp;&nbsp;&nbsp;<em>Exceptions and assertions</em>
+    <LI> \ref MathFunctionality
+        <BR>&nbsp;&nbsp;&nbsp;<em>Number types, mathematical constants and functions, linear algebra etc.</em>
+    <LI> \ref PixelTypes
+        <BR>&nbsp;&nbsp;&nbsp;<em>Non-scalar types such as RGBValue and TinyVector</em>
+    <LI> \ref ImageDataStructures
+        <BR>&nbsp;&nbsp;&nbsp;<em>Images, image iterators, and supporting types and functions</em>
+    <LI> \ref MultiDimensionalArrays
+        <BR>&nbsp;&nbsp;&nbsp;<em>Arrays, iterators, and supporting types and functions
+             for arbitrary dimensions</em>
+    <LI> \ref GraphDataStructures
+        <BR>&nbsp;&nbsp;&nbsp;<em>Grid graphs and supporting types and functions
+             for arbitrary dimensions</em>
+    <LI> \ref ImportExport
+        <BR>&nbsp;&nbsp;&nbsp;<em>Conversion from and to other image data types</em>
+    <LI> \ref ColorConversions
+        <BR>&nbsp;&nbsp;&nbsp;<em>Convert between RGB and other color spaces, such as L*u*v*, Y'PbPr</em>
+    <LI> \ref ImageProcessing
+        <BR>&nbsp;&nbsp;&nbsp;<em>Point operators, image arithmetic, convolution, morphology</em>
+    <LI> \ref ImageAnalysis
+        <BR>&nbsp;&nbsp;&nbsp;<em>Segmentation and feature extraction algorithms</em>
+    <LI> \ref MachineLearning
+        <BR>&nbsp;&nbsp;&nbsp;<em>Classification algorithms</em>
+    <LI> \ref ExampleList
+        <BR>&nbsp;&nbsp;&nbsp;<em>Demonstration programs for VIGRA's usage </em>
+    <LI> \ref VigraMatlab
+        <BR>&nbsp;&nbsp;&nbsp;<em>VIGRA Matlab bindings</em>
+    <LI> <b><a href="../vigranumpy/index.html">vigranumpy</a></b>
+        <BR>&nbsp;&nbsp;&nbsp;<em>VIGRA Python bindings</em>
+    <LI> \ref CreditsChangelog
+        <BR>&nbsp;&nbsp;&nbsp;<em>Who contributed what?</em>
+    </UL>
+
+    \anchor _details
+    <CENTER>
+    \section Main VIGRA - Vision with Generic Algorithms
+    Version  \vigra_version
+    by <a href="http://hci.iwr.uni-heidelberg.de/people/ukoethe/">Ullrich K&ouml;the</a>
+    </CENTER>
+
+    VIGRA  is a computer vision library that puts its main emphasis on
+    <em>flexible algorithms</em>, because
+    algorithms represent the principle know-how of this field.
+    The library was consequently built
+    using <em>generic programming</em> as introduced by Stepanov
+    and Musser  and exemplified in the C++
+    <a href=\stl_link>Standard Template Library</a>.
+    By writing a few adapters (image iterators and accessors)
+    you can use VIGRA's algorithms on top of
+    <em>your</em> data structures, within <em>your</em> environment. Alternatively,
+    you can also use the data structures provided within VIGRA, which can
+    be easily adapted to a wide range of applications. VIGRA's flexibility
+    comes almost for free: Since the design uses compile-time polymorphism
+    (templates), performance of the compiled program approaches that
+    of a traditional, hand tuned, inflexible, solution.
+
+    VIGRA's design is documented in the chapter <em>"Reusable Software in
+    Computer Vision"</em> by
+    <a href="http://hci.iwr.uni-heidelberg.de/people/ukoethe/">Ullrich K&ouml;the</a>,
+    in: B. J&auml;hne, H. Hau&szlig;ecker, P. Gei&szlig;ler: "Handbook on
+    Computer Vision and  Applications", volume 3, Academic Press, 1999.
+    If you don't have the book,  you may read a
+    <a href="http://hci.iwr.uni-heidelberg.de/vigra/documents/GenericProg2D.ps">draft of this article</a>. A shorter
+    article <em><a href="http://hci.iwr.uni-heidelberg.de/people/ukoethe/papers/index.php#cite_GenericProg2DCppReport">STL Style Generic Programming with Images</a></em>
+    describing some of the
+    ideas has appeared in the January 2000 issue of
+    <a href="http://www.creport.com/">C++ Report Magazine</a>. The most comprehensive source of information is
+    U. K&ouml;the's PhD thesis <em><a href="http://hci.iwr.uni-heidelberg.de/people/ukoethe/papers/index.php#cite_PhD">Generische Programmierung f&uuml;r die Bildverarbeitung</a></em>, but this is written in German.
+
+    VIGRA is subject to this <a href="LICENSE.txt">LICENSE</a>.
+
+    You can also subscribe to the <a href="https://mailhost.informatik.uni-hamburg.de/mailman/listinfo/vigra">VIGRA Mailing List</a> to get instant information about new releases, discuss VIGRA's features and development, and ask the experts for help.
+
+
+
+*/
+
+/** \page Concepts Concepts
+
+    <DL>
+    <DT>
+    Description of the generic interface concepts used within VIGRA.
+    <DD>
+        <UL style="list-style-image:url(documents/bullet.gif)">
+        <LI> \ref AlgebraicConcepts
+             <BR>&nbsp;&nbsp;&nbsp;<em>Requirements for types that implement arithmetic operations</em>
+        <LI> \ref ImageIterators
+             <BR>&nbsp;&nbsp;&nbsp;<em>Requirements for 2D iterators</em>
+        <LI> \ref MultiIteratorPage
+             <BR>&nbsp;&nbsp;&nbsp;<em>Iterators for multi-dimensional arrays</em>
+        <LI> \ref DataAccessors
+             <BR>&nbsp;&nbsp;&nbsp;<em>Requirements for data accessors</em>
+        <LI> \ref vigra::FunctorTraits
+             <BR>&nbsp;&nbsp;&nbsp;<em>Requirements for functor traits</em>
+        <LI> \ref CrackEdgeImage
+        </UL>
+    </DL>
+*/
+
+/** \page MathFunctionality Mathematical tools
+
+    <b>Number types, mathematical constants, special functions, linear algebra</b>
+    <p>
+    <UL style="list-style-image:url(documents/bullet.gif)">
+        <LI> \ref AlgebraicConcepts
+             <BR>&nbsp;&nbsp;&nbsp;<em>Requirements for types that implement arithmetic operations</em>
+        <LI> \ref NumericPromotionTraits
+             <BR>&nbsp;&nbsp;&nbsp;<em>Meta-information about arithmetic types</em>
+        <LI> \ref MathConstants
+             <BR>&nbsp;&nbsp;&nbsp;<em>M_PI, M_SQRT2</em>
+        <LI> <b>Grid Neighborhood Specification</b>
+             <UL style="list-style-image:url(documents/bullet.gif)">
+             <LI> \ref PixelNeighborhood "2-dimensional" (4- and 8-neighborhood)
+             <LI> \ref VoxelNeighborhood "3-dimensional" (6- and 26-neighborhood)
+             </UL>
+        <LI> <b>Number Types</b>
+            <UL style="list-style-image:url(documents/bullet.gif)">
+            <LI> \ref vigra::Rational
+            <LI> \ref vigra::TinyVector
+            <LI> \ref vigra::autodiff::DualVector
+            <LI> \ref vigra::FFTWComplex
+            <LI> \ref vigra::FixedPoint16
+            <LI> \ref vigra::Quaternion
+            </UL>
+        <LI> \ref RandomNumberGeneration
+             <BR>&nbsp;&nbsp;&nbsp;<em>Mersenne twister class and random number functors</em>
+        <LI> \ref Polynomials
+             <BR>&nbsp;&nbsp;&nbsp;<em>Polynomials and root determination</em>
+        <LI> \ref MathFunctions
+             <BR>&nbsp;&nbsp;&nbsp;<em>and functors</em>
+        <LI> \ref vigra::linalg::Matrix "Matrix class"
+             <BR>&nbsp;&nbsp;&nbsp;<em>the matrix class</em>
+        <LI> \ref LinearAlgebraModule "Linear Algebra"
+             <BR>&nbsp;&nbsp;&nbsp;<em>matrix algebra, solution of linear systems, eigenvalue calculation etc.</em>
+        <LI> \ref Unsupervised_Decomposition "Unsupervised Decomposition"
+             <BR>&nbsp;&nbsp;&nbsp;<em>Unsupervised matrix decomposition methods (pLSA)</em>
+        <LI> \ref Optimization "Optimization and Regression"
+             <BR>&nbsp;&nbsp;&nbsp;<em>ordinary and non-negative least squares, ridge regression, least angle regression (LARS and LASSO)</em>
+    </UL>
+
+*/
+
+/** \page PixelTypes Pixel Types
+
+    <DL>
+    <DT>
+    <b>Scalar types</b>
+    <DD>
+        <UL style="list-style-image:url(documents/bullet.gif)">
+        <LI> \ref FixedSizeInt
+        <LI> \ref vigra::Rational
+        <LI> \ref vigra::FixedPoint
+        <LI> \ref vigra::FixedPoint16
+        </UL>
+        <p>
+    <DT>
+    <b>RGB colors and related functionality</b>
+    <DD>
+        <UL style="list-style-image:url(documents/bullet.gif)">
+        <LI> \ref vigra::RGBValue
+        <LI> \ref RGBValueTraits
+        <LI> \ref RGBValueOperators
+        <LI> \ref RGBValueAccessors
+        </UL>
+        <p>
+    <DT>
+    <b>Fixed-size vectors and related functionality</b>
+    <DD>
+        <UL style="list-style-image:url(documents/bullet.gif)">
+        <LI> \ref vigra::TinyVector
+        <LI> \ref vigra::TinyVectorView
+        <LI> \ref TinyVectorTraits
+        <LI> \ref TinyVectorOperators
+        </UL>
+        <p>
+    <DT>
+    <b>Complex Numbers</b>
+    <DD>
+        <UL style="list-style-image:url(documents/bullet.gif)">
+        <LI> \ref vigra::FFTWComplex
+        <LI> \ref FFTWComplexTraits
+        <LI> \ref FFTWComplexOperators
+        <LI> \ref FFTWComplexAccessors
+        </UL>
+    </DL>
+*/
+
+/** \page ImageDataStructures Image Data Structures and Iterators
+
+    <UL style="list-style-image:url(documents/bullet.gif)">
+    <LI> \ref vigra::BasicImage
+         <BR>&nbsp;&nbsp;&nbsp;<em>Fundamental class template for images </em>
+    <LI> \ref vigra::BasicImageView
+         <BR>&nbsp;&nbsp;&nbsp;<em>Class template for images that use external memory</em>
+    <LI> \ref StandardImageTypes
+         <BR>&nbsp;&nbsp;&nbsp;<em>The most common instantiations of \ref vigra::BasicImage</em>
+    <LI> \ref vigra::SplineImageView
+         <BR>&nbsp;&nbsp;&nbsp;<em>Wrap a discrete image as a continous function</em>
+    <LI> \ref VigraImpex
+         <BR>&nbsp;&nbsp;&nbsp;<em>Image import/export</em>
+    <LI> \ref ImageContainers
+         <BR>&nbsp;&nbsp;&nbsp;<em>Classes to manage multiple images (ImageArray..)</em>
+    <LI> \ref PixelNeighborhood
+         <BR>&nbsp;&nbsp;&nbsp;<em>Easy access to the 4- and 8-neighbors of a pixel</em>
+    <LI> \ref ImageIterators
+         <BR>&nbsp;&nbsp;&nbsp;<em>Basic image iterator implementations </em>
+    <LI> \ref ImageIteratorAdapters
+         <BR>&nbsp;&nbsp;&nbsp;<em>Iterate over rows, columns, and other image subsets </em>
+    <LI> \ref DataAccessors
+         <BR>&nbsp;&nbsp;&nbsp;<em>Basic templates to encapsulate access to the data of an iterator</em>
+    <LI> \ref ArgumentObjectFactories
+         <BR>&nbsp;&nbsp;&nbsp;<em>Factory functions to create argument objects which simplify long argument lists </em>
+    </UL>
+*/
+
+/** \page MultiDimensionalArrays Multi-Dimensional Arrays and Iterators
+
+    <UL style="list-style-image:url(documents/bullet.gif)">
+    <LI> \ref vigra::MultiArrayView
+         <BR>&nbsp;&nbsp;&nbsp;<em>Interface for multi-dimensional arrays </em>
+    <LI> \ref vigra::MultiArray
+         <BR>&nbsp;&nbsp;&nbsp;<em>Array class that holds the actual memory</em>
+    <LI> \ref MultiMathModule
+         <BR>&nbsp;&nbsp;&nbsp;<em>Arithmetic and algebraic expressions for multi-dimensional arrays</em>
+    <LI> \ref MultiArrayTags
+         <BR>&nbsp;&nbsp;&nbsp;<em>Meta-programming tags to mark array's as strided or unstrided</em>
+    <LI> \ref MultiIteratorPage
+         <BR>&nbsp;&nbsp;&nbsp;<em>Iterators for multi-dimensional arrays</em>
+    <LI> \ref vigra::MultiArrayNavigator
+         <BR>&nbsp;&nbsp;&nbsp;<em>Navigator utility for multi-dimensional arrays</em>
+    <LI> \ref VolumeImpex
+         <BR>&nbsp;&nbsp;&nbsp;<em>Import/export of volume data.</em>
+    <LI> \ref MultiPointoperators
+         <BR>&nbsp;&nbsp;&nbsp;<em>Point operators on multi-dimensional arrays</em>
+    <LI> \ref MultiArrayConvolutionFilters
+         <BR>&nbsp;&nbsp;&nbsp;<em>Convolution filters in arbitrary dimensions</em>
+    <LI> \ref FourierTransform
+         <BR>&nbsp;&nbsp;&nbsp;<em>Fast Fourier transform for arrays of arbitrary dimension</em>
+    <LI> \ref resizeMultiArraySplineInterpolation()
+         <BR>&nbsp;&nbsp;&nbsp;<em>Interpolation of arrays in arbitrary dimensions</em>
+    <LI> \ref MultiArrayDistanceTransform 
+         <BR>&nbsp;&nbsp;&nbsp;<em>Separable distance transform for arrays of arbitrary dimension</em>
+    <LI> \ref MultiArrayMorphology 
+         <BR>&nbsp;&nbsp;&nbsp;<em>Separable morphology with parabola structuring function for arrays of arbitrary dimension</em>
+    <LI> \ref labelVolume(), \ref seededRegionGrowing3D(), \ref watersheds3D(), \ref localMinima3D(), \ref localMaxima3D(),
+         <BR>&nbsp;&nbsp;&nbsp;<em>3-dimensional image (i.e. volume) analysis</em>
+    <LI> \ref VoxelNeighborhood
+         <BR>&nbsp;&nbsp;&nbsp;<em>Easy access to the 6- and 26-neighbors of a voxel</em>
+    <LI> \ref vigra::NumpyArray and \ref vigra::NumpyAnyArray
+         <BR>&nbsp;&nbsp;&nbsp;<em>Provide the VIGRA multi array interface Python arrays</em>
+    </UL>
+*/
+
+/** \page ImportExport Image Import and Export
+
+    Conversion from and to other image data types
+
+    <UL style="list-style-image:url(documents/bullet.gif)">
+    <LI> \ref VigraImpex
+         <BR>&nbsp;&nbsp;&nbsp;<em>VIGRA's highlevel image import/export interface</em>
+    <LI> \ref VolumeImpex
+         <BR>&nbsp;&nbsp;&nbsp;<em>Import/export interface for volume data</em>
+    <LI> \ref VigraHDF5Impex 
+         <BR>&nbsp;&nbsp;&nbsp;<em>Import/export of images and arrays in 
+         <a href="http://www.hdfgroup.org/HDF5/">HDF5</a> format</em>
+    <LI> \ref TIFFImpex
+         <BR>&nbsp;&nbsp;&nbsp;<em>image import/export interface if you want to call libtiff functions directly</em>
+    </UL>
+
+    There are two fundamentally different approaches to interfacing between VIGRA and the rest of the world.
+
+    <b>If you already have an image data type in your system:</b>
+
+    Then I recommend using VIGRA's algorithms directly on top of your data type.
+    To do this, you simply wrap your data in an \ref vigra::ImageIterator and/or 
+    \ref vigra::MultiArrayView (depending on the functions you want to call). If 
+    your data have some exotic properties, that prevent this solution from working,
+    you can still implement your own versions or subclasses of the interface classe,
+    which isn't very difficult.
+
+    Alternatively, you may use the data structures provided within VIGRA
+    and convert your data type into one of them. Take a look at \ref tiffToScalarImage() and
+    \ref createScalarTiffImage() to see how this might be done.
+
+    <b>If you don't have an image data type in your system:</b>
+
+    Use the data structures provided within VIGRA and use one of the import/export facilities above.
+
+*/
+
+/** \page ImageProcessing Image Processing
+
+    <UL style="list-style-image:url(documents/bullet.gif)">
+    <LI> \ref PointOperators
+         <BR>&nbsp;&nbsp;&nbsp;<em>algorithms and functors for image arithmetic, inspection, transformations etc.</em>
+    <LI> \ref MultiMathModule
+         <BR>&nbsp;&nbsp;&nbsp;<em>Arithmetic and algebraic expressions for multi-dimensional arrays</em>
+    <LI> \ref FunctorExpressions
+         <BR>&nbsp;&nbsp;&nbsp;<em>Expression templates for automated functor creation</em>
+    <LI> \ref GeometricTransformations "Resize and Other Geometric Image Transformations"
+         <BR>&nbsp;&nbsp;&nbsp;<em>resize and interpolation, image mirroring, rotation, arbitrary affine transformations</em>
+    <LI> \ref vigra::SplineImageView
+         <BR>&nbsp;&nbsp;&nbsp;<em>Wrap a discrete image as a continous function</em>
+    <LI> \ref Convolution
+         <BR>&nbsp;&nbsp;&nbsp;<em>1D, 2D, and nD filters, including separable and recursive convolution</em>
+    <LI> \ref NonLinearDiffusion
+         <BR>&nbsp;&nbsp;&nbsp;<em>Edge-preserving smoothing and denoising</em>
+    <LI> \ref FourierTransform
+         <BR>&nbsp;&nbsp;&nbsp;<em>forward and backward FFT, cosine transform, and related
+                 functionality</em>
+    <LI> \ref GaborFilter
+         <BR>&nbsp;&nbsp;&nbsp;<em>Gabor filter generation and related
+                 functionality</em>
+    <LI> \ref TensorImaging
+         <BR>&nbsp;&nbsp;&nbsp;<em>Tensor image processing</em>
+    <LI> \ref Morphology
+         <BR>&nbsp;&nbsp;&nbsp;<em>erosion, dilation, and median with disc structuring functions</em>
+    <LI> \ref NoiseNormalization
+         <BR>&nbsp;&nbsp;&nbsp;<em>transform intensity-dependent noise into additive Gaussian noise</em>
+    <LI> \ref SlantedEdgeMTF
+         <BR>&nbsp;&nbsp;&nbsp;<em>determine the magnitude transfer function (MTF) of a camera using the slanted edge method</em>
+    </UL>
+*/
+
+/** \page ImageAnalysis Image Analysis
+
+    <UL style="list-style-image:url(documents/bullet.gif)">
+    <LI> \ref InspectAlgo and \ref InspectFunctor
+         <BR>&nbsp;&nbsp;&nbsp;<em>Statistical analysis of images and regions</em>
+     <LI> \ref FeatureAccumulators
+         <BR>&nbsp;&nbsp;&nbsp;<em>Computation of global and per-region statistics of multi arrays via accumulators framework</em>
+   <LI> \ref vigra::Threshold
+         <BR>&nbsp;&nbsp;&nbsp;<em>Good old thresholding</em>
+    <LI> \ref Labeling
+         <BR>&nbsp;&nbsp;&nbsp;<em>Connected components labeling using 4 or 8 connectivity </em>
+    <LI> \ref LocalMinMax
+         <BR>&nbsp;&nbsp;&nbsp;<em>Including extremal plateaus larger than 1 pixel</em>
+    <LI> \ref DistanceTransform
+         <BR>&nbsp;&nbsp;&nbsp;<em>Distance transform using Euclidean, Manhattan, or chessboard metrics </em>
+    <LI> \ref TensorImaging
+         <BR>&nbsp;&nbsp;&nbsp;<em>Tensor image analysis</em>
+    <LI> \ref EdgeDetection
+         <BR>&nbsp;&nbsp;&nbsp;<em>Edge detectors based on first and second derivatives</em>
+    <LI> \ref CornerDetection
+         <BR>&nbsp;&nbsp;&nbsp;<em>Measure the 'cornerness' at each pixel </em>
+    <LI> \ref SymmetryDetection
+         <BR>&nbsp;&nbsp;&nbsp;<em>Measure the local symmetry at each pixel </em>
+    <LI> \ref SeededRegionGrowing
+         <BR>&nbsp;&nbsp;&nbsp;<em>Region growing, watersheds, and voronoi tesselation</em>
+    </UL>
+*/
+
+/** \page AlgebraicConcepts Algebraic Concepts
+
+The algebraic concepts describe requirements for algebraic types, that is
+for types that support arithmetic operations. The built-in types are concepts
+of \ref AlgebraicField and \ref DivisionAlgebra.
+
+\anchor AlgebraicRing
+
+<h3>Algebraic Ring</h3>
+
+<ul>
+    <li>A model of Algebraic Ring implements <tt>Assignable</TT>, <tt>Default Constructible</TT>,
+        <tt>Equality Comparable</TT> and <tt>Strict Weakly Comparable</TT>
+        as defined in the C++ standard (cf. the
+        <a href=\stl_link>Standard Template Library documentation</a>).
+
+    <li>A model of Algebraic Ring implements addition, subtraction and unary negation. The associated
+    \link NumericTraits NumericTraits \endlink define a 'zero' element, the type of the
+    result of addition and subtraction, and a type conversion function.
+    Addition must be commutative.
+
+    \code
+    ModelOfAlgebraicRing a, b;
+    NumericTraits<ModelOfAlgebraicRing>::Promote c;
+
+    ModelOfAlgebraicRing zero = NumericTraits<ModelOfAlgebraicRing>::zero();
+
+    b += a;
+    b -= a;
+    b = -a;
+    c = a + b;
+    c = a - b;
+    c = a;
+    a = NumericTraits<ModelOfAlgebraicRing>::fromPromote(c);
+
+    assert(a + zero == a);
+    assert(a + b == b + a);
+    assert(a - b == a + (-b));
+    \endcode
+
+    <li>If mixed-type addition and subtraction are supported,
+    \link PromoteTraits PromoteTraits \endlink define the result type:
+
+    \code
+    ModelOfAlgebraicRing1 a;
+    ModelOfAlgebraicRing2 b;
+
+    PromoteTraits<ModelOfAlgebraicRing1, ModelOfAlgebraicRing2>::Promote c;
+
+    c = a + b;
+    \endcode
+
+    <li>A model of Algebraic Ring implements multiplication. The associated
+    \link NumericTraits NumericTraits \endlink define a 'one' element, the type of the
+    result of multiplication, and a type conversion function.
+
+    \code
+    ModelOfAlgebraicRing a, b;
+    NumericTraits<ModelOfAlgebraicRing>::RealPromote c;
+
+    ModelOfAlgebraicRing one = NumericTraits<ModelOfAlgebraicRing>::one();
+
+    b *= a;
+    c = a * b;
+    c = a;
+    a = NumericTraits<ModelOfAlgebraicRing>::fromRealPromote(c);
+
+    assert(a * one == a);
+    \endcode
+</ul>
+
+\anchor AlgebraicField
+<h3>Algebraic Field</h3>
+
+<ul>
+    <li>A model of Algebraic Field implements \ref AlgebraicRing as defined above.
+
+    <li>A model of Algebraic Field implements division. Division is undefined if
+    and only if the right operand is 'zero'.
+
+    \code
+    ModelOfAlgebraicField a, b;
+    typename NumericTraits<ModelOfAlgebraicField>::RealPromote c;
+
+    ModelOfAlgebraicField zero = NumericTraits<ModelOfAlgebraicField>::zero();
+
+    if(a != zero) b /= a;
+    if(a != zero) c = b / a;
+    \endcode
+
+</ul>
+
+
+\anchor LinearSpace
+
+<h3>Linear Space</h3>
+
+<ul>
+    <li>A model of Linear Space implements <tt>Assignable</TT>, <tt>Default Constructible</TT>
+        and <tt>Equality Comparable</TT>
+        as defined in the C++ standard (cf. the
+        <a href=\stl_link>Standard Template Library documentation</a>).
+
+    <li>A model of Algebraic Ring implements addition, subtraction and unary negation. The associated
+    \link NumericTraits NumericTraits \endlink define a 'zero' element, the type of the
+    result of addition and subtraction, and a type conversion function.
+    Addition must be commutative. (This part of the requirements is identical to
+    \ref AlgebraicRing above.)
+
+    \code
+    ModelOfAlgebraicRing a, b;
+    NumericTraits<ModelOfAlgebraicRing>::Promote c;
+
+    ModelOfAlgebraicRing zero = NumericTraits<ModelOfAlgebraicRing>::zero();
+
+    b += a;
+    b -= a;
+    b = -a;
+    c = a + b;
+    c = a - b;
+    c = a;
+    a = NumericTraits<ModelOfAlgebraicRing>::fromPromote(c);
+
+    assert(a + zero == a);
+    assert(a + b == b + a);
+    assert(a - b == a + (-b));
+    \endcode
+
+    <li>If mixed-type addition and subtraction are supported,
+    \link PromoteTraits PromoteTraits \endlink define the result type:
+
+    \code
+    ModelOfAlgebraicRing1 a;
+    ModelOfAlgebraicRing2 b;
+
+    PromoteTraits<ModelOfAlgebraicRing1, ModelOfAlgebraicRing2>::Promote c;
+
+    c = a + b;
+    \endcode
+
+    <li>A model of Algebraic Ring implements multiplication and division with 'double'.
+      (Note that the outer product could be defined with an arbitrary model of
+      \ref AlgebraicField. For simplicity, VIGRA restricts this to only 'double'.)
+      The associated \link NumericTraits NumericTraits \endlink define the type of the
+      results, and a type conversion function.
+
+    \code
+    ModelOfAlgebraicRing a;
+    double f;
+    NumericTraits<ModelOfAlgebraicRing>::RealPromote c;
+
+
+    a *= f;
+    c = a * f;
+    c = f * a;
+
+    if(f != 0.0) a /= f;
+    if(f != 0.0) c = a / f;
+
+    c = a;
+    a = NumericTraits<ModelOfAlgebraicRing>::fromRealPromote(c);
+    \endcode
+</ul>
+
+\anchor LinearAlgebraConcept
+<h3>Linear Algebra</h3>
+
+<ul>
+    <li>A model of Linear Algebra implements \ref LinearSpace and
+        \ref AlgebraicRing as defined above.
+
+</ul>
+
+\anchor DivisionAlgebra
+<h3>Division Algebra</h3>
+
+<ul>
+    <li>A model of Division Algebra implements \ref LinearSpace and
+        \ref AlgebraicField as defined above.
+
+</ul>
+
+*/
+
+/** \page VigraMatlab Vigra Matlab
+
+    Matlab bindings (mex-files) for the most important VIGRA functions are located 
+    <tt>[vigra_src_dir]/src/matlab</tt>. To compile and install them, start Matlab, 
+    go into that directory and call the function buildVigraExtensions:
+    
+    \code
+    buildVigraExtensions('install_path')
+    \endcode
+    
+    If the compilation fails because includes or libraries are not found, you can 
+    provide additional search directories like this:
+    
+    \code
+    buildVigraExtensions('install_path', 'all', struct('flags', '-I/path/to/includes -L/path/to/libs'))
+    \endcode
+    
+    Additional compiler flags are specified in the same way. Suggestions about typical settings on Linux and
+    Windows can be found in the individual .cpp files. For example, on Windows we usually need
+    
+    \code
+    buildVigraExtensions('install_path', 'all', ...
+     struct('flags', '-I[HDF5PATH]/include -L[HDF5PATH]/lib -lhdf5dll -lhdf5_hldll -D_HDF5USEDLL_ -DHDF5CPP_USEDLL'))
+    \endcode
+   
+    After successful compilation, you can obtain a list of the available VIGRA functions by calling
+
+    \code
+    help vigraIndex
+    \endcode
+    
+    In the same way, you get documentation for the individual functions. More 
+    information about the glue code behind the bindings is available in 
+    <a href="http://hci.iwr.uni-heidelberg.de/vigra/documents/tutorial_reference.pdf">this report</a>.
+    
+*/
+
+/** \namespace vigra
+    all VIGRA functionality is located in namespace vigra
+*/
+
+
+#if 0
+//@{
+
+
+//Include: ../include/vigra/morphological_appropriate_scale.hxx
+//Include: ../include/vigra/feature_adjacency_graph.hxx
+
+//@}
+
+#endif
+
