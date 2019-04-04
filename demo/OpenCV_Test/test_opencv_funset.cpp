@@ -348,10 +348,10 @@ int test_opencv_resize_cplusplus()
 	if (scale_x >= 1 && scale_y >= 1)  { // zoom out
 		if (is_area_fast)  { // integer multiples
 			for (int j = 0; j < matDst1.rows; ++j) {
-				int sy = j * scale_y;
+				int sy = std::min(cvFloor(j * scale_y), matSrc.rows - 1);
 
 				for (int i = 0; i < matDst1.cols; ++i) {
-					int sx = i * scale_x;
+					int sx = std::min(cvFloor(i * scale_x), matSrc.cols -1);
 
 					matDst1.at<cv::Vec3b>(j, i) = matSrc.at<cv::Vec3b>(sy, sx);
 				}
@@ -371,7 +371,7 @@ int test_opencv_resize_cplusplus()
 
 			int sy1 = cvCeil(fsy1), sy2 = cvFloor(fsy2);
 
-			sy2 = std::min(sy2, matSrc.rows - 1);
+			sy2 = std::min(sy2, matSrc.rows - 2);
 			sy1 = std::min(sy1, sy2);
 
 			float cbufy[2];
@@ -385,7 +385,7 @@ int test_opencv_resize_cplusplus()
 
 				int sx1 = cvCeil(fsx1), sx2 = cvFloor(fsx2);
 
-				sx2 = std::min(sx2, matSrc.cols - 1);
+				sx2 = std::min(sx2, matSrc.cols - 2);
 				sx1 = std::min(sx1, sx2);
 
 				float cbufx[2];
@@ -414,6 +414,7 @@ int test_opencv_resize_cplusplus()
 		int  sy = cvFloor(j * scale_y);
 		float fy = (float)((j + 1) - (sy + 1) * inv_scale_y);
 		fy = fy <= 0 ? 0.f : fy - cvFloor(fy);
+		sy = std::min(sy, matSrc.rows - 2);
 
 		short cbufy[2];
 		cbufy[0] = cv::saturate_cast<short>((1.f - fy) * 2048);
