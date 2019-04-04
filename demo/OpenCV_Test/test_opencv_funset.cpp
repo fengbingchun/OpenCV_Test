@@ -7,6 +7,455 @@
 
 #include <opencv2/opencv.hpp>
 
+int test_opencv_resize_cplusplus()
+{
+	// Blog: https://blog.csdn.net/fengbingchun/article/details/17335477
+
+	cv::Mat matSrc, matDst1, matDst2;
+#ifdef _MSC_VER
+	matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png");
+#else
+	matSrc = cv::imread("lena.jpg");
+#endif
+	if (matSrc.empty()) {
+		fprintf(stderr, "read image fail\n");
+		return -1;
+	}
+	fprintf(stdout, "image size: width: %d, height: %d\n", matSrc.cols, matSrc.rows);
+	matDst1 = cv::Mat(cv::Size(800, 1000), matSrc.type(), cv::Scalar::all(0));
+	matDst2 = cv::Mat(matDst1.size(), matSrc.type(), cv::Scalar::all(0));
+
+	const double scale_x = (double)matSrc.cols / matDst1.cols;
+	const double scale_y = (double)matSrc.rows / matDst1.rows;
+
+{ // nearest
+	fprintf(stdout, "==== start nearest ====\n");
+	for (int i = 0; i < matDst1.cols; ++i) {
+		int sx = cvFloor(i * scale_x);
+		sx = std::min(sx, matSrc.cols - 1);
+		for (int j = 0; j < matDst1.rows; ++j) {
+			int sy = cvFloor(j * scale_y);
+			sy = std::min(sy, matSrc.rows - 1);
+			matDst1.at<cv::Vec3b>(j, i) = matSrc.at<cv::Vec3b>(sy, sx);
+		}
+	}
+	fprintf(stdout, "==== end nearest ====\n");
+
+#ifdef _MSC_VER
+	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/nearest_1.jpg", matDst1);
+	cv::resize(matSrc, matDst2, matDst1.size(), 0, 0, 0);
+	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/nearest_2.jpg", matDst2);
+#else
+	cv::imwrite("nearest_1.jpg", matDst1);
+	cv::resize(matSrc, matDst2, matDst1.size(), 0, 0, 0);
+	cv::imwrite("nearest_2.jpg", matDst2);
+#endif
+}
+
+{ // linear
+	fprintf(stdout, "==== start linear ====\n");
+	uchar* dataDst = matDst1.data;
+	int stepDst = matDst1.step;
+	const uchar* dataSrc = matSrc.data;
+	int stepSrc = matSrc.step;
+	int iWidthSrc = matSrc.cols;
+	int iHiehgtSrc = matSrc.rows;
+
+	for (int j = 0; j < matDst1.rows; ++j) {
+		float fy = (float)((j + 0.5) * scale_y - 0.5);
+		int sy = cvFloor(fy);
+		fy -= sy;
+		sy = std::min(sy, iHiehgtSrc - 2);
+		sy = std::max(0, sy);
+
+		short cbufy[2];
+		cbufy[0] = cv::saturate_cast<short>((1.f - fy) * 2048);
+		cbufy[1] = 2048 - cbufy[0];
+
+		for (int i = 0; i < matDst1.cols; ++i) {
+			float fx = (float)((i + 0.5) * scale_x - 0.5);
+			int sx = cvFloor(fx);
+			fx -= sx;
+
+			if (sx < 0) {
+				fx = 0, sx = 0;
+			}
+			if (sx >= iWidthSrc - 1) {
+				fx = 0, sx = iWidthSrc - 2;
+			}
+
+			short cbufx[2];
+			cbufx[0] = cv::saturate_cast<short>((1.f - fx) * 2048);
+			cbufx[1] = 2048 - cbufx[0];
+
+			for (int k = 0; k < matSrc.channels(); ++k) {
+				*(dataDst + j*stepDst + 3 * i + k) = (*(dataSrc + sy*stepSrc + 3 * sx + k) * cbufx[0] * cbufy[0] +
+					*(dataSrc + (sy + 1)*stepSrc + 3 * sx + k) * cbufx[0] * cbufy[1] +
+					*(dataSrc + sy*stepSrc + 3 * (sx + 1) + k) * cbufx[1] * cbufy[0] +
+					*(dataSrc + (sy + 1)*stepSrc + 3 * (sx + 1) + k) * cbufx[1] * cbufy[1]) >> 22;
+			}
+		}
+	}
+	fprintf(stdout, "==== end linear ====\n");
+
+#ifdef _MSC_VER
+	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/linear_1.jpg", matDst1);
+	cv::resize(matSrc, matDst2, matDst1.size(), 0, 0, 1);
+	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/linear_2.jpg", matDst2);
+#else
+	cv::imwrite("linear_1.jpg", matDst1);
+	cv::resize(matSrc, matDst2, matDst1.size(), 0, 0, 1);
+	cv::imwrite("linear_2.jpg", matDst2);
+#endif
+}
+
+{ // cubic
+	fprintf(stdout, "==== start cublic ====\n");
+	int iscale_x = cv::saturate_cast<int>(scale_x);
+	int iscale_y = cv::saturate_cast<int>(scale_y);
+
+	for (int j = 0; j < matDst1.rows; ++j) {
+		float fy = (float)((j + 0.5) * scale_y - 0.5);
+		int sy = cvFloor(fy);
+		fy -= sy;
+		sy = std::min(sy, matSrc.rows - 3);
+		sy = std::max(1, sy);
+
+		const float A = -0.75f;
+
+		float coeffsY[4];
+		coeffsY[0] = ((A*(fy + 1) - 5 * A)*(fy + 1) + 8 * A)*(fy + 1) - 4 * A;
+		coeffsY[1] = ((A + 2)*fy - (A + 3))*fy*fy + 1;
+		coeffsY[2] = ((A + 2)*(1 - fy) - (A + 3))*(1 - fy)*(1 - fy) + 1;
+		coeffsY[3] = 1.f - coeffsY[0] - coeffsY[1] - coeffsY[2];
+
+		short cbufY[4];
+		cbufY[0] = cv::saturate_cast<short>(coeffsY[0] * 2048);
+		cbufY[1] = cv::saturate_cast<short>(coeffsY[1] * 2048);
+		cbufY[2] = cv::saturate_cast<short>(coeffsY[2] * 2048);
+		cbufY[3] = cv::saturate_cast<short>(coeffsY[3] * 2048);
+
+		for (int i = 0; i < matDst1.cols; ++i) {
+			float fx = (float)((i + 0.5) * scale_x - 0.5);
+			int sx = cvFloor(fx);
+			fx -= sx;
+
+			if (sx < 1) {
+				fx = 0, sx = 1;
+			}
+			if (sx >= matSrc.cols - 3) {
+				fx = 0, sx = matSrc.cols - 3;
+			}
+
+			float coeffsX[4];
+			coeffsX[0] = ((A*(fx + 1) - 5 * A)*(fx + 1) + 8 * A)*(fx + 1) - 4 * A;
+			coeffsX[1] = ((A + 2)*fx - (A + 3))*fx*fx + 1;
+			coeffsX[2] = ((A + 2)*(1 - fx) - (A + 3))*(1 - fx)*(1 - fx) + 1;
+			coeffsX[3] = 1.f - coeffsX[0] - coeffsX[1] - coeffsX[2];
+
+			short cbufX[4];
+			cbufX[0] = cv::saturate_cast<short>(coeffsX[0] * 2048);
+			cbufX[1] = cv::saturate_cast<short>(coeffsX[1] * 2048);
+			cbufX[2] = cv::saturate_cast<short>(coeffsX[2] * 2048);
+			cbufX[3] = cv::saturate_cast<short>(coeffsX[3] * 2048);
+
+			for (int k = 0; k < matSrc.channels(); ++k) {
+				matDst1.at<cv::Vec3b>(j, i)[k] = abs((matSrc.at<cv::Vec3b>(sy - 1, sx - 1)[k] * cbufX[0] * cbufY[0] + matSrc.at<cv::Vec3b>(sy, sx - 1)[k] * cbufX[0] * cbufY[1] +
+					matSrc.at<cv::Vec3b>(sy + 1, sx - 1)[k] * cbufX[0] * cbufY[2] + matSrc.at<cv::Vec3b>(sy + 2, sx - 1)[k] * cbufX[0] * cbufY[3] +
+					matSrc.at<cv::Vec3b>(sy - 1, sx)[k] * cbufX[1] * cbufY[0] + matSrc.at<cv::Vec3b>(sy, sx)[k] * cbufX[1] * cbufY[1] +
+					matSrc.at<cv::Vec3b>(sy + 1, sx)[k] * cbufX[1] * cbufY[2] + matSrc.at<cv::Vec3b>(sy + 2, sx)[k] * cbufX[1] * cbufY[3] +
+					matSrc.at<cv::Vec3b>(sy - 1, sx + 1)[k] * cbufX[2] * cbufY[0] + matSrc.at<cv::Vec3b>(sy, sx + 1)[k] * cbufX[2] * cbufY[1] +
+					matSrc.at<cv::Vec3b>(sy + 1, sx + 1)[k] * cbufX[2] * cbufY[2] + matSrc.at<cv::Vec3b>(sy + 2, sx + 1)[k] * cbufX[2] * cbufY[3] +
+					matSrc.at<cv::Vec3b>(sy - 1, sx + 2)[k] * cbufX[3] * cbufY[0] + matSrc.at<cv::Vec3b>(sy, sx + 2)[k] * cbufX[3] * cbufY[1] +
+					matSrc.at<cv::Vec3b>(sy + 1, sx + 2)[k] * cbufX[3] * cbufY[2] + matSrc.at<cv::Vec3b>(sy + 2, sx + 2)[k] * cbufX[3] * cbufY[3]) >> 22);
+			}
+		}
+	}
+	fprintf(stdout, "==== end cublic ====\n");
+
+#ifdef _MSC_VER
+	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/cubic_1.jpg", matDst1);
+	cv::resize(matSrc, matDst2, matDst1.size(), 0, 0, 2);
+	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/cubic_2.jpg", matDst2);
+#else
+	cv::imwrite("cubic_1.jpg", matDst1);
+	cv::resize(matSrc, matDst2, matDst1.size(), 0, 0, 2);
+	cv::imwrite("cubic_2.jpg", matDst2);
+#endif
+}
+
+{ // Lanczos
+	fprintf(stdout, "==== start Lanczos ====\n");
+	int iscale_x = cv::saturate_cast<int>(scale_x);
+	int iscale_y = cv::saturate_cast<int>(scale_y);
+
+	for (int j = 0; j < matDst1.rows; ++j) {
+		float fy = (float)((j + 0.5) * scale_y - 0.5);
+		int sy = cvFloor(fy);
+		fy -= sy;
+		sy = std::min(sy, matSrc.rows - 5);
+		sy = std::max(3, sy);
+
+		const double s45 = 0.70710678118654752440084436210485;
+		const double cs[][2] = { { 1, 0 }, { -s45, -s45 }, { 0, 1 }, { s45, -s45 }, { -1, 0 }, { s45, s45 }, { 0, -1 }, { -s45, s45 } };
+		float coeffsY[8];
+
+		if (fy < FLT_EPSILON) {
+			for (int t = 0; t < 8; t++)
+				coeffsY[t] = 0;
+			coeffsY[3] = 1;
+		}
+		else {
+			float sum = 0;
+			double y0 = -(fy + 3) * CV_PI * 0.25, s0 = sin(y0), c0 = cos(y0);
+
+			for (int t = 0; t < 8; ++t) {
+				double dy = -(fy + 3 - t) * CV_PI * 0.25;
+				coeffsY[t] = (float)((cs[t][0] * s0 + cs[t][1] * c0) / (dy * dy));
+				sum += coeffsY[t];
+			}
+
+			sum = 1.f / sum;
+			for (int t = 0; t < 8; ++t)
+				coeffsY[t] *= sum;
+		}
+
+		short cbufY[8];
+		cbufY[0] = cv::saturate_cast<short>(coeffsY[0] * 2048);
+		cbufY[1] = cv::saturate_cast<short>(coeffsY[1] * 2048);
+		cbufY[2] = cv::saturate_cast<short>(coeffsY[2] * 2048);
+		cbufY[3] = cv::saturate_cast<short>(coeffsY[3] * 2048);
+		cbufY[4] = cv::saturate_cast<short>(coeffsY[4] * 2048);
+		cbufY[5] = cv::saturate_cast<short>(coeffsY[5] * 2048);
+		cbufY[6] = cv::saturate_cast<short>(coeffsY[6] * 2048);
+		cbufY[7] = cv::saturate_cast<short>(coeffsY[7] * 2048);
+
+		for (int i = 0; i < matDst1.cols; ++i) {
+			float fx = (float)((i + 0.5) * scale_x - 0.5);
+			int sx = cvFloor(fx);
+			fx -= sx;
+
+			if (sx < 3) {
+				fx = 0, sx = 3;
+			}
+			if (sx >= matSrc.cols - 5) {
+				fx = 0, sx = matSrc.cols - 5;
+			}
+
+			float coeffsX[8];
+
+			if (fx < FLT_EPSILON) {
+				for (int t = 0; t < 8; t++)
+					coeffsX[t] = 0;
+				coeffsX[3] = 1;
+			} else {
+				float sum = 0;
+				double x0 = -(fx + 3) * CV_PI * 0.25, s0 = sin(x0), c0 = cos(x0);
+
+				for (int t = 0; t < 8; ++t) {
+					double dx = -(fx + 3 - t) * CV_PI * 0.25;
+					coeffsX[t] = (float)((cs[t][0] * s0 + cs[t][1] * c0) / (dx * dx));
+					sum += coeffsX[t];
+				}
+
+				sum = 1.f / sum;
+				for (int t = 0; t < 8; ++t)
+					coeffsX[t] *= sum;
+			}
+
+			short cbufX[8];
+			cbufX[0] = cv::saturate_cast<short>(coeffsX[0] * 2048);
+			cbufX[1] = cv::saturate_cast<short>(coeffsX[1] * 2048);
+			cbufX[2] = cv::saturate_cast<short>(coeffsX[2] * 2048);
+			cbufX[3] = cv::saturate_cast<short>(coeffsX[3] * 2048);
+			cbufX[4] = cv::saturate_cast<short>(coeffsX[4] * 2048);
+			cbufX[5] = cv::saturate_cast<short>(coeffsX[5] * 2048);
+			cbufX[6] = cv::saturate_cast<short>(coeffsX[6] * 2048);
+			cbufX[7] = cv::saturate_cast<short>(coeffsX[7] * 2048);
+
+			for (int k = 0; k < matSrc.channels(); ++k) {
+				matDst1.at<cv::Vec3b>(j, i)[k] = abs((matSrc.at<cv::Vec3b>(sy - 3, sx - 3)[k] * cbufX[0] * cbufY[0] + matSrc.at<cv::Vec3b>(sy - 2, sx - 3)[k] * cbufX[0] * cbufY[1] +
+					matSrc.at<cv::Vec3b>(sy - 1, sx - 3)[k] * cbufX[0] * cbufY[2] + matSrc.at<cv::Vec3b>(sy, sx - 3)[k] * cbufX[0] * cbufY[3] +
+					matSrc.at<cv::Vec3b>(sy + 1, sx - 3)[k] * cbufX[0] * cbufY[4] + matSrc.at<cv::Vec3b>(sy + 2, sx - 3)[k] * cbufX[0] * cbufY[5] +
+					matSrc.at<cv::Vec3b>(sy + 3, sx - 3)[k] * cbufX[0] * cbufY[6] + matSrc.at<cv::Vec3b>(sy + 4, sx - 3)[k] * cbufX[0] * cbufY[7] +
+
+					matSrc.at<cv::Vec3b>(sy - 3, sx - 2)[k] * cbufX[1] * cbufY[0] + matSrc.at<cv::Vec3b>(sy - 2, sx - 2)[k] * cbufX[1] * cbufY[1] +
+					matSrc.at<cv::Vec3b>(sy - 1, sx - 2)[k] * cbufX[1] * cbufY[2] + matSrc.at<cv::Vec3b>(sy, sx - 2)[k] * cbufX[1] * cbufY[3] +
+					matSrc.at<cv::Vec3b>(sy + 1, sx - 2)[k] * cbufX[1] * cbufY[4] + matSrc.at<cv::Vec3b>(sy + 2, sx - 2)[k] * cbufX[1] * cbufY[5] +
+					matSrc.at<cv::Vec3b>(sy + 3, sx - 2)[k] * cbufX[1] * cbufY[6] + matSrc.at<cv::Vec3b>(sy + 4, sx - 2)[k] * cbufX[1] * cbufY[7] +
+
+					matSrc.at<cv::Vec3b>(sy - 3, sx - 1)[k] * cbufX[2] * cbufY[0] + matSrc.at<cv::Vec3b>(sy - 2, sx - 1)[k] * cbufX[2] * cbufY[1] +
+					matSrc.at<cv::Vec3b>(sy - 1, sx - 1)[k] * cbufX[2] * cbufY[2] + matSrc.at<cv::Vec3b>(sy, sx - 1)[k] * cbufX[2] * cbufY[3] +
+					matSrc.at<cv::Vec3b>(sy + 1, sx - 1)[k] * cbufX[2] * cbufY[4] + matSrc.at<cv::Vec3b>(sy + 2, sx - 1)[k] * cbufX[2] * cbufY[5] +
+					matSrc.at<cv::Vec3b>(sy + 3, sx - 1)[k] * cbufX[2] * cbufY[6] + matSrc.at<cv::Vec3b>(sy + 4, sx - 1)[k] * cbufX[2] * cbufY[7] +
+
+					matSrc.at<cv::Vec3b>(sy - 3, sx)[k] * cbufX[3] * cbufY[0] + matSrc.at<cv::Vec3b>(sy - 2, sx)[k] * cbufX[3] * cbufY[1] +
+					matSrc.at<cv::Vec3b>(sy - 1, sx)[k] * cbufX[3] * cbufY[2] + matSrc.at<cv::Vec3b>(sy, sx)[k] * cbufX[3] * cbufY[3] +
+					matSrc.at<cv::Vec3b>(sy + 1, sx)[k] * cbufX[3] * cbufY[4] + matSrc.at<cv::Vec3b>(sy + 2, sx)[k] * cbufX[3] * cbufY[5] +
+					matSrc.at<cv::Vec3b>(sy + 3, sx)[k] * cbufX[3] * cbufY[6] + matSrc.at<cv::Vec3b>(sy + 4, sx)[k] * cbufX[3] * cbufY[7] +
+
+					matSrc.at<cv::Vec3b>(sy - 3, sx + 1)[k] * cbufX[4] * cbufY[0] + matSrc.at<cv::Vec3b>(sy - 2, sx + 1)[k] * cbufX[4] * cbufY[1] +
+					matSrc.at<cv::Vec3b>(sy - 1, sx + 1)[k] * cbufX[4] * cbufY[2] + matSrc.at<cv::Vec3b>(sy, sx + 1)[k] * cbufX[4] * cbufY[3] +
+					matSrc.at<cv::Vec3b>(sy + 1, sx + 1)[k] * cbufX[4] * cbufY[4] + matSrc.at<cv::Vec3b>(sy + 2, sx + 1)[k] * cbufX[4] * cbufY[5] +
+					matSrc.at<cv::Vec3b>(sy + 3, sx + 1)[k] * cbufX[4] * cbufY[6] + matSrc.at<cv::Vec3b>(sy + 4, sx + 1)[k] * cbufX[4] * cbufY[7] +
+
+					matSrc.at<cv::Vec3b>(sy - 3, sx + 2)[k] * cbufX[5] * cbufY[0] + matSrc.at<cv::Vec3b>(sy - 2, sx + 2)[k] * cbufX[5] * cbufY[1] +
+					matSrc.at<cv::Vec3b>(sy - 1, sx + 2)[k] * cbufX[5] * cbufY[2] + matSrc.at<cv::Vec3b>(sy, sx + 2)[k] * cbufX[5] * cbufY[3] +
+					matSrc.at<cv::Vec3b>(sy + 1, sx + 2)[k] * cbufX[5] * cbufY[4] + matSrc.at<cv::Vec3b>(sy + 2, sx + 2)[k] * cbufX[5] * cbufY[5] +
+					matSrc.at<cv::Vec3b>(sy + 3, sx + 2)[k] * cbufX[5] * cbufY[6] + matSrc.at<cv::Vec3b>(sy + 4, sx + 2)[k] * cbufX[5] * cbufY[7] +
+
+					matSrc.at<cv::Vec3b>(sy - 3, sx + 3)[k] * cbufX[6] * cbufY[0] + matSrc.at<cv::Vec3b>(sy - 2, sx + 3)[k] * cbufX[6] * cbufY[1] +
+					matSrc.at<cv::Vec3b>(sy - 1, sx + 3)[k] * cbufX[6] * cbufY[2] + matSrc.at<cv::Vec3b>(sy, sx + 3)[k] * cbufX[6] * cbufY[3] +
+					matSrc.at<cv::Vec3b>(sy + 1, sx + 3)[k] * cbufX[6] * cbufY[4] + matSrc.at<cv::Vec3b>(sy + 2, sx + 3)[k] * cbufX[6] * cbufY[5] +
+					matSrc.at<cv::Vec3b>(sy + 3, sx + 3)[k] * cbufX[6] * cbufY[6] + matSrc.at<cv::Vec3b>(sy + 4, sx + 3)[k] * cbufX[6] * cbufY[7] +
+
+					matSrc.at<cv::Vec3b>(sy - 3, sx + 4)[k] * cbufX[7] * cbufY[0] + matSrc.at<cv::Vec3b>(sy - 2, sx + 4)[k] * cbufX[7] * cbufY[1] +
+					matSrc.at<cv::Vec3b>(sy - 1, sx + 4)[k] * cbufX[7] * cbufY[2] + matSrc.at<cv::Vec3b>(sy, sx + 4)[k] * cbufX[7] * cbufY[3] +
+					matSrc.at<cv::Vec3b>(sy + 1, sx + 4)[k] * cbufX[7] * cbufY[4] + matSrc.at<cv::Vec3b>(sy + 2, sx + 4)[k] * cbufX[7] * cbufY[5] +
+					matSrc.at<cv::Vec3b>(sy + 3, sx + 4)[k] * cbufX[7] * cbufY[6] + matSrc.at<cv::Vec3b>(sy + 4, sx + 4)[k] * cbufX[7] * cbufY[7]) >> 22);// 4194304
+			}
+		}
+	}
+	fprintf(stdout, "==== end Lanczos ====\n");
+
+#ifdef _MSC_VER
+	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/Lanczos_1.jpg", matDst1);
+	cv::resize(matSrc, matDst2, matDst1.size(), 0, 0, 4);
+	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/Lanczos_2.jpg", matDst2);
+#else
+	cv::imwrite("Lanczos_1.jpg", matDst1);
+	cv::resize(matSrc, matDst2, matDst1.size(), 0, 0, 4);
+	cv::imwrite("Lanczos_2.jpg", matDst2);
+#endif
+}
+
+{ // area
+#ifdef _MSC_VER
+	cv::resize(matSrc, matDst2, matDst1.size(), 0, 0, 3);
+	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/area_2.jpg", matDst2);
+#else
+	cv::resize(matSrc, matDst2, matDst1.size(), 0, 0, 3);
+	cv::imwrite("area_2.jpg", matDst2);
+#endif
+
+	fprintf(stdout, "==== start area ====\n");
+	double inv_scale_x = 1. / scale_x;
+	double inv_scale_y = 1. / scale_y;
+	int iscale_x = cv::saturate_cast<int>(scale_x);
+	int iscale_y = cv::saturate_cast<int>(scale_y);
+	bool is_area_fast = std::abs(scale_x - iscale_x) < DBL_EPSILON && std::abs(scale_y - iscale_y) < DBL_EPSILON;
+
+	if (scale_x >= 1 && scale_y >= 1)  { // zoom out
+		if (is_area_fast)  { // integer multiples
+			for (int j = 0; j < matDst1.rows; ++j) {
+				int sy = j * scale_y;
+
+				for (int i = 0; i < matDst1.cols; ++i) {
+					int sx = i * scale_x;
+
+					matDst1.at<cv::Vec3b>(j, i) = matSrc.at<cv::Vec3b>(sy, sx);
+				}
+			}
+#ifdef _MSC_VER
+			cv::imwrite("E:/GitCode/OpenCV_Test/test_images/area_1.jpg", matDst1);
+#else
+			cv::imwrite("area_1.jpg", matDst1);
+#endif
+			return 0;
+		}
+
+		for (int j = 0; j < matDst1.rows; ++j) {
+			double fsy1 = j * scale_y;
+			double fsy2 = fsy1 + scale_y;
+			double cellHeight = cv::min(scale_y, matSrc.rows - fsy1);
+
+			int sy1 = cvCeil(fsy1), sy2 = cvFloor(fsy2);
+
+			sy2 = std::min(sy2, matSrc.rows - 1);
+			sy1 = std::min(sy1, sy2);
+
+			float cbufy[2];
+			cbufy[0] = (float)((sy1 - fsy1) / cellHeight);
+			cbufy[1] = (float)(std::min(std::min(fsy2 - sy2, 1.), cellHeight) / cellHeight);
+
+			for (int i = 0; i < matDst1.cols; ++i) {
+				double fsx1 = i * scale_x;
+				double fsx2 = fsx1 + scale_x;
+				double cellWidth = std::min(scale_x, matSrc.cols - fsx1);
+
+				int sx1 = cvCeil(fsx1), sx2 = cvFloor(fsx2);
+
+				sx2 = std::min(sx2, matSrc.cols - 1);
+				sx1 = std::min(sx1, sx2);
+
+				float cbufx[2];
+				cbufx[0] = (float)((sx1 - fsx1) / cellWidth);
+				cbufx[1] = (float)(std::min(std::min(fsx2 - sx2, 1.), cellWidth) / cellWidth);
+
+				for (int k = 0; k < matSrc.channels(); ++k) {
+					matDst1.at<cv::Vec3b>(j, i)[k] = (uchar)(matSrc.at<cv::Vec3b>(sy1, sx1)[k] * cbufx[0] * cbufy[0] +
+						matSrc.at<cv::Vec3b>(sy1 + 1, sx1)[k] * cbufx[0] * cbufy[1] +
+						matSrc.at<cv::Vec3b>(sy1, sx1 + 1)[k] * cbufx[1] * cbufy[0] +
+						matSrc.at<cv::Vec3b>(sy1 + 1, sx1 + 1)[k] * cbufx[1] * cbufy[1]);
+				}
+			}
+		}
+#ifdef _MSC_VER
+		cv::imwrite("E:/GitCode/OpenCV_Test/test_images/area_1.jpg", matDst1);
+#else
+		cv::imwrite("area_1.jpg", matDst1);
+#endif
+
+		return 0;
+	}
+
+	//zoom in,it is emulated using some variant of bilinear interpolation
+	for (int j = 0; j < matDst1.rows; ++j) {
+		int  sy = cvFloor(j * scale_y);
+		float fy = (float)((j + 1) - (sy + 1) * inv_scale_y);
+		fy = fy <= 0 ? 0.f : fy - cvFloor(fy);
+
+		short cbufy[2];
+		cbufy[0] = cv::saturate_cast<short>((1.f - fy) * 2048);
+		cbufy[1] = 2048 - cbufy[0];
+
+		for (int i = 0; i < matDst1.cols; ++i) {
+			int sx = cvFloor(i * scale_x);
+			float fx = (float)((i + 1) - (sx + 1) * inv_scale_x);
+			fx = fx < 0 ? 0.f : fx - cvFloor(fx);
+
+			if (sx < 0) {
+				fx = 0, sx = 0;
+			}
+
+			if (sx >= matSrc.cols - 1) {
+				fx = 0, sx = matSrc.cols - 2;
+			}
+
+			short cbufx[2];
+			cbufx[0] = cv::saturate_cast<short>((1.f - fx) * 2048);
+			cbufx[1] = 2048 - cbufx[0];
+
+			for (int k = 0; k < matSrc.channels(); ++k) {
+				matDst1.at<cv::Vec3b>(j, i)[k] = (matSrc.at<cv::Vec3b>(sy, sx)[k] * cbufx[0] * cbufy[0] +
+					matSrc.at<cv::Vec3b>(sy + 1, sx)[k] * cbufx[0] * cbufy[1] +
+					matSrc.at<cv::Vec3b>(sy, sx + 1)[k] * cbufx[1] * cbufy[0] +
+					matSrc.at<cv::Vec3b>(sy + 1, sx + 1)[k] * cbufx[1] * cbufy[1]) >> 22;
+			}
+		}
+	}
+	fprintf(stdout, "==== end area ====\n");
+
+#ifdef _MSC_VER
+	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/area_1.jpg", matDst1);
+#else
+	cv::imwrite("area_1.jpg", matDst1);
+#endif
+}
+
+	return 0;
+}
+
 int test_opencv_kmeans()
 {
 	// reference: https://docs.opencv.org/3.1.0/de/d63/kmeans_8cpp-example.html
