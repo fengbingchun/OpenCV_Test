@@ -6,7 +6,7 @@
 
 // reference: include/opencv2/core/fast_math.hpp
 
-#include "core/fbcdef.hpp"
+#include "fbcdef.hpp"
 
 namespace fbc {
 

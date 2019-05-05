@@ -8,7 +8,7 @@
               modules/core/src/matrix.cpp
 */
 
-#include "core/mat.hpp"
+#include "mat.hpp"
 
 namespace fbc {
 // n-ary multi-dimensional array iterator

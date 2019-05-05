@@ -9,7 +9,7 @@
 	      modules/core/src/rand.cpp
 */
 
-#include "core/mat.hpp"
+#include "mat.hpp"
 
 namespace fbc {
 

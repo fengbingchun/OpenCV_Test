@@ -12,10 +12,10 @@
 	#error solve.hpp header must be compiled as C++
 #endif
 
-#include "core/base.hpp"
-#include "core/mat.hpp"
-#include "core/hal.hpp"
-#include "core/rng.hpp"
+#include "base.hpp"
+#include "mat.hpp"
+#include "hal.hpp"
+#include "rng.hpp"
 
 namespace fbc {
 

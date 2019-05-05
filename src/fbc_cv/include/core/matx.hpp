@@ -10,10 +10,10 @@
 	#error matx.hpp header must be compiled as C++
 #endif
 
-#include "core/fbcdef.hpp"
-#include "core/base.hpp"
-#include "core/interface.hpp"
-#include "core/saturate.hpp"
+#include "fbcdef.hpp"
+#include "base.hpp"
+#include "interface.hpp"
+#include "saturate.hpp"
 
 namespace fbc {
 ////////////////////////////// Small Matrix ///////////////////////////

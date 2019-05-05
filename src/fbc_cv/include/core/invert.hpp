@@ -8,8 +8,8 @@
               modules/core/src/lapack.cpp
 */
 
-#include "core/mat.hpp"
-#include "core/solve.hpp"
+#include "mat.hpp"
+#include "solve.hpp"
 
 namespace fbc {
 

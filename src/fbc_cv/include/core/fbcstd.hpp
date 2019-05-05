@@ -6,7 +6,7 @@
 
 // reference: include/opencv2/core/cvstd.hpp
 
-#include "core/fbcdef.hpp"
+#include "fbcdef.hpp"
 
 #ifndef __cplusplus
 	#error fbcstd.hpp header must be compiled as C++

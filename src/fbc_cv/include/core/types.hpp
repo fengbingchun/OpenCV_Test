@@ -10,9 +10,9 @@
 	#error types.hpp header must be compiled as C++
 #endif
 
-#include "core/fbcdef.hpp"
-#include "core/matx.hpp"
-#include "core/saturate.hpp"
+#include "fbcdef.hpp"
+#include "matx.hpp"
+#include "saturate.hpp"
 
 namespace fbc {
 template<typename _Tp> class Size_;

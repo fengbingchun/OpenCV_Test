@@ -10,8 +10,8 @@
 	#error utility.hpp header must be compiled as C++
 #endif
 
-#include "core/fbcdef.hpp"
-#include "core/base.hpp"
+#include "fbcdef.hpp"
+#include "base.hpp"
 
 namespace fbc {
 

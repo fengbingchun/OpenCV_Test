@@ -15,7 +15,7 @@ int test_opencv_resize_cplusplus()
 #ifdef _MSC_VER
 	matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png");
 #else
-	matSrc = cv::imread("lena.jpg");
+	matSrc = cv::imread("test_images/lena.jpg");
 #endif
 	if (matSrc.empty()) {
 		fprintf(stderr, "read image fail\n");
@@ -46,9 +46,9 @@ int test_opencv_resize_cplusplus()
 	cv::resize(matSrc, matDst2, matDst1.size(), 0, 0, 0);
 	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/nearest_2.jpg", matDst2);
 #else
-	cv::imwrite("nearest_1.jpg", matDst1);
+	cv::imwrite("test_images/nearest_1.jpg", matDst1);
 	cv::resize(matSrc, matDst2, matDst1.size(), 0, 0, 0);
-	cv::imwrite("nearest_2.jpg", matDst2);
+	cv::imwrite("test_images/nearest_2.jpg", matDst2);
 #endif
 }
 
@@ -103,9 +103,9 @@ int test_opencv_resize_cplusplus()
 	cv::resize(matSrc, matDst2, matDst1.size(), 0, 0, 1);
 	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/linear_2.jpg", matDst2);
 #else
-	cv::imwrite("linear_1.jpg", matDst1);
+	cv::imwrite("test_images/linear_1.jpg", matDst1);
 	cv::resize(matSrc, matDst2, matDst1.size(), 0, 0, 1);
-	cv::imwrite("linear_2.jpg", matDst2);
+	cv::imwrite("test_images/linear_2.jpg", matDst2);
 #endif
 }
 
@@ -178,9 +178,9 @@ int test_opencv_resize_cplusplus()
 	cv::resize(matSrc, matDst2, matDst1.size(), 0, 0, 2);
 	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/cubic_2.jpg", matDst2);
 #else
-	cv::imwrite("cubic_1.jpg", matDst1);
+	cv::imwrite("test_images/cubic_1.jpg", matDst1);
 	cv::resize(matSrc, matDst2, matDst1.size(), 0, 0, 2);
-	cv::imwrite("cubic_2.jpg", matDst2);
+	cv::imwrite("test_images/cubic_2.jpg", matDst2);
 #endif
 }
 
@@ -323,9 +323,9 @@ int test_opencv_resize_cplusplus()
 	cv::resize(matSrc, matDst2, matDst1.size(), 0, 0, 4);
 	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/Lanczos_2.jpg", matDst2);
 #else
-	cv::imwrite("Lanczos_1.jpg", matDst1);
+	cv::imwrite("test_images/Lanczos_1.jpg", matDst1);
 	cv::resize(matSrc, matDst2, matDst1.size(), 0, 0, 4);
-	cv::imwrite("Lanczos_2.jpg", matDst2);
+	cv::imwrite("test_images/Lanczos_2.jpg", matDst2);
 #endif
 }
 
@@ -335,7 +335,7 @@ int test_opencv_resize_cplusplus()
 	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/area_2.jpg", matDst2);
 #else
 	cv::resize(matSrc, matDst2, matDst1.size(), 0, 0, 3);
-	cv::imwrite("area_2.jpg", matDst2);
+	cv::imwrite("test_images/area_2.jpg", matDst2);
 #endif
 
 	fprintf(stdout, "==== start area ====\n");
@@ -359,7 +359,7 @@ int test_opencv_resize_cplusplus()
 #ifdef _MSC_VER
 			cv::imwrite("E:/GitCode/OpenCV_Test/test_images/area_1.jpg", matDst1);
 #else
-			cv::imwrite("area_1.jpg", matDst1);
+			cv::imwrite("test_images/area_1.jpg", matDst1);
 #endif
 			return 0;
 		}
@@ -403,7 +403,7 @@ int test_opencv_resize_cplusplus()
 #ifdef _MSC_VER
 		cv::imwrite("E:/GitCode/OpenCV_Test/test_images/area_1.jpg", matDst1);
 #else
-		cv::imwrite("area_1.jpg", matDst1);
+		cv::imwrite("test_images/area_1.jpg", matDst1);
 #endif
 
 		return 0;
@@ -450,7 +450,7 @@ int test_opencv_resize_cplusplus()
 #ifdef _MSC_VER
 	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/area_1.jpg", matDst1);
 #else
-	cv::imwrite("area_1.jpg", matDst1);
+	cv::imwrite("test_images/area_1.jpg", matDst1);
 #endif
 }
 

@@ -18,8 +18,8 @@
 
 #include <exception>
 #include <string>
-#include "core/fbcdef.hpp"
-#include "core/mat.hpp"
+#include "fbcdef.hpp"
+#include "mat.hpp"
 
 namespace fbc {
 // NormFlags

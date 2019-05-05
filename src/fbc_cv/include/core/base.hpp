@@ -13,8 +13,8 @@
 #include <assert.h>
 #include <algorithm>
 
-#include "core/fbcdef.hpp"
-#include "core/interface.hpp"
+#include "fbcdef.hpp"
+#include "interface.hpp"
 
 namespace fbc {
 

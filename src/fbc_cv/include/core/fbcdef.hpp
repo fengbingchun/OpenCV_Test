@@ -8,7 +8,7 @@
               include/opencv2/core/typedef_c.h
 */
 
-#include "core/interface.hpp"
+#include "interface.hpp"
 
 #ifdef _MSC_VER
 	#define FBC_EXPORTS __declspec(dllexport)

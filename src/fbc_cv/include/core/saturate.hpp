@@ -9,9 +9,9 @@
 #include <algorithm>
 #include <limits.h>
 
-#include "core/fbcdef.hpp"
-#include "core/interface.hpp"
-#include "core/fast_math.hpp"
+#include "fbcdef.hpp"
+#include "interface.hpp"
+#include "fast_math.hpp"
 
 namespace fbc
 {

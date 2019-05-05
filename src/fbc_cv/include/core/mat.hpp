@@ -18,13 +18,13 @@
 #include <typeinfo>
 #include <string.h>
 #include <float.h>
-#include "core/fbcdef.hpp"
-#include "core/types.hpp"
-#include "core/base.hpp"
-#include "core/interface.hpp"
-#include "core/fbcstd.hpp"
-#include "core/utility.hpp"
-#include "core/saturate.hpp"
+#include "fbcdef.hpp"
+#include "types.hpp"
+#include "base.hpp"
+#include "interface.hpp"
+#include "fbcstd.hpp"
+#include "utility.hpp"
+#include "saturate.hpp"
 
 namespace fbc {
 

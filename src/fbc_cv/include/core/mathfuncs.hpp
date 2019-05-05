@@ -9,8 +9,8 @@
 	      modules/core/src/mathfuncs_core.cpp
 */
 
-#include "core/mat.hpp"
-#include "core/NAryMatIterator.hpp"
+#include "mat.hpp"
+#include "NAryMatIterator.hpp"
 
 namespace fbc {
 
