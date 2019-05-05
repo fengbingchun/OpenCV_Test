@@ -15,7 +15,7 @@ int test_opencv_resize_cplusplus()
 #ifdef _MSC_VER
 	matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png");
 #else
-	matSrc = cv::imread("test_images/lena.jpg");
+	matSrc = cv::imread("test_images/lena.png");
 #endif
 	if (matSrc.empty()) {
 		fprintf(stderr, "read image fail\n");
