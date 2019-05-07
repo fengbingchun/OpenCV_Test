@@ -124,13 +124,13 @@ int test_warpAffine_uchar()
 		// Apply the Affine Transform just found to the src image
 		cv::warpAffine(mat_, warp_dst_, warp_mat_, warp_dst_.size(), interpolation);
 
-		assert(warp_mat.cols == warp_mat_.cols && warp_mat.rows == warp_mat_.rows);
-		assert(warp_mat.step == warp_mat_.step);
-		for (int y = 0; y < warp_mat.rows; y++) {
-			const fbc::uchar* p = warp_mat.ptr(y);
-			const uchar* p_ = warp_mat_.ptr(y);
+		assert(warp_dst.cols == warp_dst_.cols && warp_dst.rows == warp_dst_.rows);
+		assert(warp_dst.step == warp_dst_.step);
+		for (int y = 0; y < warp_dst.rows; y++) {
+			const fbc::uchar* p = warp_dst.ptr(y);
+			const uchar* p_ = warp_dst_.ptr(y);
 
-			for (int x = 0; x < warp_mat.step; x++) {
+			for (int x = 0; x < warp_dst.step; x++) {
 				assert(p[x] == p_[x]);
 			}
 		}
@@ -201,13 +201,13 @@ int test_warpAffine_float()
 		// Apply the Affine Transform just found to the src image
 		cv::warpAffine(mat_, warp_dst_, warp_mat_, warp_dst_.size(), interpolation);
 
-		assert(warp_mat.cols == warp_mat_.cols && warp_mat.rows == warp_mat_.rows);
-		assert(warp_mat.step == warp_mat_.step);
-		for (int y = 0; y < warp_mat.rows; y++) {
-			const fbc::uchar* p = warp_mat.ptr(y);
-			const uchar* p_ = warp_mat_.ptr(y);
+		assert(warp_dst.cols == warp_dst_.cols && warp_dst.rows == warp_dst_.rows);
+		assert(warp_dst.step == warp_dst_.step);
+		for (int y = 0; y < warp_dst.rows; y++) {
+			const fbc::uchar* p = warp_dst.ptr(y);
+			const uchar* p_ = warp_dst_.ptr(y);
 
-			for (int x = 0; x < warp_mat.step; x++) {
+			for (int x = 0; x < warp_dst.step; x++) {
 				assert(p[x] == p_[x]);
 			}
 		}
