@@ -18,4 +18,10 @@
 5. CImg:
 	version: 1.6.4
 	url: http://www.cimg.eu/
+6. FFmpeg:
+	version: 4.1.3
+	commit: 4154f89
+	date: 2019.04.01
+	url: https://github.com/FFmpeg/FFmpeg/releases
+	
 

@@ -6,11 +6,13 @@
 - VLFeat's usage [vlfeat.org](http://www.vlfeat.org/)
 - Vigra's usage [vigra GitHub](https://github.com/ukoethe/vigra)
 - CImg's usage [cimg.eu](http://www.cimg.eu/)
+- FFmpeg'usage [ffmpeg.org](https://ffmpeg.org/)
 
 **The project support platform:**
 - windows7/10 64 bits: It can be directly build with VS2013 in windows7/10 64bits.
 - Linux:
 	- OpenCV_Test support cmake build(file position: prj/linux_cmake_OpenCV_Test)
+	- FFmpeg_Test support cmake build(file position: prj/linux_cmake_FFmpeg_Test)
 
 **OpenCV's version: 3.1**
 - close support for OpenCL/CUDA/SIMD/TBB/OpenMP when build with CMake

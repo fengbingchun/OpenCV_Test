@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenCV_Test", "OpenCV_Test\OpenCV_Test.vcxproj", "{A10E3DEF-E1EE-49CC-B025-DE741B0F81E8}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -23,6 +23,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Vigra_Test", "Vigra_Test\Vigra_Test.vcxproj", "{B3AC9BE2-DA6B-4D7D-87BA-A06F081F1960}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CImg_Test", "CImg_Test\CImg_Test.vcxproj", "{E8E23222-1C58-4AF1-A6A0-E2826AC94BCA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FFmpeg_Test", "FFmpeg_Test\FFmpeg_Test.vcxproj", "{580AAB21-BCA2-48B8-912F-74D35F30EC23}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +60,9 @@ Global
 		{B3AC9BE2-DA6B-4D7D-87BA-A06F081F1960}.Release|x64.ActiveCfg = Release|x64
 		{E8E23222-1C58-4AF1-A6A0-E2826AC94BCA}.Debug|x64.ActiveCfg = Debug|x64
 		{E8E23222-1C58-4AF1-A6A0-E2826AC94BCA}.Release|x64.ActiveCfg = Release|x64
+		{580AAB21-BCA2-48B8-912F-74D35F30EC23}.Debug|x64.ActiveCfg = Debug|x64
+		{580AAB21-BCA2-48B8-912F-74D35F30EC23}.Release|x64.ActiveCfg = Release|x64
+		{580AAB21-BCA2-48B8-912F-74D35F30EC23}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

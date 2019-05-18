@@ -8,4 +8,7 @@
 /prj/linux_cmake_OpenCV_Test/build/
 /prj/linux_cmake_OpenCV_Test/test_images
 *.vs
-
+/prj/linux_cmake_FFmpeg_Test/build/
+/prj/linux_cmake_FFmpeg_Test/test_images
+/src/ffmpeg/build/
+/src/ffmpeg/.vscode/
