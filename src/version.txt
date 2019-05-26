@@ -23,5 +23,8 @@
 	commit: 4154f89
 	date: 2019.04.01
 	url: https://github.com/FFmpeg/FFmpeg/releases
-	
+7. LIVE555
+	version: live.2019.05.21.tar.gz
+	date: 2019.05.20
+	url: http://live555.com/liveMedia/public/	
 

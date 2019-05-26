@@ -7,12 +7,13 @@
 - Vigra's usage [vigra GitHub](https://github.com/ukoethe/vigra)
 - CImg's usage [cimg.eu](http://www.cimg.eu/)
 - FFmpeg'usage [ffmpeg.org](https://ffmpeg.org/)
+- LIVE555'usage [LIVE555.COM](http://live555.com/)
 
 **The project support platform:**
 - windows7/10 64 bits: It can be directly build with VS2013 in windows7/10 64bits.
 - Linux:
 	- OpenCV_Test support cmake build(file position: prj/linux_cmake_OpenCV_Test)
-	- FFmpeg_Test support cmake build(file position: prj/linux_cmake_FFmpeg_Test)
+	- FFmpeg_Test support cmake build(test code include: FFmpeg, LIVE555; file position: prj/linux_cmake_FFmpeg_Test)
 
 **OpenCV's version: 3.1**
 - close support for OpenCL/CUDA/SIMD/TBB/OpenMP when build with CMake
@@ -47,6 +48,8 @@
 **Screenshot:**  
 ![](https://github.com/fengbingchun/OpenCV_Test/blob/master/prj/x86_x64_vc12/Screenshot.png)
 
-**Blog:** [fengbingchun](http://blog.csdn.net/fengbingchun/article/category/721609)
+**Blog:**
+- [opencv/fbc_cv](https://blog.csdn.net/fengbingchun/article/category/721609)
+- [ffmpeg/live555](https://blog.csdn.net/fengbingchun/article/category/3069675)
 
 **fbc_cv library licence: uses the same licence as OpenCV3.1**

@@ -3,7 +3,7 @@
 
 int main()
 {
-	int ret = test_ffmpeg_libswresample_resample();
+	int ret = test_live555_rtsp_client();
 
 	if (ret == 0) fprintf(stdout, "========== test success ==========\n");
 	else fprintf(stderr, "########## test fail ##########\n");

@@ -42,6 +42,27 @@ cp -a ${ffmpeg_path}/build/install/lib/libswresample.a ${new_dir_name}
 cp -a ${ffmpeg_path}/build/install/bin/ffmpeg ${new_dir_name}
 cp -a ${ffmpeg_path}/build/install/bin/ffprobe ${new_dir_name}
 
+# build five555
+echo "########## start build live555 ##########"
+live555_path=${dir_name}/../../src/live555
+if [ -f ${live555_path}/liveMedia/libliveMedia.a ]; then
+	echo "live555 has been builded"
+else
+	echo "live555 has not been builded yet, now start build"
+	cd ${live555_path}
+	./genMakefiles linux-64bit
+	make
+	cd -
+fi
+
+cp -a ${live555_path}/BasicUsageEnvironment/libBasicUsageEnvironment.a ${new_dir_name}
+cp -a ${live555_path}/UsageEnvironment/libUsageEnvironment.a ${new_dir_name}
+cp -a ${live555_path}/liveMedia/libliveMedia.a ${new_dir_name}
+cp -a ${live555_path}/groupsock/libgroupsock.a ${new_dir_name}
+cp -a ${live555_path}/mediaServer/live555MediaServer ${new_dir_name}
+cp -a ${live555_path}/proxyServer/live555ProxyServer ${new_dir_name}
+
+
 cd ${new_dir_name}
 cmake ..
 make

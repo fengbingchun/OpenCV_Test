@@ -1,6 +1,7 @@
 #ifndef FBC_FFMPEG_TEST_FUNSET_HPP_
 #define FBC_FFMPEG_TEST_FUNSET_HPP_
 
+/////////////////////////// FFmpeg /////////////////////////////
 // libavfilter
 
 // libavdevice
@@ -28,6 +29,9 @@ int test_ffmpeg_libavutil_hash(); // hash function
 int test_ffmpeg_libavutil_des(); // DES symmetric encryption algorithm
 int test_ffmpeg_libavutil_aes(); // AES symmetric encryption algorithm
 int test_ffmpeg_libavutil_base64(); // base64 codec
+
+/////////////////////////// LIVE555 /////////////////////////////
+int test_live555_rtsp_client();
 
 #endif // FBC_FFMPEG_TEST_FUNSET_HPP_
 
