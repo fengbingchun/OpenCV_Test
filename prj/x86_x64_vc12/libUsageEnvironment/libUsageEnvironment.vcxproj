@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{59E50985-3EAD-4023-8B85-6CFFF9A2B266}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>libUsageEnvironment</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>.\../../../obj/dbg/x64_vc12/libUsageEnvironment\</OutDir>
+    <IntDir>.\../../../obj/dbg/x64_vc12/libUsageEnvironment\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>.\../../../obj/rel/x64_vc12/libUsageEnvironment\</OutDir>
+    <IntDir>.\../../../obj/rel/x64_vc12/libUsageEnvironment\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>E:\GitCode\OpenCV_Test\src\live555\UsageEnvironment\include;E:\GitCode\OpenCV_Test\src\live555\groupsock\include;E:\GitCode\OpenCV_Test\src\live555\BasicUsageEnvironment\include;E:\GitCode\OpenCV_Test\src\live555\liveMedia\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeaderOutputFile>.\../../../obj/dbg/x64_vc12/libUsageEnvironment\libUsageEnvironment.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../../obj/dbg/x64_vc12/libUsageEnvironment\</AssemblerListingLocation>
+      <ObjectFileName>.\../../../obj/dbg/x64_vc12/libUsageEnvironment\</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../../obj/dbg/x64_vc12/libUsageEnvironment\</ProgramDataBaseFileName>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <OutputFile>../../../lib/dbg/x64_vc12/libUsageEnvironment.lib</OutputFile>
+    </Lib>
+    <Bscmake>
+      <OutputFile>.\../../../obj/dbg/x64_vc12/libUsageEnvironment\libUsageEnvironment.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>E:\GitCode\OpenCV_Test\src\live555\UsageEnvironment\include;E:\GitCode\OpenCV_Test\src\live555\BasicUsageEnvironment\include;E:\GitCode\OpenCV_Test\src\live555\groupsock\include;E:\GitCode\OpenCV_Test\src\live555\liveMedia\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeaderOutputFile>.\../../../obj/rel/x64_vc12/libUsageEnvironment\libUsageEnvironment.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../../obj/rel/x64_vc12/libUsageEnvironment\</AssemblerListingLocation>
+      <ObjectFileName>.\../../../obj/rel/x64_vc12/libUsageEnvironment\</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../../obj/rel/x64_vc12/libUsageEnvironment\</ProgramDataBaseFileName>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Lib>
+      <OutputFile>../../../lib/rel/x64_vc12/libUsageEnvironment.lib</OutputFile>
+    </Lib>
+    <Bscmake>
+      <OutputFile>.\../../../obj/rel/x64_vc12/libUsageEnvironment\libUsageEnvironment.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\live555\UsageEnvironment\include\Boolean.hh" />
+    <ClInclude Include="..\..\..\src\live555\UsageEnvironment\include\HashTable.hh" />
+    <ClInclude Include="..\..\..\src\live555\UsageEnvironment\include\strDup.hh" />
+    <ClInclude Include="..\..\..\src\live555\UsageEnvironment\include\UsageEnvironment.hh" />
+    <ClInclude Include="..\..\..\src\live555\UsageEnvironment\include\UsageEnvironment_version.hh" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\live555\UsageEnvironment\HashTable.cpp" />
+    <ClCompile Include="..\..\..\src\live555\UsageEnvironment\strDup.cpp" />
+    <ClCompile Include="..\..\..\src\live555\UsageEnvironment\UsageEnvironment.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

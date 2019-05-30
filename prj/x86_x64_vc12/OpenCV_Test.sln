@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenCV_Test", "OpenCV_Test\OpenCV_Test.vcxproj", "{A10E3DEF-E1EE-49CC-B025-DE741B0F81E8}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -25,6 +25,14 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CImg_Test", "CImg_Test\CImg_Test.vcxproj", "{E8E23222-1C58-4AF1-A6A0-E2826AC94BCA}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FFmpeg_Test", "FFmpeg_Test\FFmpeg_Test.vcxproj", "{580AAB21-BCA2-48B8-912F-74D35F30EC23}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libBasicUsageEnvironment", "libBasicUsageEnvironment\libBasicUsageEnvironment.vcxproj", "{6F3D2342-15DD-4352-A691-252FF7345743}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libgroupsock", "libgroupsock\libgroupsock.vcxproj", "{601ECDE4-B0F7-4EDA-8FB7-DEF17DBD46BF}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libliveMedia", "libliveMedia\libliveMedia.vcxproj", "{AB904065-414C-4A4F-96FC-F37CEC7A0380}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libUsageEnvironment", "libUsageEnvironment\libUsageEnvironment.vcxproj", "{59E50985-3EAD-4023-8B85-6CFFF9A2B266}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +71,22 @@ Global
 		{580AAB21-BCA2-48B8-912F-74D35F30EC23}.Debug|x64.ActiveCfg = Debug|x64
 		{580AAB21-BCA2-48B8-912F-74D35F30EC23}.Release|x64.ActiveCfg = Release|x64
 		{580AAB21-BCA2-48B8-912F-74D35F30EC23}.Release|x64.Build.0 = Release|x64
+		{6F3D2342-15DD-4352-A691-252FF7345743}.Debug|x64.ActiveCfg = Debug|x64
+		{6F3D2342-15DD-4352-A691-252FF7345743}.Debug|x64.Build.0 = Debug|x64
+		{6F3D2342-15DD-4352-A691-252FF7345743}.Release|x64.ActiveCfg = Release|x64
+		{6F3D2342-15DD-4352-A691-252FF7345743}.Release|x64.Build.0 = Release|x64
+		{601ECDE4-B0F7-4EDA-8FB7-DEF17DBD46BF}.Debug|x64.ActiveCfg = Debug|x64
+		{601ECDE4-B0F7-4EDA-8FB7-DEF17DBD46BF}.Debug|x64.Build.0 = Debug|x64
+		{601ECDE4-B0F7-4EDA-8FB7-DEF17DBD46BF}.Release|x64.ActiveCfg = Release|x64
+		{601ECDE4-B0F7-4EDA-8FB7-DEF17DBD46BF}.Release|x64.Build.0 = Release|x64
+		{AB904065-414C-4A4F-96FC-F37CEC7A0380}.Debug|x64.ActiveCfg = Debug|x64
+		{AB904065-414C-4A4F-96FC-F37CEC7A0380}.Debug|x64.Build.0 = Debug|x64
+		{AB904065-414C-4A4F-96FC-F37CEC7A0380}.Release|x64.ActiveCfg = Release|x64
+		{AB904065-414C-4A4F-96FC-F37CEC7A0380}.Release|x64.Build.0 = Release|x64
+		{59E50985-3EAD-4023-8B85-6CFFF9A2B266}.Debug|x64.ActiveCfg = Debug|x64
+		{59E50985-3EAD-4023-8B85-6CFFF9A2B266}.Debug|x64.Build.0 = Debug|x64
+		{59E50985-3EAD-4023-8B85-6CFFF9A2B266}.Release|x64.ActiveCfg = Release|x64
+		{59E50985-3EAD-4023-8B85-6CFFF9A2B266}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
