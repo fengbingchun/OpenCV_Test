@@ -68,7 +68,10 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <OutputFile>.\../../../lib/dbg/x64_vc12/FFmpeg_Test.exe</OutputFile>
       <AdditionalLibraryDirectories>E:\GitCode\OpenCV_Test\src\ffmpeg\windows_install\debug\lib;D:\soft\OpenCV2.4.13\opencv\build\x64\vc12\lib;E:\GitCode\OpenCV_Test\lib\dbg\x64_vc12;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libavcodec.a;libavdevice.a;libavfilter.a;libavformat.a;libavutil.a;libswresample.a;libswscale.a;opencv_core2413d.lib;opencv_highgui2413d.lib;opencv_imgproc2413d.lib;bcrypt.lib;libBasicUsageEnvironment.lib;libgroupsock.lib;libliveMedia.lib;libUsageEnvironment.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libavcodec.a;libavdevice.a;libavfilter.a;libavformat.a;libavutil.a;libswresample.a;libswscale.a;opencv_core2413d.lib;opencv_highgui2413d.lib;opencv_imgproc2413d.lib;bcrypt.lib;libBasicUsageEnvironment.lib;libgroupsock.lib;libliveMedia.lib;libUsageEnvironment.lib;ws2_32.lib;WS2_32.Lib;Secur32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>libcmt.lib</IgnoreSpecificDefaultLibraries>
+      <IgnoreAllDefaultLibraries>
+      </IgnoreAllDefaultLibraries>
     </Link>
     <Bscmake>
       <OutputFile>.\../../../obj/dbg/x64_vc12/FFmpeg_Test\FFmpeg_Test.bsc</OutputFile>
@@ -97,7 +100,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <OutputFile>.\../../../lib/rel/x64_vc12/FFmpeg_Test.exe</OutputFile>
       <AdditionalLibraryDirectories>E:\GitCode\OpenCV_Test\src\ffmpeg\windows_install\release\lib;D:\soft\OpenCV2.4.13\opencv\build\x64\vc12\lib;E:\GitCode\OpenCV_Test\lib\rel\x64_vc12;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libavcodec.a;libavdevice.a;libavfilter.a;libavformat.a;libavutil.a;libswresample.a;libswscale.a;opencv_core2413.lib;opencv_highgui2413.lib;opencv_imgproc2413.lib;bcrypt.lib;libBasicUsageEnvironment.lib;libgroupsock.lib;libliveMedia.lib;libUsageEnvironment.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libavcodec.a;libavdevice.a;libavfilter.a;libavformat.a;libavutil.a;libswresample.a;libswscale.a;opencv_core2413.lib;opencv_highgui2413.lib;opencv_imgproc2413.lib;bcrypt.lib;libBasicUsageEnvironment.lib;libgroupsock.lib;libliveMedia.lib;libUsageEnvironment.lib;ws2_32.lib;WS2_32.Lib;Secur32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <OutputFile>.\../../../obj/rel/x64_vc12/FFmpeg_Test\FFmpeg_Test.bsc</OutputFile>
@@ -113,6 +116,7 @@
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_ffmpeg_libavutil.cpp" />
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_ffmpeg_libswresample.cpp" />
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_ffmpeg_libswscale.cpp" />
+    <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_ffmpeg_rtsp_client.cpp" />
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_live555_rtsp_client.cpp" />
   </ItemGroup>
   <ItemGroup>

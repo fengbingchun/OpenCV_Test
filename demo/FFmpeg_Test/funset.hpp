@@ -2,6 +2,8 @@
 #define FBC_FFMPEG_TEST_FUNSET_HPP_
 
 /////////////////////////// FFmpeg /////////////////////////////
+int test_ffmpeg_rtsp_client();
+
 // libavfilter
 
 // libavdevice

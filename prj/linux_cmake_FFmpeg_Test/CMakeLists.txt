@@ -45,5 +45,5 @@ FILE(GLOB_RECURSE TEST_CPP_LIST ${PATH_TEST_FILES}/*.cpp)
 # build executable program
 ADD_EXECUTABLE(FFmpeg_Test ${TEST_CPP_LIST})
 # add dependent library: static and dynamic
-TARGET_LINK_LIBRARIES(FFmpeg_Test avcodec avdevice avfilter avformat swresample swscale avutil liveMedia groupsock BasicUsageEnvironment UsageEnvironment ${opencv_core} ${opencv_imgproc} ${opencv_highgui} ${opencv_imgcodecs} ${opencv_video} ${opencv_videoio} pthread)
+TARGET_LINK_LIBRARIES(FFmpeg_Test avformat avcodec avdevice avfilter avformat swresample swscale avutil liveMedia groupsock BasicUsageEnvironment UsageEnvironment ${opencv_core} ${opencv_imgproc} ${opencv_highgui} ${opencv_imgcodecs} ${opencv_video} ${opencv_videoio} lzma z pthread)
 
