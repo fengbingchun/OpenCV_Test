@@ -2,11 +2,13 @@
 #define FBC_FFMPEG_TEST_FUNSET_HPP_
 
 /////////////////////////// FFmpeg /////////////////////////////
+int test_ffmpeg_usb_stream();
 int test_ffmpeg_rtsp_client();
 
 // libavfilter
 
 // libavdevice
+int test_ffmpeg_libavdevice_device_list();
 
 // libavformat
 
