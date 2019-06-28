@@ -55,7 +55,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_CRT_SECURE_NO_WARNINGS;__STDC_CONSTANT_MACROS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <AdditionalIncludeDirectories>E:\GitCode\OpenCV_Test\src\ffmpeg\windows_install\debug\include;D:\soft\OpenCV2.4.13\opencv\build\include;E:\GitCode\OpenCV_Test\src\live555\BasicUsageEnvironment\include;E:\GitCode\OpenCV_Test\src\live555\groupsock\include;E:\GitCode\OpenCV_Test\src\live555\liveMedia\include;E:\GitCode\OpenCV_Test\src\live555\UsageEnvironment\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderOutputFile>.\../../../obj/dbg/x64_vc12/FFmpeg_Test\FFmpeg_Test.pch</PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>.\../../../obj/dbg/x64_vc12/FFmpeg_Test\</AssemblerListingLocation>
@@ -85,7 +85,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;_CRT_SECURE_NO_WARNINGS;__STDC_CONSTANT_MACROS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <AdditionalIncludeDirectories>E:\GitCode\OpenCV_Test\src\ffmpeg\windows_install\release\include;D:\soft\OpenCV2.4.13\opencv\build\include;E:\GitCode\OpenCV_Test\src\live555\BasicUsageEnvironment\include;E:\GitCode\OpenCV_Test\src\live555\groupsock\include;E:\GitCode\OpenCV_Test\src\live555\liveMedia\include;E:\GitCode\OpenCV_Test\src\live555\UsageEnvironment\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderOutputFile>.\../../../obj/rel/x64_vc12/FFmpeg_Test\FFmpeg_Test.pch</PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>.\../../../obj/rel/x64_vc12/FFmpeg_Test\</AssemblerListingLocation>
@@ -109,6 +109,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\FFmpeg_Test.cpp" />
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\funset.cpp" />
+    <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_ffmpeg_decode_show.cpp" />
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_ffmpeg_libavcodec.cpp" />
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_ffmpeg_libavdevice.cpp" />
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_ffmpeg_libavfilter.cpp" />

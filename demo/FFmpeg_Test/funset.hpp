@@ -2,6 +2,9 @@
 #define FBC_FFMPEG_TEST_FUNSET_HPP_
 
 /////////////////////////// FFmpeg /////////////////////////////
+int test_ffmpeg_decode_show_old(); // deprecated interface
+int test_ffmpeg_decode_show_new(); // new interface
+int test_ffmpeg_decode_show();
 int test_ffmpeg_usb_stream();
 int test_ffmpeg_rtsp_client();
 
@@ -20,6 +23,7 @@ int test_ffmpeg_libswresample_resample(); // audio resample
 // libswscale
 int test_ffmpeg_libswscale_scale(); // image scale
 int test_ffmpeg_libswscale_colorspace(); // color space convert
+int test_ffmpeg_libswscale_bgr_yuv();
 
 // libavutil
 int test_ffmpeg_libavutil_xtea(); // XTEA(eXtended Tiny Encryption Algorithm)
