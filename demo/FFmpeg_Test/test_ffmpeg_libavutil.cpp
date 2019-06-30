@@ -21,13 +21,92 @@ extern "C" {
 #include <libavutil/tea.h>
 #include <libavutil/xtea.h>
 #include <libavutil/twofish.h>
+#include <libavutil/dict.h>
+#include <libavformat/avformat.h>
+#include <libavdevice/avdevice.h>
 
 #ifdef __cplusplus
 }
 #endif
 
-// Blog: https://blog.csdn.net/fengbingchun/article/details/90313219
+/////////////////////////////////////////////////////////////////////
+// Blog: https://blog.csdn.net/fengbingchun/article/details/94342306
+int test_ffmpeg_libavutil_avdictionary()
+{
+{
+	AVFormatContext* format_ctx = avformat_alloc_context();
+	const char* url = "rtsp://184.72.239.149/vod/mp4://BigBuckBunny_175k.mov";
+	int ret = -1;
+	AVDictionary* dict = nullptr;
+	av_dict_set(&dict, "max_delay", "100", 0);
+	ret = avformat_open_input(&format_ctx, url, nullptr, &dict);
+	if (ret != 0) {
+		fprintf(stderr, "fail to open url: %s, return value: %d\n", url, ret);
+		return -1;
+	}
 
+	fprintf(stdout, "dictionary count: %d\n", av_dict_count(format_ctx->metadata));
+	AVDictionaryEntry* entry = nullptr;
+	while ((entry = av_dict_get(format_ctx->metadata, "", entry, AV_DICT_IGNORE_SUFFIX))) {
+		fprintf(stdout, "key: %s, value: %s\n", entry->key, entry->value);
+	}
+
+	avformat_free_context(format_ctx);
+	av_dict_free(&dict);
+}
+
+{ // reference: https://ffmpeg.org/doxygen/4.1/group__lavu__dict.html
+	AVDictionary* d = nullptr; // "create" an empty dictionary
+	AVDictionaryEntry* t = nullptr;
+	av_dict_set(&d, "foo", "bar", 0); // add an entry
+	char* k = av_strdup("key"); // if your strings are already allocated, you can avoid copying them like this
+	char* v = av_strdup("value");
+	av_dict_set(&d, k, v, AV_DICT_DONT_STRDUP_KEY | AV_DICT_DONT_STRDUP_VAL);
+	fprintf(stdout, "dictionary count: %d\n", av_dict_count(d));
+	while (t = av_dict_get(d, "", t, AV_DICT_IGNORE_SUFFIX)) {
+		fprintf(stdout, "key: %s, value: %s\n", t->key, t->value); // iterate over all entries in d
+	}
+	av_dict_free(&d);
+}
+
+{
+	avdevice_register_all();
+
+	AVDictionary* options = nullptr;
+#ifdef _MSC_VER
+	const char* input_format_name = "vfwcap";
+	const char* url = "";
+#else
+	const char* input_format_name = "video4linux2";
+	const char* url = "/dev/video0";
+	av_dict_set(&options, "video_size", "640x480", 0);
+	av_dict_set(&options, "input_format", "mjpeg", 0);
+#endif
+
+	AVInputFormat* input_fmt = av_find_input_format(input_format_name);
+	AVFormatContext* format_ctx = avformat_alloc_context();
+
+	int ret = avformat_open_input(&format_ctx, url, input_fmt, &options);
+	if (ret != 0) {
+		fprintf(stderr, "fail to open url: %s, return value: %d\n", url, ret);
+		return -1;
+	}
+
+	fprintf(stdout, "dictionary count: %d\n", av_dict_count(format_ctx->metadata));
+	AVDictionaryEntry* entry = nullptr;
+	while ((entry = av_dict_get(format_ctx->metadata, "", entry, AV_DICT_IGNORE_SUFFIX))) {
+		fprintf(stdout, "key: %s, value: %s\n", entry->key, entry->value);
+	}
+
+	av_dict_free(&options);
+	avformat_close_input(&format_ctx);
+}
+
+	return 0;
+}
+
+/////////////////////////////////////////////////////////////////////
+// Blog: https://blog.csdn.net/fengbingchun/article/details/90313219
 int test_ffmpeg_libavutil_xtea()
 {
 	const char* src = "https://blog.csdn.net/fengbingchun";

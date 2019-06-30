@@ -26,6 +26,7 @@ int test_ffmpeg_libswscale_colorspace(); // color space convert
 int test_ffmpeg_libswscale_bgr_yuv();
 
 // libavutil
+int test_ffmpeg_libavutil_avdictionary(); // AVDictionary
 int test_ffmpeg_libavutil_xtea(); // XTEA(eXtended Tiny Encryption Algorithm)
 int test_ffmpeg_libavutil_twofish(); // Twofish crypto algorithm
 int test_ffmpeg_libavutil_tea(); // TEA(Tiny Encryption Algorithm)
