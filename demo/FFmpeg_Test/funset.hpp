@@ -2,6 +2,7 @@
 #define FBC_FFMPEG_TEST_FUNSET_HPP_
 
 /////////////////////////// FFmpeg /////////////////////////////
+int test_ffmpeg_stream_show(); // only support usb camera
 int test_ffmpeg_decode_show_old(); // deprecated interface
 int test_ffmpeg_decode_show_new(); // new interface
 int test_ffmpeg_decode_show();
