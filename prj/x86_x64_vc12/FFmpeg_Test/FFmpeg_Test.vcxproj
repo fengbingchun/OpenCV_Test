@@ -122,6 +122,7 @@
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_live555_rtsp_client.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\demo\FFmpeg_Test\common.hpp" />
     <ClInclude Include="..\..\..\demo\FFmpeg_Test\funset.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
