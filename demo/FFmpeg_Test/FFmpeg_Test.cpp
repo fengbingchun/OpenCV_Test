@@ -3,7 +3,7 @@
 
 int main()
 {
-	int ret = test_ffmpeg_stream_show_two_thread();
+	int ret = test_ffmpeg_rtsp_client_decode_show();
 
 	if (ret == 0) fprintf(stdout, "========== test success ==========\n");
 	else fprintf(stderr, "########## test fail ##########\n");

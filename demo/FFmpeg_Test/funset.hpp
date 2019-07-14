@@ -2,6 +2,7 @@
 #define FBC_FFMPEG_TEST_FUNSET_HPP_
 
 /////////////////////////// FFmpeg /////////////////////////////
+int test_ffmpeg_rtsp_client_decode_show(); // rtsp decode show
 int test_ffmpeg_stream_show_two_thread(); // only support rawvideo encode, two thread
 int test_ffmpeg_stream_show(); // only support rawvideo encode
 int test_ffmpeg_decode_show_old(); // deprecated interface
