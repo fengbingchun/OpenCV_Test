@@ -3,7 +3,7 @@
 
 int main()
 {
-	int ret = test_ffmpeg_rtsp_client_decode_show();
+	int ret = test_v4l2_usb_stream();
 
 	if (ret == 0) fprintf(stdout, "========== test success ==========\n");
 	else fprintf(stderr, "########## test fail ##########\n");

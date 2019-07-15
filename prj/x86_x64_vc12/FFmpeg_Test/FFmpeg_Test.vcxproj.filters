@@ -54,6 +54,9 @@
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_ffmpeg_decode_show.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_v4l2_usb_stream.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\demo\FFmpeg_Test\funset.hpp">

@@ -120,6 +120,7 @@
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_ffmpeg_rtsp_client.cpp" />
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_ffmpeg_usb_stream.cpp" />
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_live555_rtsp_client.cpp" />
+    <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_v4l2_usb_stream.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\demo\FFmpeg_Test\common.hpp" />

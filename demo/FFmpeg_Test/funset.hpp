@@ -45,5 +45,8 @@ int test_ffmpeg_libavutil_base64(); // base64 codec
 /////////////////////////// LIVE555 /////////////////////////////
 int test_live555_rtsp_client();
 
+/////////////////////////// V4L2 ///////////////////////////////
+int test_v4l2_usb_stream();
+
 #endif // FBC_FFMPEG_TEST_FUNSET_HPP_
 
