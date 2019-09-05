@@ -7,6 +7,30 @@
 
 #include <opencv2/opencv.hpp>
 
+int test_opencv_videocapture()
+{
+	cv::VideoCapture cap(0); // windows: 0: build-in camera; 1: usb camera
+	if (!cap.isOpened()) {
+		fprintf(stderr, "fail to open capture\n");
+		return -1;
+	}
+
+	cv::Mat gray;
+	const char* winname = "video";
+	cv::namedWindow(winname, 1);
+	for (;;) {
+		cv::Mat frame;
+		cap >> frame; // get a new frame from camera
+		cv::cvtColor(frame, gray, cv::COLOR_BGR2GRAY);
+		cv::imshow(winname, gray);
+
+		if (cv::waitKey(30) >= 0)
+			break;
+	}
+
+	return 0;
+}
+
 int test_opencv_resize_cplusplus()
 {
 	// Blog: https://blog.csdn.net/fengbingchun/article/details/17335477
