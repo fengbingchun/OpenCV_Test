@@ -7,8 +7,8 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 # support C++14, when gcc version > 5.1, use -std=c++14 instead of c++1y
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1y")
 
-SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -Wall -O2")
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -g -Wall -O2")
+SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -O2")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O2")
 
 MESSAGE(STATUS "project source dir: ${PROJECT_SOURCE_DIR}")
 SET(PATH_TEST_FILES ${PROJECT_SOURCE_DIR}/./../../demo/FFmpeg_Test)
@@ -45,5 +45,5 @@ FILE(GLOB_RECURSE TEST_CPP_LIST ${PATH_TEST_FILES}/*.cpp)
 # build executable program
 ADD_EXECUTABLE(FFmpeg_Test ${TEST_CPP_LIST})
 # add dependent library: static and dynamic
-TARGET_LINK_LIBRARIES(FFmpeg_Test avformat avcodec avdevice avfilter avformat swresample swscale avutil liveMedia groupsock BasicUsageEnvironment UsageEnvironment ${opencv_core} ${opencv_imgproc} ${opencv_highgui} ${opencv_imgcodecs} ${opencv_video} ${opencv_videoio} lzma z xcb xcb-shm pthread)
+TARGET_LINK_LIBRARIES(FFmpeg_Test avformat avcodec avdevice avfilter avformat swresample swscale avutil liveMedia groupsock BasicUsageEnvironment UsageEnvironment ${opencv_core} ${opencv_imgproc} ${opencv_highgui} ${opencv_imgcodecs} ${opencv_video} ${opencv_videoio} lzma X11 dl Xext z SDL2 asound xcb xcb-shm xcb-shape xcb-xfixes Xv pthread)
 

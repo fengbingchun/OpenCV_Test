@@ -25,7 +25,7 @@ else
 	echo "ffmpeg has not been builded yet, now start build"
 	mkdir -p ${ffmpeg_path}/build
 	cd ${ffmpeg_path}/build
-	.././configure --prefix=./install 
+	.././configure --prefix=./install
 	make -j4
 	make install
 	cd -
@@ -41,6 +41,7 @@ cp -a ${ffmpeg_path}/build/install/lib/libavcodec.a ${new_dir_name}
 cp -a ${ffmpeg_path}/build/install/lib/libswresample.a ${new_dir_name}
 cp -a ${ffmpeg_path}/build/install/bin/ffmpeg ${new_dir_name}
 cp -a ${ffmpeg_path}/build/install/bin/ffprobe ${new_dir_name}
+cp -a ${ffmpeg_path}/build/install/bin/ffplay ${new_dir_name}
 
 # build five555
 echo "########## start build live555 ##########"
