@@ -47,6 +47,7 @@
 - transpose
 - flip
 - dft/idft
+- Windows DShow(video camera, opencv 2.4.13.6)
 
 **Screenshot:**  
 ![](https://github.com/fengbingchun/OpenCV_Test/blob/master/prj/x86_x64_vc12/Screenshot.png)

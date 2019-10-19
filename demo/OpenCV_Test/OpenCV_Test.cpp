@@ -8,7 +8,7 @@
 
 int main()
 {
-	int ret = test_opencv_videocapture();// run_all_test();
+	int ret = test_dshow();// run_all_test();
 
 	if (ret == 0) fprintf(stdout, "========== test success ==========\n");
 	else fprintf(stderr, "########## test fail ##########\n");

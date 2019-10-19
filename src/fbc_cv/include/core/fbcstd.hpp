@@ -21,6 +21,9 @@ namespace fbc {
 FBC_EXPORTS void* fastMalloc(size_t size);
 // Deallocates a memory buffer
 FBC_EXPORTS void fastFree(void* ptr);
+void* cvAlloc(size_t size);
+void cvFree_(void* ptr);
+#define cvFree(ptr) (cvFree_(*(ptr)), *(ptr)=0)
 
 } // namespace fbc
 

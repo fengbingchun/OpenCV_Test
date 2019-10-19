@@ -102,6 +102,7 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\fbc_cv\include\capture.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\base.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\core.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\fast_math.hpp" />
@@ -124,10 +125,12 @@
     <ClInclude Include="..\..\..\src\fbc_cv\include\dft.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\dilate.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\directory.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\dshow.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\erode.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\filterengine.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\flip.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\imgproc.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\iplimage.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\merge.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\morph.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\morphologyEx.hpp" />
@@ -137,17 +140,21 @@
     <ClInclude Include="..\..\..\src\fbc_cv\include\split.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\threshold.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\transpose.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\videocapture.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\warpAffine.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\warpPerspective.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\fbc_cv\src\core.cpp" />
     <ClCompile Include="..\..\..\src\fbc_cv\src\directory.cpp" />
+    <ClCompile Include="..\..\..\src\fbc_cv\src\dshow.cpp" />
     <ClCompile Include="..\..\..\src\fbc_cv\src\fbcstd.cpp" />
     <ClCompile Include="..\..\..\src\fbc_cv\src\hal.cpp" />
     <ClCompile Include="..\..\..\src\fbc_cv\src\imgproc.cpp" />
     <ClCompile Include="..\..\..\src\fbc_cv\src\imgwarp.cpp" />
+    <ClCompile Include="..\..\..\src\fbc_cv\src\iplimage.cpp" />
     <ClCompile Include="..\..\..\src\fbc_cv\src\types.cpp" />
+    <ClCompile Include="..\..\..\src\fbc_cv\src\videocapture.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

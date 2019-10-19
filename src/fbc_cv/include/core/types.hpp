@@ -15,6 +15,265 @@
 #include "saturate.hpp"
 
 namespace fbc {
+
+#if defined WIN32 || defined _WIN32
+#  define CV_CDECL __cdecl
+#  define CV_STDCALL __stdcall
+#else
+#  define CV_CDECL
+#  define CV_STDCALL
+#endif
+
+#define IPL_DATA_ORDER_PIXEL  0
+#define IPL_DATA_ORDER_PLANE  1
+
+#define IPL_ORIGIN_TL 0
+#define IPL_ORIGIN_BL 1
+
+#define  CV_ORIGIN_TL  0
+#define  CV_ORIGIN_BL  1
+
+/* default image row align (in bytes) */
+#define  CV_DEFAULT_IMAGE_ROW_ALIGN  4
+
+typedef unsigned char uchar;
+
+/* CvArr* is used to pass arbitrary
+* array-like data structures
+* into functions where the particular
+* array type is recognized at runtime:
+*/
+typedef void CvArr;
+
+/*
+* The following definitions (until #endif)
+* is an extract from IPL headers.
+* Copyright (c) 1995 Intel Corporation.
+*/
+#define IPL_DEPTH_SIGN 0x80000000
+
+#define IPL_DEPTH_1U     1
+#define IPL_DEPTH_8U     8
+#define IPL_DEPTH_16U   16
+#define IPL_DEPTH_32F   32
+	/* for storing double-precision
+	floating point data in IplImage's */
+#define IPL_DEPTH_64F   64
+
+#define IPL_DEPTH_8S  (IPL_DEPTH_SIGN| 8)
+#define IPL_DEPTH_16S (IPL_DEPTH_SIGN|16)
+#define IPL_DEPTH_32S (IPL_DEPTH_SIGN|32)
+
+#ifndef MIN
+#  define MIN(a,b)  ((a) > (b) ? (b) : (a))
+#endif
+
+#ifndef MAX
+#  define MAX(a,b)  ((a) < (b) ? (b) : (a))
+#endif
+
+#define IPL_IMAGE_HEADER 1
+#define IPL_IMAGE_DATA   2
+#define IPL_IMAGE_ROI    4
+
+#define CV_IS_IMAGE_HDR(img) \
+	((img) != NULL && ((const IplImage*)(img))->nSize == sizeof(IplImage))
+
+/****************************************************************************************\
+*                                  Matrix type (CvMat)                                   *
+\****************************************************************************************/
+#define CV_CN_MAX     512
+#define CV_CN_SHIFT   3
+#define CV_DEPTH_MAX  (1 << CV_CN_SHIFT)
+
+#define CV_8U   0
+#define CV_8S   1
+#define CV_16U  2
+#define CV_16S  3
+#define CV_32S  4
+#define CV_32F  5
+#define CV_64F  6
+#define CV_USRTYPE1 7
+
+#define CV_MAT_DEPTH_MASK       (CV_DEPTH_MAX - 1)
+#define CV_MAT_DEPTH(flags)     ((flags) & CV_MAT_DEPTH_MASK)
+
+#define CV_MAKETYPE(depth,cn) (CV_MAT_DEPTH(depth) + (((cn)-1) << CV_CN_SHIFT))
+#define CV_MAKE_TYPE CV_MAKETYPE
+
+#define CV_8UC1 CV_MAKETYPE(CV_8U,1)
+#define CV_8UC2 CV_MAKETYPE(CV_8U,2)
+#define CV_8UC3 CV_MAKETYPE(CV_8U,3)
+#define CV_8UC4 CV_MAKETYPE(CV_8U,4)
+#define CV_8UC(n) CV_MAKETYPE(CV_8U,(n))
+
+#define CV_8SC1 CV_MAKETYPE(CV_8S,1)
+#define CV_8SC2 CV_MAKETYPE(CV_8S,2)
+#define CV_8SC3 CV_MAKETYPE(CV_8S,3)
+#define CV_8SC4 CV_MAKETYPE(CV_8S,4)
+#define CV_8SC(n) CV_MAKETYPE(CV_8S,(n))
+
+#define CV_16UC1 CV_MAKETYPE(CV_16U,1)
+#define CV_16UC2 CV_MAKETYPE(CV_16U,2)
+#define CV_16UC3 CV_MAKETYPE(CV_16U,3)
+#define CV_16UC4 CV_MAKETYPE(CV_16U,4)
+#define CV_16UC(n) CV_MAKETYPE(CV_16U,(n))
+
+#define CV_16SC1 CV_MAKETYPE(CV_16S,1)
+#define CV_16SC2 CV_MAKETYPE(CV_16S,2)
+#define CV_16SC3 CV_MAKETYPE(CV_16S,3)
+#define CV_16SC4 CV_MAKETYPE(CV_16S,4)
+#define CV_16SC(n) CV_MAKETYPE(CV_16S,(n))
+
+#define CV_32SC1 CV_MAKETYPE(CV_32S,1)
+#define CV_32SC2 CV_MAKETYPE(CV_32S,2)
+#define CV_32SC3 CV_MAKETYPE(CV_32S,3)
+#define CV_32SC4 CV_MAKETYPE(CV_32S,4)
+#define CV_32SC(n) CV_MAKETYPE(CV_32S,(n))
+
+#define CV_32FC1 CV_MAKETYPE(CV_32F,1)
+#define CV_32FC2 CV_MAKETYPE(CV_32F,2)
+#define CV_32FC3 CV_MAKETYPE(CV_32F,3)
+#define CV_32FC4 CV_MAKETYPE(CV_32F,4)
+#define CV_32FC(n) CV_MAKETYPE(CV_32F,(n))
+
+#define CV_64FC1 CV_MAKETYPE(CV_64F,1)
+#define CV_64FC2 CV_MAKETYPE(CV_64F,2)
+#define CV_64FC3 CV_MAKETYPE(CV_64F,3)
+#define CV_64FC4 CV_MAKETYPE(CV_64F,4)
+#define CV_64FC(n) CV_MAKETYPE(CV_64F,(n))
+
+#define CV_AUTO_STEP  0x7fffffff
+#define CV_WHOLE_ARR  cvSlice( 0, 0x3fffffff )
+
+#define CV_MAT_CN_MASK          ((CV_CN_MAX - 1) << CV_CN_SHIFT)
+#define CV_MAT_CN(flags)        ((((flags) & CV_MAT_CN_MASK) >> CV_CN_SHIFT) + 1)
+#define CV_MAT_TYPE_MASK        (CV_DEPTH_MAX*CV_CN_MAX - 1)
+#define CV_MAT_TYPE(flags)      ((flags) & CV_MAT_TYPE_MASK)
+#define CV_MAT_CONT_FLAG_SHIFT  14
+#define CV_MAT_CONT_FLAG        (1 << CV_MAT_CONT_FLAG_SHIFT)
+#define CV_IS_MAT_CONT(flags)   ((flags) & CV_MAT_CONT_FLAG)
+#define CV_IS_CONT_MAT          CV_IS_MAT_CONT
+#define CV_SUBMAT_FLAG_SHIFT    15
+#define CV_SUBMAT_FLAG          (1 << CV_SUBMAT_FLAG_SHIFT)
+//#define CV_IS_SUBMAT(flags)     ((flags) & CV_MAT_SUBMAT_FLAG)
+
+#define CV_MAGIC_MASK       0xFFFF0000
+#define CV_MAT_MAGIC_VAL    0x42420000
+
+typedef struct CvMat {
+	int type;
+	int step;
+
+	/* for internal use only */
+	int* refcount;
+	int hdr_refcount;
+
+	union
+	{
+		uchar* ptr;
+		short* s;
+		int* i;
+		float* fl;
+		double* db;
+	} data;
+
+#ifdef __cplusplus
+	union
+	{
+		int rows;
+		int height;
+	};
+
+	union
+	{
+		int cols;
+		int width;
+	};
+#else
+	int rows;
+	int cols;
+#endif
+} CvMat;
+
+#define CV_IS_MAT_HDR_Z(mat) \
+	((mat) != NULL && \
+	(((const CvMat*)(mat))->type & CV_MAGIC_MASK) == CV_MAT_MAGIC_VAL && \
+	((const CvMat*)(mat))->cols >= 0 && ((const CvMat*)(mat))->rows >= 0)
+
+#define CV_IS_MAT_HDR(mat) \
+	((mat) != NULL && \
+	(((const CvMat*)(mat))->type & CV_MAGIC_MASK) == CV_MAT_MAGIC_VAL && \
+	((const CvMat*)(mat))->cols > 0 && ((const CvMat*)(mat))->rows > 0)
+
+/* 0x3a50 = 11 10 10 01 01 00 00 ~ array of log2(sizeof(arr_type_elem)) */
+#define CV_ELEM_SIZE(type) \
+	(CV_MAT_CN(type) << ((((sizeof(size_t) / 4 + 1) * 16384 | 0x3a50) >> CV_MAT_DEPTH(type) * 2) & 3))
+
+/****************************************************************************************\
+*                       Multi-dimensional dense array (CvMatND)                          *
+\****************************************************************************************/
+
+#define CV_MATND_MAGIC_VAL    0x42430000
+
+#define CV_MAX_DIM            32
+#define CV_MAX_DIM_HEAP       1024
+
+typedef struct CvMatND {
+	int type;
+	int dims;
+
+	int* refcount;
+	int hdr_refcount;
+
+	union
+	{
+		uchar* ptr;
+		float* fl;
+		double* db;
+		int* i;
+		short* s;
+	} data;
+
+	struct
+	{
+		int size;
+		int step;
+	}
+	dim[CV_MAX_DIM];
+} CvMatND;
+
+#define CV_IS_MATND_HDR(mat) \
+	((mat) != NULL && (((const CvMatND*)(mat))->type & CV_MAGIC_MASK) == CV_MATND_MAGIC_VAL)
+
+typedef struct CvSize {
+	int width;
+	int height;
+} CvSize;
+
+inline CvSize cvSize(int width, int height)
+{
+	CvSize s;
+
+	s.width = width;
+	s.height = height;
+
+	return s;
+}
+
+inline int  cvRound(double value)
+{
+	__m128d t = _mm_set_sd(value);
+	return _mm_cvtsd_si32(t);
+
+	//double intpart, fractpart;
+	//fractpart = modf(value, &intpart);
+	//if ((fabs(fractpart) != 0.5) || ((((int)intpart) % 2) != 0))
+	//	return (int)(value + (value >= 0 ? 0.5 : -0.5));
+	//else
+	//	return (int)intpart;
+}
+
 template<typename _Tp> class Size_;
 template<typename _Tp> class Rect_;
 

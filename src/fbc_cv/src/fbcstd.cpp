@@ -35,4 +35,14 @@ void fastFree(void* ptr)
 	}
 }
 
+void* cvAlloc(size_t size)
+{
+	return fastMalloc(size);
+}
+
+void cvFree_(void* ptr)
+{
+	fastFree(ptr);
+}
+
 } // namespace fbc

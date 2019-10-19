@@ -112,6 +112,7 @@
     <ClCompile Include="..\..\..\demo\OpenCV_Test\test_dft.cpp" />
     <ClCompile Include="..\..\..\demo\OpenCV_Test\test_dilate.cpp" />
     <ClCompile Include="..\..\..\demo\OpenCV_Test\test_directory.cpp" />
+    <ClCompile Include="..\..\..\demo\OpenCV_Test\test_dshow.cpp" />
     <ClCompile Include="..\..\..\demo\OpenCV_Test\test_erode.cpp" />
     <ClCompile Include="..\..\..\demo\OpenCV_Test\test_fbc_cv_all.cpp" />
     <ClCompile Include="..\..\..\demo\OpenCV_Test\test_flip.cpp" />
