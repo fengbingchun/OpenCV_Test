@@ -52,6 +52,7 @@ VideoCapture::VideoCapture(const std::string& filename)
 
 VideoCapture::VideoCapture(int device)
 {
+	device_id = device;
 	open(device);
 }
 
@@ -62,10 +63,23 @@ VideoCapture::~VideoCapture()
 
 bool VideoCapture::open(const std::string& filename)
 {
-	//if (isOpened()) release();
-	//cap = cvCreateFileCapture(filename.c_str());
-	//return isOpened();
-	return false;
+	if (isOpened()) release();
+	open(0);
+	if (!cap) return false;
+
+	std::map<int, std::string> devices_name;
+	cap->getDevicesList(devices_name);
+	if (devices_name.size() == 0) return false;
+	if (isOpened()) release();
+
+	int device = -1;
+	for (auto it = devices_name.cbegin(); it != devices_name.cend(); ++it) {
+		if (filename.compare((*it).second) == 0)
+			device = (*it).first;
+	}
+	if (device == -1) return false;
+
+	return open(device);
 }
 
 bool VideoCapture::open(int device)
@@ -136,6 +150,35 @@ bool VideoCapture::set(int propId, double value)
 double VideoCapture::get(int propId)
 {
 	return cvGetCaptureProperty(cap, propId);
+}
+
+bool VideoCapture::getDevicesList(std::map<int, std::string>& filenames) const
+{
+	if (!cap) return false;
+	return cap->getDevicesList(filenames);
+}
+
+bool VideoCapture::getCodecList(std::vector<int>& codecids) const
+{
+	if (!cap) return false;
+	return cap->getCodecList(device_id, codecids);
+}
+
+bool VideoCapture::getVideoSizeList(int codec_id, std::vector<std::string>& sizelist) const
+{
+	if (!cap) return false;
+	return cap->getVideoSizeList(device_id, codec_id, sizelist);
+}
+
+bool FBC_EXPORTS get_camera_names(std::map<int, std::string>& names)
+{
+	VideoCapture capture(0);
+	if (!capture.isOpened()) {
+		fprintf(stderr, "fail to open capture\n");
+		return false;
+	}
+
+	return capture.getDevicesList(names);
 }
 
 } // namespace fbc

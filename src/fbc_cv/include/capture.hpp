@@ -10,6 +10,7 @@
 
 #include <string>
 #include <map>
+#include <vector>
 
 #include "iplimage.hpp"
 #include "core/mat.hpp"
@@ -235,7 +236,9 @@ struct CvCapture {
 	virtual bool grabFrame() { return true; }
 	virtual IplImage* retrieveFrame(int) { return 0; }
 	virtual int getCaptureDomain() { return CV_CAP_ANY; } // Return the type of the capture object: CV_CAP_VFW, etc...
-	virtual bool getDevicesList(std::map<int, std::string>&) const { return false; };
+	virtual bool getDevicesList(std::map<int, std::string>& devicelist) const { return false; };
+	virtual bool getCodecList(int device_id, std::vector<int>& codecids) const { return false; }
+	virtual bool getVideoSizeList(int device_id, int codec_id, std::vector<std::string>& sizelist) const { return false; }
 };
 
 } // namespace fbc

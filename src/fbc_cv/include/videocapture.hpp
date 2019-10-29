@@ -15,6 +15,13 @@
 
 namespace fbc {
 
+typedef enum video_codec_type_t {
+	VIDEO_CODEC_TYPE_H264,
+	VIDEO_CODEC_TYPE_H265,
+	VIDEO_CODEC_TYPE_MJPEG,
+	VIDEO_CODEC_TYPE_RAWVIDEO
+} video_codec_type_t;
+
 class FBC_EXPORTS VideoCapture {
 public:
 	VideoCapture();
@@ -35,9 +42,18 @@ public:
 	virtual bool set(int propId, double value);
 	virtual double get(int propId);
 
+	virtual bool getDevicesList(std::map<int, std::string>& filenames) const;
+	virtual bool getCodecList(std::vector<int>& codecids) const;
+	virtual bool getVideoSizeList(int codec_id, std::vector<std::string>& sizelist) const;
+
 protected:
 	Ptr<CvCapture> cap;
+
+private:
+	int device_id;
 };
+
+bool FBC_EXPORTS get_camera_names(std::map<int, std::string>& names); // index value, name
 
 } // namespace fbc
 
