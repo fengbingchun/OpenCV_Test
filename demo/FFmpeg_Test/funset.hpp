@@ -1,6 +1,17 @@
 #ifndef FBC_FFMPEG_TEST_FUNSET_HPP_
 #define FBC_FFMPEG_TEST_FUNSET_HPP_
 
+#include <map>
+#include <string>
+#include <vector>
+
+typedef enum video_codec_type_t {
+	VIDEO_CODEC_TYPE_H264,
+	VIDEO_CODEC_TYPE_H265,
+	VIDEO_CODEC_TYPE_MJPEG,
+	VIDEO_CODEC_TYPE_RAWVIDEO
+} video_codec_type_t;
+
 /////////////////////////// FFmpeg /////////////////////////////
 int test_ffmpeg_rtsp_client_decode_show(); // rtsp decode show
 int test_ffmpeg_stream_show_two_thread(); // only support rawvideo encode, two thread
@@ -47,6 +58,11 @@ int test_live555_rtsp_client();
 
 /////////////////////////// V4L2 ///////////////////////////////
 int test_v4l2_usb_stream();
+int test_v4l2_get_video_device_info();
+int test_v4l2_get_device_list(std::map<std::string, std::string>& device_list);
+int test_v4l2_get_codec_type_list(const std::string& device_name, std::vector<int>& codec_list);
+int test_v4l2_get_video_size_list(const std::string& device_name, int codec_type, std::vector<std::string>& size_list);
+
 
 #endif // FBC_FFMPEG_TEST_FUNSET_HPP_
 

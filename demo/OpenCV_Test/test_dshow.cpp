@@ -2,6 +2,7 @@
 #include <videocapture.hpp>
 #include <opencv2/opencv.hpp>
 
+// Blog: https://blog.csdn.net/fengbingchun/article/details/102806822
 int test_get_camera_info()
 {
 #ifdef _MSC_VER
