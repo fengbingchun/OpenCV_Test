@@ -51,6 +51,7 @@ if [ -f ${live555_path}/liveMedia/libliveMedia.a ]; then
 else
 	echo "live555 has not been builded yet, now start build"
 	cd ${live555_path}
+	chmod +x genMakefiles
 	./genMakefiles linux-64bit
 	make
 	cd -
