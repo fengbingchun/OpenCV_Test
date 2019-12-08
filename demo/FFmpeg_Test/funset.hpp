@@ -21,6 +21,7 @@ int test_ffmpeg_decode_show_new(); // new interface
 int test_ffmpeg_decode_show();
 int test_ffmpeg_usb_stream();
 int test_ffmpeg_rtsp_client();
+int test_ffmpeg_decode_dshow();
 
 // libavfilter
 

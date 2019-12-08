@@ -1,4 +1,4 @@
-#include "funset.hpp"
+﻿#include "funset.hpp"
 #include <stdio.h>
 #include <string.h>
 #include <iostream>
@@ -24,6 +24,175 @@ extern "C" {
 
 #include <opencv2/opencv.hpp>
 
+////////////////////////////////////////////////////////////
+// Blog: https://blog.csdn.net/fengbingchun/article/details/103444891
+#ifdef _MSC_VER
+int test_ffmpeg_decode_dshow()
+{
+	avdevice_register_all();
+
+{ // show dshow device name
+	AVFormatContext* format_context = avformat_alloc_context();
+	AVDictionary* dict = nullptr;
+	av_dict_set(&dict, "list_devices", "true", 0);
+	AVInputFormat* input_format = av_find_input_format("dshow");
+	avformat_open_input(&format_context, "", input_format, &dict);
+	avformat_close_input(&format_context);
+	av_dict_free(&dict);
+}
+
+{ // show support codec type and support video size
+	AVFormatContext* format_context = avformat_alloc_context();
+	AVDictionary* dict = nullptr;
+	av_dict_set(&dict, "list_options", "true", 0);
+	AVInputFormat* input_format = av_find_input_format("dshow");
+	avformat_open_input(&format_context, "video=Integrated Webcam", input_format, &dict); // video=video device name
+	avformat_close_input(&format_context);
+	av_dict_free(&dict);
+}
+
+{ // get dshow encode and decode
+	AVCodecID id = AV_CODEC_ID_MJPEG;
+	AVCodec* encoder_id = avcodec_find_encoder(id);
+	AVCodec* decoder_id = avcodec_find_decoder(id);
+	if (!encoder_id || !decoder_id) {
+		fprintf(stderr, "codec not found: %d\n", id);
+		return -1;
+	}
+
+	AVFormatContext* format_context = avformat_alloc_context();
+	format_context->video_codec_id = id; // 指定编解码格式
+
+	AVInputFormat* input_format = av_find_input_format("dshow");
+	AVDictionary* dict = nullptr;
+	//if (av_dict_set(&dict, "vcodec"/*"input_format"*/, "mjpeg", 0) < 0) fprintf(stderr, "fail to av_dict_set: line: %d\n", __LINE__); // 通过av_dict_set设置编解码格式好像不起作用
+	if (av_dict_set(&dict, "video_size", "320x240", 0) < 0) fprintf(stderr, "fail to av_dict_set: line: %d\n", __LINE__);
+	//if (av_dict_set(&dict, "r", "25", 0) < 0) fprintf(stderr, "fail to av_dict_set: line: %d\n", __LINE__); // 通过av_dict_set设置帧率好像不起作用
+	int ret = avformat_open_input(&format_context, "video=Integrated Webcam", input_format, &dict);
+	if (ret != 0) {
+		fprintf(stderr, "fail to avformat_open_input: %d\n", ret);
+		return -1;
+	}
+
+	ret = avformat_find_stream_info(format_context, nullptr);
+	if (ret < 0) {
+		fprintf(stderr, "fail to get stream information: %d\n", ret);
+		return -1;
+	}
+
+	int video_stream_index = -1;
+	for (unsigned int i = 0; i < format_context->nb_streams; ++i) {
+		const AVStream* stream = format_context->streams[i];
+		if (stream->codecpar->codec_type == AVMEDIA_TYPE_VIDEO) {
+			video_stream_index = i;
+			fprintf(stdout, "type of the encoded data: %d, dimensions of the video frame in pixels: width: %d, height: %d, pixel format: %d\n",
+				stream->codecpar->codec_id, stream->codecpar->width, stream->codecpar->height, stream->codecpar->format);
+		}
+	}
+
+	if (video_stream_index == -1) {
+		fprintf(stderr, "no video stream\n");
+		return -1;
+	}
+
+	fprintf(stdout, "frame rate: %f\n", av_q2d(format_context->streams[video_stream_index]->r_frame_rate));
+
+	AVCodecParameters* codecpar = format_context->streams[video_stream_index]->codecpar;
+	const AVCodec* codec = avcodec_find_decoder(codecpar->codec_id);
+	if (!codec) {
+		fprintf(stderr, "fail to avcodec_find_decoder\n");
+		return -1;
+	}
+
+	if (codecpar->codec_id != id) {
+		fprintf(stderr, "this test code only support mjpeg encode: %d\n", codecpar->codec_id);
+		return -1;
+	}
+
+	AVCodecContext* codec_context = avcodec_alloc_context3(codec);
+	if (!codec_context) {
+		fprintf(stderr, "fail to avcodec_alloc_context3\n");
+		return -1;
+	}
+
+	codec_context->pix_fmt = AVPixelFormat(codecpar->format);
+	codec_context->height = codecpar->height;
+	codec_context->width = codecpar->width;
+	codec_context->thread_count = 16;
+	ret = avcodec_open2(codec_context, codec, nullptr);
+	if (ret != 0) {
+		fprintf(stderr, "fail to avcodec_open2: %d\n", ret);
+		return -1;
+	}
+
+	AVPixelFormat dst_pixel_format = AV_PIX_FMT_BGR24;
+	AVFrame* frame = av_frame_alloc();
+	AVPacket* packet = (AVPacket*)av_malloc(sizeof(AVPacket));
+	SwsContext* sws_context = sws_getContext(codec_context->width, codec_context->height, codec_context->pix_fmt, codec_context->width, codec_context->height, dst_pixel_format, 0, nullptr, nullptr, nullptr);
+	if (!frame || !packet || !sws_context) {
+		fprintf(stderr, "fail to alloc\n");
+		return -1;
+	}
+
+	uint8_t *bgr_data[4];
+	int bgr_linesize[4];
+	av_image_alloc(bgr_data, bgr_linesize, codec_context->width, codec_context->height, dst_pixel_format, 1);
+	cv::Mat mat(codec_context->height, codec_context->width, CV_8UC3);
+	const char* winname = "dshow mjpeg video";
+	cv::namedWindow(winname);
+
+	while (1) {
+		ret = av_read_frame(format_context, packet);
+		if (ret >= 0 && packet->stream_index == video_stream_index && packet->size > 0) {
+			ret = avcodec_send_packet(codec_context, packet);
+			if (ret < 0) {
+				fprintf(stderr, "##### fail to avcodec_send_packet: %d\n", ret);
+				av_packet_unref(packet);
+				continue;
+			}
+
+			ret = avcodec_receive_frame(codec_context, frame);
+			if (ret < 0) {
+				fprintf(stderr, "##### fail to avcodec_receive_frame: %d\n", ret);
+				av_packet_unref(packet);
+				continue;
+			}
+
+			sws_scale(sws_context, frame->data, frame->linesize, 0, codec_context->height, bgr_data, bgr_linesize);
+			mat.data = bgr_data[0];
+			cv::imshow(winname, mat);
+		} else if (ret < 0 || packet->size <= 0) {
+			fprintf(stderr, "##### fail to av_read_frame: %d, packet size: %d\n", ret, packet->size);
+			continue;
+		}
+
+		av_packet_unref(packet);
+
+		int key = cv::waitKey(30);
+		if (key == 27) break;
+	}
+
+	cv::destroyWindow(winname);
+	sws_freeContext(sws_context);
+	av_frame_free(&frame);
+	av_freep(packet);
+	av_freep(&bgr_data[0]);
+	avformat_close_input(&format_context);
+	av_dict_free(&dict);
+}
+
+	fprintf(stdout, "test finish\n");
+	return 0;
+}
+#else
+int test_ffmpeg_decode_dshow()
+{
+	fprintf(stderr, "Error: this test code only support windows platform\n");
+	return -1;
+}
+#endif
+
+////////////////////////////////////////////////////////////
 // Blog: https://blog.csdn.net/fengbingchun/article/details/95021281
 
 namespace {

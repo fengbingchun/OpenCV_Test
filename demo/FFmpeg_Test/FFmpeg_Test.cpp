@@ -3,7 +3,7 @@
 
 int main()
 {
-	int ret = test_v4l2_get_video_device_info();
+	int ret = test_ffmpeg_decode_dshow();
 
 	if (ret == 0) fprintf(stdout, "========== test success ==========\n");
 	else fprintf(stderr, "########## test fail ##########\n");
