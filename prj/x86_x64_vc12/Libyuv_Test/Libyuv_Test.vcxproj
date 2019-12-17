@@ -68,6 +68,7 @@
       <AssemblerListingLocation>.\../../../obj/dbg/x64_vc12/Libyuv_Test\</AssemblerListingLocation>
       <ObjectFileName>.\../../../obj/dbg/x64_vc12/Libyuv_Test\</ObjectFileName>
       <ProgramDataBaseFileName>.\../../../obj/dbg/x64_vc12/Libyuv_Test\</ProgramDataBaseFileName>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -94,6 +95,7 @@
       <AssemblerListingLocation>.\../../../obj/rel/x64_vc12/Libyuv_Test\</AssemblerListingLocation>
       <ObjectFileName>.\../../../obj/rel/x64_vc12/Libyuv_Test\</ObjectFileName>
       <ProgramDataBaseFileName>.\../../../obj/rel/x64_vc12/Libyuv_Test\</ProgramDataBaseFileName>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

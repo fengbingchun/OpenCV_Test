@@ -1,0 +1,389 @@
+The system is: Windows - 10.0.17134 - AMD64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler:  
+Build flags: 
+Id flags:  
+
+The output was:
+0
+Microsoft(R) ��������汾 12.0.21005.1
+[Microsoft .NET Framework �汾 4.0.30319.42000]
+��Ȩ���� (C) Microsoft Corporation����������Ȩ����
+
+��������ʱ��Ϊ 2019/4/25 13:39:47��
+�ڵ� 1 �ϵ���Ŀ��E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\3.12.1\CompilerIdC\CompilerIdC.vcxproj��(Ĭ��Ŀ��)��
+PrepareForBuild:
+  ���ڴ���Ŀ¼��Debug\����
+  ���ڴ���Ŀ¼��Debug\CompilerIdC.tlog\����
+InitializeBuildStatus:
+  ���ڴ�����Debug\CompilerIdC.tlog\unsuccessfulbuild������Ϊ��ָ����AlwaysCreate����
+ClCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /nologo /W0 /WX- /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TC /errorReport:queue CMakeCCompilerId.c
+  CMakeCCompilerId.c
+Link:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:QUEUE /OUT:".\CompilerIdC.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\CompilerIdC.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\CompilerIdC.lib" /MACHINE:X64 Debug\CMakeCCompilerId.obj
+  CompilerIdC.vcxproj -> E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\3.12.1\CompilerIdC\.\CompilerIdC.exe
+PostBuildEvent:
+  for %%i in (cl.exe) do @echo CMAKE_C_COMPILER=%%~$PATH:i
+  :VCEnd
+  CMAKE_C_COMPILER=C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\cl.exe
+FinalizeBuildStatus:
+  ����ɾ���ļ���Debug\CompilerIdC.tlog\unsuccessfulbuild����
+  ���ڶԡ�Debug\CompilerIdC.tlog\CompilerIdC.lastbuildstate��ִ�� Touch ����
+�����������Ŀ��E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\3.12.1\CompilerIdC\CompilerIdC.vcxproj��(Ĭ��Ŀ��)�Ĳ�����
+
+�ѳɹ����ɡ�
+    0 ������
+    0 ������
+
+����ʱ�� 00:00:00.71
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.vcxproj"
+
+The C compiler identification is MSVC, found in "E:/GitCode/OCR_Test/src/libjpeg-turbo/simd/build/CMakeFiles/3.12.1/CompilerIdC/CompilerIdC.exe"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler:  
+Build flags: 
+Id flags:  
+
+The output was:
+0
+Microsoft(R) ��������汾 12.0.21005.1
+[Microsoft .NET Framework �汾 4.0.30319.42000]
+��Ȩ���� (C) Microsoft Corporation����������Ȩ����
+
+��������ʱ��Ϊ 2019/4/25 13:39:48��
+�ڵ� 1 �ϵ���Ŀ��E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\3.12.1\CompilerIdCXX\CompilerIdCXX.vcxproj��(Ĭ��Ŀ��)��
+PrepareForBuild:
+  ���ڴ���Ŀ¼��Debug\����
+  ���ڴ���Ŀ¼��Debug\CompilerIdCXX.tlog\����
+InitializeBuildStatus:
+  ���ڴ�����Debug\CompilerIdCXX.tlog\unsuccessfulbuild������Ϊ��ָ����AlwaysCreate����
+ClCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /nologo /W0 /WX- /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /errorReport:queue CMakeCXXCompilerId.cpp
+  CMakeCXXCompilerId.cpp
+Link:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:QUEUE /OUT:".\CompilerIdCXX.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\CompilerIdCXX.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\CompilerIdCXX.lib" /MACHINE:X64 Debug\CMakeCXXCompilerId.obj
+  CompilerIdCXX.vcxproj -> E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\3.12.1\CompilerIdCXX\.\CompilerIdCXX.exe
+PostBuildEvent:
+  for %%i in (cl.exe) do @echo CMAKE_CXX_COMPILER=%%~$PATH:i
+  :VCEnd
+  CMAKE_CXX_COMPILER=C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\cl.exe
+FinalizeBuildStatus:
+  ����ɾ���ļ���Debug\CompilerIdCXX.tlog\unsuccessfulbuild����
+  ���ڶԡ�Debug\CompilerIdCXX.tlog\CompilerIdCXX.lastbuildstate��ִ�� Touch ����
+�����������Ŀ��E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\3.12.1\CompilerIdCXX\CompilerIdCXX.vcxproj��(Ĭ��Ŀ��)�Ĳ�����
+
+�ѳɹ����ɡ�
+    0 ������
+    0 ������
+
+����ʱ�� 00:00:00.99
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.vcxproj"
+
+The CXX compiler identification is MSVC, found in "E:/GitCode/OCR_Test/src/libjpeg-turbo/simd/build/CMakeFiles/3.12.1/CompilerIdCXX/CompilerIdCXX.exe"
+
+Determining if the C compiler works passed with the following output:
+Change Dir: E:/GitCode/OCR_Test/src/libjpeg-turbo/simd/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTC_ce244.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
+Microsoft(R) 生成引擎版本 12.0.21005.1
+[Microsoft .NET Framework 版本 4.0.30319.42000]
+版权所有 (C) Microsoft Corporation。保留所有权利。
+
+生成启动时间为 2019/4/25 13:39:49。
+节点 1 上的项目“E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\cmTC_ce244.vcxproj”(默认目标)。
+PrepareForBuild:
+  正在创建目录“cmTC_ce244.dir\Debug\”。
+  正在创建目录“E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\Debug\”。
+  正在创建目录“cmTC_ce244.dir\Debug\cmTC_ce244.tlog\”。
+InitializeBuildStatus:
+  正在创建“cmTC_ce244.dir\Debug\cmTC_ce244.tlog\unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+ClCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /Zi /W3 /WX- /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTC_ce244.dir\Debug\\" /Fd"cmTC_ce244.dir\Debug\vc120.pdb" /Gd /TC /errorReport:queue "E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\testCCompiler.c"
+  用于 x64 的 Microsoft (R) C/C++ 优化编译器 18.00.21005.1 版
+  版权所有(C) Microsoft Corporation。  保留所有权利。
+  
+  cl /c /Zi /W3 /WX- /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTC_ce244.dir\Debug\\" /Fd"cmTC_ce244.dir\Debug\vc120.pdb" /Gd /TC /errorReport:queue "E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\testCCompiler.c"
+  
+  testCCompiler.c
+Link:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:QUEUE /OUT:"E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\Debug\cmTC_ce244.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/GitCode/OCR_Test/src/libjpeg-turbo/simd/build/CMakeFiles/CMakeTmp/Debug/cmTC_ce244.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:/GitCode/OCR_Test/src/libjpeg-turbo/simd/build/CMakeFiles/CMakeTmp/Debug/cmTC_ce244.lib" /MACHINE:X64  /machine:x64 cmTC_ce244.dir\Debug\testCCompiler.obj
+  cmTC_ce244.vcxproj -> E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\Debug\cmTC_ce244.exe
+FinalizeBuildStatus:
+  正在删除文件“cmTC_ce244.dir\Debug\cmTC_ce244.tlog\unsuccessfulbuild”。
+  正在对“cmTC_ce244.dir\Debug\cmTC_ce244.tlog\cmTC_ce244.lastbuildstate”执行 Touch 任务。
+已完成生成项目“E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\cmTC_ce244.vcxproj”(默认目标)的操作。
+
+已成功生成。
+    0 个警告
+    0 个错误
+
+已用时间 00:00:01.29
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: E:/GitCode/OCR_Test/src/libjpeg-turbo/simd/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTC_2adae.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
+Microsoft(R) 生成引擎版本 12.0.21005.1
+[Microsoft .NET Framework 版本 4.0.30319.42000]
+版权所有 (C) Microsoft Corporation。保留所有权利。
+
+生成启动时间为 2019/4/25 13:39:51。
+节点 1 上的项目“E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\cmTC_2adae.vcxproj”(默认目标)。
+PrepareForBuild:
+  正在创建目录“cmTC_2adae.dir\Debug\”。
+  正在创建目录“E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\Debug\”。
+  正在创建目录“cmTC_2adae.dir\Debug\cmTC_2adae.tlog\”。
+InitializeBuildStatus:
+  正在创建“cmTC_2adae.dir\Debug\cmTC_2adae.tlog\unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+ClCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /Zi /W3 /WX- /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTC_2adae.dir\Debug\\" /Fd"cmTC_2adae.dir\Debug\vc120.pdb" /Gd /TC /errorReport:queue "D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeCCompilerABI.c"
+  用于 x64 的 Microsoft (R) C/C++ 优化编译器 18.00.21005.1 版
+  版权所有(C) Microsoft Corporation。  保留所有权利。
+  
+  cl /c /Zi /W3 /WX- /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTC_2adae.dir\Debug\\" /Fd"cmTC_2adae.dir\Debug\vc120.pdb" /Gd /TC /errorReport:queue "D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeCCompilerABI.c"
+  
+  CMakeCCompilerABI.c
+Link:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:QUEUE /OUT:"E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\Debug\cmTC_2adae.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/GitCode/OCR_Test/src/libjpeg-turbo/simd/build/CMakeFiles/CMakeTmp/Debug/cmTC_2adae.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:/GitCode/OCR_Test/src/libjpeg-turbo/simd/build/CMakeFiles/CMakeTmp/Debug/cmTC_2adae.lib" /MACHINE:X64  /machine:x64 cmTC_2adae.dir\Debug\CMakeCCompilerABI.obj
+  cmTC_2adae.vcxproj -> E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\Debug\cmTC_2adae.exe
+FinalizeBuildStatus:
+  正在删除文件“cmTC_2adae.dir\Debug\cmTC_2adae.tlog\unsuccessfulbuild”。
+  正在对“cmTC_2adae.dir\Debug\cmTC_2adae.tlog\cmTC_2adae.lastbuildstate”执行 Touch 任务。
+已完成生成项目“E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\cmTC_2adae.vcxproj”(默认目标)的操作。
+
+已成功生成。
+    0 个警告
+    0 个错误
+
+已用时间 00:00:00.72
+
+
+
+
+Detecting C [] compiler features compiled with the following output:
+Change Dir: E:/GitCode/OCR_Test/src/libjpeg-turbo/simd/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTC_d11e8.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
+Microsoft(R) 生成引擎版本 12.0.21005.1
+[Microsoft .NET Framework 版本 4.0.30319.42000]
+版权所有 (C) Microsoft Corporation。保留所有权利。
+
+生成启动时间为 2019/4/25 13:39:53。
+节点 1 上的项目“E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\cmTC_d11e8.vcxproj”(默认目标)。
+PrepareForBuild:
+  正在创建目录“cmTC_d11e8.dir\Debug\”。
+  正在创建目录“E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\Debug\”。
+  正在创建目录“cmTC_d11e8.dir\Debug\cmTC_d11e8.tlog\”。
+InitializeBuildStatus:
+  正在创建“cmTC_d11e8.dir\Debug\cmTC_d11e8.tlog\unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+ClCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /Zi /W3 /WX- /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTC_d11e8.dir\Debug\\" /Fd"cmTC_d11e8.dir\Debug\vc120.pdb" /Gd /TC /errorReport:queue "E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\feature_tests.c"
+  用于 x64 的 Microsoft (R) C/C++ 优化编译器 18.00.21005.1 版
+  版权所有(C) Microsoft Corporation。  保留所有权利。
+  
+  cl /c /Zi /W3 /WX- /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTC_d11e8.dir\Debug\\" /Fd"cmTC_d11e8.dir\Debug\vc120.pdb" /Gd /TC /errorReport:queue "E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\feature_tests.c"
+  
+  feature_tests.c
+Link:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:QUEUE /OUT:"E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\Debug\cmTC_d11e8.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/GitCode/OCR_Test/src/libjpeg-turbo/simd/build/CMakeFiles/CMakeTmp/Debug/cmTC_d11e8.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:/GitCode/OCR_Test/src/libjpeg-turbo/simd/build/CMakeFiles/CMakeTmp/Debug/cmTC_d11e8.lib" /MACHINE:X64  /machine:x64 cmTC_d11e8.dir\Debug\feature_tests.obj
+  cmTC_d11e8.vcxproj -> E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\Debug\cmTC_d11e8.exe
+FinalizeBuildStatus:
+  正在删除文件“cmTC_d11e8.dir\Debug\cmTC_d11e8.tlog\unsuccessfulbuild”。
+  正在对“cmTC_d11e8.dir\Debug\cmTC_d11e8.tlog\cmTC_d11e8.lastbuildstate”执行 Touch 任务。
+已完成生成项目“E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\cmTC_d11e8.vcxproj”(默认目标)的操作。
+
+已成功生成。
+    0 个警告
+    0 个错误
+
+已用时间 00:00:00.79
+
+
+    Feature record: C_FEATURE:1c_function_prototypes
+    Feature record: C_FEATURE:1c_variadic_macros
+Determining if the CXX compiler works passed with the following output:
+Change Dir: E:/GitCode/OCR_Test/src/libjpeg-turbo/simd/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTC_c8701.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
+Microsoft(R) 生成引擎版本 12.0.21005.1
+[Microsoft .NET Framework 版本 4.0.30319.42000]
+版权所有 (C) Microsoft Corporation。保留所有权利。
+
+生成启动时间为 2019/4/25 13:39:54。
+节点 1 上的项目“E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\cmTC_c8701.vcxproj”(默认目标)。
+PrepareForBuild:
+  正在创建目录“cmTC_c8701.dir\Debug\”。
+  正在创建目录“E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\Debug\”。
+  正在创建目录“cmTC_c8701.dir\Debug\cmTC_c8701.tlog\”。
+InitializeBuildStatus:
+  正在创建“cmTC_c8701.dir\Debug\cmTC_c8701.tlog\unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+ClCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /Zi /W3 /WX- /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTC_c8701.dir\Debug\\" /Fd"cmTC_c8701.dir\Debug\vc120.pdb" /Gd /TP /errorReport:queue "E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\testCXXCompiler.cxx"
+  用于 x64 的 Microsoft (R) C/C++ 优化编译器 18.00.21005.1 版
+  版权所有(C) Microsoft Corporation。  保留所有权利。
+  
+  cl /c /Zi /W3 /WX- /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTC_c8701.dir\Debug\\" /Fd"cmTC_c8701.dir\Debug\vc120.pdb" /Gd /TP /errorReport:queue "E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\testCXXCompiler.cxx"
+  
+  testCXXCompiler.cxx
+Link:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:QUEUE /OUT:"E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\Debug\cmTC_c8701.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/GitCode/OCR_Test/src/libjpeg-turbo/simd/build/CMakeFiles/CMakeTmp/Debug/cmTC_c8701.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:/GitCode/OCR_Test/src/libjpeg-turbo/simd/build/CMakeFiles/CMakeTmp/Debug/cmTC_c8701.lib" /MACHINE:X64  /machine:x64 cmTC_c8701.dir\Debug\testCXXCompiler.obj
+  cmTC_c8701.vcxproj -> E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\Debug\cmTC_c8701.exe
+FinalizeBuildStatus:
+  正在删除文件“cmTC_c8701.dir\Debug\cmTC_c8701.tlog\unsuccessfulbuild”。
+  正在对“cmTC_c8701.dir\Debug\cmTC_c8701.tlog\cmTC_c8701.lastbuildstate”执行 Touch 任务。
+已完成生成项目“E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\cmTC_c8701.vcxproj”(默认目标)的操作。
+
+已成功生成。
+    0 个警告
+    0 个错误
+
+已用时间 00:00:01.90
+
+
+Detecting CXX compiler ABI info compiled with the following output:
+Change Dir: E:/GitCode/OCR_Test/src/libjpeg-turbo/simd/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTC_ebc5a.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
+Microsoft(R) 生成引擎版本 12.0.21005.1
+[Microsoft .NET Framework 版本 4.0.30319.42000]
+版权所有 (C) Microsoft Corporation。保留所有权利。
+
+生成启动时间为 2019/4/25 13:39:56。
+节点 1 上的项目“E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\cmTC_ebc5a.vcxproj”(默认目标)。
+PrepareForBuild:
+  正在创建目录“cmTC_ebc5a.dir\Debug\”。
+  正在创建目录“E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\Debug\”。
+  正在创建目录“cmTC_ebc5a.dir\Debug\cmTC_ebc5a.tlog\”。
+InitializeBuildStatus:
+  正在创建“cmTC_ebc5a.dir\Debug\cmTC_ebc5a.tlog\unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+ClCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /Zi /W3 /WX- /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTC_ebc5a.dir\Debug\\" /Fd"cmTC_ebc5a.dir\Debug\vc120.pdb" /Gd /TP /errorReport:queue "D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeCXXCompilerABI.cpp"
+  用于 x64 的 Microsoft (R) C/C++ 优化编译器 18.00.21005.1 版
+  版权所有(C) Microsoft Corporation。  保留所有权利。
+  
+  cl /c /Zi /W3 /WX- /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTC_ebc5a.dir\Debug\\" /Fd"cmTC_ebc5a.dir\Debug\vc120.pdb" /Gd /TP /errorReport:queue "D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeCXXCompilerABI.cpp"
+  
+  CMakeCXXCompilerABI.cpp
+Link:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:QUEUE /OUT:"E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\Debug\cmTC_ebc5a.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/GitCode/OCR_Test/src/libjpeg-turbo/simd/build/CMakeFiles/CMakeTmp/Debug/cmTC_ebc5a.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:/GitCode/OCR_Test/src/libjpeg-turbo/simd/build/CMakeFiles/CMakeTmp/Debug/cmTC_ebc5a.lib" /MACHINE:X64  /machine:x64 cmTC_ebc5a.dir\Debug\CMakeCXXCompilerABI.obj
+  cmTC_ebc5a.vcxproj -> E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\Debug\cmTC_ebc5a.exe
+FinalizeBuildStatus:
+  正在删除文件“cmTC_ebc5a.dir\Debug\cmTC_ebc5a.tlog\unsuccessfulbuild”。
+  正在对“cmTC_ebc5a.dir\Debug\cmTC_ebc5a.tlog\cmTC_ebc5a.lastbuildstate”执行 Touch 任务。
+已完成生成项目“E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\cmTC_ebc5a.vcxproj”(默认目标)的操作。
+
+已成功生成。
+    0 个警告
+    0 个错误
+
+已用时间 00:00:00.81
+
+
+
+
+Detecting CXX [] compiler features compiled with the following output:
+Change Dir: E:/GitCode/OCR_Test/src/libjpeg-turbo/simd/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTC_be4c7.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
+Microsoft(R) 生成引擎版本 12.0.21005.1
+[Microsoft .NET Framework 版本 4.0.30319.42000]
+版权所有 (C) Microsoft Corporation。保留所有权利。
+
+生成启动时间为 2019/4/25 13:39:58。
+节点 1 上的项目“E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\cmTC_be4c7.vcxproj”(默认目标)。
+PrepareForBuild:
+  正在创建目录“cmTC_be4c7.dir\Debug\”。
+  正在创建目录“E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\Debug\”。
+  正在创建目录“cmTC_be4c7.dir\Debug\cmTC_be4c7.tlog\”。
+InitializeBuildStatus:
+  正在创建“cmTC_be4c7.dir\Debug\cmTC_be4c7.tlog\unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+ClCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /Zi /W3 /WX- /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTC_be4c7.dir\Debug\\" /Fd"cmTC_be4c7.dir\Debug\vc120.pdb" /Gd /TP /errorReport:queue "E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\feature_tests.cxx"
+  用于 x64 的 Microsoft (R) C/C++ 优化编译器 18.00.21005.1 版
+  版权所有(C) Microsoft Corporation。  保留所有权利。
+  
+  cl /c /Zi /W3 /WX- /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTC_be4c7.dir\Debug\\" /Fd"cmTC_be4c7.dir\Debug\vc120.pdb" /Gd /TP /errorReport:queue "E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\feature_tests.cxx"
+  
+  feature_tests.cxx
+Link:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:QUEUE /OUT:"E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\Debug\cmTC_be4c7.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/GitCode/OCR_Test/src/libjpeg-turbo/simd/build/CMakeFiles/CMakeTmp/Debug/cmTC_be4c7.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:/GitCode/OCR_Test/src/libjpeg-turbo/simd/build/CMakeFiles/CMakeTmp/Debug/cmTC_be4c7.lib" /MACHINE:X64  /machine:x64 cmTC_be4c7.dir\Debug\feature_tests.obj
+  cmTC_be4c7.vcxproj -> E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\Debug\cmTC_be4c7.exe
+FinalizeBuildStatus:
+  正在删除文件“cmTC_be4c7.dir\Debug\cmTC_be4c7.tlog\unsuccessfulbuild”。
+  正在对“cmTC_be4c7.dir\Debug\cmTC_be4c7.tlog\cmTC_be4c7.lastbuildstate”执行 Touch 任务。
+已完成生成项目“E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\CMakeTmp\cmTC_be4c7.vcxproj”(默认目标)的操作。
+
+已成功生成。
+    0 个警告
+    0 个错误
+
+已用时间 00:00:00.74
+
+
+    Feature record: CXX_FEATURE:0cxx_aggregate_default_initializers
+    Feature record: CXX_FEATURE:1cxx_alias_templates
+    Feature record: CXX_FEATURE:0cxx_alignas
+    Feature record: CXX_FEATURE:0cxx_alignof
+    Feature record: CXX_FEATURE:0cxx_attributes
+    Feature record: CXX_FEATURE:0cxx_attribute_deprecated
+    Feature record: CXX_FEATURE:1cxx_auto_type
+    Feature record: CXX_FEATURE:0cxx_binary_literals
+    Feature record: CXX_FEATURE:0cxx_constexpr
+    Feature record: CXX_FEATURE:1cxx_contextual_conversions
+    Feature record: CXX_FEATURE:1cxx_decltype
+    Feature record: CXX_FEATURE:0cxx_decltype_auto
+    Feature record: CXX_FEATURE:0cxx_decltype_incomplete_return_types
+    Feature record: CXX_FEATURE:1cxx_default_function_template_args
+    Feature record: CXX_FEATURE:1cxx_defaulted_functions
+    Feature record: CXX_FEATURE:0cxx_defaulted_move_initializers
+    Feature record: CXX_FEATURE:1cxx_delegating_constructors
+    Feature record: CXX_FEATURE:0cxx_deleted_functions
+    Feature record: CXX_FEATURE:0cxx_digit_separators
+    Feature record: CXX_FEATURE:1cxx_enum_forward_declarations
+    Feature record: CXX_FEATURE:1cxx_explicit_conversions
+    Feature record: CXX_FEATURE:1cxx_extended_friend_declarations
+    Feature record: CXX_FEATURE:1cxx_extern_templates
+    Feature record: CXX_FEATURE:1cxx_final
+    Feature record: CXX_FEATURE:0cxx_func_identifier
+    Feature record: CXX_FEATURE:0cxx_generalized_initializers
+    Feature record: CXX_FEATURE:0cxx_generic_lambdas
+    Feature record: CXX_FEATURE:0cxx_inheriting_constructors
+    Feature record: CXX_FEATURE:0cxx_inline_namespaces
+    Feature record: CXX_FEATURE:1cxx_lambdas
+    Feature record: CXX_FEATURE:0cxx_lambda_init_captures
+    Feature record: CXX_FEATURE:1cxx_local_type_template_args
+    Feature record: CXX_FEATURE:1cxx_long_long_type
+    Feature record: CXX_FEATURE:0cxx_noexcept
+    Feature record: CXX_FEATURE:0cxx_nonstatic_member_init
+    Feature record: CXX_FEATURE:1cxx_nullptr
+    Feature record: CXX_FEATURE:1cxx_override
+    Feature record: CXX_FEATURE:1cxx_range_for
+    Feature record: CXX_FEATURE:1cxx_raw_string_literals
+    Feature record: CXX_FEATURE:0cxx_reference_qualified_functions
+    Feature record: CXX_FEATURE:0cxx_return_type_deduction
+    Feature record: CXX_FEATURE:1cxx_right_angle_brackets
+    Feature record: CXX_FEATURE:1cxx_rvalue_references
+    Feature record: CXX_FEATURE:0cxx_sizeof_member
+    Feature record: CXX_FEATURE:1cxx_static_assert
+    Feature record: CXX_FEATURE:1cxx_strong_enums
+    Feature record: CXX_FEATURE:1cxx_template_template_parameters
+    Feature record: CXX_FEATURE:0cxx_thread_local
+    Feature record: CXX_FEATURE:1cxx_trailing_return_types
+    Feature record: CXX_FEATURE:0cxx_unicode_literals
+    Feature record: CXX_FEATURE:1cxx_uniform_initialization
+    Feature record: CXX_FEATURE:0cxx_unrestricted_unions
+    Feature record: CXX_FEATURE:0cxx_user_literals
+    Feature record: CXX_FEATURE:0cxx_variable_templates
+    Feature record: CXX_FEATURE:1cxx_variadic_macros
+    Feature record: CXX_FEATURE:1cxx_variadic_templates

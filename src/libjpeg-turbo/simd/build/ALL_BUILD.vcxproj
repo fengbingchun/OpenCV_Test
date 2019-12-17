@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D754B143-0FC1-38BF-B834-80B9AE72CC23}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>ALL_BUILD</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule E:/GitCode/OCR_Test/src/libjpeg-turbo/simd/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+D:\ProgramFiles\CMake\bin\cmake.exe -HE:/GitCode/OCR_Test/src/libjpeg-turbo/simd -BE:/GitCode/OCR_Test/src/libjpeg-turbo/simd/build --check-stamp-file E:/GitCode/OCR_Test/src/libjpeg-turbo/simd/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:/GitCode/OCR_Test/src/libjpeg-turbo/simd/CMakeLists.txt;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeCCompiler.cmake.in;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeCCompilerABI.c;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeCInformation.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeCXXCompiler.cmake.in;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeCXXCompilerABI.cpp;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeCXXInformation.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeCommonLanguageInclude.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeCompilerIdDetection.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeDetermineCCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeDetermineCXXCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeDetermineCompileFeatures.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeDetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeDetermineCompilerABI.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeDetermineCompilerId.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeDetermineRCCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeDetermineSystem.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeFindBinUtils.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeGenericSystem.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeInitializeConfigs.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeLanguageInformation.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeParseImplicitLinkInfo.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeRCCompiler.cmake.in;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeRCInformation.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeSystem.cmake.in;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeSystemSpecificInformation.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeSystemSpecificInitialize.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeTestCCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeTestCXXCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeTestCompilerCommon.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CMakeTestRCCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\ADSP-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\ARMCC-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\AppleClang-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\Borland-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\Bruce-C-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\CMakeCommonCompilerMacros.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\Clang-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\Comeau-CXX-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\Compaq-C-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\Compaq-CXX-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\Cray-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\GHS-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\GNU-C-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\GNU-CXX-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\HP-C-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\HP-CXX-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\IAR-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\Intel-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\MIPSpro-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\MSVC-C-FeatureTests.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\MSVC-C.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\MSVC-CXX-FeatureTests.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\MSVC-CXX.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\MSVC-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\NVIDIA-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\PGI-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\PathScale-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\SCO-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\SDCC-C-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\SunPro-C-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\SunPro-CXX-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\TI-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\TinyCC-C-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\VisualAge-C-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\VisualAge-CXX-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\Watcom-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\XL-C-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\XL-CXX-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\zOS-C-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Compiler\zOS-CXX-DetermineCompiler.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\CompilerId\VS-10.vcxproj.in;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Internal\FeatureTesting.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Platform\Windows-Determine-CXX.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Platform\Windows-MSVC-C.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Platform\Windows-MSVC-CXX.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Platform\Windows-MSVC.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Platform\Windows.cmake;D:\ProgramFiles\CMake\share\cmake-3.12\Modules\Platform\WindowsPaths.cmake;E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\CMakeLists.txt;E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\3.12.1\CMakeCCompiler.cmake;E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\3.12.1\CMakeCXXCompiler.cmake;E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\3.12.1\CMakeRCCompiler.cmake;E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\3.12.1\CMakeSystem.cmake;E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\feature_tests.c;E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\feature_tests.cxx;E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="E:\GitCode\OCR_Test\src\libjpeg-turbo\simd\build\ZERO_CHECK.vcxproj">
+      <Project>{2056D4C2-1E48-32A2-B4AB-5F27329BEE8F}</Project>
+      <Name>ZERO_CHECK</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

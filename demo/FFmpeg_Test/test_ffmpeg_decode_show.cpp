@@ -1,4 +1,4 @@
-﻿#include "funset.hpp"
+#include "funset.hpp"
 #include <stdio.h>
 #include <string.h>
 #include <iostream>
@@ -23,6 +23,115 @@ extern "C" {
 #endif
 
 #include <opencv2/opencv.hpp>
+#include <libyuv/convert_argb.h>
+#include <libyuv/convert.h>
+
+///////////////////////////////////////////////////////////
+// Blog: https://blog.csdn.net/fengbingchun/article/details/103583548
+#ifdef _MSC_VER
+int test_ffmpeg_dshow_mjpeg_encode_libyuv_decode()
+{
+	avdevice_register_all();
+
+	AVCodecID id = AV_CODEC_ID_MJPEG;
+	AVCodec* encoder_id = avcodec_find_encoder(id);
+	if (!encoder_id) {
+		fprintf(stderr, "codec not found: %d\n", id);
+		return -1;
+	}
+
+	AVFormatContext* format_context = avformat_alloc_context();
+	format_context->video_codec_id = id;
+
+	AVInputFormat* input_format = av_find_input_format("dshow");
+	AVDictionary* dict = nullptr;
+	if (av_dict_set(&dict, "video_size", "960x540", 0) < 0) fprintf(stderr, "fail to av_dict_set: line: %d\n", __LINE__);
+	int ret = avformat_open_input(&format_context, "video=Integrated Webcam", input_format, &dict);
+	if (ret != 0) {
+		fprintf(stderr, "fail to avformat_open_input: %d\n", ret);
+		return -1;
+	}
+
+	ret = avformat_find_stream_info(format_context, nullptr);
+	if (ret < 0) {
+		fprintf(stderr, "fail to get stream information: %d\n", ret);
+		return -1;
+	}
+
+	int video_stream_index = -1;
+	for (unsigned int i = 0; i < format_context->nb_streams; ++i) {
+		const AVStream* stream = format_context->streams[i];
+		if (stream->codecpar->codec_type == AVMEDIA_TYPE_VIDEO) {
+			video_stream_index = i;
+			fprintf(stdout, "type of the encoded data: %d, dimensions of the video frame in pixels: width: %d, height: %d, pixel format: %d\n",
+				stream->codecpar->codec_id, stream->codecpar->width, stream->codecpar->height, stream->codecpar->format);
+		}
+	}
+
+	if (video_stream_index == -1) {
+		fprintf(stderr, "no video stream\n");
+		return -1;
+	}
+
+	AVCodecParameters* codecpar = format_context->streams[video_stream_index]->codecpar;
+	if (codecpar->codec_id != id) {
+		fprintf(stderr, "this test code only support mjpeg encode: %d\n", codecpar->codec_id);
+		return -1;
+	}
+
+	AVPacket* packet = (AVPacket*)av_malloc(sizeof(AVPacket));
+	if (!packet) {
+		fprintf(stderr, "fail to alloc\n");
+		return -1;
+	}
+
+	std::unique_ptr<unsigned char[]> data(new unsigned char[codecpar->width * codecpar->height * 4]);
+	cv::Mat mat(codecpar->height,codecpar->width, CV_8UC4, data.get());
+	const char* winname = "dshow mjpeg encode and libyuv decode";
+	cv::namedWindow(winname);
+	AVFrame* frame = av_frame_alloc();
+
+	while (1) {
+		ret = av_read_frame(format_context, packet);
+		if (ret >= 0 && packet->stream_index == video_stream_index && packet->size > 0) {
+			int dst_width, dst_height;
+			libyuv::MJPGSize(packet->data, packet->size, &dst_width, &dst_height);
+			if (dst_width != codecpar->width || dst_height != codecpar->height) {
+				fprintf(stderr, "width or height dismatch: (%d, %d), (%d, %d)\n",
+					dst_width, dst_height, codecpar->width, codecpar->height);
+				return -1;
+			}
+
+			libyuv::MJPGToARGB(packet->data, packet->size, data.get(), dst_width * 4,
+				codecpar->width, codecpar->height, dst_width, dst_height);
+			cv::imshow(winname, mat);
+
+		} else if (ret < 0 || packet->size <= 0) {
+			fprintf(stderr, "fail to av_read_frame: %d, packet size: %d\n", ret, packet->size);
+			continue;
+		}
+
+		av_packet_unref(packet);
+
+		int key = cv::waitKey(30);
+		if (key == 27) break;
+	}
+
+	cv::destroyWindow(winname);
+	av_freep(packet);
+	avformat_close_input(&format_context);
+	av_dict_free(&dict);
+
+	fprintf(stdout, "test finish\n");
+	return 0;
+}
+#else
+int test_ffmpeg_dshow_mjpeg_encode_libyuv_decode()
+{
+	fprintf(stderr, "Error: this test code only support windows platform\n");
+	return -1;
+}
+#endif
 
 ////////////////////////////////////////////////////////////
 // Blog: https://blog.csdn.net/fengbingchun/article/details/103444891

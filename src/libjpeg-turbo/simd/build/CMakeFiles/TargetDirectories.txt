@@ -1,0 +1,2 @@
+E:/GitCode/OCR_Test/src/libjpeg-turbo/simd/build/CMakeFiles/ALL_BUILD.dir
+E:/GitCode/OCR_Test/src/libjpeg-turbo/simd/build/CMakeFiles/ZERO_CHECK.dir

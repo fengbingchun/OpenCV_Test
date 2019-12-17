@@ -1,0 +1,26 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ALL_BUILD", "ALL_BUILD.vcxproj", "{D754B143-0FC1-38BF-B834-80B9AE72CC23}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2056D4C2-1E48-32A2-B4AB-5F27329BEE8F} = {2056D4C2-1E48-32A2-B4AB-5F27329BEE8F}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZERO_CHECK", "ZERO_CHECK.vcxproj", "{2056D4C2-1E48-32A2-B4AB-5F27329BEE8F}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D754B143-0FC1-38BF-B834-80B9AE72CC23}.Release|x64.ActiveCfg = Release|x64
+		{2056D4C2-1E48-32A2-B4AB-5F27329BEE8F}.Release|x64.ActiveCfg = Release|x64
+		{2056D4C2-1E48-32A2-B4AB-5F27329BEE8F}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A86A517F-C468-3EBD-895F-B29734F6FF43}
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
