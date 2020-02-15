@@ -1,8 +1,9 @@
 #ifndef FBC_FBC_CV_FUNSET_HPP_
 #define FBC_FBC_CV_FUNSET_HPP_
 
+int test_ffmpeg_dshow_mjpeg();
 int test_get_camera_info();
-int test_dshow();
+int test_opencv_dshow();
 
 int test_fast_math();
 int test_base();

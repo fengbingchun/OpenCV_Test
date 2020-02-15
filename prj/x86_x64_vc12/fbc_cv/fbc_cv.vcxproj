@@ -68,6 +68,7 @@
       <OutputFile>../../../lib/dbg/x64_vc12/fbc_cv.dll</OutputFile>
       <ImportLibrary>../../../lib/dbg/x64_vc12/fbc_cv.lib</ImportLibrary>
       <ProgramDatabaseFile>../../../lib/dbg/x64_vc12/fbc_cv.pdb</ProgramDatabaseFile>
+      <AdditionalDependencies>strmiids.lib;shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <OutputFile>.\../../../obj/dbg/x64_vc12/fbc_cv\fbc_cv.bsc</OutputFile>
@@ -96,12 +97,29 @@
       <OutputFile>../../../lib/rel/x64_vc12/fbc_cv.dll</OutputFile>
       <ProgramDatabaseFile>../../../lib/rel/x64_vc12/fbc_cv.pdb</ProgramDatabaseFile>
       <ImportLibrary>../../../lib/rel/x64_vc12/fbc_cv.lib</ImportLibrary>
+      <AdditionalDependencies>strmiids.lib;shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <OutputFile>.\../../../obj/rel/x64_vc12/fbc_cv\fbc_cv.bsc</OutputFile>
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\fbc_cv\include\avbuffer.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\avclass.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\avcodec.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\avdevice.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\avdictionary.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\averror.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\avformat.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\avframe.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\avio.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\avmem.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\avoption.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\avpacket.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\avpixdesc.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\avrational.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\avstream.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\avutil.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\capture.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\base.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\core\core.hpp" />
@@ -126,18 +144,28 @@
     <ClInclude Include="..\..\..\src\fbc_cv\include\dilate.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\directory.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\dshow.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\dshow_capture.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\erode.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\ffmpeg_codec_id.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\ffmpeg_common.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\ffmpeg_pixel_format.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\filterengine.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\flip.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\id3v2.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\imgproc.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\imgutils.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\iplimage.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\mathematics.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\merge.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\morph.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\morphologyEx.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\options_table.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\remap.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\resize.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\rotate.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\split.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\stdatomic.hpp" />
+    <ClInclude Include="..\..\..\src\fbc_cv\include\thread.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\threshold.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\transpose.hpp" />
     <ClInclude Include="..\..\..\src\fbc_cv\include\videocapture.hpp" />
@@ -145,14 +173,40 @@
     <ClInclude Include="..\..\..\src\fbc_cv\include\warpPerspective.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\fbc_cv\src\avbuffer.cpp" />
+    <ClCompile Include="..\..\..\src\fbc_cv\src\avclass.cpp" />
+    <ClCompile Include="..\..\..\src\fbc_cv\src\avcodec.cpp" />
+    <ClCompile Include="..\..\..\src\fbc_cv\src\avdevice.cpp" />
+    <ClCompile Include="..\..\..\src\fbc_cv\src\avdictionary.cpp" />
+    <ClCompile Include="..\..\..\src\fbc_cv\src\avformat.cpp" />
+    <ClCompile Include="..\..\..\src\fbc_cv\src\avframe.cpp" />
+    <ClCompile Include="..\..\..\src\fbc_cv\src\avio.cpp" />
+    <ClCompile Include="..\..\..\src\fbc_cv\src\avmem.cpp" />
+    <ClCompile Include="..\..\..\src\fbc_cv\src\avoption.cpp" />
+    <ClCompile Include="..\..\..\src\fbc_cv\src\avpacket.cpp" />
+    <ClCompile Include="..\..\..\src\fbc_cv\src\avpixdesc.cpp" />
+    <ClCompile Include="..\..\..\src\fbc_cv\src\avrational.cpp" />
+    <ClCompile Include="..\..\..\src\fbc_cv\src\avutil.cpp" />
     <ClCompile Include="..\..\..\src\fbc_cv\src\core.cpp" />
     <ClCompile Include="..\..\..\src\fbc_cv\src\directory.cpp" />
     <ClCompile Include="..\..\..\src\fbc_cv\src\dshow.cpp" />
+    <ClCompile Include="..\..\..\src\fbc_cv\src\dshow2.cpp" />
+    <ClCompile Include="..\..\..\src\fbc_cv\src\dshow3.cpp" />
+    <ClCompile Include="..\..\..\src\fbc_cv\src\dshow4.cpp" />
+    <ClCompile Include="..\..\..\src\fbc_cv\src\dshow_common.cpp" />
+    <ClCompile Include="..\..\..\src\fbc_cv\src\dshow_crossbar.cpp" />
+    <ClCompile Include="..\..\..\src\fbc_cv\src\dshow_enummediatypes.cpp" />
+    <ClCompile Include="..\..\..\src\fbc_cv\src\dshow_enumpins.cpp" />
+    <ClCompile Include="..\..\..\src\fbc_cv\src\dshow_filter.cpp" />
+    <ClCompile Include="..\..\..\src\fbc_cv\src\dshow_pin.cpp" />
     <ClCompile Include="..\..\..\src\fbc_cv\src\fbcstd.cpp" />
     <ClCompile Include="..\..\..\src\fbc_cv\src\hal.cpp" />
+    <ClCompile Include="..\..\..\src\fbc_cv\src\id3v2.cpp" />
     <ClCompile Include="..\..\..\src\fbc_cv\src\imgproc.cpp" />
+    <ClCompile Include="..\..\..\src\fbc_cv\src\imgutils.cpp" />
     <ClCompile Include="..\..\..\src\fbc_cv\src\imgwarp.cpp" />
     <ClCompile Include="..\..\..\src\fbc_cv\src\iplimage.cpp" />
+    <ClCompile Include="..\..\..\src\fbc_cv\src\mathematics.cpp" />
     <ClCompile Include="..\..\..\src\fbc_cv\src\types.cpp" />
     <ClCompile Include="..\..\..\src\fbc_cv\src\videocapture.cpp" />
   </ItemGroup>

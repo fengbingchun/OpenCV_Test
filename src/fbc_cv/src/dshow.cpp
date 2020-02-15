@@ -4,6 +4,8 @@
 #include "core/types.hpp"
 #include "dshow.hpp"
 #include "videocapture.hpp"
+#include "ffmpeg_pixel_format.hpp"
+#include "ffmpeg_codec_id.hpp"
 
 // reference: 2.4.13.6
 //            highgui/src/cap_dshow.cpp
@@ -2410,12 +2412,12 @@ const PixelFormatTag ff_raw_pix_fmt_tags[] = {
 	{ AV_PIX_FMT_NONE, 0 },
 };
 
-const struct PixelFormatTag *avpriv_get_raw_pix_fmt_tags(void)
+static const struct PixelFormatTag *avpriv_get_raw_pix_fmt_tags(void)
 {
 	return ff_raw_pix_fmt_tags;
 }
 
-enum AVPixelFormat avpriv_find_pix_fmt(const PixelFormatTag *tags, unsigned int fourcc)
+static enum AVPixelFormat avpriv_find_pix_fmt(const PixelFormatTag *tags, unsigned int fourcc)
 {
 	while (tags->pix_fmt >= 0) {
 		if (tags->fourcc == fourcc)
@@ -2897,7 +2899,7 @@ const AVCodecTag ff_codec_bmp_tags[] = {
 	{ AV_CODEC_ID_NONE, 0 }
 };
 
-const struct AVCodecTag *avformat_get_riff_video_tags(void)
+static const struct AVCodecTag *avformat_get_riff_video_tags(void)
 {
 	return ff_codec_bmp_tags;
 }
@@ -2909,7 +2911,7 @@ static inline av_const int av_toupper(int c)
 	return c;
 }
 
-unsigned int avpriv_toupper4(unsigned int x)
+static unsigned int avpriv_toupper4(unsigned int x)
 {
 	return av_toupper(x & 0xFF) +
 		(av_toupper((x >> 8) & 0xFF) << 8) +
@@ -2917,7 +2919,7 @@ unsigned int avpriv_toupper4(unsigned int x)
 		((unsigned)av_toupper((x >> 24) & 0xFF) << 24);
 }
 
-enum AVCodecID ff_codec_get_id(const AVCodecTag *tags, unsigned int tag)
+static enum AVCodecID ff_codec_get_id(const AVCodecTag *tags, unsigned int tag)
 {
 	int i;
 	for (i = 0; tags[i].id != AV_CODEC_ID_NONE; i++)
@@ -2929,7 +2931,7 @@ enum AVCodecID ff_codec_get_id(const AVCodecTag *tags, unsigned int tag)
 	return AV_CODEC_ID_NONE;
 }
 
-enum AVCodecID av_codec_get_id(const AVCodecTag *const *tags, unsigned int tag)
+static enum AVCodecID av_codec_get_id(const AVCodecTag *const *tags, unsigned int tag)
 {
 	int i;
 	for (i = 0; tags && tags[i]; i++) {

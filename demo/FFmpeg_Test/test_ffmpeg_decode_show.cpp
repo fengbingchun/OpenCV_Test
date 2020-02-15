@@ -23,8 +23,10 @@ extern "C" {
 #endif
 
 #include <opencv2/opencv.hpp>
+#ifdef _MSC_VER
 #include <libyuv/convert_argb.h>
 #include <libyuv/convert.h>
+#endif
 
 ///////////////////////////////////////////////////////////
 // Blog: https://blog.csdn.net/fengbingchun/article/details/103583548

@@ -47,7 +47,9 @@
 - transpose
 - flip
 - dft/idft
-- Windows DShow(video camera, opencv 2.4.13.6)
+- Windows DShow, support codec type: mjpeg
+	- opencv: 2.4.13.6, only get decoded data
+	- ffmpeg: 4.2, only get encoded data
 
 **Screenshot:**  
 ![](https://github.com/fengbingchun/OpenCV_Test/blob/master/prj/x86_x64_vc12/Screenshot.png)
