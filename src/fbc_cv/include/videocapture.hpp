@@ -42,7 +42,7 @@ public:
 	virtual bool set(int propId, double value);
 	virtual double get(int propId);
 
-	virtual bool getDevicesList(std::map<int, std::string>& filenames) const;
+	virtual bool getDevicesList(std::map<int, device_info>& infos) const;
 	virtual bool getCodecList(std::vector<int>& codecids) const;
 	virtual bool getVideoSizeList(int codec_id, std::vector<std::string>& sizelist) const;
 
@@ -53,7 +53,7 @@ private:
 	int device_id;
 };
 
-bool FBC_EXPORTS get_camera_names(std::map<int, std::string>& names); // index value, name
+bool FBC_EXPORTS get_camera_names(std::map<int, device_info>& infos); // index value, device info
 
 } // namespace fbc
 

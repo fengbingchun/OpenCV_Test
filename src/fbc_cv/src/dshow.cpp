@@ -1,6 +1,9 @@
 // fbc_cv is free software and uses the same licence as OpenCV
 // Email: fengbingchun@163.com
 
+#include <memory>
+#include <algorithm>
+#include <sstream>
 #include "core/types.hpp"
 #include "dshow.hpp"
 #include "videocapture.hpp"
@@ -717,13 +720,42 @@ bool videoInput::setFormat(int deviceNumber, int format){
 //
 // ----------------------------------------------------------------------
 char videoInput::deviceNames[VI_MAX_CAMERAS][255] = { { 0 } };
+int videoInput::vid[VI_MAX_CAMERAS] = { 0 };
+int videoInput::pid[VI_MAX_CAMERAS] = { 0 };
 
-char * videoInput::getDeviceName(int deviceID){
+device_info videoInput::getDeviceName(int deviceID){
 	if (deviceID >= VI_MAX_CAMERAS){
-		return NULL;
+		return device_info{};
 	}
-	return deviceNames[deviceID];
+
+	device_info info{ deviceNames[deviceID], vid[deviceID], pid[deviceID] };
+	return info;
 }
+
+namespace {
+
+std::unique_ptr<char[]> dup_wchar_to_utf8(wchar_t *w, int& len)
+{
+	len = WideCharToMultiByte(CP_UTF8, 0, w, -1, 0, 0, 0, 0);
+	std::unique_ptr<char[]> s(new char[len]);
+	WideCharToMultiByte(CP_UTF8, 0, w, -1, s.get(), len, 0, 0);
+	return s;
+}
+
+int parse_string(const std::string& src, std::string& vid, std::string& pid)
+{
+	int pos = src.find("vid_");
+	if (pos == std::string::npos) return -1;
+	vid.assign(src, pos + 4, 4);
+
+	pos = src.find("pid_");
+	if (pos == std::string::npos) return -1;
+	pid.assign(src, pos + 4, 4);
+
+	return 0;
+}
+
+} // namespace
 
 // ----------------------------------------------------------------------
 // Our static function for finding num devices available etc
@@ -785,6 +817,32 @@ int videoInput::listDevices(bool silent){
 					deviceNames[deviceCounter][count] = 0;
 
 					if (!silent)printf("SETUP: %i) %s \n", deviceCounter, deviceNames[deviceCounter]);
+
+					IBindCtx *bind_ctx = NULL;
+					int r = CreateBindCtx(0, &bind_ctx);
+					if (r != S_OK) {
+						fprintf(stdout, "fail to CreateBindCtx: %d\n", r);
+						return -1;
+					}
+
+					LPOLESTR olestr = NULL;
+					r = pMoniker->GetDisplayName(bind_ctx, NULL, &olestr);
+					if (r != S_OK) {
+						fprintf(stdout, "fail to IMoniker_GetDisplayName: %d\n", r);
+						return -1;
+					}
+
+					int length;
+					auto unique_name = dup_wchar_to_utf8(olestr, length);
+					/* replace ':' with '_' since we use : to delineate between sources */
+					std::for_each(unique_name.get(), unique_name.get() + length, [](char& ch) { if (ch == ':') ch = '_'; });
+					std::string str_name(unique_name.get()), str_vid, str_pid;
+					parse_string(str_name, str_vid, str_pid);
+					std::istringstream(str_vid) >> std::hex >> vid[deviceCounter];
+					std::istringstream(str_pid) >> std::hex >> pid[deviceCounter];
+
+					if (bind_ctx)
+						bind_ctx->Release();
 				}
 
 				pPropBag->Release();
@@ -3594,7 +3652,7 @@ bool CvCaptureCAM_DShow::setProperty(int property_id, double value)
 	return false;
 }
 
-bool CvCaptureCAM_DShow::getDevicesList(std::map<int, std::string>& devicelist) const
+bool CvCaptureCAM_DShow::getDevicesList(std::map<int, device_info>& devicelist) const
 {
 	devicelist.clear();
 

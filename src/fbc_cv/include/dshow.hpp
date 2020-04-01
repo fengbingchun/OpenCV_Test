@@ -216,7 +216,7 @@ public:
 	static int listDevices(bool silent = false);
 
 	//needs to be called after listDevices - otherwise returns NULL
-	static char * getDeviceName(int deviceID);
+	static device_info getDeviceName(int deviceID);
 
 	//choose to use callback based capture - or single threaded
 	void setUseCallback(bool useCallback);
@@ -343,6 +343,8 @@ private:
 	static void __cdecl basicThread(void * objPtr);
 
 	static char deviceNames[VI_MAX_CAMERAS][255];
+	static int vid[VI_MAX_CAMERAS];
+	static int pid[VI_MAX_CAMERAS];
 
 	void getCodecAndVideoSize(videoDevice *VD);
 	std::map<int, std::map<int, std::vector<std::string>>> infolist; // device id, codec id, video size
@@ -361,7 +363,7 @@ public:
 	virtual IplImage* retrieveFrame(int);
 	virtual int getCaptureDomain() { return CV_CAP_DSHOW; } // Return the type of the capture object: CV_CAP_VFW, etc...
 
-	virtual bool getDevicesList(std::map<int, std::string>& devicelist) const;
+	virtual bool getDevicesList(std::map<int, device_info>& devicelist) const;
 	virtual bool getCodecList(int device_id, std::vector<int>& codecids) const;
 	virtual bool getVideoSizeList(int device_id, int codec_id, std::vector<std::string>& sizelist) const;
 

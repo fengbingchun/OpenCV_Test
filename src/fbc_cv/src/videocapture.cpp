@@ -67,14 +67,14 @@ bool VideoCapture::open(const std::string& filename)
 	open(0);
 	if (!cap) return false;
 
-	std::map<int, std::string> devices_name;
+	std::map<int, device_info> devices_name;
 	cap->getDevicesList(devices_name);
 	if (devices_name.size() == 0) return false;
 	if (isOpened()) release();
 
 	int device = -1;
 	for (auto it = devices_name.cbegin(); it != devices_name.cend(); ++it) {
-		if (filename.compare((*it).second) == 0)
+		if (filename.compare((*it).second.name) == 0)
 			device = (*it).first;
 	}
 	if (device == -1) return false;
@@ -152,10 +152,10 @@ double VideoCapture::get(int propId)
 	return cvGetCaptureProperty(cap, propId);
 }
 
-bool VideoCapture::getDevicesList(std::map<int, std::string>& filenames) const
+bool VideoCapture::getDevicesList(std::map<int, device_info>& infos) const
 {
 	if (!cap) return false;
-	return cap->getDevicesList(filenames);
+	return cap->getDevicesList(infos);
 }
 
 bool VideoCapture::getCodecList(std::vector<int>& codecids) const
@@ -170,7 +170,7 @@ bool VideoCapture::getVideoSizeList(int codec_id, std::vector<std::string>& size
 	return cap->getVideoSizeList(device_id, codec_id, sizelist);
 }
 
-bool FBC_EXPORTS get_camera_names(std::map<int, std::string>& names)
+bool FBC_EXPORTS get_camera_names(std::map<int, device_info>& infos)
 {
 	VideoCapture capture(0);
 	if (!capture.isOpened()) {
@@ -178,7 +178,7 @@ bool FBC_EXPORTS get_camera_names(std::map<int, std::string>& names)
 		return false;
 	}
 
-	return capture.getDevicesList(names);
+	return capture.getDevicesList(infos);
 }
 
 } // namespace fbc

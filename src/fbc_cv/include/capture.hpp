@@ -229,6 +229,12 @@ inline int CV_FOURCC(char c1, char c2, char c3, char c4)
 	return CV_FOURCC_MACRO(c1, c2, c3, c4);
 }
 
+typedef struct device_info {
+	std::string name;
+	int vendor_id;
+	int product_id;
+} device_info;
+
 struct CvCapture {
 	virtual ~CvCapture() {}
 	virtual double getProperty(int) { return 0; }
@@ -236,7 +242,7 @@ struct CvCapture {
 	virtual bool grabFrame() { return true; }
 	virtual IplImage* retrieveFrame(int) { return 0; }
 	virtual int getCaptureDomain() { return CV_CAP_ANY; } // Return the type of the capture object: CV_CAP_VFW, etc...
-	virtual bool getDevicesList(std::map<int, std::string>& devicelist) const { return false; };
+	virtual bool getDevicesList(std::map<int, device_info>& devicelist) const { return false; };
 	virtual bool getCodecList(int device_id, std::vector<int>& codecids) const { return false; }
 	virtual bool getVideoSizeList(int device_id, int codec_id, std::vector<std::string>& sizelist) const { return false; }
 };

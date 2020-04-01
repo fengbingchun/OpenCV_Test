@@ -105,11 +105,12 @@ int test_ffmpeg_dshow_mjpeg()
 int test_get_camera_info()
 {
 #ifdef _MSC_VER
-	std::map<int, std::string> camera_names;
+	std::map<int, fbc::device_info> camera_names;
 	fbc::get_camera_names(camera_names);
 	fprintf(stdout, "camera count: %d\n", camera_names.size());
 	for (auto it = camera_names.cbegin(); it != camera_names.cend(); ++it) {
-		fprintf(stdout, "camera index: %d, name: %s\n", (*it).first, (*it).second.c_str());
+		fprintf(stdout, "camera index: %d, name: %s, vid: %d, pid: %d\n",
+			(*it).first, (*it).second.name.c_str(), (*it).second.vendor_id, (*it).second.product_id);
 	}
 
 	fbc::VideoCapture capture(0);
