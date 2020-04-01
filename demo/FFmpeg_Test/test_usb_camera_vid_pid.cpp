@@ -1,3 +1,14 @@
+#ifdef _MSC_VER
+#define CINTERFACE
+#define COBJMACROS
+#include <strmif.h>
+#include <Setupapi.h>
+#include <uuids.h>
+#include <devguid.h>
+#include <memory>
+#include <algorithm>
+#endif // _MSC_VER
+
 #include "funset.hpp"
 #include <map>
 #include <string>
@@ -169,10 +180,159 @@ int test_get_usb_camera_vid_pid()
 	return  0;
 }
 #else
+// Blog: https://blog.csdn.net/fengbingchun/article/details/105248231
+namespace {
+
+int get_all_usb_devices_vid_pid()
+{
+	GUID *guidDev = (GUID*)&GUID_DEVCLASS_USB;
+	HDEVINFO deviceInfoSet = SetupDiGetClassDevs(guidDev, NULL, NULL, DIGCF_PRESENT | DIGCF_PROFILE);
+
+	CHAR buffer[4000];
+	DWORD memberIndex = 0;
+
+	while (true) {
+		SP_DEVINFO_DATA deviceInfoData;
+		ZeroMemory(&deviceInfoData, sizeof(SP_DEVINFO_DATA));
+		deviceInfoData.cbSize = sizeof(SP_DEVINFO_DATA);
+		if (SetupDiEnumDeviceInfo(deviceInfoSet, memberIndex, &deviceInfoData) == FALSE) {
+			if (GetLastError() == ERROR_NO_MORE_ITEMS) {
+				break;
+			}
+		}
+
+		DWORD nSize = 0;
+		SetupDiGetDeviceInstanceId(deviceInfoSet, &deviceInfoData, buffer, sizeof(buffer), &nSize);
+		buffer[nSize] = '\0';
+		fprintf(stdout, "%s\n", buffer);
+
+		memberIndex++;
+	}
+
+	if (deviceInfoSet) {
+		SetupDiDestroyDeviceInfoList(deviceInfoSet);
+	}
+
+	return 0;
+}
+
+std::unique_ptr<char[]> dup_wchar_to_utf8(wchar_t *w, int& len)
+{
+	len = WideCharToMultiByte(CP_UTF8, 0, w, -1, 0, 0, 0, 0);
+	std::unique_ptr<char[]> s(new char[len]);
+	WideCharToMultiByte(CP_UTF8, 0, w, -1, s.get(), len, 0, 0);
+	return s;
+}
+
+int parse_string(const std::string& src, std::string& vid, std::string& pid)
+{
+	int pos = src.find("vid_");
+	if (pos == std::string::npos) return -1;
+	vid.assign(src, pos + 4, 4);
+
+	pos = src.find("pid_");
+	if (pos == std::string::npos) return -1;
+	pid.assign(src, pos + 4, 4);
+
+	return 0;
+}
+
+int get_usb_video_devices_vid_pid()
+{
+	CoInitialize(0);
+
+	ICreateDevEnum *devenum = NULL;
+	int r = CoCreateInstance(CLSID_SystemDeviceEnum, NULL, CLSCTX_INPROC_SERVER, IID_ICreateDevEnum, reinterpret_cast<void**>(&devenum));
+	if (r != S_OK) {
+		fprintf(stdout, "fail to CoCreateInstance: %d\n", r);
+		return -1;
+	}
+
+	IEnumMoniker *classenum = NULL;
+	r = ICreateDevEnum_CreateClassEnumerator(devenum, CLSID_VideoInputDeviceCategory, (IEnumMoniker **)&classenum, 0);
+	if (r != S_OK) {
+		fprintf(stdout, "fail to ICreateDevEnum_CreateClassEnumerator: %d\n", r);
+		return -1;
+	}
+
+	IBaseFilter *device_filter = NULL;
+	IMoniker *m = NULL;
+
+	while (!device_filter && IEnumMoniker_Next(classenum, 1, &m, NULL) == S_OK) {
+		IPropertyBag *bag = NULL;
+		VARIANT var;
+		r = IMoniker_BindToStorage(m, 0, 0, IID_IPropertyBag, (void **)&bag);
+		if (r != S_OK) {
+			fprintf(stdout, "fail to IMoniker_BindToStorage: %d\n", r);
+			return -1;
+		}
+
+		var.vt = VT_BSTR;
+		r = IPropertyBag_Read(bag, L"FriendlyName", &var, NULL);
+		if (r != S_OK) {
+			fprintf(stdout, "fail to IPropertyBag_Read: %d\n", r);
+			return -1;
+		}
+
+		int length;
+		auto friendly_name = dup_wchar_to_utf8(var.bstrVal, length);
+		fprintf(stdout, "friendly_name: %s\n", friendly_name.get());
+
+		LPMALLOC co_malloc = NULL;
+		r = CoGetMalloc(1, &co_malloc);
+		if (r != S_OK) {
+			fprintf(stdout, "fail to CoGetMalloc: %d\n", r);
+			return -1;
+		}
+
+		IBindCtx *bind_ctx = NULL;
+		r = CreateBindCtx(0, &bind_ctx);
+		if (r != S_OK) {
+			fprintf(stdout, "fail to CreateBindCtx: %d\n", r);
+			return -1;
+		}
+
+		LPOLESTR olestr = NULL;
+		r = IMoniker_GetDisplayName(m, bind_ctx, NULL, &olestr);
+		if (r != S_OK) {
+			fprintf(stdout, "fail to IMoniker_GetDisplayName: %d\n", r);
+			return -1;
+		}
+
+		auto unique_name = dup_wchar_to_utf8(olestr, length);
+		/* replace ':' with '_' since we use : to delineate between sources */
+		std::for_each(unique_name.get(), unique_name.get() + length, [](char& ch) { if (ch == ':') ch = '_'; });
+		fprintf(stdout, "unique_name: %s\n", unique_name.get());
+		std::string src(unique_name.get()), vid, pid;
+		parse_string(src, vid, pid);
+		unsigned int value_vid, value_pid;
+		std::istringstream(vid) >> std::hex >> value_vid;
+		std::istringstream(pid) >> std::hex >> value_pid;
+		fprintf(stdout, "usb device name: %s, vid: %s, value: %d; pid: %s, value: %d\n",
+			friendly_name.get(), vid.c_str(), value_vid, pid.c_str(), value_pid);
+
+		if (olestr && co_malloc)
+			IMalloc_Free(co_malloc, olestr);
+		if (bind_ctx)
+			IBindCtx_Release(bind_ctx);
+		if (bag)
+			IPropertyBag_Release(bag);
+
+		IMoniker_Release(m);
+	}
+
+	IEnumMoniker_Release(classenum);
+
+	return 0;
+}
+
+} // namespace
+
 int test_get_usb_camera_vid_pid()
 {
-	fprintf(stderr, "only support linux platform\n");
-	return -1;
+	//return get_all_usb_devices_vid_pid();
+	return get_usb_video_devices_vid_pid();
 }
+
 #endif
 
