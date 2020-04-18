@@ -4,9 +4,71 @@
 #include <fstream>
 #include <vector>
 #include <cmath>
+#include <chrono>
+#include <thread>
 
 #include <opencv2/opencv.hpp>
 
+///////////////////////////////////////////////////////////
+// Blog: https://blog.csdn.net/fengbingchun/article/details/105603308
+
+namespace {
+
+volatile bool grab_video_frame = false;
+volatile bool running = true;
+cv::Mat frame;
+
+void save_video_frame()
+{
+#ifdef _MSC_VER
+	std::string path = "E:/GitCode/OpenCV_Test/test_images/";
+#else
+	std::string path = "test_images/";
+#endif
+	for (int i = 0; i < 5; ++i) {
+		grab_video_frame = true;
+		auto now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+		std::string name = path + std::to_string(now) + ".png";
+		fprintf(stdout, "start to grab frame: index: %d, name: %s\n", i + 1, name.c_str());
+
+		while (1) {
+			if (!grab_video_frame) {
+				cv::imwrite(name, frame);
+				break;
+			}
+		}
+
+		std::this_thread::sleep_for(std::chrono::seconds(5)); // 5 seconds grab a frame
+	}
+
+	running = false;
+}
+
+} // namespace
+
+int test_opencv_grab_video_frame()
+{
+	cv::VideoCapture cap(0);
+	if (!cap.isOpened()) {
+		fprintf(stderr, "fail to open capture\n");
+		return -1;
+	}
+
+	std::thread th(save_video_frame);
+
+	while (running) {
+		if (grab_video_frame) {
+			cap >> frame; // instead of queue
+			grab_video_frame = false; // instead of thread lock
+		}
+	}
+
+	th.join();
+
+	return 0;
+}
+
+///////////////////////////////////////////////////////////
 int test_opencv_videocapture()
 {
 	cv::VideoCapture cap(0); // windows: 0: build-in camera; 1: usb camera

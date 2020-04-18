@@ -1,6 +1,7 @@
 #ifndef FBC_OPENCV_FUNSET_HPP_
 #define FBC_OPENCV_FUNSET_HPP_
 
+int test_opencv_grab_video_frame();
 int test_opencv_videocapture();
 int test_opencv_resize_cplusplus();
 int test_opencv_kmeans(); // k-均值聚类
