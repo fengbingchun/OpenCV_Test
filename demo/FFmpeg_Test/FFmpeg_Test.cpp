@@ -3,7 +3,7 @@
 
 int main()
 {
-	int ret = test_get_usb_camera_vid_pid();
+	int ret = test_get_windows_camera_list();
 
 	if (ret == 0) fprintf(stdout, "========== test success ==========\n");
 	else fprintf(stderr, "########## test fail ##########\n");

@@ -66,6 +66,7 @@ int test_v4l2_get_codec_type_list(const std::string& device_name, std::vector<in
 int test_v4l2_get_video_size_list(const std::string& device_name, int codec_type, std::vector<std::string>& size_list);
 
 int test_get_usb_camera_vid_pid(); // vendor id, product id
+int test_get_windows_camera_list();
 
 
 #endif // FBC_FFMPEG_TEST_FUNSET_HPP_

@@ -6,7 +6,6 @@
 #include <uuids.h>
 #include <devguid.h>
 #include <memory>
-#include <algorithm>
 #endif // _MSC_VER
 
 #include "funset.hpp"
@@ -179,6 +178,12 @@ int test_get_usb_camera_vid_pid()
 
 	return  0;
 }
+
+int test_get_windows_camera_list()
+{
+	fprintf(stderr, "Error: it only supports windows platform\n");
+	return -1;
+}
 #else
 // Blog: https://blog.csdn.net/fengbingchun/article/details/105248231
 namespace {
@@ -332,6 +337,71 @@ int test_get_usb_camera_vid_pid()
 {
 	//return get_all_usb_devices_vid_pid();
 	return get_usb_video_devices_vid_pid();
+}
+
+///////////////////////////////////////////////////////////
+// Blog: https://blog.csdn.net/fengbingchun/article/details/105674068
+int test_get_windows_camera_list()
+{
+	CoInitialize(nullptr);
+
+	ICreateDevEnum *devenum = nullptr;
+	int r = CoCreateInstance(CLSID_SystemDeviceEnum, nullptr, CLSCTX_INPROC_SERVER, IID_ICreateDevEnum, reinterpret_cast<void**>(&devenum));
+	if (r != S_OK) {
+		fprintf(stdout, "fail to CoCreateInstance: %d\n", r);
+		return -1;
+	}
+
+	IEnumMoniker *classenum = nullptr;
+	r = ICreateDevEnum_CreateClassEnumerator(devenum, CLSID_VideoInputDeviceCategory, (IEnumMoniker **)&classenum, 0);
+	if (r != S_OK) {
+		fprintf(stdout, "fail to ICreateDevEnum_CreateClassEnumerator: %d\n", r);
+		return -1;
+	}
+
+	IMoniker *m = nullptr;
+	typedef struct devices_info {
+		int index;
+		std::string name;
+	} devices_info;
+	std::vector<devices_info> lists;
+	int device_counter = 0;
+
+	while (IEnumMoniker_Next(classenum, 1, &m, nullptr) == S_OK) {
+		IPropertyBag *bag = nullptr;
+		VARIANT var;
+		r = IMoniker_BindToStorage(m, 0, 0, IID_IPropertyBag, (void **)&bag);
+		if (r != S_OK) {
+			fprintf(stdout, "fail to IMoniker_BindToStorage: %d\n", r);
+			return -1;
+		}
+
+		var.vt = VT_BSTR;
+		r = IPropertyBag_Read(bag, L"FriendlyName", &var, nullptr);
+		if (r != S_OK) {
+			fprintf(stdout, "fail to IPropertyBag_Read: %d\n", r);
+			return -1;
+		}
+
+		int length;
+		auto friendly_name = dup_wchar_to_utf8(var.bstrVal, length);
+		lists.push_back({ device_counter++, friendly_name.get() });
+
+		if (bag)
+			IPropertyBag_Release(bag);
+
+		IMoniker_Release(m);
+	}
+
+	IEnumMoniker_Release(classenum);
+	CoUninitialize();
+
+	fprintf(stdout, "device lists:\n");
+	std::for_each(lists.cbegin(), lists.cend(), [](const devices_info& info) {
+		fprintf(stdout, "  index: %d, name: %s\n", info.index, info.name.c_str());
+	});
+
+	return 0;
 }
 
 #endif
