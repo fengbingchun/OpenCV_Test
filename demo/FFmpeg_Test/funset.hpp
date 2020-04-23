@@ -68,6 +68,8 @@ int test_v4l2_get_video_size_list(const std::string& device_name, int codec_type
 int test_get_usb_camera_vid_pid(); // vendor id, product id
 int test_get_windows_camera_list();
 
+/////////////////////////// libusb /////////////////////////////
+int test_libusb_get_devices_list();
 
 #endif // FBC_FFMPEG_TEST_FUNSET_HPP_
 

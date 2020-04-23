@@ -64,6 +64,20 @@ cp -a ${live555_path}/groupsock/libgroupsock.a ${new_dir_name}
 cp -a ${live555_path}/mediaServer/live555MediaServer ${new_dir_name}
 cp -a ${live555_path}/proxyServer/live555ProxyServer ${new_dir_name}
 
+# build libusb
+echo "########## start build libusb ##########"
+libusb_path=${dir_name}/../../src/libusb
+if [ -f ${libusb_path}/libusb/.libs/libusb-1.0.a ]; then
+	echo "libusb has been builded"
+else
+	echo "libusb has not been builded yet, now start build"
+	cd ${libusb_path}
+	./autogen.sh
+	make
+	cd -
+fi
+
+cp -a ${libusb_path}/libusb/.libs/libusb-1.0.a ${new_dir_name}
 
 cd ${new_dir_name}
 cmake ..

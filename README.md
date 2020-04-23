@@ -8,6 +8,7 @@
 - CImg's usage [cimg.eu](http://www.cimg.eu/)
 - FFmpeg'usage [ffmpeg.org](https://ffmpeg.org/)
 - LIVE555'usage [LIVE555.COM](http://live555.com/)
+- libusb'usage [libusb GitHub](https://github.com/libusb/libusb)
 
 
 **The version of each open source library see:** [version.txt](https://github.com/fengbingchun/OpenCV_Test/blob/master/src/version.txt)

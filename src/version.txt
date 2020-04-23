@@ -26,5 +26,9 @@
 7. LIVE555
 	version: live.2019.05.21.tar.gz
 	date: 2019.05.20
-	url: http://live555.com/liveMedia/public/	
-
+	url: http://live555.com/liveMedia/public/
+8. libusb:
+	version: 1.0.23
+	commit: e782eeb
+	date: 2019.08.29
+	url: https://github.com/libusb/libusb

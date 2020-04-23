@@ -56,7 +56,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_CRT_SECURE_NO_WARNINGS;__STDC_CONSTANT_MACROS;HAVE_JPEG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>E:\GitCode\OpenCV_Test\src\ffmpeg\windows_install\debug\include;D:\soft\OpenCV2.4.13\opencv\build\include;E:\GitCode\OpenCV_Test\src\live555\BasicUsageEnvironment\include;E:\GitCode\OpenCV_Test\src\live555\groupsock\include;E:\GitCode\OpenCV_Test\src\live555\liveMedia\include;E:\GitCode\OpenCV_Test\src\live555\UsageEnvironment\include;E:\GitCode\OpenCV_Test\src\libjpeg-turbo\win_64_lib\include;E:\GitCode\OpenCV_Test\src\libyuv\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\GitCode\OpenCV_Test\src\ffmpeg\windows_install\debug\include;D:\soft\OpenCV2.4.13\opencv\build\include;E:\GitCode\OpenCV_Test\src\live555\BasicUsageEnvironment\include;E:\GitCode\OpenCV_Test\src\live555\groupsock\include;E:\GitCode\OpenCV_Test\src\live555\liveMedia\include;E:\GitCode\OpenCV_Test\src\live555\UsageEnvironment\include;E:\GitCode\OpenCV_Test\src\libjpeg-turbo\win_64_lib\include;E:\GitCode\OpenCV_Test\src\libyuv\include;E:\GitCode\OpenCV_Test\src\libusb\libusb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderOutputFile>.\../../../obj/dbg/x64_vc12/FFmpeg_Test\FFmpeg_Test.pch</PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>.\../../../obj/dbg/x64_vc12/FFmpeg_Test\</AssemblerListingLocation>
       <ObjectFileName>.\../../../obj/dbg/x64_vc12/FFmpeg_Test\</ObjectFileName>
@@ -68,7 +68,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <OutputFile>.\../../../lib/dbg/x64_vc12/FFmpeg_Test.exe</OutputFile>
       <AdditionalLibraryDirectories>E:\GitCode\OpenCV_Test\src\ffmpeg\windows_install\debug\lib;D:\soft\OpenCV2.4.13\opencv\build\x64\vc12\lib;E:\GitCode\OpenCV_Test\lib\dbg\x64_vc12;E:\GitCode\OpenCV_Test\src\libjpeg-turbo\win_64_lib\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libavcodec.a;libavdevice.a;libavfilter.a;libavformat.a;libavutil.a;libswresample.a;libswscale.a;opencv_core2413d.lib;opencv_highgui2413d.lib;opencv_imgproc2413d.lib;bcrypt.lib;libBasicUsageEnvironment.lib;libgroupsock.lib;libliveMedia.lib;libUsageEnvironment.lib;ws2_32.lib;WS2_32.Lib;Secur32.lib;strmiids.lib;Shlwapi.lib;Vfw32.lib;libyuv.lib;turbojpeg-static.lib;SetupAPI.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libavcodec.a;libavdevice.a;libavfilter.a;libavformat.a;libavutil.a;libswresample.a;libswscale.a;opencv_core2413d.lib;opencv_highgui2413d.lib;opencv_imgproc2413d.lib;bcrypt.lib;libBasicUsageEnvironment.lib;libgroupsock.lib;libliveMedia.lib;libUsageEnvironment.lib;ws2_32.lib;WS2_32.Lib;Secur32.lib;strmiids.lib;Shlwapi.lib;Vfw32.lib;libyuv.lib;turbojpeg-static.lib;SetupAPI.lib;libusb.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>libcmt.lib</IgnoreSpecificDefaultLibraries>
       <IgnoreAllDefaultLibraries>
       </IgnoreAllDefaultLibraries>
@@ -86,7 +86,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;_CRT_SECURE_NO_WARNINGS;__STDC_CONSTANT_MACROS;HAVE_JPEG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>E:\GitCode\OpenCV_Test\src\ffmpeg\windows_install\release\include;D:\soft\OpenCV2.4.13\opencv\build\include;E:\GitCode\OpenCV_Test\src\live555\BasicUsageEnvironment\include;E:\GitCode\OpenCV_Test\src\live555\groupsock\include;E:\GitCode\OpenCV_Test\src\live555\liveMedia\include;E:\GitCode\OpenCV_Test\src\live555\UsageEnvironment\include;E:\GitCode\OpenCV_Test\src\libjpeg-turbo\win_64_lib\include;E:\GitCode\OpenCV_Test\src\libyuv\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\GitCode\OpenCV_Test\src\ffmpeg\windows_install\release\include;D:\soft\OpenCV2.4.13\opencv\build\include;E:\GitCode\OpenCV_Test\src\live555\BasicUsageEnvironment\include;E:\GitCode\OpenCV_Test\src\live555\groupsock\include;E:\GitCode\OpenCV_Test\src\live555\liveMedia\include;E:\GitCode\OpenCV_Test\src\live555\UsageEnvironment\include;E:\GitCode\OpenCV_Test\src\libjpeg-turbo\win_64_lib\include;E:\GitCode\OpenCV_Test\src\libyuv\include;E:\GitCode\OpenCV_Test\src\libusb\libusb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderOutputFile>.\../../../obj/rel/x64_vc12/FFmpeg_Test\FFmpeg_Test.pch</PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>.\../../../obj/rel/x64_vc12/FFmpeg_Test\</AssemblerListingLocation>
       <ObjectFileName>.\../../../obj/rel/x64_vc12/FFmpeg_Test\</ObjectFileName>
@@ -100,7 +100,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <OutputFile>.\../../../lib/rel/x64_vc12/FFmpeg_Test.exe</OutputFile>
       <AdditionalLibraryDirectories>E:\GitCode\OpenCV_Test\src\ffmpeg\windows_install\release\lib;D:\soft\OpenCV2.4.13\opencv\build\x64\vc12\lib;E:\GitCode\OpenCV_Test\lib\rel\x64_vc12;E:\GitCode\OpenCV_Test\src\libjpeg-turbo\win_64_lib\release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libavcodec.a;libavdevice.a;libavfilter.a;libavformat.a;libavutil.a;libswresample.a;libswscale.a;opencv_core2413.lib;opencv_highgui2413.lib;opencv_imgproc2413.lib;bcrypt.lib;libBasicUsageEnvironment.lib;libgroupsock.lib;libliveMedia.lib;libUsageEnvironment.lib;ws2_32.lib;WS2_32.Lib;Secur32.lib;strmiids.lib;Shlwapi.lib;Vfw32.lib;libyuv.lib;turbojpeg-static.lib;SetupAPI.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libavcodec.a;libavdevice.a;libavfilter.a;libavformat.a;libavutil.a;libswresample.a;libswscale.a;opencv_core2413.lib;opencv_highgui2413.lib;opencv_imgproc2413.lib;bcrypt.lib;libBasicUsageEnvironment.lib;libgroupsock.lib;libliveMedia.lib;libUsageEnvironment.lib;ws2_32.lib;WS2_32.Lib;Secur32.lib;strmiids.lib;Shlwapi.lib;Vfw32.lib;libyuv.lib;turbojpeg-static.lib;SetupAPI.lib;libusb.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <OutputFile>.\../../../obj/rel/x64_vc12/FFmpeg_Test\FFmpeg_Test.bsc</OutputFile>
@@ -119,6 +119,7 @@
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_ffmpeg_libswscale.cpp" />
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_ffmpeg_rtsp_client.cpp" />
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_ffmpeg_usb_stream.cpp" />
+    <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_libusb.cpp" />
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_live555_rtsp_client.cpp" />
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_usb_camera_vid_pid.cpp" />
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_v4l2_usb_stream.cpp" />

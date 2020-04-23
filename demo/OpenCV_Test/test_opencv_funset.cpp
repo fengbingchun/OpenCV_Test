@@ -71,7 +71,7 @@ int test_opencv_grab_video_frame()
 ///////////////////////////////////////////////////////////
 int test_opencv_videocapture()
 {
-	cv::VideoCapture cap(0); // windows: 0: build-in camera; 1: usb camera
+	cv::VideoCapture cap(0);
 	if (!cap.isOpened()) {
 		fprintf(stderr, "fail to open capture\n");
 		return -1;

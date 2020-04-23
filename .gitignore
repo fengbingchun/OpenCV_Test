@@ -13,4 +13,4 @@
 /src/ffmpeg/build/
 /src/ffmpeg/.vscode/
 /src/live555/
-
+/src/libusb/

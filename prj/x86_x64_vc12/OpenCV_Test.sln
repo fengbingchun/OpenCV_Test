@@ -34,6 +34,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libliveMedia", "libliveMedi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libUsageEnvironment", "libUsageEnvironment\libUsageEnvironment.vcxproj", "{59E50985-3EAD-4023-8B85-6CFFF9A2B266}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libusb", "libusb\libusb.vcxproj", "{2F533429-B25B-4100-8B2F-CB14465147BA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -87,6 +89,8 @@ Global
 		{59E50985-3EAD-4023-8B85-6CFFF9A2B266}.Debug|x64.Build.0 = Debug|x64
 		{59E50985-3EAD-4023-8B85-6CFFF9A2B266}.Release|x64.ActiveCfg = Release|x64
 		{59E50985-3EAD-4023-8B85-6CFFF9A2B266}.Release|x64.Build.0 = Release|x64
+		{2F533429-B25B-4100-8B2F-CB14465147BA}.Debug|x64.ActiveCfg = Debug|x64
+		{2F533429-B25B-4100-8B2F-CB14465147BA}.Release|x64.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
