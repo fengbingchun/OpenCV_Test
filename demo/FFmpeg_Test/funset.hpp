@@ -70,6 +70,7 @@ int test_get_windows_camera_list();
 
 /////////////////////////// libusb /////////////////////////////
 int test_libusb_get_devices_list();
+int test_libusb_hotplug();
 
 #endif // FBC_FFMPEG_TEST_FUNSET_HPP_
 
