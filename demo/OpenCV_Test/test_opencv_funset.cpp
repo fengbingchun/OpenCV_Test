@@ -9,6 +9,64 @@
 
 #include <opencv2/opencv.hpp>
 
+int test_opencv_two_merge_one_image(int flag)
+{
+#ifdef _MSC_VER
+	const std::string image_name1{"E:/GitCode/OpenCV_Test/test_images/1.jpg"};
+	const std::string image_name2{"E:/GitCode/OpenCV_Test/test_images/lena.png"};
+	const std::string image_name3{"E:/GitCode/OpenCV_Test/test_images/result.png"};
+#else
+	const std::string image_name1{"test_images/1.jpg"};
+	const std::string image_name2{"test_images/lena.png"};
+	const std::string image_name3{"test_images/result.png"};
+#endif
+	cv::Mat img1 = cv::imread(image_name1, -1);
+	cv::Mat img2 = cv::imread(image_name2, -1);
+	if (!img1.data || !img2.data) {
+		fprintf(stderr, "fail to imread: %s, %s\n", image_name1.c_str(), image_name2.c_str());
+		return -1;
+	}
+
+	if (img1.channels() != img2.channels()) {
+		fprintf(stdout, "Warning: their channels are not the same: %d, %d\n", img1.channels(), img2.channels());
+		if (img1.channels() == 1) cv::cvtColor(img2, img2, cv::COLOR_BGR2GRAY);
+		else cv::cvtColor(img2, img2, cv::COLOR_GRAY2BGR);
+	}
+
+	if (!flag) { // vertical direction
+		int new_height = img2.rows;
+		if (img1.cols != img2.cols) {
+			fprintf(stdout, "Warning: their widths are not the same: %d, %d\n", img1.cols, img2.cols);
+			new_height = img1.cols * 1.f / img2.cols * img2.rows;
+			cv::resize(img2, img2, cv::Size(img1.cols, new_height));
+		}
+
+		cv::Mat result(img1.rows + new_height, img1.cols, img1.type());
+		cv::Mat tmp = result(cv::Rect(0, 0, img1.cols, img1.rows));
+		img1.copyTo(tmp);
+		tmp = result(cv::Rect(0, img1.rows, img1.cols, new_height));
+		img2.copyTo(tmp);
+		cv::imwrite(image_name3, result);
+
+	} else { // horizontal direction
+		int new_width = img2.cols;
+		if (img1.rows != img2.rows) {
+			fprintf(stdout, "Warning: their heights are not the same: %d, %d\n", img1.rows, img2.rows);
+			new_width = img1.rows * 1.f / img2.rows * img2.cols;
+			cv::resize(img2, img2, cv::Size(new_width, img1.rows));
+		}
+
+		cv::Mat result(img1.rows, img1.cols + new_width, img1.type());
+		cv::Mat tmp = result(cv::Rect(0, 0, img1.cols, img1.rows));
+		img1.copyTo(tmp);
+		tmp = result(cv::Rect(img1.cols, 0, new_width, img1.rows));
+		img2.copyTo(tmp);
+		cv::imwrite(image_name3, result);
+	}
+
+	return 0;
+}
+
 ///////////////////////////////////////////////////////////
 // Blog: https://blog.csdn.net/fengbingchun/article/details/105603308
 
@@ -1115,6 +1173,7 @@ int test_opencv_cvtColor()
 		std::cout << "read image fail" << std::endl;
 		return -1;
 	}
+
 	//cv::cvtColor(mat, mat, CV_BGR2YCrCb);
 	cv::resize(mat, mat, cv::Size(20, 60));
 	//mat.convertTo(mat, CV_32FC3);
