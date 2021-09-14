@@ -32,3 +32,8 @@
 	commit: e782eeb
 	date: 2019.08.29
 	url: https://github.com/libusb/libusb
+9. libuvc:
+	version: v0.0.6
+	commit: f3f6d8a
+	date: 2017.09.21
+	url: https://github.com/libuvc/libuvc/releases

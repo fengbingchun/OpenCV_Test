@@ -9,6 +9,7 @@
 - FFmpeg'usage [ffmpeg.org](https://ffmpeg.org/)
 - LIVE555'usage [LIVE555.COM](http://live555.com/)
 - libusb'usage [libusb GitHub](https://github.com/libusb/libusb)
+- libuvc'usage [libuvc GitHub](https://github.com/libuvc/libuvc)
 
 
 **The version of each open source library see:** [version.txt](https://github.com/fengbingchun/OpenCV_Test/blob/master/src/version.txt)
@@ -52,7 +53,7 @@
 	- opencv: 2.4.13.6, only get decoded data
 	- ffmpeg: 4.2, only get encoded data
 
-**Screenshot:**  
+**Screenshot:**
 ![](https://github.com/fengbingchun/OpenCV_Test/blob/master/prj/x86_x64_vc12/Screenshot.png)
 
 **Blog:**
