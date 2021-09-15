@@ -72,5 +72,8 @@ int test_get_windows_camera_list();
 int test_libusb_get_devices_list();
 int test_libusb_hotplug();
 
+/////////////////////////// libuvc /////////////////////////////
+int test_libuvc_get_webcam_info();
+
 #endif // FBC_FFMPEG_TEST_FUNSET_HPP_
 

@@ -55,6 +55,7 @@ include_directories(
   ${libuvc_SOURCE_DIR}/include
   ${libuvc_BINARY_DIR}/include
   ${LIBUSB_INCLUDE_DIRS}
+  ${libuvc_SOURCE_DIR}/../libusb/libusb
 )
 
 if(JPEG_FOUND)

@@ -5,6 +5,10 @@ dir_name=`dirname "${real_path}"`
 echo "real_path: ${real_path}"
 echo "dir_name: ${dir_name}"
 
+echo "##### manually install dependent libraries #####"
+echo "sudo apt-get install libsdl2-2.0-0"
+echo "sudo apt-get install libsdl2-dev"
+
 data_dir="test_images"
 if [[ ! -d ${dir_name}/${data_dir} ]]; then
 	echo "data directory does not exist: ${data_dir}"
@@ -78,6 +82,22 @@ else
 fi
 
 cp -a ${libusb_path}/libusb/.libs/libusb-1.0.a ${new_dir_name}
+
+# build libuvc
+echo "########## start build libuvc ##########"
+libuvc_path=${dir_name}/../../src/libuvc
+if [ -f ${libuvc_path}/build/libuvc.a ]; then
+	echo "libuvc has been builded"
+else
+	echo "libuvc has not been builded yet, now start build"
+	mkdir -p ${libuvc_path}/build
+	cd ${libuvc_path}/build
+	cmake ..
+	make
+	cd -
+fi
+
+cp -a ${libuvc_path}/build/libuvc.a ${new_dir_name}
 
 cd ${new_dir_name}
 cmake ..

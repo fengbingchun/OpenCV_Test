@@ -120,6 +120,7 @@
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_ffmpeg_rtsp_client.cpp" />
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_ffmpeg_usb_stream.cpp" />
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_libusb.cpp" />
+    <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_libuvc.cpp" />
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_live555_rtsp_client.cpp" />
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_usb_camera_vid_pid.cpp" />
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_v4l2_usb_stream.cpp" />
