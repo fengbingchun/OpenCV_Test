@@ -44,7 +44,6 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>HAVE_STRING_H;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <WarningLevel>Level3</WarningLevel>
@@ -61,11 +60,11 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\examples\getopt\getopt.c" />
-    <ClCompile Include="..\examples\getopt\getopt1.c" />
+    <ClCompile Include=".\getopt\getopt.c" />
+    <ClCompile Include=".\getopt\getopt1.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\examples\getopt\getopt.h" />
+    <ClInclude Include=".\getopt\getopt.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

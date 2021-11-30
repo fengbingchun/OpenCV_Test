@@ -20,36 +20,25 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-#include <config.h>
-
-#include <assert.h>
-#include <ctype.h>
-#include <dirent.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <poll.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/ioctl.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <sys/utsname.h>
-#include <sys/socket.h>
-#include <unistd.h>
-#include <libudev.h>
-
 #include "libusbi.h"
 #include "linux_usbfs.h"
+
+#include <errno.h>
+#include <fcntl.h>
+#include <libudev.h>
+#include <poll.h>
+#include <pthread.h>
+#include <string.h>
+#include <unistd.h>
 
 /* udev context */
 static struct udev *udev_ctx = NULL;
 static int udev_monitor_fd = -1;
-static int udev_control_pipe[2] = {-1, -1};
+static usbi_event_t udev_control_event = USBI_INVALID_EVENT;
 static struct udev_monitor *udev_monitor = NULL;
 static pthread_t linux_event_thread;
 
-static void udev_hotplug_event(struct udev_device* udev_dev);
+static void udev_hotplug_event(struct udev_device *udev_dev);
 static void *linux_udev_event_thread_main(void *arg);
 
 int linux_udev_start_event_monitor(void)
@@ -86,12 +75,12 @@ int linux_udev_start_event_monitor(void)
 	/* Make sure the udev file descriptor is marked as CLOEXEC */
 	r = fcntl(udev_monitor_fd, F_GETFD);
 	if (r == -1) {
-		usbi_err(NULL, "geting udev monitor fd flags (%d)", errno);
+		usbi_err(NULL, "failed to get udev monitor fd flags, errno=%d", errno);
 		goto err_free_monitor;
 	}
 	if (!(r & FD_CLOEXEC)) {
 		if (fcntl(udev_monitor_fd, F_SETFD, r | FD_CLOEXEC) == -1) {
-			usbi_err(NULL, "setting udev monitor fd flags (%d)", errno);
+			usbi_err(NULL, "failed to set udev monitor fd flags, errno=%d", errno);
 			goto err_free_monitor;
 		}
 	}
@@ -101,33 +90,33 @@ int linux_udev_start_event_monitor(void)
 	 * so make sure this is set */
 	r = fcntl(udev_monitor_fd, F_GETFL);
 	if (r == -1) {
-		usbi_err(NULL, "getting udev monitor fd status flags (%d)", errno);
+		usbi_err(NULL, "failed to get udev monitor fd status flags, errno=%d", errno);
 		goto err_free_monitor;
 	}
 	if (!(r & O_NONBLOCK)) {
 		if (fcntl(udev_monitor_fd, F_SETFL, r | O_NONBLOCK) == -1) {
-			usbi_err(NULL, "setting udev monitor fd status flags (%d)", errno);
+			usbi_err(NULL, "failed to set udev monitor fd status flags, errno=%d", errno);
 			goto err_free_monitor;
 		}
 	}
 
-	r = usbi_pipe(udev_control_pipe);
+	r = usbi_create_event(&udev_control_event);
 	if (r) {
-		usbi_err(NULL, "could not create udev control pipe");
+		usbi_err(NULL, "failed to create udev control event");
 		goto err_free_monitor;
 	}
 
 	r = pthread_create(&linux_event_thread, NULL, linux_udev_event_thread_main, NULL);
 	if (r) {
-		usbi_err(NULL, "creating hotplug event thread (%d)", r);
-		goto err_close_pipe;
+		usbi_err(NULL, "failed to create hotplug event thread (%d)", r);
+		goto err_destroy_event;
 	}
 
 	return LIBUSB_SUCCESS;
 
-err_close_pipe:
-	close(udev_control_pipe[0]);
-	close(udev_control_pipe[1]);
+err_destroy_event:
+	usbi_destroy_event(&udev_control_event);
+	udev_control_event = (usbi_event_t)USBI_INVALID_EVENT;
 err_free_monitor:
 	udev_monitor_unref(udev_monitor);
 	udev_monitor = NULL;
@@ -141,20 +130,21 @@ err:
 
 int linux_udev_stop_event_monitor(void)
 {
-	char dummy = 1;
 	int r;
 
 	assert(udev_ctx != NULL);
 	assert(udev_monitor != NULL);
 	assert(udev_monitor_fd != -1);
 
-	/* Write some dummy data to the control pipe and
-	 * wait for the thread to exit */
-	r = write(udev_control_pipe[1], &dummy, sizeof(dummy));
-	if (r <= 0) {
-		usbi_warn(NULL, "udev control pipe signal failed");
-	}
-	pthread_join(linux_event_thread, NULL);
+	/* Signal the control event and wait for the thread to exit */
+	usbi_signal_event(&udev_control_event);
+
+	r = pthread_join(linux_event_thread, NULL);
+	if (r)
+		usbi_warn(NULL, "failed to join hotplug event thread (%d)", r);
+
+	usbi_destroy_event(&udev_control_event);
+	udev_control_event = (usbi_event_t)USBI_INVALID_EVENT;
 
 	/* Release the udev monitor */
 	udev_monitor_unref(udev_monitor);
@@ -165,44 +155,44 @@ int linux_udev_stop_event_monitor(void)
 	udev_unref(udev_ctx);
 	udev_ctx = NULL;
 
-	/* close and reset control pipe */
-	close(udev_control_pipe[0]);
-	close(udev_control_pipe[1]);
-	udev_control_pipe[0] = -1;
-	udev_control_pipe[1] = -1;
-
 	return LIBUSB_SUCCESS;
 }
 
 static void *linux_udev_event_thread_main(void *arg)
 {
-	char dummy;
-	int r;
-	ssize_t nb;
-	struct udev_device* udev_dev;
 	struct pollfd fds[] = {
-		{.fd = udev_control_pipe[0],
-		 .events = POLLIN},
-		{.fd = udev_monitor_fd,
-		 .events = POLLIN},
+		{ .fd = USBI_EVENT_OS_HANDLE(&udev_control_event),
+		  .events = USBI_EVENT_POLL_EVENTS },
+		{ .fd = udev_monitor_fd,
+		  .events = POLLIN },
 	};
+	struct udev_device *udev_dev;
+	int r;
 
-	usbi_dbg("udev event thread entering.");
+	UNUSED(arg);
 
-	while ((r = poll(fds, 2, -1)) >= 0 || errno == EINTR) {
-		if (r < 0) {
-			/* temporary failure */
-			continue;
-		}
-		if (fds[0].revents & POLLIN) {
-			/* activity on control pipe, read the byte and exit */
-			nb = read(udev_control_pipe[0], &dummy, sizeof(dummy));
-			if (nb <= 0) {
-				usbi_warn(NULL, "udev control pipe read failed");
-			}
+#if defined(HAVE_PTHREAD_SETNAME_NP)
+	r = pthread_setname_np(pthread_self(), "libusb_event");
+	if (r)
+		usbi_warn(NULL, "failed to set hotplug event thread name, error=%d", r);
+#endif
+
+	usbi_dbg("udev event thread entering");
+
+	while (1) {
+		r = poll(fds, 2, -1);
+		if (r == -1) {
+			/* check for temporary failure */
+			if (errno == EINTR)
+				continue;
+			usbi_err(NULL, "poll() failed, errno=%d", errno);
 			break;
 		}
-		if (fds[1].revents & POLLIN) {
+		if (fds[0].revents) {
+			/* activity on control event, exit */
+			break;
+		}
+		if (fds[1].revents) {
 			usbi_mutex_static_lock(&linux_hotplug_lock);
 			udev_dev = udev_monitor_receive_device(udev_monitor);
 			if (udev_dev)
@@ -235,10 +225,10 @@ static int udev_device_info(struct libusb_context *ctx, int detached,
 					dev_node, *sys_name, -1);
 }
 
-static void udev_hotplug_event(struct udev_device* udev_dev)
+static void udev_hotplug_event(struct udev_device *udev_dev)
 {
-	const char* udev_action;
-	const char* sys_name = NULL;
+	const char *udev_action;
+	const char *sys_name = NULL;
 	uint8_t busnum = 0, devaddr = 0;
 	int detached;
 	int r;
@@ -262,6 +252,8 @@ static void udev_hotplug_event(struct udev_device* udev_dev)
 			linux_hotplug_enumerate(busnum, devaddr, sys_name);
 		} else if (detached) {
 			linux_device_disconnected(busnum, devaddr);
+		} else if (strncmp(udev_action, "bind", 4) == 0) {
+			/* silently ignore "known unhandled" action */
 		} else {
 			usbi_err(NULL, "ignoring udev action %s", udev_action);
 		}
@@ -315,7 +307,7 @@ int linux_udev_scan_devices(struct libusb_context *ctx)
 
 void linux_udev_hotplug_poll(void)
 {
-	struct udev_device* udev_dev;
+	struct udev_device *udev_dev;
 
 	usbi_mutex_static_lock(&linux_hotplug_lock);
 	do {

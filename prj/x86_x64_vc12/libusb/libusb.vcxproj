@@ -123,9 +123,9 @@
     <ClCompile Include="..\..\..\src\libusb\libusb\descriptor.c" />
     <ClCompile Include="..\..\..\src\libusb\libusb\hotplug.c" />
     <ClCompile Include="..\..\..\src\libusb\libusb\io.c" />
-    <ClCompile Include="..\..\..\src\libusb\libusb\os\poll_windows.c" />
+    <ClCompile Include="..\..\..\src\libusb\libusb\os\events_windows.c" />
     <ClCompile Include="..\..\..\src\libusb\libusb\os\threads_windows.c" />
-    <ClCompile Include="..\..\..\src\libusb\libusb\os\windows_nt_common.c" />
+    <ClCompile Include="..\..\..\src\libusb\libusb\os\windows_common.c" />
     <ClCompile Include="..\..\..\src\libusb\libusb\os\windows_usbdk.c" />
     <ClCompile Include="..\..\..\src\libusb\libusb\os\windows_winusb.c" />
     <ClCompile Include="..\..\..\src\libusb\libusb\strerror.c" />

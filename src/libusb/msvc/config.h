@@ -5,18 +5,30 @@
 #error "Please make sure the msvc/ directory is removed from your build path."
 #endif
 
+/* Visual Studio 2013 or later is required */
+#if (_MSC_VER < 1800)
+#error "Visual Studio 2013 or later is required."
+#endif
+
+/* Visual Studio 2013 does not support __func__ */
+#if (_MSC_VER < 1900)
+#define __func__ __FUNCTION__
+#endif
+
 /* Visual Studio 2015 and later defines timespec */
 #if (_MSC_VER >= 1900)
 #define _TIMESPEC_DEFINED 1
 #endif
 
+/* Disable: warning C4127: conditional expression is constant */
+#pragma warning(disable:4127)
 /* Disable: warning C4200: nonstandard extension used : zero-sized array in struct/union */
 #pragma warning(disable:4200)
+/* Disable: warning C4201: nonstandard extension used : nameless struct/union */
+#pragma warning(disable:4201)
 /* Disable: warning C4324: structure was padded due to __declspec(align()) */
 #pragma warning(disable:4324)
-/* Disable: warning C6258: Using TerminateThread does not allow proper thread clean up */
-#pragma warning(disable:6258)
-/* Disable: warning C4996: 'GetVersionA': was declared deprecated */
+/* Disable: warning C4996: 'GetVersionExA': was declared deprecated */
 #pragma warning(disable:4996)
 
 #if defined(_PREFAST_)
@@ -26,26 +38,21 @@
 #pragma warning(disable:28125)
 #endif
 
-/* Default visibility */
+/* Define to the attribute for default visibility. */
 #define DEFAULT_VISIBILITY /**/
 
-/* Enable global message logging */
+/* Define to 1 to start with debug message logging enabled. */
+/* #undef ENABLE_DEBUG_LOGGING */
+
+/* Define to 1 to enable message logging. */
 #define ENABLE_LOGGING 1
 
-/* Uncomment to start with debug message logging enabled */
-// #define ENABLE_DEBUG_LOGGING 1
+/* Define to 1 if compiling for a Windows platform. */
+#define PLATFORM_WINDOWS 1
 
-/* Uncomment to enabling logging to system log */
-// #define USE_SYSTEM_LOGGING_FACILITY
+/* Define to the attribute for enabling parameter checks on printf-like
+   functions. */
+#define PRINTF_FORMAT(a, b) /**/
 
-/* type of second poll() argument */
-#define POLL_NFDS_TYPE unsigned int
-
-/* Windows/WinCE backend */
-#if defined(_WIN32_WCE)
-#define OS_WINCE 1
-#define HAVE_MISSING_H
-#else
-#define OS_WINDOWS 1
-#define HAVE_SYS_TYPES_H 1
-#endif
+/* Define to 1 to output logging messages to the systemwide log. */
+/* #undef USE_SYSTEM_LOGGING_FACILITY */

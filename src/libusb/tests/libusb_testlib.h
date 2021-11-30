@@ -20,17 +20,7 @@
 #ifndef LIBUSB_TESTLIB_H
 #define LIBUSB_TESTLIB_H
 
-#include <stdio.h>
-
-#if !defined(bool)
-#define bool int
-#endif
-#if !defined(true)
-#define true (1 == 1)
-#endif
-#if !defined(false)
-#define false (!true)
-#endif
+#include <config.h>
 
 /** Values returned from a test function to indicate test result */
 typedef enum {
@@ -41,53 +31,33 @@ typedef enum {
 	/** Indicates that an unexpected error occurred. */
 	TEST_STATUS_ERROR,
 	/** Indicates that the test can't be run. For example this may be
-	* due to no suitable device being connected to perform the tests.*/
+	 * due to no suitable device being connected to perform the tests. */
 	TEST_STATUS_SKIP
 } libusb_testlib_result;
 
 /**
- * Context for test library functions
- */
-typedef struct {
-	char ** test_names;
-	int test_count;
-	bool list_tests;
-	bool verbose;
-	int old_stdout;
-	int old_stderr;
-	FILE* output_file;
-	int null_fd;
-} libusb_testlib_ctx;
-
-/**
  * Logs some test information or state
  */
-void libusb_testlib_logf(libusb_testlib_ctx * ctx, 
-                          const char* fmt, ...);
-
-/**
- * Function pointer for a libusb test function.
- *
- * Should return TEST_STATUS_SUCCESS on success or another TEST_STATUS value.
- */
-typedef libusb_testlib_result
-(*libusb_testlib_test_function)(libusb_testlib_ctx * ctx);
+void libusb_testlib_logf(const char *fmt, ...) PRINTF_FORMAT(1, 2);
 
 /**
  * Structure holding a test description.
  */
 typedef struct {
 	/** Human readable name of the test. */
-	const char * name;
-	/** The test library will call this function to run the test. */
-	libusb_testlib_test_function function;
+	const char *name;
+	/** The test library will call this function to run the test.
+	 *
+	 * Should return TEST_STATUS_SUCCESS on success or another TEST_STATUS value.
+	 */
+	libusb_testlib_result (*function)(void);
 } libusb_testlib_test;
 
 /**
  * Value to use at the end of a test array to indicate the last
  * element.
  */
-#define LIBUSB_NULL_TEST {NULL, NULL}
+#define LIBUSB_NULL_TEST { NULL, NULL }
 
 /**
  * Runs the tests provided.
@@ -100,8 +70,7 @@ typedef struct {
  * \param tests A NULL_TEST terminated array of tests
  * \return 0 on success, non-zero on failure
  */
-int libusb_testlib_run_tests(int argc,
-                              char ** argv,
-                              const libusb_testlib_test * tests);
+int libusb_testlib_run_tests(int argc, char *argv[],
+	const libusb_testlib_test *tests);
 
 #endif //LIBUSB_TESTLIB_H

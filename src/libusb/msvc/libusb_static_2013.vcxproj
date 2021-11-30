@@ -45,9 +45,8 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>.;..\libusb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WINVER=0x0501;_WIN32_WINNT=0x0501;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WIN32_WINNT=_WIN32_WINNT_VISTA;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ProgramDataBaseFileName>$(IntDir)$(TargetName).pdb</ProgramDataBaseFileName>
       <WarningLevel>Level4</WarningLevel>
     </ClCompile>
@@ -67,28 +66,26 @@
   <ItemGroup>
     <ClCompile Include="..\libusb\core.c" />
     <ClCompile Include="..\libusb\descriptor.c" />
+    <ClCompile Include="..\libusb\os\events_windows.c" />
     <ClCompile Include="..\libusb\hotplug.c" />
     <ClCompile Include="..\libusb\io.c" />
-    <ClCompile Include="..\libusb\os\poll_windows.c" />
     <ClCompile Include="..\libusb\strerror.c" />
     <ClCompile Include="..\libusb\sync.c" />
     <ClCompile Include="..\libusb\os\threads_windows.c" />
-    <ClCompile Include="..\libusb\os\windows_nt_common.c" />
+    <ClCompile Include="..\libusb\os\windows_common.c" />
     <ClCompile Include="..\libusb\os\windows_usbdk.c" />
     <ClCompile Include="..\libusb\os\windows_winusb.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include=".\config.h" />
+    <ClInclude Include="..\libusb\os\events_windows.h" />
     <ClInclude Include="..\libusb\hotplug.h" />
     <ClInclude Include="..\libusb\libusb.h" />
     <ClInclude Include="..\libusb\libusbi.h" />
-    <ClInclude Include="..\libusb\os\poll_windows.h" />
     <ClInclude Include="..\libusb\os\threads_windows.h" />
     <ClInclude Include="..\libusb\version.h" />
     <ClInclude Include="..\libusb\version_nano.h" />
     <ClInclude Include="..\libusb\os\windows_common.h" />
-    <ClInclude Include="..\libusb\os\windows_nt_common.h" />
-    <ClInclude Include="..\libusb\os\windows_nt_shared_types.h" />
     <ClInclude Include="..\libusb\os\windows_usbdk.h" />
     <ClInclude Include="..\libusb\os\windows_winusb.h" />
   </ItemGroup>

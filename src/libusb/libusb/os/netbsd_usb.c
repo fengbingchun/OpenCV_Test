@@ -36,8 +36,7 @@ struct device_priv {
 	char devnode[16];
 	int fd;
 
-	unsigned char *cdesc;			/* active config descriptor */
-	usb_device_descriptor_t ddesc;		/* usb device descriptor */
+	usb_config_descriptor_t *cdesc;		/* active config descriptor */
 };
 
 struct handle_priv {
@@ -52,30 +51,25 @@ static int netbsd_get_device_list(struct libusb_context *,
 static int netbsd_open(struct libusb_device_handle *);
 static void netbsd_close(struct libusb_device_handle *);
 
-static int netbsd_get_device_descriptor(struct libusb_device *, unsigned char *,
-    int *);
 static int netbsd_get_active_config_descriptor(struct libusb_device *,
-    unsigned char *, size_t, int *);
+    void *, size_t);
 static int netbsd_get_config_descriptor(struct libusb_device *, uint8_t,
-    unsigned char *, size_t, int *);
+    void *, size_t);
 
-static int netbsd_get_configuration(struct libusb_device_handle *, int *);
+static int netbsd_get_configuration(struct libusb_device_handle *, uint8_t *);
 static int netbsd_set_configuration(struct libusb_device_handle *, int);
 
-static int netbsd_claim_interface(struct libusb_device_handle *, int);
-static int netbsd_release_interface(struct libusb_device_handle *, int);
+static int netbsd_claim_interface(struct libusb_device_handle *, uint8_t);
+static int netbsd_release_interface(struct libusb_device_handle *, uint8_t);
 
-static int netbsd_set_interface_altsetting(struct libusb_device_handle *, int,
-    int);
+static int netbsd_set_interface_altsetting(struct libusb_device_handle *,
+    uint8_t, uint8_t);
 static int netbsd_clear_halt(struct libusb_device_handle *, unsigned char);
-static int netbsd_reset_device(struct libusb_device_handle *);
 static void netbsd_destroy_device(struct libusb_device *);
 
 static int netbsd_submit_transfer(struct usbi_transfer *);
 static int netbsd_cancel_transfer(struct usbi_transfer *);
-static void netbsd_clear_transfer_priv(struct usbi_transfer *);
 static int netbsd_handle_transfer_completion(struct usbi_transfer *);
-static int netbsd_clock_gettime(int, struct timespec *);
 
 /*
  * Private functions
@@ -87,55 +81,33 @@ static int _sync_gen_transfer(struct usbi_transfer *);
 static int _access_endpoint(struct libusb_transfer *);
 
 const struct usbi_os_backend usbi_backend = {
-	"Synchronous NetBSD backend",
-	0,
-	NULL,				/* init() */
-	NULL,				/* exit() */
-	NULL,				/* set_option() */
-	netbsd_get_device_list,
-	NULL,				/* hotplug_poll */
-	netbsd_open,
-	netbsd_close,
+	.name = "Synchronous NetBSD backend",
+	.caps = 0,
+	.get_device_list = netbsd_get_device_list,
+	.open = netbsd_open,
+	.close = netbsd_close,
 
-	netbsd_get_device_descriptor,
-	netbsd_get_active_config_descriptor,
-	netbsd_get_config_descriptor,
-	NULL,				/* get_config_descriptor_by_value() */
+	.get_active_config_descriptor = netbsd_get_active_config_descriptor,
+	.get_config_descriptor = netbsd_get_config_descriptor,
 
-	netbsd_get_configuration,
-	netbsd_set_configuration,
+	.get_configuration = netbsd_get_configuration,
+	.set_configuration = netbsd_set_configuration,
 
-	netbsd_claim_interface,
-	netbsd_release_interface,
+	.claim_interface = netbsd_claim_interface,
+	.release_interface = netbsd_release_interface,
 
-	netbsd_set_interface_altsetting,
-	netbsd_clear_halt,
-	netbsd_reset_device,
+	.set_interface_altsetting = netbsd_set_interface_altsetting,
+	.clear_halt = netbsd_clear_halt,
 
-	NULL,				/* alloc_streams */
-	NULL,				/* free_streams */
+	.destroy_device = netbsd_destroy_device,
 
-	NULL,				/* dev_mem_alloc() */
-	NULL,				/* dev_mem_free() */
+	.submit_transfer = netbsd_submit_transfer,
+	.cancel_transfer = netbsd_cancel_transfer,
 
-	NULL,				/* kernel_driver_active() */
-	NULL,				/* detach_kernel_driver() */
-	NULL,				/* attach_kernel_driver() */
+	.handle_transfer_completion = netbsd_handle_transfer_completion,
 
-	netbsd_destroy_device,
-
-	netbsd_submit_transfer,
-	netbsd_cancel_transfer,
-	netbsd_clear_transfer_priv,
-
-	NULL,				/* handle_events() */
-	netbsd_handle_transfer_completion,
-
-	netbsd_clock_gettime,
-	0,				/* context_priv_size */
-	sizeof(struct device_priv),
-	sizeof(struct handle_priv),
-	0,				/* transfer_priv_size */
+	.device_priv_size = sizeof(struct device_priv),
+	.device_handle_priv_size = sizeof(struct handle_priv),
 };
 
 int
@@ -145,11 +117,12 @@ netbsd_get_device_list(struct libusb_context * ctx,
 	struct libusb_device *dev;
 	struct device_priv *dpriv;
 	struct usb_device_info di;
+	usb_device_descriptor_t ddesc;
 	unsigned long session_id;
 	char devnode[16];
 	int fd, err, i;
 
-	usbi_dbg("");
+	usbi_dbg(" ");
 
 	/* Only ugen(4) is supported */
 	for (i = 0; i < USB_MAX_DEVICES; i++) {
@@ -177,16 +150,20 @@ netbsd_get_device_list(struct libusb_context * ctx,
 			dev->device_address = di.udi_addr;
 			dev->speed = di.udi_speed;
 
-			dpriv = (struct device_priv *)dev->os_priv;
+			dpriv = usbi_get_device_priv(dev);
 			strlcpy(dpriv->devnode, devnode, sizeof(devnode));
 			dpriv->fd = -1;
 
-			if (ioctl(fd, USB_GET_DEVICE_DESC, &dpriv->ddesc) < 0) {
+			if (ioctl(fd, USB_GET_DEVICE_DESC, &ddesc) < 0) {
 				err = errno;
 				goto error;
 			}
 
-			dpriv->cdesc = NULL;
+			static_assert(sizeof(dev->device_descriptor) == sizeof(ddesc),
+				      "mismatch between libusb and OS device descriptor sizes");
+			memcpy(&dev->device_descriptor, &ddesc, LIBUSB_DT_DEVICE_SIZE);
+			usbi_localize_device_descriptor(&dev->device_descriptor);
+
 			if (_cache_active_config_descriptor(dev, fd)) {
 				err = errno;
 				goto error;
@@ -214,8 +191,8 @@ error:
 int
 netbsd_open(struct libusb_device_handle *handle)
 {
-	struct device_priv *dpriv = (struct device_priv *)handle->dev->os_priv;
-	struct handle_priv *hpriv = (struct handle_priv *)handle->os_priv;
+	struct device_priv *dpriv = usbi_get_device_priv(handle->dev);
+	struct handle_priv *hpriv = usbi_get_device_handle_priv(handle);
 	int i;
 
 	dpriv->fd = open(dpriv->devnode, O_RDWR);
@@ -236,7 +213,7 @@ netbsd_open(struct libusb_device_handle *handle)
 void
 netbsd_close(struct libusb_device_handle *handle)
 {
-	struct device_priv *dpriv = (struct device_priv *)handle->dev->os_priv;
+	struct device_priv *dpriv = usbi_get_device_priv(handle->dev);
 
 	usbi_dbg("close: fd %d", dpriv->fd);
 
@@ -245,48 +222,29 @@ netbsd_close(struct libusb_device_handle *handle)
 }
 
 int
-netbsd_get_device_descriptor(struct libusb_device *dev, unsigned char *buf,
-    int *host_endian)
-{
-	struct device_priv *dpriv = (struct device_priv *)dev->os_priv;
-
-	usbi_dbg("");
-
-	memcpy(buf, &dpriv->ddesc, DEVICE_DESC_LENGTH);
-
-	*host_endian = 0;
-
-	return (LIBUSB_SUCCESS);
-}
-
-int
 netbsd_get_active_config_descriptor(struct libusb_device *dev,
-    unsigned char *buf, size_t len, int *host_endian)
+    void *buf, size_t len)
 {
-	struct device_priv *dpriv = (struct device_priv *)dev->os_priv;
-	usb_config_descriptor_t *ucd;
+	struct device_priv *dpriv = usbi_get_device_priv(dev);
 
-	ucd = (usb_config_descriptor_t *) dpriv->cdesc;
-	len = MIN(len, UGETW(ucd->wTotalLength));
+	len = MIN(len, (size_t)UGETW(dpriv->cdesc->wTotalLength));
 
-	usbi_dbg("len %d", len);
+	usbi_dbg("len %zu", len);
 
 	memcpy(buf, dpriv->cdesc, len);
 
-	*host_endian = 0;
-
-	return len;
+	return (int)len;
 }
 
 int
 netbsd_get_config_descriptor(struct libusb_device *dev, uint8_t idx,
-    unsigned char *buf, size_t len, int *host_endian)
+    void *buf, size_t len)
 {
-	struct device_priv *dpriv = (struct device_priv *)dev->os_priv;
+	struct device_priv *dpriv = usbi_get_device_priv(dev);
 	struct usb_full_desc ufd;
 	int fd, err;
 
-	usbi_dbg("index %d, len %d", idx, len);
+	usbi_dbg("index %u, len %zu", idx, len);
 
 	/* A config descriptor may be requested before opening the device */
 	if (dpriv->fd >= 0) {
@@ -311,22 +269,22 @@ netbsd_get_config_descriptor(struct libusb_device *dev, uint8_t idx,
 	if (dpriv->fd < 0)
 		close(fd);
 
-	*host_endian = 0;
-
-	return len;
+	return (int)len;
 }
 
 int
-netbsd_get_configuration(struct libusb_device_handle *handle, int *config)
+netbsd_get_configuration(struct libusb_device_handle *handle, uint8_t *config)
 {
-	struct device_priv *dpriv = (struct device_priv *)handle->dev->os_priv;
+	struct device_priv *dpriv = usbi_get_device_priv(handle->dev);
+	int tmp;
 
-	usbi_dbg("");
+	usbi_dbg(" ");
 
-	if (ioctl(dpriv->fd, USB_GET_CONFIG, config) < 0)
+	if (ioctl(dpriv->fd, USB_GET_CONFIG, &tmp) < 0)
 		return _errno_to_libusb(errno);
 
-	usbi_dbg("configuration %d", *config);
+	usbi_dbg("configuration %d", tmp);
+	*config = (uint8_t)tmp;
 
 	return (LIBUSB_SUCCESS);
 }
@@ -334,7 +292,7 @@ netbsd_get_configuration(struct libusb_device_handle *handle, int *config)
 int
 netbsd_set_configuration(struct libusb_device_handle *handle, int config)
 {
-	struct device_priv *dpriv = (struct device_priv *)handle->dev->os_priv;
+	struct device_priv *dpriv = usbi_get_device_priv(handle->dev);
 
 	usbi_dbg("configuration %d", config);
 
@@ -345,10 +303,12 @@ netbsd_set_configuration(struct libusb_device_handle *handle, int config)
 }
 
 int
-netbsd_claim_interface(struct libusb_device_handle *handle, int iface)
+netbsd_claim_interface(struct libusb_device_handle *handle, uint8_t iface)
 {
-	struct handle_priv *hpriv = (struct handle_priv *)handle->os_priv;
+	struct handle_priv *hpriv = usbi_get_device_handle_priv(handle);
 	int i;
+
+	UNUSED(iface);
 
 	for (i = 0; i < USB_MAX_ENDPOINTS; i++)
 		hpriv->endpoints[i] = -1;
@@ -357,10 +317,12 @@ netbsd_claim_interface(struct libusb_device_handle *handle, int iface)
 }
 
 int
-netbsd_release_interface(struct libusb_device_handle *handle, int iface)
+netbsd_release_interface(struct libusb_device_handle *handle, uint8_t iface)
 {
-	struct handle_priv *hpriv = (struct handle_priv *)handle->os_priv;
+	struct handle_priv *hpriv = usbi_get_device_handle_priv(handle);
 	int i;
+
+	UNUSED(iface);
 
 	for (i = 0; i < USB_MAX_ENDPOINTS; i++)
 		if (hpriv->endpoints[i] >= 0)
@@ -370,13 +332,13 @@ netbsd_release_interface(struct libusb_device_handle *handle, int iface)
 }
 
 int
-netbsd_set_interface_altsetting(struct libusb_device_handle *handle, int iface,
-    int altsetting)
+netbsd_set_interface_altsetting(struct libusb_device_handle *handle, uint8_t iface,
+    uint8_t altsetting)
 {
-	struct device_priv *dpriv = (struct device_priv *)handle->dev->os_priv;
+	struct device_priv *dpriv = usbi_get_device_priv(handle->dev);
 	struct usb_alt_interface intf;
 
-	usbi_dbg("iface %d, setting %d", iface, altsetting);
+	usbi_dbg("iface %u, setting %u", iface, altsetting);
 
 	memset(&intf, 0, sizeof(intf));
 
@@ -392,10 +354,10 @@ netbsd_set_interface_altsetting(struct libusb_device_handle *handle, int iface,
 int
 netbsd_clear_halt(struct libusb_device_handle *handle, unsigned char endpoint)
 {
-	struct device_priv *dpriv = (struct device_priv *)handle->dev->os_priv;
+	struct device_priv *dpriv = usbi_get_device_priv(handle->dev);
 	struct usb_ctl_request req;
 
-	usbi_dbg("");
+	usbi_dbg(" ");
 
 	req.ucr_request.bmRequestType = UT_WRITE_ENDPOINT;
 	req.ucr_request.bRequest = UR_CLEAR_FEATURE;
@@ -409,20 +371,12 @@ netbsd_clear_halt(struct libusb_device_handle *handle, unsigned char endpoint)
 	return (LIBUSB_SUCCESS);
 }
 
-int
-netbsd_reset_device(struct libusb_device_handle *handle)
-{
-	usbi_dbg("");
-
-	return (LIBUSB_ERROR_NOT_SUPPORTED);
-}
-
 void
 netbsd_destroy_device(struct libusb_device *dev)
 {
-	struct device_priv *dpriv = (struct device_priv *)dev->os_priv;
+	struct device_priv *dpriv = usbi_get_device_priv(dev);
 
-	usbi_dbg("");
+	usbi_dbg(" ");
 
 	free(dpriv->cdesc);
 }
@@ -431,13 +385,11 @@ int
 netbsd_submit_transfer(struct usbi_transfer *itransfer)
 {
 	struct libusb_transfer *transfer;
-	struct handle_priv *hpriv;
 	int err = 0;
 
-	usbi_dbg("");
+	usbi_dbg(" ");
 
 	transfer = USBI_TRANSFER_TO_LIBUSB_TRANSFER(itransfer);
-	hpriv = (struct handle_priv *)transfer->dev_handle->os_priv;
 
 	switch (transfer->type) {
 	case LIBUSB_TRANSFER_TYPE_CONTROL:
@@ -476,37 +428,17 @@ netbsd_submit_transfer(struct usbi_transfer *itransfer)
 int
 netbsd_cancel_transfer(struct usbi_transfer *itransfer)
 {
-	usbi_dbg("");
+	UNUSED(itransfer);
+
+	usbi_dbg(" ");
 
 	return (LIBUSB_ERROR_NOT_SUPPORTED);
-}
-
-void
-netbsd_clear_transfer_priv(struct usbi_transfer *itransfer)
-{
-	usbi_dbg("");
-
-	/* Nothing to do */
 }
 
 int
 netbsd_handle_transfer_completion(struct usbi_transfer *itransfer)
 {
 	return usbi_handle_transfer_completion(itransfer, LIBUSB_TRANSFER_COMPLETED);
-}
-
-int
-netbsd_clock_gettime(int clkid, struct timespec *tp)
-{
-	usbi_dbg("clock %d", clkid);
-
-	if (clkid == USBI_CLOCK_REALTIME)
-		return clock_gettime(CLOCK_REALTIME, tp);
-
-	if (clkid == USBI_CLOCK_MONOTONIC)
-		return clock_gettime(CLOCK_MONOTONIC, tp);
-
-	return (LIBUSB_ERROR_INVALID_PARAM);
 }
 
 int
@@ -521,6 +453,9 @@ _errno_to_libusb(int err)
 		return (LIBUSB_ERROR_NO_DEVICE);
 	case ENOMEM:
 		return (LIBUSB_ERROR_NO_MEM);
+	case EWOULDBLOCK:
+	case ETIMEDOUT:
+		return (LIBUSB_ERROR_TIMEOUT);
 	}
 
 	usbi_dbg("error: %s", strerror(err));
@@ -531,10 +466,10 @@ _errno_to_libusb(int err)
 int
 _cache_active_config_descriptor(struct libusb_device *dev, int fd)
 {
-	struct device_priv *dpriv = (struct device_priv *)dev->os_priv;
+	struct device_priv *dpriv = usbi_get_device_priv(dev);
 	struct usb_config_desc ucd;
 	struct usb_full_desc ufd;
-	unsigned char* buf;
+	void *buf;
 	int len;
 
 	usbi_dbg("fd %d", fd);
@@ -547,7 +482,7 @@ _cache_active_config_descriptor(struct libusb_device *dev, int fd)
 	usbi_dbg("active bLength %d", ucd.ucd_desc.bLength);
 
 	len = UGETW(ucd.ucd_desc.wTotalLength);
-	buf = malloc(len);
+	buf = malloc((size_t)len);
 	if (buf == NULL)
 		return (LIBUSB_ERROR_NO_MEM);
 
@@ -578,7 +513,7 @@ _sync_control_transfer(struct usbi_transfer *itransfer)
 	struct usb_ctl_request req;
 
 	transfer = USBI_TRANSFER_TO_LIBUSB_TRANSFER(itransfer);
-	dpriv = (struct device_priv *)transfer->dev_handle->dev->os_priv;
+	dpriv = usbi_get_device_priv(transfer->dev_handle->dev);
 	setup = (struct libusb_control_setup *)transfer->buffer;
 
 	usbi_dbg("type %d request %d value %d index %d length %d timeout %d",
@@ -620,8 +555,8 @@ _access_endpoint(struct libusb_transfer *transfer)
 	int fd, endpt;
 	mode_t mode;
 
-	hpriv = (struct handle_priv *)transfer->dev_handle->os_priv;
-	dpriv = (struct device_priv *)transfer->dev_handle->dev->os_priv;
+	hpriv = usbi_get_device_handle_priv(transfer->dev_handle);
+	dpriv = usbi_get_device_priv(transfer->dev_handle->dev);
 
 	endpt = UE_GET_ADDR(transfer->endpoint);
 	mode = IS_XFERIN(transfer) ? O_RDONLY : O_WRONLY;

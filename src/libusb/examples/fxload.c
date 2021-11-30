@@ -21,6 +21,8 @@
  *    Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
  */
 
+#include <config.h>
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -32,7 +34,7 @@
 #include "libusb.h"
 #include "ezusb.h"
 
-#if !defined(_WIN32) || defined(__CYGWIN__ )
+#if !defined(_WIN32) || defined(__CYGWIN__)
 #include <syslog.h>
 static bool dosyslog = false;
 #include <strings.h>
@@ -48,14 +50,11 @@ static bool dosyslog = false;
 #endif
 
 void logerror(const char *format, ...)
-	__attribute__ ((format (__printf__, 1, 2)));
-
-void logerror(const char *format, ...)
 {
 	va_list ap;
 	va_start(ap, format);
 
-#if !defined(_WIN32) || defined(__CYGWIN__ )
+#if !defined(_WIN32) || defined(__CYGWIN__)
 	if (dosyslog)
 		vsyslog(LOG_ERR, format, ap);
 	else

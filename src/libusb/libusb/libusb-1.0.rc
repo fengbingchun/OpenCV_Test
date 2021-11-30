@@ -1,27 +1,19 @@
 /*
- * For Windows: input this file to the Resoure Compiler to produce a binary
+ * For Windows: input this file to the Resource Compiler to produce a binary
  * .res file. This is then embedded in the resultant library (like any other
  * compilation object).
  * The information can then be queried using standard APIs and can also be
  * viewed with utilities such as Windows Explorer.
  */
-#ifndef _WIN32_WCE
 #include "winresrc.h"
-#endif
 
 #include "version.h"
 #ifndef LIBUSB_VERSIONSTRING
 #define LU_STR(s) #s
 #define LU_XSTR(s) LU_STR(s)
-#if LIBUSB_NANO > 0
 #define LIBUSB_VERSIONSTRING \
 	LU_XSTR(LIBUSB_MAJOR) "." LU_XSTR(LIBUSB_MINOR) "." \
 	LU_XSTR(LIBUSB_MICRO) "." LU_XSTR(LIBUSB_NANO) LIBUSB_RC "\0"
-#else
-#define LIBUSB_VERSIONSTRING \
-	LU_XSTR(LIBUSB_MAJOR) "." LU_XSTR(LIBUSB_MINOR) "." \
-	LU_XSTR(LIBUSB_MICRO) LIBUSB_RC "\0"
-#endif
 #endif
 
 VS_VERSION_INFO VERSIONINFO

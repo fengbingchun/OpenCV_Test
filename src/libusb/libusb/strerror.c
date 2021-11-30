@@ -17,22 +17,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-#include <config.h>
-
-#include <locale.h>
-#include <stdlib.h>
-#include <string.h>
-#if defined(HAVE_STRINGS_H)
-#include <strings.h>
-#endif
-
 #include "libusbi.h"
 
-#if defined(_MSC_VER)
-#define strncasecmp _strnicmp
-#endif
-
-static size_t usbi_locale = 0;
+#include <ctype.h>
+#include <string.h>
 
 /** \ingroup libusb_misc
  * How to add a new \ref libusb_strerror() translation:
@@ -53,15 +41,15 @@ static size_t usbi_locale = 0;
  *         "Success",
  *         ...
  *         "Other error",
- *     }
+ *     },
  * };\endcode </li>
  * <li> Translate each of the English messages from the section you copied into your language </li>
  * <li> Save the file (in UTF-8 format) and send it to \c libusb-devel\@lists.sourceforge.net </li>
  * </ol>
  */
 
-static const char* usbi_locale_supported[] = { "en", "nl", "fr", "ru", "de", "hu" };
-static const char* usbi_localized_errors[ARRAYSIZE(usbi_locale_supported)][LIBUSB_ERROR_COUNT] = {
+static const char * const usbi_locale_supported[] = { "en", "nl", "fr", "ru", "de", "hu" };
+static const char * const usbi_localized_errors[ARRAYSIZE(usbi_locale_supported)][LIBUSB_ERROR_COUNT] = {
 	{ /* English (en) */
 		"Success",
 		"Input/Output Error",
@@ -122,7 +110,6 @@ static const char* usbi_localized_errors[ARRAYSIZE(usbi_locale_supported)][LIBUS
 		"Память исчерпана",
 		"Операция не поддерживается данной платформой",
 		"Неизвестная ошибка"
-	
 	}, { /* German (de) */
 		"Erfolgreich",
 		"Eingabe-/Ausgabefehler",
@@ -153,8 +140,10 @@ static const char* usbi_localized_errors[ARRAYSIZE(usbi_locale_supported)][LIBUS
 		"Nincs elég memória",
 		"A művelet nem támogatott ezen a rendszeren",
 		"Általános hiba",
-	}
+	},
 };
+
+static const char * const (*usbi_error_strings)[LIBUSB_ERROR_COUNT] = &usbi_localized_errors[0];
 
 /** \ingroup libusb_misc
  * Set the language, and only the language, not the encoding! used for
@@ -165,7 +154,7 @@ static const char* usbi_localized_errors[ARRAYSIZE(usbi_locale_supported)][LIBUS
  * used, and only 2 letter ISO 639-1 codes are accepted for it, such as "de".
  * The optional region, country_region or codeset parts are ignored. This
  * means that functions which return translatable strings will NOT honor the
- * specified encoding. 
+ * specified encoding.
  * All strings returned are encoded as UTF-8 strings.
  *
  * If libusb_setlocale() is not called, all messages will be in English.
@@ -190,19 +179,20 @@ int API_EXPORTED libusb_setlocale(const char *locale)
 {
 	size_t i;
 
-	if ( (locale == NULL) || (strlen(locale) < 2)
-	  || ((strlen(locale) > 2) && (locale[2] != '-') && (locale[2] != '_') && (locale[2] != '.')) )
+	if (!locale || strlen(locale) < 2
+	    || (locale[2] != '\0' && locale[2] != '-' && locale[2] != '_' && locale[2] != '.'))
 		return LIBUSB_ERROR_INVALID_PARAM;
 
-	for (i=0; i<ARRAYSIZE(usbi_locale_supported); i++) {
-		if (strncasecmp(usbi_locale_supported[i], locale, 2) == 0)
+	for (i = 0; i < ARRAYSIZE(usbi_locale_supported); i++) {
+		if (usbi_locale_supported[i][0] == tolower((unsigned char)locale[0])
+		    && usbi_locale_supported[i][1] == tolower((unsigned char)locale[1]))
 			break;
 	}
-	if (i >= ARRAYSIZE(usbi_locale_supported)) {
-		return LIBUSB_ERROR_NOT_FOUND;
-	}
 
-	usbi_locale = i;
+	if (i == ARRAYSIZE(usbi_locale_supported))
+		return LIBUSB_ERROR_NOT_FOUND;
+
+	usbi_error_strings = &usbi_localized_errors[i];
 
 	return LIBUSB_SUCCESS;
 }
@@ -220,14 +210,14 @@ int API_EXPORTED libusb_setlocale(const char *locale)
  * \param errcode the error code whose description is desired
  * \returns a short description of the error code in UTF-8 encoding
  */
-DEFAULT_VISIBILITY const char* LIBUSB_CALL libusb_strerror(enum libusb_error errcode)
+DEFAULT_VISIBILITY const char * LIBUSB_CALL libusb_strerror(int errcode)
 {
 	int errcode_index = -errcode;
 
-	if ((errcode_index < 0) || (errcode_index >= LIBUSB_ERROR_COUNT)) {
+	if (errcode_index < 0 || errcode_index >= LIBUSB_ERROR_COUNT) {
 		/* "Other Error", which should always be our last message, is returned */
 		errcode_index = LIBUSB_ERROR_COUNT - 1;
 	}
 
-	return usbi_localized_errors[usbi_locale][errcode_index];
+	return (*usbi_error_strings)[errcode_index];
 }

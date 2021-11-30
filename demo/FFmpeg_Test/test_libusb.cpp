@@ -59,7 +59,7 @@ int test_libusb_hotplug()
 		return -1;
 	}
 
-	int vendor_id = 0x046d, product_id = 0x081b;
+	int vendor_id = 0x046d, product_id = 0x081b; // need to modify
 	libusb_hotplug_callback_handle hp[2];
 	ret = libusb_hotplug_register_callback(nullptr, LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED, LIBUSB_HOTPLUG_NO_FLAGS, vendor_id,
 		product_id, LIBUSB_HOTPLUG_MATCH_ANY, hotplug_callback, nullptr, &hp[0]);
