@@ -8,7 +8,7 @@
 int test_getPerspectiveTransform()
 {
 #ifdef _MSC_VER
-	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat matSrc = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
 #endif
@@ -60,7 +60,7 @@ int test_getPerspectiveTransform()
 int test_warpPerspective_uchar()
 {
 #ifdef _MSC_VER
-	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat matSrc = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
 #endif
@@ -129,7 +129,7 @@ int test_warpPerspective_uchar()
 int test_warpPerspective_float()
 {
 #ifdef _MSC_VER
-	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat matSrc = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
 #endif
@@ -137,7 +137,7 @@ int test_warpPerspective_float()
 		std::cout << "read image fail" << std::endl;
 		return -1;
 	}
-	cv::cvtColor(matSrc, matSrc, CV_BGR2GRAY);
+	cv::cvtColor(matSrc, matSrc, cv::COLOR_BGR2GRAY);
 	matSrc.convertTo(matSrc, CV_32FC1);
 
 	for (int interpolation = 0; interpolation < 5; interpolation++) {

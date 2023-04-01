@@ -666,12 +666,12 @@ static int dshow_add_device(AVFormatContext *avctx,
 
 		if (IsEqualGUID(type.formattype, FORMAT_VideoInfo)) {
 			VIDEOINFOHEADER *v = reinterpret_cast<VIDEOINFOHEADER *>(type.pbFormat);
-			time_base = AVRational{ v->AvgTimePerFrame, 10000000 };
+			time_base = AVRational{ static_cast<int>(v->AvgTimePerFrame), 10000000 };
 			bih = &v->bmiHeader;
 		}
 		else if (IsEqualGUID(type.formattype, FORMAT_VideoInfo2)) {
 			VIDEOINFOHEADER2 *v = reinterpret_cast<VIDEOINFOHEADER2 *>(type.pbFormat);
-			time_base = AVRational{ v->AvgTimePerFrame, 10000000 };
+			time_base = AVRational{ static_cast<int>(v->AvgTimePerFrame), 10000000 };
 			bih = &v->bmiHeader;
 		}
 		if (!bih) {

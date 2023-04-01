@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenCV_Test", "OpenCV_Test\OpenCV_Test.vcxproj", "{A10E3DEF-E1EE-49CC-B025-DE741B0F81E8}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -17,10 +17,16 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VLFeat_DLL", "VLFeat_DLL\VLFeat_DLL.vcxproj", "{E59F04B3-A42F-4AF9-9B02-A1B69A6F1752}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test_VLFeat", "Test_VLFeat\Test_VLFeat.vcxproj", "{C0976C8C-5CAA-419A-969B-B0B9C8F0E553}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E59F04B3-A42F-4AF9-9B02-A1B69A6F1752} = {E59F04B3-A42F-4AF9-9B02-A1B69A6F1752}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Vigra", "vigra\vigra.vcxproj", "{3AC93660-1E52-4EAF-981D-A074D5BDAA7E}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Vigra_Test", "Vigra_Test\Vigra_Test.vcxproj", "{B3AC9BE2-DA6B-4D7D-87BA-A06F081F1960}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3AC93660-1E52-4EAF-981D-A074D5BDAA7E} = {3AC93660-1E52-4EAF-981D-A074D5BDAA7E}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CImg_Test", "CImg_Test\CImg_Test.vcxproj", "{E8E23222-1C58-4AF1-A6A0-E2826AC94BCA}"
 EndProject
@@ -94,5 +100,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {06A9FAD3-3752-4933-8FC9-8B1BB1A65E58}
 	EndGlobalSection
 EndGlobal

@@ -124,7 +124,7 @@ int test_ffmpeg_libswresample_resample()
 	}
 
 #ifdef _MSC_VER
-	const char* file_name = "E:/GitCode/OpenCV_Test/test_images/xxx";
+	const char* file_name = "../../../test_images/xxx";
 #else
 	const char* file_name = "test_images/xxx";	
 #endif

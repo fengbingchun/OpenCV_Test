@@ -13,7 +13,7 @@
 int test_dft_float()
 {
 #ifdef _MSC_VER
-	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/1.jpg", 1);
+	cv::Mat matSrc = cv::imread("../../../test_images/1.jpg", 1);
 #else	
 	cv::Mat matSrc = cv::imread("test_images/1.jpg", 1);
 #endif
@@ -21,7 +21,7 @@ int test_dft_float()
 		std::cout << "read image fail" << std::endl;
 		return -1;
 	}
-	cv::cvtColor(matSrc, matSrc, CV_BGR2GRAY);
+	cv::cvtColor(matSrc, matSrc, cv::COLOR_BGR2GRAY);
 	int width = matSrc.cols;
 	int height = matSrc.rows;
 
@@ -136,7 +136,7 @@ int test_dft_float()
 	q2_.copyTo(q1_);
 	tmp1_.copyTo(q2_);
 
-	cv::normalize(crop_, crop_, 0, 1, CV_MINMAX);
+	cv::normalize(crop_, crop_, 0, 1, cv::NORM_MINMAX);
 
 	assert(m == m_ && n == n_ && padded.step == padded_.step);
 	for (int y = 0; y < m; y++) {
@@ -181,7 +181,7 @@ int test_dft_float()
 	cv::Mat dst(crop.rows, crop.cols, CV_32FC1, crop_.data);
 	dst = dst * 255;
 #ifdef _MSC_VER
-	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/dft.jpg", dst);
+	cv::imwrite("../../../test_images/dft.jpg", dst);
 #else
 	cv::imwrite("test_images/dft.jpg", dst);
 #endif

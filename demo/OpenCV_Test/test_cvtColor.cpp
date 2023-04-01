@@ -11,7 +11,7 @@
 int test_cvtColor_RGB2RGB()
 {
 #ifdef _MSC_VER
-	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat mat = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat mat = cv::imread("test_images/lena.png", 1);
 #endif
@@ -33,7 +33,7 @@ int test_cvtColor_RGB2RGB()
 	cv::Mat mat2_;
 	mat1_.copyTo(mat2_);
 	cv::Mat mat3_(height, width, CV_8UC4);
-	cv::cvtColor(mat2_, mat3_, CV_BGR2BGRA);
+	cv::cvtColor(mat2_, mat3_, cv::COLOR_BGR2BGRA);
 
 	assert(mat3.step == mat3_.step);
 	for (int y = 0; y < mat3.rows; y++) {
@@ -58,7 +58,7 @@ int test_cvtColor_RGB2RGB()
 	cv::Mat mat5_;
 	mat4_.copyTo(mat5_);
 	cv::Mat mat6_(height, width, CV_32FC4);
-	cv::cvtColor(mat5_, mat6_, CV_BGR2BGRA);
+	cv::cvtColor(mat5_, mat6_, cv::COLOR_BGR2BGRA);
 
 	assert(mat6.step == mat6_.step);
 	for (int y = 0; y < mat6.rows; y++) {
@@ -76,7 +76,7 @@ int test_cvtColor_RGB2RGB()
 int test_cvtColor_RGB2Gray()
 {
 #ifdef _MSC_VER
-	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat mat = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat mat = cv::imread("test_images/lena.png", 1);
 #endif
@@ -98,7 +98,7 @@ int test_cvtColor_RGB2Gray()
 	cv::Mat mat2_;
 	mat1_.copyTo(mat2_);
 	cv::Mat mat3_(height, width, CV_8UC1);
-	cv::cvtColor(mat2_, mat3_, CV_BGR2GRAY);
+	cv::cvtColor(mat2_, mat3_, cv::COLOR_BGR2GRAY);
 
 	assert(mat3.step == mat3_.step);
 	for (int y = 0; y < mat3.rows; y++) {
@@ -123,7 +123,7 @@ int test_cvtColor_RGB2Gray()
 	cv::Mat mat5_;
 	mat4_.copyTo(mat5_);
 	cv::Mat mat6_(height, width, CV_32FC1);
-	cv::cvtColor(mat5_, mat6_, CV_BGR2GRAY);
+	cv::cvtColor(mat5_, mat6_, cv::COLOR_BGR2GRAY);
 
 	assert(mat6.step == mat6_.step);
 	for (int y = 0; y < mat6.rows; y++) {
@@ -141,7 +141,7 @@ int test_cvtColor_RGB2Gray()
 int test_cvtColor_Gray2RGB()
 {
 #ifdef _MSC_VER
-	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat mat = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat mat = cv::imread("test_images/lena.png", 1);
 #endif
@@ -149,7 +149,7 @@ int test_cvtColor_Gray2RGB()
 		std::cout << "read image fail" << std::endl;
 		return -1;
 	}
-	cv::cvtColor(mat, mat, CV_BGR2GRAY);
+	cv::cvtColor(mat, mat, cv::COLOR_BGR2GRAY);
 
 	int width = mat.cols;
 	int height = mat.rows;
@@ -164,7 +164,7 @@ int test_cvtColor_Gray2RGB()
 	cv::Mat mat2_;
 	mat1_.copyTo(mat2_);
 	cv::Mat mat3_(height, width, CV_8UC3);
-	cv::cvtColor(mat2_, mat3_, CV_GRAY2BGR);
+	cv::cvtColor(mat2_, mat3_, cv::COLOR_GRAY2BGR);
 
 	assert(mat3.step == mat3_.step);
 	for (int y = 0; y < mat3.rows; y++) {
@@ -189,7 +189,7 @@ int test_cvtColor_Gray2RGB()
 	cv::Mat mat5_;
 	mat4_.copyTo(mat5_);
 	cv::Mat mat6_(height, width, CV_32FC3);
-	cv::cvtColor(mat5_, mat6_, CV_GRAY2BGR);
+	cv::cvtColor(mat5_, mat6_, cv::COLOR_GRAY2BGR);
 
 	assert(mat6.step == mat6_.step);
 	for (int y = 0; y < mat6.rows; y++) {
@@ -207,7 +207,7 @@ int test_cvtColor_Gray2RGB()
 int test_cvtColor_RGB2YCrCb()
 {
 #ifdef _MSC_VER
-	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat mat = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat mat = cv::imread("test_images/lena.png", 1);
 #endif
@@ -229,7 +229,7 @@ int test_cvtColor_RGB2YCrCb()
 	cv::Mat mat2_;
 	mat1_.copyTo(mat2_);
 	cv::Mat mat3_(height, width, CV_8UC3);
-	cv::cvtColor(mat2_, mat3_, CV_BGR2YCrCb);
+	cv::cvtColor(mat2_, mat3_, cv::COLOR_BGR2YCrCb);
 
 	assert(mat3.step == mat3_.step);
 	for (int y = 0; y < mat3.rows; y++) {
@@ -254,7 +254,7 @@ int test_cvtColor_RGB2YCrCb()
 	cv::Mat mat5_;
 	mat4_.copyTo(mat5_);
 	cv::Mat mat6_(height, width, CV_32FC3);
-	cv::cvtColor(mat5_, mat6_, CV_BGR2YCrCb);
+	cv::cvtColor(mat5_, mat6_, cv::COLOR_BGR2YCrCb);
 
 	assert(mat6.step == mat6_.step);
 	for (int y = 0; y < mat6.rows; y++) {
@@ -272,7 +272,7 @@ int test_cvtColor_RGB2YCrCb()
 int test_cvtColor_YCrCb2RGB()
 {
 #ifdef _MSC_VER
-	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat mat = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat mat = cv::imread("test_images/lena.png", 1);
 #endif
@@ -280,7 +280,7 @@ int test_cvtColor_YCrCb2RGB()
 		std::cout << "read image fail" << std::endl;
 		return -1;
 	}
-	cv::cvtColor(mat, mat, CV_BGR2YCrCb);
+	cv::cvtColor(mat, mat, cv::COLOR_BGR2YCrCb);
 
 	int width = mat.cols;
 	int height = mat.rows;
@@ -295,7 +295,7 @@ int test_cvtColor_YCrCb2RGB()
 	cv::Mat mat2_;
 	mat1_.copyTo(mat2_);
 	cv::Mat mat3_(height, width, CV_8UC3);
-	cv::cvtColor(mat2_, mat3_, CV_YCrCb2BGR);
+	cv::cvtColor(mat2_, mat3_, cv::COLOR_YCrCb2BGR);
 
 	assert(mat3.step == mat3_.step);
 	for (int y = 0; y < mat3.rows; y++) {
@@ -320,7 +320,7 @@ int test_cvtColor_YCrCb2RGB()
 	cv::Mat mat5_;
 	mat4_.copyTo(mat5_);
 	cv::Mat mat6_(height, width, CV_32FC3);
-	cv::cvtColor(mat5_, mat6_, CV_YCrCb2BGR);
+	cv::cvtColor(mat5_, mat6_, cv::COLOR_YCrCb2BGR);
 
 	assert(mat6.step == mat6_.step);
 	for (int y = 0; y < mat6.rows; y++) {
@@ -338,7 +338,7 @@ int test_cvtColor_YCrCb2RGB()
 int test_cvtColor_RGB2XYZ()
 {
 #ifdef _MSC_VER
-	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat mat = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat mat = cv::imread("test_images/lena.png", 1);
 #endif
@@ -360,7 +360,7 @@ int test_cvtColor_RGB2XYZ()
 	cv::Mat mat2_;
 	mat1_.copyTo(mat2_);
 	cv::Mat mat3_(height, width, CV_8UC3);
-	cv::cvtColor(mat2_, mat3_, CV_BGR2XYZ);
+	cv::cvtColor(mat2_, mat3_, cv::COLOR_BGR2XYZ);
 
 	assert(mat3.step == mat3_.step);
 	for (int y = 0; y < mat3.rows; y++) {
@@ -385,7 +385,7 @@ int test_cvtColor_RGB2XYZ()
 	cv::Mat mat5_;
 	mat4_.copyTo(mat5_);
 	cv::Mat mat6_(height, width, CV_32FC3);
-	cv::cvtColor(mat5_, mat6_, CV_BGR2XYZ);
+	cv::cvtColor(mat5_, mat6_, cv::COLOR_BGR2XYZ);
 
 	assert(mat6.step == mat6_.step);
 	for (int y = 0; y < mat6.rows; y++) {
@@ -403,7 +403,7 @@ int test_cvtColor_RGB2XYZ()
 int test_cvtColor_XYZ2RGB()
 {
 #ifdef _MSC_VER
-	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat mat = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat mat = cv::imread("test_images/lena.png", 1);
 #endif
@@ -411,7 +411,7 @@ int test_cvtColor_XYZ2RGB()
 		std::cout << "read image fail" << std::endl;
 		return -1;
 	}
-	cv::cvtColor(mat, mat, CV_BGR2XYZ);
+	cv::cvtColor(mat, mat, cv::COLOR_BGR2XYZ);
 
 	int width = mat.cols;
 	int height = mat.rows;
@@ -426,7 +426,7 @@ int test_cvtColor_XYZ2RGB()
 	cv::Mat mat2_;
 	mat1_.copyTo(mat2_);
 	cv::Mat mat3_(height, width, CV_8UC3);
-	cv::cvtColor(mat2_, mat3_, CV_XYZ2BGR);
+	cv::cvtColor(mat2_, mat3_, cv::COLOR_XYZ2BGR);
 
 	assert(mat3.step == mat3_.step);
 	for (int y = 0; y < mat3.rows; y++) {
@@ -451,7 +451,7 @@ int test_cvtColor_XYZ2RGB()
 	cv::Mat mat5_;
 	mat4_.copyTo(mat5_);
 	cv::Mat mat6_(height, width, CV_32FC3);
-	cv::cvtColor(mat5_, mat6_, CV_XYZ2BGR);
+	cv::cvtColor(mat5_, mat6_, cv::COLOR_XYZ2BGR);
 
 	assert(mat6.step == mat6_.step);
 	for (int y = 0; y < mat6.rows; y++) {
@@ -469,7 +469,7 @@ int test_cvtColor_XYZ2RGB()
 int test_cvtColor_RGB2HSV()
 {
 #ifdef _MSC_VER
-	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat mat = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat mat = cv::imread("test_images/lena.png", 1);
 #endif
@@ -538,7 +538,7 @@ int test_cvtColor_RGB2HSV()
 int test_cvtColor_HSV2RGB()
 {
 #ifdef _MSC_VER
-	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat mat = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat mat = cv::imread("test_images/lena.png", 1);
 #endif
@@ -610,7 +610,7 @@ int test_cvtColor_HSV2RGB()
 int test_cvtColor_RGB2Lab()
 {
 #ifdef _MSC_VER
-	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat mat = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat mat = cv::imread("test_images/lena.png", 1);
 #endif
@@ -679,7 +679,7 @@ int test_cvtColor_RGB2Lab()
 int test_cvtColor_Lab2RGB()
 {
 #ifdef _MSC_VER
-	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat mat = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat mat = cv::imread("test_images/lena.png", 1);
 #endif
@@ -751,7 +751,7 @@ int test_cvtColor_Lab2RGB()
 int test_cvtColor_YUV2BGR()
 {
 #ifdef _MSC_VER
-	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat mat = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat mat = cv::imread("test_images/lena.png", 1);
 #endif
@@ -760,7 +760,7 @@ int test_cvtColor_YUV2BGR()
 		return -1;
 	}
 
-	cv::cvtColor(mat, mat, CV_BGR2YUV_I420);
+	cv::cvtColor(mat, mat, cv::COLOR_BGR2YUV_I420);
 
 	int width = mat.cols;
 	int height = mat.rows;
@@ -776,7 +776,7 @@ int test_cvtColor_YUV2BGR()
 	cv::Mat mat2_;
 	mat1_.copyTo(mat2_);
 	cv::Mat mat3_(newHeight, width, CV_8UC3);
-	cv::cvtColor(mat2_, mat3_, CV_YUV2BGR_I420);
+	cv::cvtColor(mat2_, mat3_, cv::COLOR_YUV2BGR_I420);
 
 	assert(mat3.step == mat3_.step);
 	for (int y = 0; y < mat3.rows; y++) {
@@ -794,7 +794,7 @@ int test_cvtColor_YUV2BGR()
 int test_cvtColor_BGR2YUV()
 {
 #ifdef _MSC_VER
-	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat mat = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat mat = cv::imread("test_images/lena.png", 1);
 #endif
@@ -817,7 +817,7 @@ int test_cvtColor_BGR2YUV()
 	cv::Mat mat2_;
 	mat1_.copyTo(mat2_);
 	cv::Mat mat3_(newHeight, width, CV_8UC1);
-	cv::cvtColor(mat2_, mat3_, CV_BGR2YUV_YV12);
+	cv::cvtColor(mat2_, mat3_, cv::COLOR_BGR2YUV_YV12);
 
 	assert(mat3.step == mat3_.step);
 	for (int y = 0; y < mat3.rows; y++) {
@@ -835,7 +835,7 @@ int test_cvtColor_BGR2YUV()
 int test_cvtColor_YUV2Gray()
 {
 #ifdef _MSC_VER
-	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat mat = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat mat = cv::imread("test_images/lena.png", 1);
 #endif
@@ -843,7 +843,7 @@ int test_cvtColor_YUV2Gray()
 		std::cout << "read image fail" << std::endl;
 		return -1;
 	}
-	cv::cvtColor(mat, mat, CV_BGRA2YUV_I420);
+	cv::cvtColor(mat, mat, cv::COLOR_BGRA2YUV_I420);
 
 	int width = mat.cols;
 	int height = mat.rows;
@@ -859,7 +859,7 @@ int test_cvtColor_YUV2Gray()
 	cv::Mat mat2_;
 	mat1_.copyTo(mat2_);
 	cv::Mat mat3_(newHeight, width, CV_8UC1);
-	cv::cvtColor(mat2_, mat3_, CV_YUV2GRAY_420);
+	cv::cvtColor(mat2_, mat3_, cv::COLOR_YUV2GRAY_420);
 
 	assert(mat3.step == mat3_.step);
 	for (int y = 0; y < mat3.rows; y++) {

@@ -12,9 +12,9 @@
 int test_opencv_two_merge_one_image(int flag)
 {
 #ifdef _MSC_VER
-	const std::string image_name1{"E:/GitCode/OpenCV_Test/test_images/1.jpg"};
-	const std::string image_name2{"E:/GitCode/OpenCV_Test/test_images/lena.png"};
-	const std::string image_name3{"E:/GitCode/OpenCV_Test/test_images/result.png"};
+	const std::string image_name1{"../../../test_images/1.jpg"};
+	const std::string image_name2{"../../../test_images/lena.png"};
+	const std::string image_name3{"../../../test_images/result.png"};
 #else
 	const std::string image_name1{"test_images/1.jpg"};
 	const std::string image_name2{"test_images/lena.png"};
@@ -79,7 +79,7 @@ cv::Mat frame;
 void save_video_frame()
 {
 #ifdef _MSC_VER
-	std::string path = "E:/GitCode/OpenCV_Test/test_images/";
+	std::string path = "../../../test_images/";
 #else
 	std::string path = "test_images/";
 #endif
@@ -157,7 +157,7 @@ int test_opencv_resize_cplusplus()
 
 	cv::Mat matSrc, matDst1, matDst2;
 #ifdef _MSC_VER
-	matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png");
+	matSrc = cv::imread("../../../test_images/lena.png");
 #else
 	matSrc = cv::imread("test_images/lena.png");
 #endif
@@ -186,9 +186,9 @@ int test_opencv_resize_cplusplus()
 	fprintf(stdout, "==== end nearest ====\n");
 
 #ifdef _MSC_VER
-	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/nearest_1.jpg", matDst1);
+	cv::imwrite("../../../test_images/nearest_1.jpg", matDst1);
 	cv::resize(matSrc, matDst2, matDst1.size(), 0, 0, 0);
-	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/nearest_2.jpg", matDst2);
+	cv::imwrite("../../../test_images/nearest_2.jpg", matDst2);
 #else
 	cv::imwrite("test_images/nearest_1.jpg", matDst1);
 	cv::resize(matSrc, matDst2, matDst1.size(), 0, 0, 0);
@@ -243,9 +243,9 @@ int test_opencv_resize_cplusplus()
 	fprintf(stdout, "==== end linear ====\n");
 
 #ifdef _MSC_VER
-	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/linear_1.jpg", matDst1);
+	cv::imwrite("../../../test_images/linear_1.jpg", matDst1);
 	cv::resize(matSrc, matDst2, matDst1.size(), 0, 0, 1);
-	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/linear_2.jpg", matDst2);
+	cv::imwrite("../../../test_images/linear_2.jpg", matDst2);
 #else
 	cv::imwrite("test_images/linear_1.jpg", matDst1);
 	cv::resize(matSrc, matDst2, matDst1.size(), 0, 0, 1);
@@ -318,9 +318,9 @@ int test_opencv_resize_cplusplus()
 	fprintf(stdout, "==== end cublic ====\n");
 
 #ifdef _MSC_VER
-	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/cubic_1.jpg", matDst1);
+	cv::imwrite("../../../test_images/cubic_1.jpg", matDst1);
 	cv::resize(matSrc, matDst2, matDst1.size(), 0, 0, 2);
-	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/cubic_2.jpg", matDst2);
+	cv::imwrite("../../../test_images/cubic_2.jpg", matDst2);
 #else
 	cv::imwrite("test_images/cubic_1.jpg", matDst1);
 	cv::resize(matSrc, matDst2, matDst1.size(), 0, 0, 2);
@@ -463,9 +463,9 @@ int test_opencv_resize_cplusplus()
 	fprintf(stdout, "==== end Lanczos ====\n");
 
 #ifdef _MSC_VER
-	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/Lanczos_1.jpg", matDst1);
+	cv::imwrite("../../../test_images/Lanczos_1.jpg", matDst1);
 	cv::resize(matSrc, matDst2, matDst1.size(), 0, 0, 4);
-	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/Lanczos_2.jpg", matDst2);
+	cv::imwrite("../../../test_images/Lanczos_2.jpg", matDst2);
 #else
 	cv::imwrite("test_images/Lanczos_1.jpg", matDst1);
 	cv::resize(matSrc, matDst2, matDst1.size(), 0, 0, 4);
@@ -476,7 +476,7 @@ int test_opencv_resize_cplusplus()
 { // area
 #ifdef _MSC_VER
 	cv::resize(matSrc, matDst2, matDst1.size(), 0, 0, 3);
-	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/area_2.jpg", matDst2);
+	cv::imwrite("../../../test_images/area_2.jpg", matDst2);
 #else
 	cv::resize(matSrc, matDst2, matDst1.size(), 0, 0, 3);
 	cv::imwrite("test_images/area_2.jpg", matDst2);
@@ -501,7 +501,7 @@ int test_opencv_resize_cplusplus()
 				}
 			}
 #ifdef _MSC_VER
-			cv::imwrite("E:/GitCode/OpenCV_Test/test_images/area_1.jpg", matDst1);
+			cv::imwrite("../../../test_images/area_1.jpg", matDst1);
 #else
 			cv::imwrite("test_images/area_1.jpg", matDst1);
 #endif
@@ -545,7 +545,7 @@ int test_opencv_resize_cplusplus()
 			}
 		}
 #ifdef _MSC_VER
-		cv::imwrite("E:/GitCode/OpenCV_Test/test_images/area_1.jpg", matDst1);
+		cv::imwrite("../../../test_images/area_1.jpg", matDst1);
 #else
 		cv::imwrite("test_images/area_1.jpg", matDst1);
 #endif
@@ -592,7 +592,7 @@ int test_opencv_resize_cplusplus()
 	fprintf(stdout, "==== end area ====\n");
 
 #ifdef _MSC_VER
-	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/area_1.jpg", matDst1);
+	cv::imwrite("../../../test_images/area_1.jpg", matDst1);
 #else
 	cv::imwrite("test_images/area_1.jpg", matDst1);
 #endif
@@ -646,7 +646,7 @@ int test_opencv_Laplacian()
 {
 	// reference: https://docs.opencv.org/3.1.0/d5/db5/tutorial_laplace_operator.html
 #ifdef _MSC_VER
-	cv::Mat src = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 0);
+	cv::Mat src = cv::imread("../../../test_images/lena.png", 0);
 #else	
 	cv::Mat src = cv::imread("test_images/lena.png", 0);
 #endif
@@ -659,7 +659,7 @@ int test_opencv_Laplacian()
 	cv::Mat dst;
 	cv::Laplacian(src, dst, src.depth(), 1);
 #ifdef _MSC_VER
-	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/laplacian_lena.png", dst);
+	cv::imwrite("../../../test_images/laplacian_lena.png", dst);
 #else
 	cv::imwrite("test_images/laplacian_lena.png", dst);
 #endif
@@ -678,14 +678,14 @@ void drawAxis(cv::Mat& img, cv::Point p, cv::Point q, cv::Scalar colour, const f
 	// Here we lengthen the arrow by a factor of scale
 	q.x = (int)(p.x - scale * hypotenuse * std::cos(angle));
 	q.y = (int)(p.y - scale * hypotenuse * std::sin(angle));
-	cv::line(img, p, q, colour, 1, CV_AA);
+	cv::line(img, p, q, colour, 1);
 	// create the arrow hooks
 	p.x = (int)(q.x + 9 * std::cos(angle + CV_PI / 4));
 	p.y = (int)(q.y + 9 * std::sin(angle + CV_PI / 4));
-	cv::line(img, p, q, colour, 1, CV_AA);
+	cv::line(img, p, q, colour, 1);
 	p.x = (int)(q.x + 9 * std::cos(angle - CV_PI / 4));
 	p.y = (int)(q.y + 9 * std::sin(angle - CV_PI / 4));
-	cv::line(img, p, q, colour, 1, CV_AA);
+	cv::line(img, p, q, colour, 1);
 }
 
 double getOrientation(const std::vector<cv::Point> &pts, cv::Mat &img)
@@ -699,7 +699,7 @@ double getOrientation(const std::vector<cv::Point> &pts, cv::Mat &img)
 	}
 
 	//Perform PCA analysis
-	cv::PCA pca_analysis(data_pts, cv::Mat(), CV_PCA_DATA_AS_ROW);
+	cv::PCA pca_analysis(data_pts, cv::Mat(), cv::PCA::DATA_AS_ROW);
 	//Store the center of the object
 	cv::Point cntr = cv::Point(static_cast<int>(pca_analysis.mean.at<double>(0, 0)), static_cast<int>(pca_analysis.mean.at<double>(0, 1)));
 	//Store the eigenvalues and eigenvectors
@@ -730,7 +730,7 @@ int test_opencv_PCA()
 	// reference: https://docs.opencv.org/3.1.0/d1/dee/tutorial_introduction_to_pca.html
 	// Load image
 #ifdef _MSC_VER
-	cv::Mat src = cv::imread("E:/GitCode/OpenCV_Test/test_images/pac_test1.jpg");
+	cv::Mat src = cv::imread("../../../test_images/pac_test1.jpg");
 #else	
 	cv::Mat src = cv::imread("test_images/pca_test1.jpg");
 #endif
@@ -745,11 +745,11 @@ int test_opencv_PCA()
 	cv::cvtColor(src, gray, cv::COLOR_BGR2GRAY);
 	// Convert image to binary
 	cv::Mat bw;
-	cv::threshold(gray, bw, 50, 255, CV_THRESH_BINARY | CV_THRESH_OTSU);
+	cv::threshold(gray, bw, 50, 255, cv::THRESH_BINARY | cv::THRESH_OTSU);
 	// Find all the contours in the thresholded image
 	std::vector<cv::Vec4i> hierarchy;
 	std::vector<std::vector<cv::Point> > contours;
-	cv::findContours(bw, contours, hierarchy, CV_RETR_LIST, CV_CHAIN_APPROX_NONE);
+	cv::findContours(bw, contours, hierarchy, cv::RETR_LIST, cv::CHAIN_APPROX_NONE);
 	for (size_t i = 0; i < contours.size(); ++i) {
 		// Calculate the area of each contour
 		double area = cv::contourArea(contours[i]);
@@ -783,7 +783,7 @@ int test_opencv_calcCovarMatrix()
 	std::cout << mat << std::endl;
 
 	cv::Mat covar, mean;
-	cv::calcCovarMatrix(mat, covar, mean, CV_COVAR_NORMAL | CV_COVAR_ROWS /*| CV_COVAR_SCALE*/, CV_32FC1);
+	cv::calcCovarMatrix(mat, covar, mean, cv::COVAR_NORMAL | cv::COVAR_ROWS /*| CV_COVAR_SCALE*/, CV_32FC1);
 	std::cout << "covariance matrix:" << std::endl << covar << std::endl;
 	std::cout << "mean values: " << std::endl << mean << std::endl;
 
@@ -964,7 +964,7 @@ int test_read_write_video()
 	// reference: http://docs.opencv.org/trunk/dd/d9e/classcv_1_1VideoWriter.html
 	if (1) { // read image and write video
 #ifdef _MSC_VER
-		cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/1.jpg");
+		cv::Mat mat = cv::imread("../../../test_images/1.jpg");
 #else	
 		cv::Mat mat = cv::imread("test_images/1.jpg");
 #endif
@@ -974,12 +974,12 @@ int test_read_write_video()
 		}
 
 		int width{ 640 }, height{ 480 };
-		int codec = CV_FOURCC('M', 'J', 'P', 'G');
+		int codec = cv::VideoWriter::fourcc('M', 'J', 'P', 'G');
 		double fps = 25.0;
 		bool isColor = (mat.type() == CV_8UC3);
 		cv::VideoWriter write_video;
 #ifdef _MSC_VER
-		write_video.open("E:/GitCode/OpenCV_Test/test_images/video_1.avi", codec, fps, cv::Size(width, height), isColor);
+		write_video.open("../../../test_images/video_1.avi", codec, fps, cv::Size(width, height), isColor);
 #else
 		write_video.open("test_images/video_1.avi", codec, fps, cv::Size(width, height), isColor);
 #endif
@@ -1001,7 +1001,7 @@ int test_read_write_video()
 
 	if (1) { // read video and write video
 #ifdef _MSC_VER
-		cv::VideoCapture read_video("E:/GitCode/OpenCV_Test/test_images/video_1.avi");
+		cv::VideoCapture read_video("../../../test_images/video_1.avi");
 #else	
 		cv::VideoCapture read_video("test_images/video_1.avi");
 #endif
@@ -1019,12 +1019,12 @@ int test_read_write_video()
 		fprintf(stderr, "src frame size: (%d, %d)\n", frame.cols, frame.rows);
 
 		int width{ 640 }, height{ 480 };
-		int codec = CV_FOURCC('M', 'J', 'P', 'G');
+		int codec = cv::VideoWriter::fourcc('M', 'J', 'P', 'G');
 		double fps = 25.0;
 		bool isColor = (frame.type() == CV_8UC3);
 		cv::VideoWriter write_video;
 #ifdef _MSC_VER
-		write_video.open("E:/GitCode/OpenCV_Test/test_images/video_2.avi", codec, fps, cv::Size(width, height), isColor);
+		write_video.open("../../../test_images/video_2.avi", codec, fps, cv::Size(width, height), isColor);
 #else
 		write_video.open("test_images/video_2.avi", codec, fps, cv::Size(width, height), isColor);
 #endif
@@ -1054,7 +1054,7 @@ int test_encode_decode()
 	// Blog: http://blog.csdn.net/fengbingchun/article/details/60780232
 	// cv::imread/cv::imwrite
 #ifdef _MSC_VER
-	std::string image_name = "E:/GitCode/OpenCV_Test/test_images/1.jpg";
+	std::string image_name = "../../../test_images/1.jpg";
 #else
 	std::string image_name = "test_images/1.jpg";
 #endif
@@ -1064,7 +1064,7 @@ int test_encode_decode()
 		return -1;
 	}
 #ifdef _MSC_VER
-	std::string save_image = "E:/GitCode/OpenCV_Test/test_images/1_1.jpg";
+	std::string save_image = "../../../test_images/1_1.jpg";
 #else
 	std::string save_image = "test_images/1_1.jpg";
 #endif
@@ -1086,7 +1086,7 @@ int test_encode_decode()
 	std::vector<char> vec_data(&buffer[0], &buffer[0] + size);
 	cv::Mat mat2 = cv::imdecode(vec_data, 1);
 #ifdef _MSC_VER
-	std::string save_image2 = "E:/GitCode/OpenCV_Test/test_images/2_1.jpg";
+	std::string save_image2 = "../../../test_images/2_1.jpg";
 #else
 	std::string save_image2 = "test_images/2_1.jpg";
 #endif
@@ -1095,7 +1095,7 @@ int test_encode_decode()
 	std::vector<uchar> buf;
 	cv::imencode(".jpg", mat1, buf);
 #ifdef _MSC_VER
-	std::string save_image3 = "E:/GitCode/OpenCV_Test/test_images/2_2.jpg";
+	std::string save_image3 = "../../../test_images/2_2.jpg";
 #else
 	std::string save_image3 = "test_images/2_2.jpg";
 #endif
@@ -1143,7 +1143,7 @@ int test_encode_decode()
 int test_opencv_resize()
 {
 #ifdef _MSC_VER
-	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat mat = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat mat = cv::imread("test_images/lena.png", 1);
 #endif
@@ -1165,7 +1165,7 @@ int test_opencv_resize()
 int test_opencv_cvtColor()
 {
 #ifdef _MSC_VER
-	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat mat = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat mat = cv::imread("test_images/lena.png", 1);
 #endif
@@ -1179,7 +1179,7 @@ int test_opencv_cvtColor()
 	//mat.convertTo(mat, CV_32FC3);
 
 	cv::Mat matDst;
-	cv::cvtColor(mat, matDst, CV_BGR2YUV_I420);
+	cv::cvtColor(mat, matDst, cv::COLOR_BGR2YUV_I420);
 
 	return 0;
 }
@@ -1187,7 +1187,7 @@ int test_opencv_cvtColor()
 int test_opencv_split()
 {
 #ifdef _MSC_VER
-	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat matSrc = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
 #endif
@@ -1207,9 +1207,9 @@ int test_opencv_split()
 int test_opencv_merge()
 {
 #ifdef _MSC_VER
-	cv::Mat matSrc1 = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
-	cv::Mat matSrc2 = cv::imread("E:/GitCode/OpenCV_Test/test_images/1.jpg", 1);
-	cv::Mat matSrc3 = cv::imread("E:/GitCode/OpenCV_Test/test_images/2.jpg", 1);
+	cv::Mat matSrc1 = cv::imread("../../../test_images/lena.png", 1);
+	cv::Mat matSrc2 = cv::imread("../../../test_images/1.jpg", 1);
+	cv::Mat matSrc3 = cv::imread("../../../test_images/2.jpg", 1);
 #else
 	cv::Mat matSrc1 = cv::imread("test_images/lena.png", 1);
 	cv::Mat matSrc2 = cv::imread("test_images/1.jpg", 1);
@@ -1222,9 +1222,9 @@ int test_opencv_merge()
 
 	int width = 500, height = 600;
 
-	cv::cvtColor(matSrc1, matSrc1, CV_BGR2GRAY);
-	cv::cvtColor(matSrc2, matSrc2, CV_BGR2GRAY);
-	cv::cvtColor(matSrc3, matSrc3, CV_BGR2GRAY);
+	cv::cvtColor(matSrc1, matSrc1, cv::COLOR_BGR2GRAY);
+	cv::cvtColor(matSrc2, matSrc2, cv::COLOR_BGR2GRAY);
+	cv::cvtColor(matSrc3, matSrc3, cv::COLOR_BGR2GRAY);
 	cv::resize(matSrc1, matSrc1, cv::Size(width, height));
 	cv::resize(matSrc2, matSrc2, cv::Size(width, height));
 	cv::resize(matSrc3, matSrc3, cv::Size(width, height));
@@ -1243,7 +1243,7 @@ int test_opencv_merge()
 int test_opencv_warpAffine()
 {
 #ifdef _MSC_VER
-	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat matSrc = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
 #endif
@@ -1251,7 +1251,7 @@ int test_opencv_warpAffine()
 		std::cout << "read image fail" << std::endl;
 		return -1;
 	}
-	cv::cvtColor(matSrc, matSrc, CV_BGR2GRAY);
+	cv::cvtColor(matSrc, matSrc, cv::COLOR_BGR2GRAY);
 	//matSrc.convertTo(matSrc, CV_32FC3);
 
 	cv::Point2f srcTri[3];
@@ -1331,7 +1331,7 @@ static void update_map(const cv::Mat& src, cv::Mat& map_x, cv::Mat& map_y, int i
 int test_opencv_remap()
 {
 #ifdef _MSC_VER
-	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat matSrc = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
 #endif
@@ -1350,7 +1350,7 @@ int test_opencv_remap()
 	map_y.create(matSrc.size(), CV_32FC1);
 
 	char* remap_window = "Remap demo";
-	cv::namedWindow(remap_window, CV_WINDOW_AUTOSIZE);
+	cv::namedWindow(remap_window, cv::WINDOW_AUTOSIZE);
 
 	int ind = 0;
 
@@ -1378,7 +1378,7 @@ int test_opencv_remap()
 int test_opencv_rotate()
 {
 #ifdef _MSC_VER
-	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat matSrc = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
 #endif
@@ -1386,7 +1386,7 @@ int test_opencv_rotate()
 		std::cout << "read image fail" << std::endl;
 		return -1;
 	}
-	cv::cvtColor(matSrc, matSrc, CV_BGR2GRAY);
+	cv::cvtColor(matSrc, matSrc, cv::COLOR_BGR2GRAY);
 
 
 	// Compute a rotation matrix with respect to the center of the image
@@ -1409,7 +1409,7 @@ int test_opencv_rotate()
 int test_opencv_warpPerspective()
 {
 #ifdef _MSC_VER
-	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat matSrc = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
 #endif
@@ -1440,7 +1440,7 @@ int test_opencv_warpPerspective()
 int test_opencv_dilate()
 {
 #ifdef _MSC_VER
-	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat matSrc = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
 #endif
@@ -1470,7 +1470,7 @@ int test_opencv_dilate()
 int test_opencv_erode()
 {
 #ifdef _MSC_VER
-	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat matSrc = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
 #endif
@@ -1502,7 +1502,7 @@ int test_opencv_erode()
 int test_opencv_morphologyEx()
 {
 #ifdef _MSC_VER
-	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat matSrc = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
 #endif
@@ -1510,7 +1510,7 @@ int test_opencv_morphologyEx()
 		std::cout << "read image fail" << std::endl;
 		return -1;
 	}
-	cv::cvtColor(matSrc, matSrc, CV_BGR2GRAY);
+	cv::cvtColor(matSrc, matSrc, cv::COLOR_BGR2GRAY);
 
 	//cv::Mat src_complement;
 	//cv::bitwise_not(matSrc, src_complement);
@@ -1534,7 +1534,7 @@ int test_opencv_morphologyEx()
 int test_opencv_threshold()
 {
 #ifdef _MSC_VER
-	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat matSrc = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
 #endif
@@ -1542,7 +1542,7 @@ int test_opencv_threshold()
 		std::cout << "read image fail" << std::endl;
 		return -1;
 	}
-	cv::cvtColor(matSrc, matSrc, CV_BGR2GRAY);
+	cv::cvtColor(matSrc, matSrc, cv::COLOR_BGR2GRAY);
 
 	double thresh = 128;
 	double maxval = 255;
@@ -1556,7 +1556,7 @@ int test_opencv_threshold()
 int test_opencv_transpose()
 {
 #ifdef _MSC_VER
-	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat matSrc = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
 #endif
@@ -1574,7 +1574,7 @@ int test_opencv_transpose()
 int test_opencv_flip()
 {
 #ifdef _MSC_VER
-	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat matSrc = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
 #endif
@@ -1593,7 +1593,7 @@ int test_opencv_flip()
 int test_opencv_dft()
 {
 #ifdef _MSC_VER
-	cv::Mat I = cv::imread("E:/GitCode/OpenCV_Test/test_images/1.jpg", 1);
+	cv::Mat I = cv::imread("../../../test_images/1.jpg", 1);
 #else	
 	cv::Mat I = cv::imread("test_images/1.jpg", 1);
 #endif
@@ -1601,7 +1601,7 @@ int test_opencv_dft()
 		std::cout << "read image fail" << std::endl;
 		return -1;
 	}
-	cv::cvtColor(I, I, CV_BGR2GRAY);
+	cv::cvtColor(I, I, cv::COLOR_BGR2GRAY);
 
 	cv::Mat padded;                            //expand input image to optimal size
 	int m = cv::getOptimalDFTSize(I.rows);
@@ -1644,7 +1644,7 @@ int test_opencv_dft()
 	q2.copyTo(q1);
 	tmp.copyTo(q2);
 
-	cv::normalize(magI, magI, 0, 1, CV_MINMAX); // Transform the matrix with float values into a
+	cv::normalize(magI, magI, 0, 1, cv::NORM_MINMAX); // Transform the matrix with float values into a
 	// viewable image form (float between values 0 and 1).
 
 	cv::imshow("Input Image", I);    // Show the result
@@ -1657,7 +1657,7 @@ int test_opencv_dft()
 int test_opencv_filter2D()
 {
 #ifdef _MSC_VER
-	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/1.jpg", 1);
+	cv::Mat matSrc = cv::imread("../../../test_images/1.jpg", 1);
 #else	
 	cv::Mat matSrc = cv::imread("test_images/1.jpg", 1);
 #endif

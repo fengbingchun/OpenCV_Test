@@ -25,7 +25,7 @@ extern "C" {
 int test_ffmpeg_libswscale_bgr_yuv()
 {
 #ifdef _MSC_VER
-	const char* image_name = "E:/GitCode/OpenCV_Test/test_images/lena.png";
+	const char* image_name = "../../../test_images/lena.png";
 #else
 	const char* image_name = "test_images/lena.png";
 #endif
@@ -62,7 +62,7 @@ int test_ffmpeg_libswscale_bgr_yuv()
 	sws_scale(sws_ctx, bgr_data, bgr_linesize, 0, height, yuv420p_data, yuv420p_linesize);
 
 #ifdef _MSC_VER
-	const char* name = "E:/GitCode/OpenCV_Test/test_images/512w_512h.yuv420p";
+	const char* name = "../../../test_images/512w_512h.yuv420p";
 #else
 	const char* name = "test_images/512w_512h.yuv420p";
 #endif
@@ -109,7 +109,7 @@ int test_ffmpeg_libswscale_bgr_yuv()
 	sws_scale(sws_ctx, yuv420p_data, yuv420p_linesize, 0, height, bgr_data, bgr_linesize);
 
 #ifdef _MSC_VER
-	const char* name = "E:/GitCode/OpenCV_Test/test_images/yuv420ptobgr24.jpg";
+	const char* name = "../../../test_images/yuv420ptobgr24.jpg";
 #else
 	const char* name = "test_images/yuv420ptobgr24.jpg";
 #endif
@@ -145,7 +145,7 @@ int test_ffmpeg_libswscale_bgr_yuv()
 	sws_scale(sws_ctx, bgr_data, bgr_linesize, 0, height, nv12_data, nv12_linesize);
 
 #ifdef _MSC_VER
-	const char* name = "E:/GitCode/OpenCV_Test/test_images/512w_512h.nv12";
+	const char* name = "../../../test_images/512w_512h.nv12";
 #else
 	const char* name = "test_images/512w_512h.nv12";
 #endif
@@ -190,7 +190,7 @@ int test_ffmpeg_libswscale_bgr_yuv()
 	sws_scale(sws_ctx, nv12_data, nv12_linesize, 0, height, bgr_data, bgr_linesize);
 
 #ifdef _MSC_VER
-	const char* name = "E:/GitCode/OpenCV_Test/test_images/nv12tobgr24.jpg";
+	const char* name = "../../../test_images/nv12tobgr24.jpg";
 #else
 	const char* name = "test_images/nv12tobgr24.jpg";
 #endif
@@ -210,7 +210,7 @@ int test_ffmpeg_libswscale_scale()
 {
 	// bgr to rgb and resize
 #ifdef _MSC_VER
-	const char* image_name = "E:/GitCode/OpenCV_Test/test_images/lena.png";
+	const char* image_name = "../../../test_images/lena.png";
 #else
 	const char* image_name = "test_images/lena.png";	
 #endif
@@ -236,7 +236,7 @@ int test_ffmpeg_libswscale_scale()
 	int dst_stride[1] = {width_dst * 3};
 	sws_scale(ctx, p1, src_stride, 0, height_src, p2, dst_stride);
 #ifdef _MSC_VER
-	const char* result_image_name = "E:/GitCode/OpenCV_Test/test_images/lena_resize_rgb_libswscale.png";
+	const char* result_image_name = "../../../test_images/lena_resize_rgb_libswscale.png";
 #else
 	const char* result_image_name = "test_images/lena_resize_rgb_libswscale.png";
 #endif
@@ -264,7 +264,7 @@ int test_ffmpeg_libswscale_colorspace()
 
 	// bgr to gray
 #ifdef _MSC_VER
-	const char* image_name = "E:/GitCode/OpenCV_Test/test_images/lena.png";
+	const char* image_name = "../../../test_images/lena.png";
 #else
 	const char* image_name = "test_images/lena.png";	
 #endif
@@ -289,7 +289,7 @@ int test_ffmpeg_libswscale_colorspace()
 	int dst_stride[1] = {width};
 	sws_scale(ctx, p1, src_stride, 0, height, p2, dst_stride);
 #ifdef _MSC_VER
-	const char* result_image_name = "E:/GitCode/OpenCV_Test/test_images/lena_gray_libswscale.png";
+	const char* result_image_name = "../../../test_images/lena_gray_libswscale.png";
 #else
 	const char* result_image_name = "test_images/lena_gray_libswscale.png";
 #endif

@@ -12,9 +12,9 @@
 int test_merge_uchar()
 {
 #ifdef _MSC_VER
-	cv::Mat matSrc1 = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
-	cv::Mat matSrc2 = cv::imread("E:/GitCode/OpenCV_Test/test_images/1.jpg", 1);
-	cv::Mat matSrc3 = cv::imread("E:/GitCode/OpenCV_Test/test_images/2.jpg", 1);
+	cv::Mat matSrc1 = cv::imread("../../../test_images/lena.png", 1);
+	cv::Mat matSrc2 = cv::imread("../../../test_images/1.jpg", 1);
+	cv::Mat matSrc3 = cv::imread("../../../test_images/2.jpg", 1);
 #else
 	cv::Mat matSrc1 = cv::imread("test_images/lena.png", 1);
 	cv::Mat matSrc2 = cv::imread("test_images/1.jpg", 1);
@@ -27,9 +27,9 @@ int test_merge_uchar()
 
 	int width = 500, height = 600;
 
-	cv::cvtColor(matSrc1, matSrc1, CV_BGR2GRAY);
-	cv::cvtColor(matSrc2, matSrc2, CV_BGR2GRAY);
-	cv::cvtColor(matSrc3, matSrc3, CV_BGR2GRAY);
+	cv::cvtColor(matSrc1, matSrc1, cv::COLOR_BGR2GRAY);
+	cv::cvtColor(matSrc2, matSrc2, cv::COLOR_BGR2GRAY);
+	cv::cvtColor(matSrc3, matSrc3, cv::COLOR_BGR2GRAY);
 	cv::resize(matSrc1, matSrc1, cv::Size(width, height));
 	cv::resize(matSrc2, matSrc2, cv::Size(width, height));
 	cv::resize(matSrc3, matSrc3, cv::Size(width, height));
@@ -70,9 +70,9 @@ int test_merge_uchar()
 int test_merge_float()
 {
 #ifdef _MSC_VER
-	cv::Mat matSrc1 = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
-	cv::Mat matSrc2 = cv::imread("E:/GitCode/OpenCV_Test/test_images/1.jpg", 1);
-	cv::Mat matSrc3 = cv::imread("E:/GitCode/OpenCV_Test/test_images/2.jpg", 1);
+	cv::Mat matSrc1 = cv::imread("../../../test_images/lena.png", 1);
+	cv::Mat matSrc2 = cv::imread("../../../test_images/1.jpg", 1);
+	cv::Mat matSrc3 = cv::imread("../../../test_images/2.jpg", 1);
 #else
 	cv::Mat matSrc1 = cv::imread("test_images/lena.png", 1);
 	cv::Mat matSrc2 = cv::imread("test_images/1.jpg", 1);
@@ -85,9 +85,9 @@ int test_merge_float()
 
 	int width = 500, height = 600;
 
-	cv::cvtColor(matSrc1, matSrc1, CV_BGR2GRAY);
-	cv::cvtColor(matSrc2, matSrc2, CV_BGR2GRAY);
-	cv::cvtColor(matSrc3, matSrc3, CV_BGR2GRAY);
+	cv::cvtColor(matSrc1, matSrc1, cv::COLOR_BGR2GRAY);
+	cv::cvtColor(matSrc2, matSrc2, cv::COLOR_BGR2GRAY);
+	cv::cvtColor(matSrc3, matSrc3, cv::COLOR_BGR2GRAY);
 	cv::resize(matSrc1, matSrc1, cv::Size(width, height));
 	cv::resize(matSrc2, matSrc2, cv::Size(width, height));
 	cv::resize(matSrc3, matSrc3, cv::Size(width, height));

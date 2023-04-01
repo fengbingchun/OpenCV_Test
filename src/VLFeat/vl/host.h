@@ -312,7 +312,7 @@ defined(__DOXYGEN__)
 #if defined(VL_COMPILER_MSC) & ! defined(__DOXYGEN__)
 #  define VL_UNUSED
 #  define VL_INLINE static __inline
-#  define snprintf _snprintf
+//#  define snprintf _snprintf
 #  define isnan _isnan
 #  ifdef VL_BUILD_DLL
 #    ifdef __cplusplus

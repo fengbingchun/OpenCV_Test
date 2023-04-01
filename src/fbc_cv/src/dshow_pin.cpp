@@ -363,7 +363,7 @@ long WINAPI libAVMemInputPin_Receive(libAVMemInputPin *thisx, IMediaSample *samp
 			/* initial frames sometimes start < 0 (shown as a very large number here,
 			like 437650244077016960 which FFmpeg doesn't like.
 			TODO figure out math. For now just drop them. */
-			fprintf(stderr, "dshow_pin: dshow dropping initial (or ending) audio frame with odd PTS too high %"PRId64"\n", curtime);
+			fprintf(stderr, "dshow_pin: dshow dropping initial (or ending) audio frame with odd PTS too high %lld\n", curtime);
 			return S_OK;
 		}
 		curtime += pin->filter->start_time;

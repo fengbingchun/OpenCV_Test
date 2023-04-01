@@ -98,7 +98,7 @@ static int write_number(void *obj, const AVOption *o, void *dst, double num, int
 	case AV_OPT_TYPE_RATIONAL:
 	case AV_OPT_TYPE_VIDEO_RATE:
 		if ((int)num == num)
-			*(AVRational *)dst = AVRational{ num *intnum, den };
+			*(AVRational *)dst = AVRational{ static_cast<int>(num *intnum), den };
 		else
 			*(AVRational *)dst = av_d2q(num * intnum / den, 1 << 24);
 		break;

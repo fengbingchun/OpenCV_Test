@@ -10,7 +10,7 @@
 int test_transpose_uchar()
 {
 #ifdef _MSC_VER
-	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat matSrc = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
 #endif
@@ -44,10 +44,10 @@ int test_transpose_uchar()
 
 	cv::Mat matSave(width, width, CV_8UC3, mat1.data);
 #ifdef _MSC_VER
-	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/transpose_fbc.jpg", matSave);
-	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/transpose_cv.jpg", mat1_);
+	cv::imwrite("../../../test_images/transpose_fbc.jpg", matSave);
+	cv::imwrite("../../../test_images/transpose_cv.jpg", mat1_);
 
-	cv::Mat matSrc1 = cv::imread("E:/GitCode/OpenCV_Test/test_images/1.jpg", 1);
+	cv::Mat matSrc1 = cv::imread("../../../test_images/1.jpg", 1);
 #else
 	cv::imwrite("test_images/transpose_fbc.jpg", matSave);
 	cv::imwrite("test_images/transpose_cv.jpg", mat1_);
@@ -82,8 +82,8 @@ int test_transpose_uchar()
 
 	cv::Mat matSave1(width, height, CV_8UC3, mat3.data);
 #ifdef _MSC_VER
-	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/transpose1_fbc.jpg", matSave1);
-	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/transpose1_cv.jpg", mat3_);
+	cv::imwrite("../../../test_images/transpose1_fbc.jpg", matSave1);
+	cv::imwrite("../../../test_images/transpose1_cv.jpg", mat3_);
 #else
 	cv::imwrite("test_images/transpose1_fbc.jpg", matSave1);
 	cv::imwrite("test_images/transpose1_cv.jpg", mat3_);
@@ -94,7 +94,7 @@ int test_transpose_uchar()
 int test_transpose_float()
 {
 #ifdef _MSC_VER
-	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat matSrc = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
 #endif
@@ -102,7 +102,7 @@ int test_transpose_float()
 		std::cout << "read image fail" << std::endl;
 		return -1;
 	}
-	cv::cvtColor(matSrc, matSrc, CV_BGR2GRAY);
+	cv::cvtColor(matSrc, matSrc, cv::COLOR_BGR2GRAY);
 	matSrc.convertTo(matSrc, CV_32FC1);
 
 	int width = matSrc.cols;
@@ -129,7 +129,7 @@ int test_transpose_float()
 	}
 
 #ifdef _MSC_VER
-	cv::Mat matSrc1 = cv::imread("E:/GitCode/OpenCV_Test/test_images/1.jpg", 1);
+	cv::Mat matSrc1 = cv::imread("../../../test_images/1.jpg", 1);
 #else	
 	cv::Mat matSrc1 = cv::imread("test_images/1.jpg", 1);
 #endif
@@ -137,7 +137,7 @@ int test_transpose_float()
 		std::cout << "read image fail" << std::endl;
 		return -1;
 	}
-	cv::cvtColor(matSrc1, matSrc1, CV_BGR2GRAY);
+	cv::cvtColor(matSrc1, matSrc1, cv::COLOR_BGR2GRAY);
 	matSrc1.convertTo(matSrc1, CV_32FC1);
 
 	width = matSrc1.cols;

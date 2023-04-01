@@ -9,7 +9,7 @@
 int test_erode_uchar()
 {
 #ifdef _MSC_VER
-	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat matSrc = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
 #endif
@@ -76,7 +76,7 @@ int test_erode_uchar()
 int test_erode_float()
 {
 #ifdef _MSC_VER
-	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat matSrc = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
 #endif
@@ -84,7 +84,7 @@ int test_erode_float()
 		std::cout << "read image fail" << std::endl;
 		return -1;
 	}
-	cv::cvtColor(matSrc, matSrc, CV_BGR2GRAY);
+	cv::cvtColor(matSrc, matSrc, cv::COLOR_BGR2GRAY);
 	matSrc.convertTo(matSrc, CV_32FC1);
 
 	int width = matSrc.cols;

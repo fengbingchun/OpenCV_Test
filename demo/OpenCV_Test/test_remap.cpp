@@ -41,7 +41,7 @@ static void update_map(const cv::Mat& src, cv::Mat& map_x, cv::Mat& map_y, int i
 int test_remap_uchar()
 {
 #ifdef _MSC_VER
-	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat matSrc = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
 #endif
@@ -98,7 +98,7 @@ int test_remap_uchar()
 int test_remap_float()
 {
 #ifdef _MSC_VER
-	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat matSrc = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat matSrc = cv::imread("test_images/lena.png", 1);
 #endif

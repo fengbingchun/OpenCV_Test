@@ -12,6 +12,7 @@
 	#error solve.hpp header must be compiled as C++
 #endif
 
+#include <cmath>
 #include "base.hpp"
 #include "mat.hpp"
 #include "hal.hpp"

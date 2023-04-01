@@ -11,7 +11,7 @@
 int test_flip_uchar()
 {
 #ifdef _MSC_VER
-	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/1.jpg", 1);
+	cv::Mat matSrc = cv::imread("../../../test_images/1.jpg", 1);
 #else	
 	cv::Mat matSrc = cv::imread("test_images/1.jpg", 1);
 #endif
@@ -46,7 +46,7 @@ int test_flip_uchar()
 
 		std::string name = std::to_string(i);
 #ifdef _MSC_VER
-		std::string file_path = "E:/GitCode/OpenCV_Test/test_images/";
+		std::string file_path = "../../../test_images/";
 #else
 		std::string file_path = "test_images/";
 #endif
@@ -63,7 +63,7 @@ int test_flip_uchar()
 int test_flip_float()
 {
 #ifdef _MSC_VER
-	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/1.jpg", 1);
+	cv::Mat matSrc = cv::imread("../../../test_images/1.jpg", 1);
 #else	
 	cv::Mat matSrc = cv::imread("test_images/1.jpg", 1);
 #endif
@@ -71,7 +71,7 @@ int test_flip_float()
 		std::cout << "read image fail" << std::endl;
 		return -1;
 	}
-	cv::cvtColor(matSrc, matSrc, CV_BGR2GRAY);
+	cv::cvtColor(matSrc, matSrc, cv::COLOR_BGR2GRAY);
 	matSrc.convertTo(matSrc, CV_32FC1);
 
 	int width = matSrc.cols;

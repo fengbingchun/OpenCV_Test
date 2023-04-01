@@ -10,8 +10,8 @@ int test_vigra_1()
 	try {
 		std::cout << "supported formats: " << vigra::impexListFormats() << std::endl;
 
-		std::string strImageName = "E:/GitCode/OpenCV_Test/test_images/lenna.bmp";
-		std::string strOutImage = "E:/GitCode/OpenCV_Test/test_images/lenna_vigra.bmp";
+		std::string strImageName = "../../../test_images/lenna.bmp";
+		std::string strOutImage = "../../../test_images/lenna_vigra.bmp";
 
 		vigra::ImageImportInfo info(strImageName.c_str(), 0);//read image
 		//vigra_precondition(info.isGrayscale(), "Sorry, cannot operate on color images");

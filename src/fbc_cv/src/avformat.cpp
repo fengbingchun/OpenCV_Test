@@ -1,8 +1,9 @@
-// fbc_cv is free software and uses the same licence as FFmpeg
+﻿// fbc_cv is free software and uses the same licence as FFmpeg
 // Email: fengbingchun@163.com
 
 #include <stdio.h>
 #include <inttypes.h>
+#include <cstdint>
 #include <string>
 #include "thread.hpp"
 #include "avformat.hpp"
@@ -1568,7 +1569,7 @@ static void compute_pkt_fields(AVFormatContext *s, AVStream *st,
 				st->dts_ordered++;
 			}
 			else {
-				fprintf(stderr, "st->dts_misordered ? AV_LOG_DEBUG : AV_LOG_WARNING, DTS %"PRIi64" < %"PRIi64" out of order\n",
+				fprintf(stderr, "st->dts_misordered ? AV_LOG_DEBUG : AV_LOG_WARNING, DTS %lld < %lld out of order\n",
 					pkt->dts, st->last_dts_for_order_check);
 				st->dts_misordered++;
 			}
@@ -1623,7 +1624,7 @@ static void compute_pkt_fields(AVFormatContext *s, AVStream *st,
 			pkt->dts = AV_NOPTS_VALUE;
 	}
 
-	duration = av_mul_q(AVRational{ pkt->duration, 1 }, st->time_base);
+	duration = av_mul_q(AVRational{ static_cast<int>(pkt->duration), 1 }, st->time_base);
 	if (pkt->duration <= 0) {
 		ff_compute_frame_duration(s, &num, &den, st, pc, pkt);
 		if (den && num) {

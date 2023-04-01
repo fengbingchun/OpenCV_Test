@@ -11,7 +11,7 @@ int test_directory_GetListFiles()
 	fbc::Directory dir;
 
 #ifdef _MSC_VER
-	std::string path = "E:/GitCode/OpenCV_Test/test_images";
+	std::string path = "../../../test_images";
 #else
 	std::string path = "test_images";
 #endif
@@ -32,7 +32,7 @@ int test_directory_GetListFilesR()
 {
 	fbc::Directory dir;
 #ifdef _MSC_VER
-	std::string path = "E:/GitCode/OpenCV_Test/test_images";
+	std::string path = "../../../test_images";
 #else
 	std::string path = "test_images";
 #endif
@@ -53,7 +53,7 @@ int test_directory_GetListFolders()
 {
 	fbc::Directory dir;
 #ifdef _MSC_VER
-	std::string path = "E:/GitCode/OpenCV_Test/test_images";
+	std::string path = "../../../test_images";
 #else
 	std::string path = "test_images";
 #endif

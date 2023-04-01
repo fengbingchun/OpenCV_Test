@@ -66,7 +66,7 @@ int test_ffmpeg_dshow_mjpeg()
 		return -1;
 	}
 
-	std::ofstream out("E:/GitCode/OpenCV_Test/test_images/test.mjpeg", std::ios::binary | std::ios::out);
+	std::ofstream out("../../../test_images/test.mjpeg", std::ios::binary | std::ios::out);
 	if (!out.is_open()) {
 		fprintf(stderr, "Error, fail to open file\n");
 		return -1;

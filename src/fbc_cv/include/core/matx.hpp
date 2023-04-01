@@ -10,6 +10,7 @@
 	#error matx.hpp header must be compiled as C++
 #endif
 
+#include <cmath>
 #include "fbcdef.hpp"
 #include "base.hpp"
 #include "interface.hpp"

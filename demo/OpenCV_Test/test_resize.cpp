@@ -11,7 +11,7 @@
 int test_resize_uchar()
 {
 #ifdef _MSC_VER
-	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat mat = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat mat = cv::imread("test_images/lena.png", 1);
 #endif
@@ -51,7 +51,7 @@ int test_resize_uchar()
 int test_resize_float()
 {
 #ifdef _MSC_VER
-	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat mat = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat mat = cv::imread("test_images/lena.png", 1);
 #endif
@@ -60,7 +60,7 @@ int test_resize_float()
 		return -1;
 	}
 	int width = 623, height = 711;
-	cv::cvtColor(mat, mat, CV_BGR2GRAY);
+	cv::cvtColor(mat, mat, cv::COLOR_BGR2GRAY);
 	mat.convertTo(mat, CV_32FC1);
 
 	for (int inter = 0; inter < 5; inter++) {
@@ -92,7 +92,7 @@ int test_resize_float()
 int test_resize_area()
 {
 #ifdef _MSC_VER
-	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat mat = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat mat = cv::imread("test_images/lena.png", 1);
 #endif
@@ -126,7 +126,7 @@ int test_resize_area()
 	}
 
 	cv::Mat matf;
-	cv::cvtColor(mat, matf, CV_BGR2GRAY);
+	cv::cvtColor(mat, matf, cv::COLOR_BGR2GRAY);
 	matf.convertTo(matf, CV_32FC1);
 
 	for (int i = 0; i < 3; i++) {

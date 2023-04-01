@@ -15,7 +15,7 @@
 **The version of each open source library see:** [version.txt](https://github.com/fengbingchun/OpenCV_Test/blob/master/src/version.txt)
 
 **The project support platform:**
-- windows7/10 64 bits: It can be directly build with VS2013 in windows7/10 64bits.
+- windows10 64 bits: It can be directly build with VS2022 in windows10 64bits.
 - Linux:
 	- OpenCV_Test support cmake build(file position: prj/linux_cmake_OpenCV_Test)
 	- FFmpeg_Test support cmake build(test code include: FFmpeg, LIVE555; file position: prj/linux_cmake_FFmpeg_Test)

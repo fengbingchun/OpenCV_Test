@@ -9,7 +9,7 @@
 
 int test_BGRAToI420()
 {
-	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/cat.jpg");
+	cv::Mat matSrc = cv::imread("../../../test_images/cat.jpg");
 	if (!matSrc.data) {
 		std::cout << "read src image error" << std::endl;
 		return -1;
@@ -41,7 +41,7 @@ int test_BGRAToI420()
 	libyuv::I420ToBGRA(dst_y, dst_y_stride, dst_u, dst_u_stride, dst_v, dst_v_stride, matI420.data, width * 4, width, height);
 	cv::Mat matBGRA_ = cv::Mat(height, width, CV_8UC4, cv::Scalar::all(0));
 	libyuv::ARGBToBGRA(matI420.data, width * 4, matBGRA_.data, width * 4, width, height);
-	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/I420_bgra.jpg", matBGRA_);
+	cv::imwrite("../../../test_images/I420_bgra.jpg", matBGRA_);
 	cv::Mat matDst;
 	matBGRA_.copyTo(matDst);
 
@@ -80,7 +80,7 @@ int test_BGRAToI420()
 
 int test_BGRAToNV21()
 {
-	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/cat.jpg");
+	cv::Mat matSrc = cv::imread("../../../test_images/cat.jpg");
 	if (!matSrc.data) {
 		std::cout << "read src image error" << std::endl;
 		return -1;
@@ -106,7 +106,7 @@ int test_BGRAToNV21()
 	libyuv::ARGBToNV12(matBGRA.data, width * 4, dst_y, dst_y_stride, dst_vu, dst_vu_stride, width, height);
 	matNV12 = cv::Mat(height, width, CV_8UC4, cv::Scalar::all(0));
 	libyuv::NV12ToARGB(dst_y, dst_y_stride, dst_vu, dst_vu_stride, matNV12.data, width * 4, width, height);
-	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/NV12_bgra.jpg", matNV12);
+	cv::imwrite("../../../test_images/NV12_bgra.jpg", matNV12);
 
 	int count_diff = 0;
 	int max_diff = 0;
@@ -142,7 +142,7 @@ int test_BGRAToNV21()
 
 int test_BGRAToNV12()
 {
-	cv::Mat matSrc = cv::imread("E:/GitCode/OpenCV_Test/test_images/cat.jpg");
+	cv::Mat matSrc = cv::imread("../../../test_images/cat.jpg");
 	if (!matSrc.data) {
 		std::cout << "read src image error" << std::endl;
 		return -1;
@@ -168,7 +168,7 @@ int test_BGRAToNV12()
 	libyuv::ARGBToNV21(matBGRA.data, width * 4, dst_y, dst_y_stride, dst_vu, dst_vu_stride, width, height);
 	matNV21 = cv::Mat(height, width, CV_8UC4, cv::Scalar::all(0));
 	libyuv::NV21ToARGB(dst_y, dst_y_stride, dst_vu, dst_vu_stride, matNV21.data, width * 4, width, height);
-	cv::imwrite("E:/GitCode/OpenCV_Test/test_images/NV21_bgra.jpg", matNV21);
+	cv::imwrite("../../../test_images/NV21_bgra.jpg", matNV21);
 
 	int count_diff = 0;
 	int max_diff = 0;

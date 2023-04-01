@@ -611,7 +611,7 @@ static void mat_dump(const fbc::Mat3BGR& matSrc, fbc::Mat3BGR& matDst)
 int test_Mat()
 {
 #ifdef _MSC_VER
-	cv::Mat mat = cv::imread("E:/GitCode/OpenCV_Test/test_images/lena.png", 1);
+	cv::Mat mat = cv::imread("../../../test_images/lena.png", 1);
 #else	
 	cv::Mat mat = cv::imread("test_images/lena.png", 1);
 #endif
