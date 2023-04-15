@@ -1,6 +1,7 @@
 #ifndef FBC_OPENCV_FUNSET_HPP_
 #define FBC_OPENCV_FUNSET_HPP_
 
+int test_opencv_camera_calibration();
 int test_opencv_two_merge_one_image(int flag = 0); // 将两幅图像合并成一幅图像: flag: 0:垂直; 1:水平
 int test_opencv_grab_video_frame();
 int test_opencv_videocapture();
@@ -17,8 +18,6 @@ int test_opencv_eigen(); // 矩阵的特征值和特征向量
 int test_opencv_norm();
 int test_opencv_inverse();
 int test_opencv_determinant();
-int test_opencv_encode_decode();
-int test_opencv_read_write_video();
 int test_opencv_resize();
 int test_opencv_cvtColor();
 int test_opencv_split();

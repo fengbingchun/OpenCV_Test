@@ -9,6 +9,96 @@
 
 #include <opencv2/opencv.hpp>
 
+///////////////////////////////////////////////////////////
+// Blog: https://blog.csdn.net/fengbingchun/article/details/130174805
+int test_opencv_camera_calibration()
+{
+#ifdef _MSC_VER
+	std::string path = "../../../test_images/camera_calibration/*.jpg";
+#else
+	std::string path = "test_images/camera_calibration/*.jpg";
+#endif
+	std::vector<std::string> images;
+	cv::glob(path, images, false);
+	if (images.size() == 0) {
+		std::cout << "Error: the requested images were not found: " << path << "\n";
+		return -1;
+	}
+
+	auto pos = path.find_last_of("/");
+	std::string path_result = path.substr(0, pos + 1);
+
+	auto get_image_name = [](const std::string& image) {
+#ifdef _MSC_VER
+		auto pos = image.find_last_of("\\");
+#else
+		auto pos = image.find_last_of("/");
+#endif
+		auto name = image.substr(pos + 1, image.size());
+		return name.substr(0, name.size() - 4);
+	};
+
+	// the dimensions of checkerboard
+	const int CHECKERBOARD[2] = { 11, 13 }; // rows,cols
+
+	// the world coordinates for 3D points
+	std::vector<cv::Point3f> pts_3d_world_coord;
+	for (auto i = 0; i < CHECKERBOARD[1]; ++i) {
+		for (auto j = 0; j < CHECKERBOARD[0]; ++j)
+			pts_3d_world_coord.push_back(cv::Point3f(j, i, 0));
+	}
+
+	// vector to store the pixel coordinates of detected checker board corners
+	std::vector<cv::Point2f> pts_corners;
+	cv::Mat frame, gray;
+	bool success = false;
+
+	// store vectors of 3D points for each checkerboard image
+	std::vector<std::vector<cv::Point3f> > pts_3d;
+	// store vectors of 2D points for each checkerboard image
+	std::vector<std::vector<cv::Point2f> > pts_2d;
+
+	for (auto i = 0; i < images.size(); ++i) {
+		frame = cv::imread(images[i]);
+		if (frame.empty()) {
+			std::cout << "Error: fail to read image: " << images[i] << "\n";
+			return -1;
+		}
+		cv::cvtColor(frame, gray, cv::COLOR_BGR2GRAY);
+
+		// finding checker board corners
+		success = cv::findChessboardCorners(gray, cv::Size(CHECKERBOARD[0], CHECKERBOARD[1]), pts_corners, cv::CALIB_CB_ADAPTIVE_THRESH | cv::CALIB_CB_FAST_CHECK | cv::CALIB_CB_NORMALIZE_IMAGE);
+		if (!success) {
+			std::cout << "Error: fail to find chess board corners: " << images[i] << "\n";
+			return -1;
+		}
+
+		cv::TermCriteria criteria(cv::TermCriteria::EPS | cv::TermCriteria::MAX_ITER, 30, 0.001);
+
+		// refining pixel coordinates for given 2d points
+		cv::cornerSubPix(gray, pts_corners, cv::Size(11, 11), cv::Size(-1, -1), criteria);
+
+		// displaying the detected corner points on the checker board
+		cv::drawChessboardCorners(frame, cv::Size(CHECKERBOARD[0], CHECKERBOARD[1]), pts_corners, success);
+
+		pts_3d.push_back(pts_3d_world_coord);
+		pts_2d.push_back(pts_corners);
+
+		//cv::imshow("Image", frame);
+		//cv::waitKey(0);
+		cv::imwrite(path_result + "result_" + get_image_name(images[i]) + ".png", frame);
+	}
+
+	cv::Mat camera_matrix, dist_coeffs, R, t;
+	cv::calibrateCamera(pts_3d, pts_2d, cv::Size(gray.rows, gray.cols), camera_matrix, dist_coeffs, R, t);
+	std::cout << "camera_matrix:\n" << camera_matrix << "\n"; // 3*3 matrix
+	std::cout << "dist_coeffs:\n" << dist_coeffs << "\n"; // 5*1 vector
+	std::cout << "R:\n" << R << "\n"; // each image, 3*1 vector
+	std::cout << "t:\n" << t << "\n"; // each image, 3*1 vector
+
+	return 0;
+}
+
 int test_opencv_two_merge_one_image(int flag)
 {
 #ifdef _MSC_VER
