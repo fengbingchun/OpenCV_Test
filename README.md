@@ -53,15 +53,14 @@
 	- opencv: 2.4.13.6, only get decoded data
 	- ffmpeg: 4.2, only get encoded data
 
-- Python code(support windows and linux platform)
-	- Installation(Anaconda)
-		```
-		conda create -n OpenCV_Test python=3.9
-		conda activate OpenCV_Test
-		git clone https://github.com/fengbingchun/OpenCV_Test
-		cd OpenCV_Test/demo/Python
-		pip install -r requirements.txt
-		```
+**Python code(support windows and linux platform):Installation(Anaconda)**
+```
+conda create -n OpenCV_Test python=3.9
+conda activate OpenCV_Test
+git clone https://github.com/fengbingchun/OpenCV_Test
+cd OpenCV_Test/demo/Python
+pip install -r requirements.txt
+```
 
 **Screenshot:**
 ![](https://github.com/fengbingchun/OpenCV_Test/blob/master/prj/x86_x64_vc12/Screenshot.png)
