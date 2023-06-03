@@ -53,17 +53,29 @@
 	- opencv: 2.4.13.6, only get decoded data
 	- ffmpeg: 4.2, only get encoded data
 
-**Python code(support windows and linux platform):Installation(Anaconda)**
-```
-conda create -n OpenCV_Test python=3.9
-conda activate OpenCV_Test
-git clone https://github.com/fengbingchun/OpenCV_Test
-cd OpenCV_Test/demo/Python
-pip install -r requirements.txt
-```
+**Python code(support windows and linux platform):**
+- environment configuration
+	- [install anaconda](https://www.anaconda.com/download#downloads)
+	- [install imagemagick](https://imagemagick.org/script/download.php) 
+	- execute the following command:
+		```
+		conda create -n OpenCV_Test python=3.9
+		conda activate OpenCV_Test
+		git clone https://github.com/fengbingchun/OpenCV_Test
+		cd OpenCV_Test/demo/Python
+		pip install -r requirements.txt
+		```
+	- modify Anaconda3/envs/OpenCV_Test/Lib/site-packages/moviepy/config_defaults.py
+		```
+		IMAGEMAGICK_BINARY = os.getenv('IMAGEMAGICK_BINARY', 'auto-detect') # original statement
+		IMAGEMAGICK_BINARY = os.getenv('IMAGEMAGICK_BINARY', 'the magick executable for the actual path, for example: C:\Program Files\ImageMagick-7.1.1-Q16-HDRI\magick.exe') # modified statement
+		```
+- features
+	- [camera calibration](demo/Python/test_camera_calibration.py)
+	- [add text or image to the video](demo/Python/test_moviepy.py)
 
 **Screenshot:**
-![](https://github.com/fengbingchun/OpenCV_Test/blob/master/prj/x86_x64_vc12/Screenshot.png)
+![](prj/x86_x64_vc12/Screenshot.png)
 
 **Blog:**
 - [opencv/fbc_cv](https://blog.csdn.net/fengbingchun/article/category/721609)
