@@ -73,6 +73,7 @@
 - features
 	- [camera calibration](demo/Python/test_camera_calibration.py)
 	- [add text or image to the video](demo/Python/test_moviepy.py)
+	- [image generic operations](demo/Python/image_generic_operations.py)
 
 **Screenshot:**
 ![](prj/x86_x64_vc12/Screenshot.png)
