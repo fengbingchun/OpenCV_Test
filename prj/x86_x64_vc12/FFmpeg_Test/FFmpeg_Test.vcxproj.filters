@@ -66,6 +66,9 @@
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_libuvc.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_ffmpeg_save_video.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\demo\FFmpeg_Test\funset.hpp">

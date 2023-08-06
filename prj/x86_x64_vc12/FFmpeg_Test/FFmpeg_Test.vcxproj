@@ -118,6 +118,7 @@
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_ffmpeg_libswresample.cpp" />
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_ffmpeg_libswscale.cpp" />
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_ffmpeg_rtsp_client.cpp" />
+    <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_ffmpeg_save_video.cpp" />
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_ffmpeg_usb_stream.cpp" />
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_libusb.cpp" />
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_libuvc.cpp" />

@@ -5,6 +5,7 @@
 #include <queue>
 #include <mutex>
 #include <condition_variable>
+#include <libavutil/error.h>
 
 class Timer {
 public:
@@ -13,6 +14,13 @@ public:
 		return std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()).count();
 	}
 };
+
+inline void print_error_string(int value)
+{
+	static char errbuf[AV_ERROR_MAX_STRING_SIZE];
+	memset(errbuf, 0, AV_ERROR_MAX_STRING_SIZE);
+	fprintf(stderr, "Error occurred: code: %d, string: %s\n", value, av_make_error_string(errbuf, AV_ERROR_MAX_STRING_SIZE, value));
+}
 
 typedef struct Buffer {
 	unsigned char* data;

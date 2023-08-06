@@ -13,6 +13,11 @@ typedef enum video_codec_type_t {
 } video_codec_type_t;
 
 /////////////////////////// FFmpeg /////////////////////////////
+int test_ffmpeg_save_video();
+int test_ffmpeg_save_video_slice();
+int test_ffmpeg_encode();
+int test_ffmpeg_encode_slice();
+int test_ffmpeg_avio_show();
 int test_ffmpeg_rtsp_client_decode_show(); // rtsp decode show
 int test_ffmpeg_stream_show_two_thread(); // only support rawvideo encode, two thread
 int test_ffmpeg_stream_show(); // only support rawvideo encode
