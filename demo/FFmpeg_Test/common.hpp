@@ -47,7 +47,7 @@ public:
 		queue.pop();
 	}
 
-	unsigned int size() {
+	size_t size() const {
 		return queue.size();
 	}
 
@@ -75,8 +75,8 @@ public:
 		}
 	}
 
-	void init(unsigned int buffer_num = 16, unsigned int buffer_size = 1024 * 1024 * 4) {
-		for (unsigned int i = 0; i < buffer_num; ++i) {
+	void init(unsigned int buffer_num = 16, size_t buffer_size = 1024 * 1024 * 4) {
+		for (auto i = 0; i < buffer_num; ++i) {
 			Buffer buffer = { new unsigned char[buffer_size], buffer_num};
 			pushPacket(buffer);
 		}
@@ -84,11 +84,11 @@ public:
 
 	void pushPacket(Buffer& buffer) { packet_queue.push(buffer); }
 	void popPacket(Buffer& buffer) { packet_queue.pop(buffer); }
-	unsigned int getPacketSize() { return packet_queue.size(); }
+	size_t getPacketSize() const { return packet_queue.size(); }
 
 	void pushScale(Buffer& buffer) { scale_queue.push(buffer); }
 	void popScale(Buffer& buffer) { scale_queue.pop(buffer); }
-	unsigned int getScaleSize() { return scale_queue.size(); }
+	size_t getScaleSize() const { return scale_queue.size(); }
 
 private:
 	BufferQueue packet_queue, scale_queue;

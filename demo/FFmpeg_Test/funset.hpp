@@ -13,6 +13,8 @@ typedef enum video_codec_type_t {
 } video_codec_type_t;
 
 /////////////////////////// FFmpeg /////////////////////////////
+int test_ffmpeg_libavfilter();
+int test_ffmpeg_libavfilter_scale();
 int test_ffmpeg_save_video();
 int test_ffmpeg_save_video_slice();
 int test_ffmpeg_encode();

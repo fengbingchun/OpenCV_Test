@@ -28,7 +28,7 @@ const size_t block_size = 640 * 480 * 1.5;
 const int height = 480, width = 640;
 const char* video_size = "640x480";
 const char* pixel_format = "yuv420p";
-const double frame_rate = 25;
+const double frame_rate = 30;
 const int queue_size = 30;
 const char* filename = "../../../test_images/1.mp4";
 int video_stream_index = -1;
@@ -65,7 +65,7 @@ void set_packet(PacketScaleQueue& packet_encode)
         packet_encode.pushScale(buffer);
 
         if (++i > 25) i = 0;
-        std::this_thread::sleep_for(std::chrono::milliseconds(40));
+        std::this_thread::sleep_for(std::chrono::milliseconds(33));
     }
 }
 
@@ -154,6 +154,7 @@ AVCodecContext* get_decode_context(AVFormatContext* ifmt_ctx)
         return nullptr;
     }
 
+    ifmt_ctx->streams[video_stream_index]->r_frame_rate = av_d2q(frame_rate, 4096);
     dec_ctx->framerate = av_guess_frame_rate(ifmt_ctx, ifmt_ctx->streams[video_stream_index], nullptr);
     ret = avcodec_open2(dec_ctx, decoder, nullptr);
     if (ret != 0) {
@@ -384,6 +385,12 @@ int test_ffmpeg_save_video_slice()
         }
 
         if (count % slice_size == 0) {
+            dec_ctx = get_decode_context(ifmt_ctx);
+            if (!dec_ctx) {
+                fprintf(stderr, "fail to get_decode_context\n");
+                return -1;
+            }
+
             enc_ctx = get_encode_context(ifmt_ctx);
             if (!enc_ctx) {
                 fprintf(stderr, "fail to avcodec_alloc_context3\n");
@@ -398,11 +405,11 @@ int test_ffmpeg_save_video_slice()
                 return -1;
             }
 
-            dec_ctx = get_decode_context(ifmt_ctx);
-            if (!dec_ctx) {
-                fprintf(stderr, "fail to get_decode_context\n");
-                return -1;
-            }
+            //dec_ctx = get_decode_context(ifmt_ctx);
+            //if (!dec_ctx) {
+            //    fprintf(stderr, "fail to get_decode_context\n");
+            //    return -1;
+            //}
 
             ++name;
         }
