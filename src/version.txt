@@ -23,6 +23,7 @@
 	commit: 4154f89
 	date: 2019.04.01
 	url: https://github.com/FFmpeg/FFmpeg/releases
+	note: windows: https://github.com/ShiftMediaProject/FFmpeg, 4.2.r94368
 7. LIVE555
 	version: live.2019.05.21.tar.gz
 	date: 2019.05.20

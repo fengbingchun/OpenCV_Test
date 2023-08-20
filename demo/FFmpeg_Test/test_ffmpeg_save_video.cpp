@@ -168,7 +168,7 @@ AVCodecContext* get_decode_context(AVFormatContext* ifmt_ctx)
 
 AVCodecContext* get_encode_context(AVFormatContext* ifmt_ctx)
 {
-    AVCodec* encodec = avcodec_find_encoder_by_name("mpeg1video"); // ffmpeg.exe -encoders
+    AVCodec* encodec = avcodec_find_encoder_by_name("mpeg4"); // ffmpeg.exe -encoders
     if (!encodec) {
         fprintf(stderr, "fail to avcodec_find_encoder_by_name\n");
         return nullptr;
