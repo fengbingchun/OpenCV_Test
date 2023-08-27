@@ -30,6 +30,7 @@ int test_ffmpeg_dshow_mjpeg_encode_libyuv_decode();
 
 // libavfilter
 int test_ffmpeg_libavfilter_movie(const char* filename);
+int test_ffmpeg_libavfilter_movie_multi_thread();
 
 // libavdevice
 int test_ffmpeg_libavdevice_device_list();

@@ -20,6 +20,153 @@ extern "C" {
 #include "common.hpp"
 
 /////////////////////////////////////////////////////////////////
+// Blog: https://blog.csdn.net/fengbingchun/article/details/132522859
+namespace {
+
+const int total_push_count = 121;
+bool flag1 = true;
+const size_t block_size_1 = 640 * 480 * 3;
+size_t total_push_count_1 = 0;
+
+void fill_raw_data_1(PacketScaleQueue& raw_packet)
+{
+    unsigned char value = 0;
+    while (total_push_count_1 < total_push_count) {
+        value += 10;
+        if (value >= 255) value = 0;
+
+        Buffer buffer;
+        raw_packet.popPacket(buffer);
+        memset(buffer.data, value, block_size_1);
+        raw_packet.pushScale(buffer);
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(33));
+        ++total_push_count_1;
+    }
+
+    flag1 = false;
+}
+
+void sleep_seconds_1(VideoCodec& video_codec)
+{
+    while (flag1) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(33));
+    }
+
+    video_codec.stopEncode();
+}
+
+void encode_1()
+{
+    VideoCodec video_codec;
+    video_codec.setOutfileName("out1.mp4");
+    video_codec.setVideoSize("640x480");
+    video_codec.setPixelFormat("bgr24");
+    video_codec.setFilterDescr("movie=1.jpg[logo];[in][logo]overlay=10:20[out]");
+
+    auto& raw_queue = video_codec.get_raw_packet_queue(16, block_size_1);
+    std::thread thread_fill(fill_raw_data_1, std::ref(raw_queue));
+
+    auto ret = video_codec.openEncode();
+    if (ret != 0) {
+        std::cout << "fail to openEncode: " << ret << std::endl;
+        //return -1;
+    }
+
+    std::thread thread_sleep(sleep_seconds_1, std::ref(video_codec));
+
+    ret = video_codec.processEncode();
+    if (ret != 0) {
+        std::cout << "fail to processEncode: " << ret << std::endl;
+        //return -1;
+    }
+
+    thread_fill.join();
+    thread_sleep.join();
+
+    video_codec.closeEncode();
+
+    std::cout << "1 total push count: " << total_push_count_1 << std::endl;
+}
+
+bool flag2 = true;
+const size_t block_size_2 = 640 * 480 * 3;
+size_t total_push_count_2 = 0;
+
+void fill_raw_data_2(PacketScaleQueue& raw_packet)
+{
+    unsigned char value = 0;
+    while (total_push_count_2 < total_push_count) {
+        value += 10;
+        if (value >= 255) value = 0;
+
+        Buffer buffer;
+        raw_packet.popPacket(buffer);
+        memset(buffer.data, value, block_size_2);
+        raw_packet.pushScale(buffer);
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(33));
+        ++total_push_count_2;
+    }
+
+    flag2 = false;
+}
+
+void sleep_seconds_2(VideoCodec& video_codec)
+{
+    while (flag2) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(33));
+    }
+
+    video_codec.stopEncode();
+}
+
+void encode_2()
+{
+    VideoCodec video_codec;
+    video_codec.setOutfileName("out2.mp4");
+    video_codec.setVideoSize("640x480");
+    video_codec.setPixelFormat("bgr24");
+    video_codec.setFilterDescr("movie=1.jpg[logo];[in][logo]overlay=10:20[out]");
+
+    auto& raw_queue = video_codec.get_raw_packet_queue(16, block_size_2);
+    std::thread thread_fill(fill_raw_data_2, std::ref(raw_queue));
+
+    auto ret = video_codec.openEncode();
+    if (ret != 0) {
+        std::cout << "fail to openEncode: " << ret << std::endl;
+        //return -1;
+    }
+
+    std::thread thread_sleep(sleep_seconds_2, std::ref(video_codec));
+
+    ret = video_codec.processEncode();
+    if (ret != 0) {
+        std::cout << "fail to processEncode: " << ret << std::endl;
+        //return -1;
+    }
+
+    thread_fill.join();
+    thread_sleep.join();
+
+    std::cout << "2 total push count: " << total_push_count_2 << std::endl;
+}
+
+} // namespce
+
+int test_ffmpeg_libavfilter_movie_multi_thread()
+{
+    std::thread thread_1(encode_1);
+    std::thread thread_2(encode_2);
+
+    thread_1.join();
+    thread_2.join();
+
+    std::cout << "test finish" << std::endl;
+    return 0;
+}
+
+/////////////////////////////////////////////////////////////////
 // Blog: https://blog.csdn.net/fengbingchun/article/details/132389734
 namespace {
 
@@ -250,8 +397,6 @@ int test_ffmpeg_libavfilter_movie(const char* filename)
                         exit = true;
                         break;
                     }
-
-                    av_frame_unref(filt_frame);
                 }
                 av_frame_unref(frame);
             }
