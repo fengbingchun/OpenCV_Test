@@ -69,7 +69,7 @@
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_ffmpeg_save_video.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\FFmpeg\test_ffmpeg\common.cpp">
+    <ClCompile Include="..\..\..\demo\FFmpeg_Test\common.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

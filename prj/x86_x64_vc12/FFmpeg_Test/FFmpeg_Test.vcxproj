@@ -107,7 +107,7 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\FFmpeg\test_ffmpeg\common.cpp" />
+    <ClCompile Include="..\..\..\demo\FFmpeg_Test\common.cpp" />
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\FFmpeg_Test.cpp" />
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\funset.cpp" />
     <ClCompile Include="..\..\..\demo\FFmpeg_Test\test_ffmpeg_decode_show.cpp" />

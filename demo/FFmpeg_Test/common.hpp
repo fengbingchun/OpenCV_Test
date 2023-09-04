@@ -128,7 +128,7 @@ public:
 		std::unique_lock<std::mutex> lck(mtx);
 		while (queue.empty()) {
 			//cv.wait(lck);
-			if (cv.wait_for(lck, std::chrono::milliseconds(150)) == std::cv_status::timeout) {
+			if (cv.wait_for(lck, std::chrono::milliseconds(50)) == std::cv_status::timeout) {
 				fprintf(stderr, "#### Warning: wait timeout\n");
 				*frame = nullptr;
 				return;
@@ -206,6 +206,7 @@ typedef struct CodecCtx {
 	int stream_index;
 	int frame_count;
 	bool encode_thread_end;
+	bool exit_encode_thread;
 } CodecCtx;
 
 class VideoCodec {
@@ -219,8 +220,11 @@ public:
 	void setFilterDescr(const std::string& filter_descr) { filter_descr_ = filter_descr; }
 
 	void stopEncode() {
-		while (raw_packet_queue_.getScaleSize() != 0);
+		while (raw_packet_queue_.getScaleSize() > 0) {
+			std::this_thread::sleep_for(std::chrono::milliseconds(5));
+		}
 
+		std::this_thread::sleep_for(std::chrono::milliseconds(200));
 		codec_ctx_->term_status = 1;
 
 		Buffer buffer;

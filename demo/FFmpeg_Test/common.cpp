@@ -80,10 +80,11 @@ void encode_write_frame(CodecQueue& codec_queue, CodecCtx* codec_ctx)
 	while (!codec_ctx->encode_thread_end) {
 		auto ret = encode_write_one_frame(codec_queue, codec_ctx);
 		if (ret != 0) {
-			fprintf(stderr, "#### ERROR: encode_write_one_frame: %d\n", ret);
-			break;
+			fprintf(stderr, "#### Warning: encode_write_one_frame: %d\n", ret);
+			//break;
 		}
 	}
+	codec_ctx->exit_encode_thread = true;
 }
 
 } // namespace
@@ -628,6 +629,8 @@ int VideoCodec::processEncode()
 	}
 		
 	codec_ctx_->encode_thread_end = true;
+	while (!codec_ctx_->exit_encode_thread)
+		std::this_thread::sleep_for(std::chrono::milliseconds(10));
 	flush_codec();
 	av_packet_free(&packet);
 
@@ -638,7 +641,6 @@ int VideoCodec::processEncode()
 
 int VideoCodec::closeEncode()
 {
-	std::this_thread::sleep_for(std::chrono::milliseconds(150));
 	encode_thread_.join();
 	codec_queue_.release();
 
