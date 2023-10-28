@@ -6,8 +6,13 @@ echo "real_path: ${real_path}"
 echo "dir_name: ${dir_name}"
 
 echo "##### manually install dependent libraries #####"
+echo "sudo apt install nasm "
 echo "sudo apt-get install libsdl2-2.0-0"
 echo "sudo apt-get install libsdl2-dev"
+echo "sudo apt-get install autoconf"
+echo "sudo apt-get install liblzma-dev"
+echo "sudo apt install libxcb-shm0-dev"
+sleep 2
 
 data_dir="test_images"
 if [[ ! -d ${dir_name}/${data_dir} ]]; then
@@ -99,9 +104,14 @@ fi
 
 cp -a ${libuvc_path}/build/libuvc.a ${new_dir_name}
 
+rc=$?
+if [[ ${rc} != 0 ]]; then
+	echo "##### Error: some of thess commands have errors above, please check"
+	exit ${rc}
+fi
+
 cd ${new_dir_name}
-cmake ..
+cmake -DOpenCV_DIR=/opt/opencv/4.8.1/release/lib/cmake/opencv4/ ..
 make
 
 cd -
-

@@ -15,3 +15,6 @@
 /src/live555/
 /src/libusb/
 /.vscode/
+prj/linux_cmake_FFmpeg_Test/1.jpg
+prj/linux_cmake_FFmpeg_Test/out1.mp4
+prj/linux_cmake_FFmpeg_Test/out2.mp4

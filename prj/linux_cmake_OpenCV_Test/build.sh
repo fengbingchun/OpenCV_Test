@@ -19,9 +19,19 @@ ln -s ${dir_name}/./../../${data_dir} ${dir_name}
 
 new_dir_name=${dir_name}/build
 mkdir -p ${new_dir_name}
+
+rc=$?
+if [[ ${rc} != 0 ]]; then
+	echo "##### Error: some of thess commands have errors above, please check"
+	exit ${rc}
+fi
+
 cd ${new_dir_name}
-cmake .. -DBUILD_MODE=${build_mode}
+if [ $# == 1 ]; then
+	cmake -DOpenCV_DIR=/opt/opencv/4.8.1/debug/lib/cmake/opencv4/ -DBUILD_MODE=${build_mode} ..
+else
+	cmake -DOpenCV_DIR=/opt/opencv/4.8.1/release/lib/cmake/opencv4/ -DBUILD_MODE=${build_mode} ..
+fi
 make
 
 cd -
-

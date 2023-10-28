@@ -10,9 +10,7 @@
 	#error types.hpp header must be compiled as C++
 #endif
 
-#ifdef _MSC_VER
 #include <emmintrin.h>
-#endif
 #include "fbcdef.hpp"
 #include "matx.hpp"
 #include "saturate.hpp"
