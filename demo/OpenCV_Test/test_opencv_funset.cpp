@@ -8,6 +8,94 @@
 #include <thread>
 
 #include <opencv2/opencv.hpp>
+#include <opencv2/mcc/checker_detector.hpp>
+#include <opencv2/mcc/ccm.hpp>
+
+/////////////////////////////////////////////////////////////////
+// Blog: https://blog.csdn.net/fengbingchun/article/details/134101468
+int test_opencv_color_correction_Macbeth()
+{
+	constexpr char *name_src{ "../../../test_images/test_ccm.png" }, *name_dst{ "../../../test_images/ret_test_ccm.png" };
+
+	cv::Mat imgchart = cv::imread(name_src, -1);
+	cv::Mat imgsrc = cv::imread(name_src, -1);
+	if (imgchart.empty() || imgsrc.empty()) return -1;
+	if (imgchart.type() != CV_8UC3 || imgsrc.type() != CV_8UC3) return -1;
+
+	// create the detector object
+	auto detector = cv::mcc::CCheckerDetector::create();
+	if (!detector) {
+		std::cout << "fail to cv::mcc::CCheckerDetector::create" << std::endl;
+		return -1;
+	}
+
+	// run the detector
+	if (!detector->process(imgchart, cv::mcc::MCC24, 1)) {
+		std::cout << "fail to cv::mcc::CCheckerDetector::process" << std::endl;
+		return -1;
+	}
+
+	// get list of colorcheckers
+	auto checkers = detector->getListColorChecker();
+	if (checkers.empty()) {
+		std::cout << "fail to cv::mcc::CCheckerDetector::getListColorChecker" << std::endl;
+		return -1;
+	}
+
+	// draw the colorcheckers back to the image
+	auto cdraw = cv::mcc::CCheckerDraw::create(checkers[0]);
+	cv::Mat imgdraw = imgchart.clone();
+	cdraw->draw(imgdraw);
+
+	// the color type is RGB not BGR, and the color values are in [0, 1]
+	cv::Mat chartsrgb = checkers[0]->getChartsRGB();
+	cv::Mat mat = chartsrgb.col(1).clone().reshape(3, chartsrgb.rows / 3);
+	mat /= 255.0;
+
+	// compte color correction matrix
+	cv::ccm::ColorCorrectionModel model(mat, cv::ccm::COLORCHECKER_Macbeth);
+
+	// more models with different parameters
+	model.setColorSpace(cv::ccm::COLOR_SPACE_sRGB);
+	model.setCCM_TYPE(cv::ccm::CCM_3x3);
+	model.setDistance(cv::ccm::DISTANCE_CIE2000);
+	model.setLinear(cv::ccm::LINEARIZATION_GAMMA);
+	model.setLinearGamma(2.2);
+	model.setLinearDegree(3);
+	model.setSaturatedThreshold(0, 0.98);
+	model.setWeightsList(cv::Mat());
+	model.setWeightCoeff(0);
+	model.setInitialMethod(cv::ccm::INITIAL_METHOD_LEAST_SQUARE);
+	model.setMaxCount(5000);
+	model.setEpsilon(1e-4);
+
+	model.run();
+	auto ccm = model.getCCM();
+	auto loss = model.getLoss();
+	std::cout << "loss: " << loss << "\n";
+	auto src_rgbl = model.get_src_rgbl();
+	auto dst_rgbl = model.get_dst_rgbl();
+	auto mask = model.getMask();
+	auto weights = model.getWeights();
+
+	// make color correction
+	constexpr int inp_size{ 255 }, out_size{ 255 };
+	cv::Mat imgrgb;
+	cv::cvtColor(imgsrc, imgrgb, cv::COLOR_BGR2RGB);
+	imgrgb.convertTo(imgrgb, CV_64F);
+	imgrgb /= inp_size;
+
+	cv::Mat imgdst = model.infer(imgrgb);
+	imgdst *= out_size;
+
+	// save corrected image
+	imgdst.convertTo(imgdst, CV_8UC3);
+	imgdst = cv::min(cv::max(imgdst, 0), out_size);
+	cv::cvtColor(imgdst, imgdst, cv::COLOR_RGB2BGR);
+	cv::imwrite(name_dst, imgdst);
+
+	return 0;
+}
 
 ///////////////////////////////////////////////////////////
 // Blog: https://blog.csdn.net/fengbingchun/article/details/130174805

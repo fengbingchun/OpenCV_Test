@@ -8,7 +8,7 @@
 
 int main()
 {
-	int ret = test_opencv_camera_calibration();
+	int ret = test_opencv_color_correction_Macbeth();
 
 	if (ret == 0) fprintf(stdout, "========== test success ==========\n");
 	else fprintf(stderr, "########## test fail ##########\n");
