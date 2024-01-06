@@ -38,3 +38,8 @@
 	commit: f3f6d8a
 	date: 2017.09.21
 	url: https://github.com/libuvc/libuvc/releases
+10. libexif:
+	version: v0.6.24
+	commit: 5bc74ae
+	date: 2021.11.25
+	url: https://github.com/libexif/libexif/releases

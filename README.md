@@ -10,9 +10,10 @@
 - LIVE555'usage [LIVE555.COM](http://live555.com/)
 - libusb'usage [libusb GitHub](https://github.com/libusb/libusb)
 - libuvc'usage [libuvc GitHub](https://github.com/libuvc/libuvc)
+- libexif'usage [libexif GitHub](https://github.com/libexif/libexif)
 
 
-**The version of each open source library see:** [version.txt](https://github.com/fengbingchun/OpenCV_Test/blob/master/src/version.txt)
+**The version of each open source library see:** [version.txt](src/version.txt)
 
 **The project support platform:**
 - windows10 64 bits: It can be directly build with VS2022 in windows10 64bits.

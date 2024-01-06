@@ -1,6 +1,8 @@
 #ifndef FBC_OPENCV_FUNSET_HPP_
 #define FBC_OPENCV_FUNSET_HPP_
 
+int test_libexif_thumbnail();
+
 int test_opencv_color_correction_Macbeth();
 int test_opencv_camera_calibration();
 int test_opencv_two_merge_one_image(int flag = 0); // 将两幅图像合并成一幅图像: flag: 0:垂直; 1:水平

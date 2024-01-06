@@ -17,6 +17,7 @@ ENDIF()
 MESSAGE(STATUS "project source dir: ${PROJECT_SOURCE_DIR}")
 SET(PATH_TEST_FILES ${PROJECT_SOURCE_DIR}/./../../demo/OpenCV_Test)
 SET(PATH_SRC_FILES ${PROJECT_SOURCE_DIR}/./../../src/fbc_cv)
+SET(PATH_LIBEXIF_SRC_FILES ${PROJECT_SOURCE_DIR}/../../src/libexif)
 MESSAGE(STATUS "path src files: ${PATH_TEST_FILES}")
 
 FIND_PACKAGE(OpenCV)
@@ -26,9 +27,13 @@ INCLUDE_DIRECTORIES(
 	${PATH_TEST_FILES}
 	${PATH_SRC_FILES}/include
 	${OpenCV_INCLUDE_DIRS}
+	${PATH_LIBEXIF_SRC_FILES}
 )
 
-LINK_DIRECTORIES(${OpenCV_LIB_DIR})
+LINK_DIRECTORIES(
+	${OpenCV_LIB_DIR}
+	${PROJECT_SOURCE_DIR}/build
+)
 
 # recursive query match files :*.cpp, *c
 FILE(GLOB_RECURSE TEST_CPP_LIST ${PATH_TEST_FILES}/*.cpp)
@@ -44,4 +49,4 @@ ADD_LIBRARY(fbc_cv SHARED ${SRC_CPP_LIST})
 # build executable program
 ADD_EXECUTABLE(OpenCV_Test ${TEST_CPP_LIST} ${TEST_C_LIST})
 # add dependent library: static and dynamic
-TARGET_LINK_LIBRARIES(OpenCV_Test fbc_cv ${OpenCV_LIBS} pthread)
+TARGET_LINK_LIBRARIES(OpenCV_Test fbc_cv ${OpenCV_LIBS} exif pthread)

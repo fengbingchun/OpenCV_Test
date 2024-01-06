@@ -5,6 +5,7 @@ VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenCV_Test", "OpenCV_Test\OpenCV_Test.vcxproj", "{A10E3DEF-E1EE-49CC-B025-DE741B0F81E8}"
 	ProjectSection(ProjectDependencies) = postProject
+		{2B14CC18-5331-4F0C-937C-5BD092E92B31} = {2B14CC18-5331-4F0C-937C-5BD092E92B31}
 		{B6E09E23-0528-4905-8D9E-390AB1B82391} = {B6E09E23-0528-4905-8D9E-390AB1B82391}
 	EndProjectSection
 EndProject
@@ -41,6 +42,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libUsageEnvironment", "libUsageEnvironment\libUsageEnvironment.vcxproj", "{59E50985-3EAD-4023-8B85-6CFFF9A2B266}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libusb", "libusb\libusb.vcxproj", "{2F533429-B25B-4100-8B2F-CB14465147BA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libexif", "libexif\libexif.vcxproj", "{2B14CC18-5331-4F0C-937C-5BD092E92B31}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -97,6 +100,10 @@ Global
 		{59E50985-3EAD-4023-8B85-6CFFF9A2B266}.Release|x64.Build.0 = Release|x64
 		{2F533429-B25B-4100-8B2F-CB14465147BA}.Debug|x64.ActiveCfg = Debug|x64
 		{2F533429-B25B-4100-8B2F-CB14465147BA}.Release|x64.ActiveCfg = Release|x64
+		{2B14CC18-5331-4F0C-937C-5BD092E92B31}.Debug|x64.ActiveCfg = Debug|x64
+		{2B14CC18-5331-4F0C-937C-5BD092E92B31}.Debug|x64.Build.0 = Debug|x64
+		{2B14CC18-5331-4F0C-937C-5BD092E92B31}.Release|x64.ActiveCfg = Release|x64
+		{2B14CC18-5331-4F0C-937C-5BD092E92B31}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

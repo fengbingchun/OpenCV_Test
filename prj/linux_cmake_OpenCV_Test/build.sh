@@ -10,6 +10,10 @@ real_path=$(realpath $0)
 dir_name=`dirname "${real_path}"`
 echo "real_path: ${real_path}, dir_name: ${dir_name}"
 
+echo "##### manually install dependent libraries #####"
+echo "sudo apt install autoconf autopoint libtool"
+sleep 2
+
 data_dir="test_images"
 if [ -d ${dir_name}/${data_dir} ]; then
 	rm -rf ${dir_name}/${data_dir}
@@ -19,6 +23,19 @@ ln -s ${dir_name}/./../../${data_dir} ${dir_name}
 
 new_dir_name=${dir_name}/build
 mkdir -p ${new_dir_name}
+
+# build libexif
+echo "========== start build libexif =========="
+libexif_path=${dir_name}/../../src/libexif
+cd ${libexif_path}
+autoreconf -i
+./configure --prefix=${PWD}/install --disable-docs
+make
+make install
+echo "========== finish build libexif =========="
+
+cd -
+cp -a ${libexif_path}/install/lib/libexif.a ${new_dir_name}
 
 rc=$?
 if [[ ${rc} != 0 ]]; then

@@ -14,6 +14,7 @@
     <ProjectGuid>{A10E3DEF-E1EE-49CC-B025-DE741B0F81E8}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>OpenCV_Test</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -54,20 +55,21 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeaderOutputFile>.\../../../obj/dbg/x64_vc12/OpenCV_Test\OpenCV_Test.pch</PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>.\../../../obj/dbg/x64_vc12/OpenCV_Test\</AssemblerListingLocation>
       <ObjectFileName>.\../../../obj/dbg/x64_vc12/OpenCV_Test\</ObjectFileName>
       <ProgramDataBaseFileName>.\../../../obj/dbg/x64_vc12/OpenCV_Test\</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>../../../src\fbc_cv\include;D:\soft\opencv_4.8.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../src\fbc_cv\include;D:\soft\opencv_4.8.1\include;../../../src/libexif;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <OutputFile>.\../../../lib/dbg/x64_vc12/OpenCV_Test.exe</OutputFile>
       <AdditionalLibraryDirectories>../../../lib\dbg\x64_vc12;D:\soft\opencv_4.8.1\x64\vc17\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opencv_world481d.lib;fbc_cv.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opencv_world481d.lib;fbc_cv.lib;libexif.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <OutputFile>.\../../../obj/dbg/x64_vc12/OpenCV_Test\OpenCV_Test.bsc</OutputFile>
@@ -80,13 +82,14 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeaderOutputFile>.\../../../obj/rel/x64_vc12/OpenCV_Test\OpenCV_Test.pch</PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>.\../../../obj/rel/x64_vc12/OpenCV_Test\</AssemblerListingLocation>
       <ObjectFileName>.\../../../obj/rel/x64_vc12/OpenCV_Test\</ObjectFileName>
       <ProgramDataBaseFileName>.\../../../obj/rel/x64_vc12/OpenCV_Test\</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>../../../src\fbc_cv\include;D:\soft\opencv_4.8.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../src\fbc_cv\include;D:\soft\opencv_4.8.1\include;../../../src/libexif;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -95,7 +98,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <OutputFile>.\../../../lib/rel/x64_vc12/OpenCV_Test.exe</OutputFile>
       <AdditionalLibraryDirectories>../../../lib\rel\x64_vc12;D:\soft\opencv_4.8.1\x64\vc17\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opencv_world481.lib;fbc_cv.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opencv_world481.lib;fbc_cv.lib;libexif.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <OutputFile>.\../../../obj/rel/x64_vc12/OpenCV_Test\OpenCV_Test.bsc</OutputFile>
@@ -116,6 +119,7 @@
     <ClCompile Include="..\..\..\demo\OpenCV_Test\test_erode.cpp" />
     <ClCompile Include="..\..\..\demo\OpenCV_Test\test_fbc_cv_all.cpp" />
     <ClCompile Include="..\..\..\demo\OpenCV_Test\test_flip.cpp" />
+    <ClCompile Include="..\..\..\demo\OpenCV_Test\test_libexif.cpp" />
     <ClCompile Include="..\..\..\demo\OpenCV_Test\test_merge.cpp" />
     <ClCompile Include="..\..\..\demo\OpenCV_Test\test_morphologyEx.cpp" />
     <ClCompile Include="..\..\..\demo\OpenCV_Test\test_opencv_funset.cpp" />

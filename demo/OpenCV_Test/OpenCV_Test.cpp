@@ -8,10 +8,10 @@
 
 int main()
 {
-	int ret = test_opencv_color_correction_Macbeth();
-
-	if (ret == 0) fprintf(stdout, "========== test success ==========\n");
-	else fprintf(stderr, "########## test fail ##########\n");
+	if (auto ret = test_libexif_thumbnail(); ret == 0)
+		std::cout << "========== test success ==========\n";
+	else
+		std::cerr << "########## test fail ##########\n";
 
 	return 0;
 }

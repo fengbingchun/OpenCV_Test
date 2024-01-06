@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{2b14cc18-5331-4f0c-937c-5bd092e92b31}</ProjectGuid>
+    <RootNamespace>libexif</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>.\../../../obj/rel/x64_vc12/libexif\</OutDir>
+    <IntDir>.\../../../obj/rel/x64_vc12/libexif\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>.\../../../obj/dbg/x64_vc12/libexif\</OutDir>
+    <IntDir>.\../../../obj/dbg/x64_vc12/libexif\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\src\libexif;$(SolutionDir)\libexif;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderOutputFile>.\../../../obj/dbg/x64_vc12/libexif\libexif.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../../obj/dbg/x64_vc12/libexif\</AssemblerListingLocation>
+      <ObjectFileName>.\../../../obj/dbg/x64_vc12/libexif\</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../../obj/dbg/x64_vc12/libexif\</ProgramDataBaseFileName>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Bscmake>
+      <OutputFile>.\../../../obj/dbg/x64_vc12/libexif\libexif.bsc</OutputFile>
+    </Bscmake>
+    <Lib>
+      <OutputFile>../../../lib/dbg/x64_vc12/libexif.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\src\libexif;$(SolutionDir)\libexif;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderOutputFile>.\../../../obj/rel/x64_vc12/libexif\libexif.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../../obj/rel/x64_vc12/libexif\</AssemblerListingLocation>
+      <ObjectFileName>.\../../../obj/rel/x64_vc12/libexif\</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../../obj/rel/x64_vc12/libexif\</ProgramDataBaseFileName>
+      <Optimization>MaxSpeed</Optimization>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Bscmake>
+      <OutputFile>.\../../../obj/rel/x64_vc12/libexif\libexif.bsc</OutputFile>
+    </Bscmake>
+    <Lib>
+      <OutputFile>../../../lib/rel/x64_vc12/libexif.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\libexif\libexif\exif-byte-order.h" />
+    <ClInclude Include="..\..\..\src\libexif\libexif\exif-content.h" />
+    <ClInclude Include="..\..\..\src\libexif\libexif\exif-data-type.h" />
+    <ClInclude Include="..\..\..\src\libexif\libexif\exif-data.h" />
+    <ClInclude Include="..\..\..\src\libexif\libexif\exif-entry.h" />
+    <ClInclude Include="..\..\..\src\libexif\libexif\exif-format.h" />
+    <ClInclude Include="..\..\..\src\libexif\libexif\exif-gps-ifd.h" />
+    <ClInclude Include="..\..\..\src\libexif\libexif\exif-ifd.h" />
+    <ClInclude Include="..\..\..\src\libexif\libexif\exif-loader.h" />
+    <ClInclude Include="..\..\..\src\libexif\libexif\exif-log.h" />
+    <ClInclude Include="..\..\..\src\libexif\libexif\exif-mem.h" />
+    <ClInclude Include="..\..\..\src\libexif\libexif\exif-mnote-data-priv.h" />
+    <ClInclude Include="..\..\..\src\libexif\libexif\exif-mnote-data.h" />
+    <ClInclude Include="..\..\..\src\libexif\libexif\exif-system.h" />
+    <ClInclude Include="..\..\..\src\libexif\libexif\exif-tag.h" />
+    <ClInclude Include="..\..\..\src\libexif\libexif\exif-utils.h" />
+    <ClInclude Include="..\..\..\src\libexif\libexif\exif.h" />
+    <ClInclude Include="..\..\..\src\libexif\libexif\i18n.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\libexif\libexif\apple\exif-mnote-data-apple.c" />
+    <ClCompile Include="..\..\..\src\libexif\libexif\apple\mnote-apple-entry.c" />
+    <ClCompile Include="..\..\..\src\libexif\libexif\apple\mnote-apple-tag.c" />
+    <ClCompile Include="..\..\..\src\libexif\libexif\canon\exif-mnote-data-canon.c" />
+    <ClCompile Include="..\..\..\src\libexif\libexif\canon\mnote-canon-entry.c" />
+    <ClCompile Include="..\..\..\src\libexif\libexif\canon\mnote-canon-tag.c" />
+    <ClCompile Include="..\..\..\src\libexif\libexif\exif-byte-order.c" />
+    <ClCompile Include="..\..\..\src\libexif\libexif\exif-content.c" />
+    <ClCompile Include="..\..\..\src\libexif\libexif\exif-data.c" />
+    <ClCompile Include="..\..\..\src\libexif\libexif\exif-entry.c" />
+    <ClCompile Include="..\..\..\src\libexif\libexif\exif-format.c" />
+    <ClCompile Include="..\..\..\src\libexif\libexif\exif-gps-ifd.c" />
+    <ClCompile Include="..\..\..\src\libexif\libexif\exif-ifd.c" />
+    <ClCompile Include="..\..\..\src\libexif\libexif\exif-loader.c" />
+    <ClCompile Include="..\..\..\src\libexif\libexif\exif-log.c" />
+    <ClCompile Include="..\..\..\src\libexif\libexif\exif-mem.c" />
+    <ClCompile Include="..\..\..\src\libexif\libexif\exif-mnote-data.c" />
+    <ClCompile Include="..\..\..\src\libexif\libexif\exif-tag.c" />
+    <ClCompile Include="..\..\..\src\libexif\libexif\exif-utils.c" />
+    <ClCompile Include="..\..\..\src\libexif\libexif\fuji\exif-mnote-data-fuji.c" />
+    <ClCompile Include="..\..\..\src\libexif\libexif\fuji\mnote-fuji-entry.c" />
+    <ClCompile Include="..\..\..\src\libexif\libexif\fuji\mnote-fuji-tag.c" />
+    <ClCompile Include="..\..\..\src\libexif\libexif\olympus\exif-mnote-data-olympus.c" />
+    <ClCompile Include="..\..\..\src\libexif\libexif\olympus\mnote-olympus-entry.c" />
+    <ClCompile Include="..\..\..\src\libexif\libexif\olympus\mnote-olympus-tag.c" />
+    <ClCompile Include="..\..\..\src\libexif\libexif\pentax\exif-mnote-data-pentax.c" />
+    <ClCompile Include="..\..\..\src\libexif\libexif\pentax\mnote-pentax-entry.c" />
+    <ClCompile Include="..\..\..\src\libexif\libexif\pentax\mnote-pentax-tag.c" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
