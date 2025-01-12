@@ -6,16 +6,58 @@
 #include <cmath>
 #include <chrono>
 #include <thread>
+#include <filesystem>
 
 #include <opencv2/opencv.hpp>
 #include <opencv2/mcc/checker_detector.hpp>
 #include <opencv2/mcc/ccm.hpp>
 
 /////////////////////////////////////////////////////////////////
+namespace {
+namespace fs = std::filesystem;
+using std::chrono::system_clock;
+
+int get_available_space(const std::string& path)
+{
+	constexpr float GB{ 1024.0 * 1024.0 * 1024 };
+	auto space_info = fs::space(path);
+
+	std::cout << "total space: " << space_info.capacity / GB << " GB" << std::endl;
+	std::cout << "available space: " << space_info.available / GB << " GB" << std::endl;
+
+	return 0;
+}
+
+std::string get_local_time()
+{
+	auto time = system_clock::to_time_t(system_clock::now());
+	std::tm* tm = std::localtime(&time);
+
+	std::stringstream buffer;
+	buffer << std::put_time(tm, "%Y-%m-%d %H:%M:%S");
+	return buffer.str();
+}
+
+} // namespace
+
+int test_write_video()
+{
+	auto current_path = fs::current_path();
+	auto root_name = current_path.root_name().string();
+	std::cout << "current path: " << current_path << std::endl;
+	std::cout << "root name: " << current_path.root_name() << std::endl;
+	get_available_space(root_name);
+
+	std::cout << "time: " << get_local_time() << std::endl;
+
+	return 0;
+}
+
+/////////////////////////////////////////////////////////////////
 // Blog: https://blog.csdn.net/fengbingchun/article/details/134101468
 int test_opencv_color_correction_Macbeth()
 {
-	constexpr char *name_src{ "../../../test_images/test_ccm.png" }, *name_dst{ "../../../test_images/ret_test_ccm.png" };
+	constexpr char name_src[]{"../../../test_images/test_ccm.png"}, name_dst[]{"../../../test_images/ret_test_ccm.png"};
 
 	cv::Mat imgchart = cv::imread(name_src, -1);
 	cv::Mat imgsrc = cv::imread(name_src, -1);
@@ -1152,7 +1194,7 @@ int test_read_write_video()
 		}
 
 		int width{ 640 }, height{ 480 };
-		int codec = cv::VideoWriter::fourcc('M', 'J', 'P', 'G');
+		int codec = cv::VideoWriter::fourcc('D', 'I', 'V', 'X');
 		double fps = 25.0;
 		bool isColor = (mat.type() == CV_8UC3);
 		cv::VideoWriter write_video;
@@ -1197,7 +1239,7 @@ int test_read_write_video()
 		fprintf(stderr, "src frame size: (%d, %d)\n", frame.cols, frame.rows);
 
 		int width{ 640 }, height{ 480 };
-		int codec = cv::VideoWriter::fourcc('M', 'J', 'P', 'G');
+		int codec = cv::VideoWriter::fourcc('D', 'I', 'V', 'X');
 		double fps = 25.0;
 		bool isColor = (frame.type() == CV_8UC3);
 		cv::VideoWriter write_video;
@@ -1527,7 +1569,7 @@ int test_opencv_remap()
 	map_x.create(matSrc.size(), CV_32FC1);
 	map_y.create(matSrc.size(), CV_32FC1);
 
-	char* remap_window = "Remap demo";
+	const char* remap_window = "Remap demo";
 	cv::namedWindow(remap_window, cv::WINDOW_AUTOSIZE);
 
 	int ind = 0;

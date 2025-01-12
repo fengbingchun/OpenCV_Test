@@ -15,7 +15,7 @@ int test_libexif_thumbnail()
 	}
 
 #ifdef _MSC_VER
-	constexpr char* jpg_name{ "../../../test_images/exif.jpg" };
+	constexpr char jpg_name[]{"../../../test_images/exif.jpg"};
 #else
 	constexpr char* jpg_name{ "test_images/exif.jpg" };
 #endif

@@ -2,6 +2,8 @@
 #define FBC_OPENCV_FUNSET_HPP_
 
 int test_libexif_thumbnail();
+int test_read_write_video();
+int test_write_video();
 
 int test_opencv_color_correction_Macbeth();
 int test_opencv_camera_calibration();

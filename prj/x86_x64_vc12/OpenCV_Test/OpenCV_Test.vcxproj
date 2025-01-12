@@ -62,7 +62,7 @@
       <ObjectFileName>.\../../../obj/dbg/x64_vc12/OpenCV_Test\</ObjectFileName>
       <ProgramDataBaseFileName>.\../../../obj/dbg/x64_vc12/OpenCV_Test\</ProgramDataBaseFileName>
       <AdditionalIncludeDirectories>../../../src\fbc_cv\include;D:\soft\opencv_4.8.1\include;../../../src/libexif;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -89,7 +89,7 @@
       <ObjectFileName>.\../../../obj/rel/x64_vc12/OpenCV_Test\</ObjectFileName>
       <ProgramDataBaseFileName>.\../../../obj/rel/x64_vc12/OpenCV_Test\</ProgramDataBaseFileName>
       <AdditionalIncludeDirectories>../../../src\fbc_cv\include;D:\soft\opencv_4.8.1\include;../../../src/libexif;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
