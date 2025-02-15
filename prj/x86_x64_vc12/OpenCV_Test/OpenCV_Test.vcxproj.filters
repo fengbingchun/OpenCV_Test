@@ -21,6 +21,9 @@
     <ClInclude Include="..\..\..\demo\OpenCV_Test\opencv_funset.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\demo\OpenCV_Test\timer_task.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\demo\OpenCV_Test\OpenCV_Test.cpp">
@@ -90,6 +93,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\demo\OpenCV_Test\test_libexif.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\demo\OpenCV_Test\timer_task.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

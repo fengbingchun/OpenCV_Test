@@ -1,4 +1,5 @@
 #include "opencv_funset.hpp"
+#include "timer_task.hpp"
 
 #include <string>
 #include <fstream>
@@ -13,43 +14,129 @@
 #include <opencv2/mcc/ccm.hpp>
 
 /////////////////////////////////////////////////////////////////
-namespace {
-namespace fs = std::filesystem;
-using std::chrono::system_clock;
-
-int get_available_space(const std::string& path)
-{
-	constexpr float GB{ 1024.0 * 1024.0 * 1024 };
-	auto space_info = fs::space(path);
-
-	std::cout << "total space: " << space_info.capacity / GB << " GB" << std::endl;
-	std::cout << "available space: " << space_info.available / GB << " GB" << std::endl;
-
-	return 0;
-}
-
-std::string get_local_time()
-{
-	auto time = system_clock::to_time_t(system_clock::now());
-	std::tm* tm = std::localtime(&time);
-
-	std::stringstream buffer;
-	buffer << std::put_time(tm, "%Y-%m-%d %H:%M:%S");
-	return buffer.str();
-}
-
-} // namespace
-
 int test_write_video()
 {
-	auto current_path = fs::current_path();
-	auto root_name = current_path.root_name().string();
-	std::cout << "current path: " << current_path << std::endl;
-	std::cout << "root name: " << current_path.root_name() << std::endl;
-	get_available_space(root_name);
+	constexpr unsigned int minimum_available_space{ 100 }; // GB
+	constexpr unsigned int video_seconds{ 60 };
+	constexpr unsigned int minimum_remaining_space{ 50 }; // GB
+	constexpr char dir_name[]{"record"};
+	constexpr bool save_video{ true };
 
-	std::cout << "time: " << get_local_time() << std::endl;
+	auto current_path = std::filesystem::current_path();
+	TimerTask task(current_path.string());
+	if (auto [ret, space] = task.set_minimum_available_space(minimum_available_space); !ret) { // GB
+		std::cerr << "Error: insufficient remaining space: " << space << "GB" << std::endl;
+		return -1;
+	}
 
+	if (auto ret = task.set_save_directory_name(dir_name); !ret) {
+		std::cerr << "Error: failed to create directory: " << dir_name << std::endl;
+		return -1;
+	}
+
+	task.monitor_disk_space(minimum_remaining_space);
+
+	cv::VideoCapture cap(0);
+	if (!cap.isOpened()) {
+		std::cerr << "Error: failed to open capture" << std::endl;
+		return -1;
+	}
+
+	cv::Mat frame;
+	constexpr char win_name[]{"Show"};
+	cv::namedWindow(win_name, cv::WINDOW_NORMAL);
+
+	if (save_video) { // video
+		task.save_video(video_seconds);
+
+		auto frame_width = static_cast<int>(cap.get(cv::CAP_PROP_FRAME_WIDTH));
+		auto frame_height = static_cast<int>(cap.get(cv::CAP_PROP_FRAME_HEIGHT));
+		if (frame_width == 0 || frame_height == 0) {
+			std::cerr << "Error: failed to get frame width or height: " << frame_width << "," << frame_height << std::endl;
+			return -1;
+		}
+
+		auto fps = cap.get(cv::CAP_PROP_FPS);
+		if (fps <= 0)
+			fps = 30.0;
+
+		auto codec = cv::VideoWriter::fourcc('D', 'I', 'V', 'X');
+		cv::VideoWriter write_video;
+		auto start_time = std::chrono::high_resolution_clock::now();
+
+		while (true) {
+			cap >> frame;
+			if (frame.empty()) {
+				std::cerr << "Error: frame is empty" << std::endl;
+				return -1;
+			}
+
+			auto current_time = std::chrono::high_resolution_clock::now();
+			std::chrono::duration<double> elapsed = current_time - start_time;
+			if (elapsed.count() >= video_seconds || !write_video.isOpened()) {
+				if (write_video.isOpened())
+					write_video.release();
+
+				auto [ret, curr_dir_name] = task.get_current_directory_name();
+				if (!ret) {
+					std::cerr << "Error: failed to get current directory name: " << curr_dir_name << std::endl;
+					return -1;
+				}
+
+				auto file_name{ curr_dir_name + "/" + task.get_local_time() + ".avi" };
+				write_video.open(file_name, codec, fps, cv::Size(frame_width, frame_height));
+				if (!write_video.isOpened()) {
+					std::cerr << "Error: failed to open video write: " << file_name << std::endl;
+					return -1;
+				}
+
+				start_time = std::chrono::high_resolution_clock::now();
+			}
+
+			write_video.write(frame);
+
+			cv::imshow(win_name, frame);
+			if (cv::waitKey(1) == 27) // Esc exit
+				break;
+		}
+
+		cap.release();
+		if (write_video.isOpened())
+			write_video.release();
+	} else { // image: save one image per second
+		task.save_image();
+		auto start_time = std::chrono::high_resolution_clock::now();
+
+		while (true) {
+			cap >> frame;
+			if (frame.empty()) {
+				std::cerr << "Error: frame is empty" << std::endl;
+				return -1;
+			}
+
+			auto current_time = std::chrono::high_resolution_clock::now();
+			std::chrono::duration<double> elapsed = current_time - start_time;
+			if (elapsed.count() >= 1.0) {
+				auto [ret, curr_dir_name] = task.get_current_directory_name();
+				if (!ret) {
+					std::cerr << "Error: failed to get current directory name: " << curr_dir_name << std::endl;
+					return -1;
+				}
+
+				cv::imwrite(curr_dir_name + "/" + task.get_local_time() + ".png", frame);
+				start_time = current_time;
+			}
+
+			cv::imshow(win_name, frame);
+			if (cv::waitKey(1) == 27) // Esc exit
+				break;
+		}
+
+		cap.release();
+	}
+
+	cv::destroyAllWindows();
+	task.release();
 	return 0;
 }
 

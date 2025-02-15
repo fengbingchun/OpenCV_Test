@@ -107,6 +107,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\demo\OpenCV_Test\fbc_cv_funset.hpp" />
     <ClInclude Include="..\..\..\demo\OpenCV_Test\opencv_funset.hpp" />
+    <ClInclude Include="..\..\..\demo\OpenCV_Test\timer_task.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\demo\OpenCV_Test\OpenCV_Test.cpp" />
@@ -132,6 +133,7 @@
     <ClCompile Include="..\..\..\demo\OpenCV_Test\test_transpose.cpp" />
     <ClCompile Include="..\..\..\demo\OpenCV_Test\test_warpAffine.cpp" />
     <ClCompile Include="..\..\..\demo\OpenCV_Test\test_warpPerspective.cpp" />
+    <ClCompile Include="..\..\..\demo\OpenCV_Test\timer_task.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
