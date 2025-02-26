@@ -68,23 +68,21 @@ void monitor_space(unsigned int gb, std::string_view path, std::atomic<bool>& ru
 
 } // namespace
 
-float TimerTask::get_available_space()
+auto TimerTask::get_available_space() const
 {
 	return get_disk_space(path_);
 }
 
-std::tuple<bool, float> TimerTask::set_minimum_available_space(unsigned int gb)
+std::tuple<bool, float> TimerTask::set_minimum_available_space(unsigned int gb) const
 {
-	gb_ = gb;
-
 	auto space = get_available_space();
-	if (gb_ > space)
+	if (gb > space)
 		return std::make_tuple(false, space);
 	else
 		return std::make_tuple(true, space);
 }
 
-std::string TimerTask::get_local_time()
+std::string TimerTask::get_local_time() const
 {
 	using std::chrono::system_clock;
 	auto time = system_clock::to_time_t(system_clock::now());
@@ -113,7 +111,7 @@ bool TimerTask::set_save_directory_name(const std::string& dir_name)
 	}
 }
 
-std::tuple<bool, std::string> TimerTask::get_current_directory_name()
+std::tuple<bool, std::string> TimerTask::get_current_directory_name() const
 {
 	namespace fs = std::filesystem;
 	auto local_time = get_local_time();

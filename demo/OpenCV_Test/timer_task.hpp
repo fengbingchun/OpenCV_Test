@@ -18,11 +18,11 @@ public:
 			monitor_thread_.join();
 	}
 
-	std::tuple<bool, float> set_minimum_available_space(unsigned int gb);
+	std::tuple<bool, float> set_minimum_available_space(unsigned int gb) const;
 	bool set_save_directory_name(const std::string& dir_name);
 
-	std::string get_local_time();
-	std::tuple<bool, std::string> get_current_directory_name();
+	std::string get_local_time() const;
+	std::tuple<bool, std::string> get_current_directory_name() const;
 
 	void save_video(unsigned int seconds) { save_video_ = true; seconds_ = seconds; }
 	void save_image() { save_video_ = false; }
@@ -30,13 +30,12 @@ public:
 	void monitor_disk_space(unsigned int gb);
 
 private:
-	float get_available_space();
-
 	std::string path_;
-	unsigned int gb_{0};
 	std::string dir_name_{}; // relative path,used to store videos or images
-	bool save_video_{false}; // video or image
+	bool save_video_{ false }; // video or image
 	unsigned int seconds_{ 0 };
 	std::atomic<bool> running_{ true };
 	std::thread monitor_thread_;
+
+	auto get_available_space() const;
 }; // class TimerTask
