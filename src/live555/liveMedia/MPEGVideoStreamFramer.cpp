@@ -31,7 +31,7 @@ TimeCode::TimeCode()
 TimeCode::~TimeCode() {
 }
 
-int TimeCode::operator==(TimeCode const& arg2) {
+int TimeCode::operator==(TimeCode const& arg2) const {
   return pictures == arg2.pictures && seconds == arg2.seconds
     && minutes == arg2.minutes && hours == arg2.hours && days == arg2.days;
 }

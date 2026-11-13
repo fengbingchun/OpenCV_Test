@@ -14,18 +14,19 @@
     <ProjectGuid>{2F533429-B25B-4100-8B2F-CB14465147BA}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>libusb</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -62,6 +63,7 @@
       <AssemblerListingLocation>.\../../../obj/dbg/x64_vc12/libusb\</AssemblerListingLocation>
       <ObjectFileName>.\../../../obj/dbg/x64_vc12/libusb\</ObjectFileName>
       <ProgramDataBaseFileName>.\../../../obj/dbg/x64_vc12/libusb\</ProgramDataBaseFileName>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -89,6 +91,7 @@
       <AssemblerListingLocation>.\../../../obj/rel/x64_vc12/libusb\</AssemblerListingLocation>
       <ObjectFileName>.\../../../obj/rel/x64_vc12/libusb\</ObjectFileName>
       <ProgramDataBaseFileName>.\../../../obj/rel/x64_vc12/libusb\</ProgramDataBaseFileName>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

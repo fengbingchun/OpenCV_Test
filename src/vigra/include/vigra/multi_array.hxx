@@ -3006,7 +3006,7 @@ inline void MultiArray <N, T, A>::deallocate (pointer & ptr, difference_type_1 s
     if (ptr == 0)
         return;
     for (difference_type_1 i = 0; i < s; ++i)
-        m_alloc.destroy (ptr + i);
+        std::allocator_traits<allocator_type>::destroy(m_alloc, ptr + i);
     m_alloc.deallocate (ptr, (typename A::size_type)s);
     ptr = 0;
 }

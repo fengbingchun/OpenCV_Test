@@ -12,12 +12,11 @@
 - libuvc'usage [libuvc GitHub](https://github.com/libuvc/libuvc)
 - libexif'usage [libexif GitHub](https://github.com/libexif/libexif)
 
-
 **The version of each open source library see:** [version.txt](src/version.txt)
 
 **The project support platform:**
-- windows10 64 bits: It can be directly build with VS2022 in windows10 64bits.
-- Linux:
+- windows10 64 bits: It can be directly build with VS2026 in windows10 64bits.
+- Linux(maintenance temporarily suspended):
 	- OpenCV_Test support cmake build(file position: prj/linux_cmake_OpenCV_Test)
 	- FFmpeg_Test support cmake build(test code include: FFmpeg, LIVE555; file position: prj/linux_cmake_FFmpeg_Test)
 

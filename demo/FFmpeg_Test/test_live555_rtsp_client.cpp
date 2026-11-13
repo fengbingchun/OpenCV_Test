@@ -504,7 +504,7 @@ int test_live555_rtsp_client()
 
 	// We need at least one "rtsp://" URL argument:
 	int argc = 2;
-	char* argv[2] = { "test_live555_rtsp_client", "rtsp://184.72.239.149/vod/mp4://BigBuckBunny_175k.mov"};
+	const char* argv[2] = { "test_live555_rtsp_client", "rtsp://184.72.239.149/vod/mp4://BigBuckBunny_175k.mov"};
 
 	// There are argc-1 URLs: argv[1] through argv[argc-1].  Open and start streaming each one:
 	for (int i = 1; i <= argc - 1; ++i) {

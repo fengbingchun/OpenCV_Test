@@ -18,6 +18,7 @@
 #include <typeinfo>
 #include <string.h>
 #include <float.h>
+#include <algorithm>
 #include "fbcdef.hpp"
 #include "types.hpp"
 #include "base.hpp"
@@ -25,6 +26,14 @@
 #include "fbcstd.hpp"
 #include "utility.hpp"
 #include "saturate.hpp"
+
+#ifdef max
+#undef max
+#endif
+
+#ifdef min
+#undef min
+#endif
 
 namespace fbc {
 

@@ -190,13 +190,13 @@ VIGRA_DEFINE_STL_FUNCTOR(std::greater_equal, VigraFalseType, VigraTrueType)
 VIGRA_DEFINE_STL_FUNCTOR(std::less_equal, VigraFalseType, VigraTrueType)
 VIGRA_DEFINE_STL_FUNCTOR(std::logical_and, VigraFalseType, VigraTrueType)
 VIGRA_DEFINE_STL_FUNCTOR(std::logical_or, VigraFalseType, VigraTrueType)
-VIGRA_DEFINE_STL_FUNCTOR(std::binary_negate, VigraFalseType, VigraTrueType)
+//VIGRA_DEFINE_STL_FUNCTOR(std::binary_negate, VigraFalseType, VigraTrueType)
 
 VIGRA_DEFINE_STL_FUNCTOR(std::negate, VigraTrueType, VigraFalseType)
 VIGRA_DEFINE_STL_FUNCTOR(std::logical_not, VigraTrueType, VigraFalseType)
-VIGRA_DEFINE_STL_FUNCTOR(std::unary_negate, VigraTrueType, VigraFalseType)
-VIGRA_DEFINE_STL_FUNCTOR(std::binder1st, VigraTrueType, VigraFalseType)
-VIGRA_DEFINE_STL_FUNCTOR(std::binder2nd, VigraTrueType, VigraFalseType)
+//VIGRA_DEFINE_STL_FUNCTOR(std::unary_negate, VigraTrueType, VigraFalseType)
+//VIGRA_DEFINE_STL_FUNCTOR(std::binder1st, VigraTrueType, VigraFalseType)
+//VIGRA_DEFINE_STL_FUNCTOR(std::binder2nd, VigraTrueType, VigraFalseType)
 #undef VIGRA_DEFINE_STL_FUNCTOR
 
 template <class R>
